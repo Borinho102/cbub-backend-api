@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->command->info("Seeding Tables 🌱");
+        $this->call(CurrencySeeder::class);
+        $this->call(WorldTablesSeeder::class);
+        $this->call(AdminUserSeeder::class);
+        $this->call(BusinessPartnerSeeder::class);
+        $this->command->info("Seeding Completed! 🤩");
     }
 }

@@ -1,7 +1,8 @@
 @props([
     'name',
     'show' => false,
-    'maxWidth' => '2xl'
+    'maxWidth' => '2xl',
+    'css_framework' => 'boostrap'
 ])
 
 @php

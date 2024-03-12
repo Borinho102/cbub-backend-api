@@ -85,6 +85,25 @@ return [
 
     'locale' => 'en',
 
+    'supported_locales' => [
+        'en' => 'english',
+        'fr' => 'french',
+        //        'es' => 'spanish',
+        //        'de' => 'dutch',
+        //        'ru' => 'russian',
+        //        'pt' => 'portuguese',
+        //        'it' => 'italian',
+        //        'ae' => 'arabic',
+        //        'il' => 'hebrew',
+        //        'ro' => 'romanian',
+        //        'ua' => 'ukrainian',
+        //        'tr' => 'turkish',
+        //        'jp' => 'japanese',
+        //        'cn' => 'chinese',
+    ],
+
+    'rtl_locales' => ['ae', 'he', 'arc', 'ha', 'ur', 'dv', 'fa', 'yi', 'khw', 'ks', 'ku', 'ps'],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
