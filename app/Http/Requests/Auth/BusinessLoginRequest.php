@@ -49,8 +49,8 @@ class BusinessLoginRequest extends FormRequest
             ]);
         }
 
-        // check if the user has a business partner
-        if (Auth::user('users')->business_partner) {
+        // check if the user belongs to a business partner
+        if (!Auth::user('users')->business_partner_user) {
             Auth::logout();
             RateLimiter::hit($this->throttleKey());
 

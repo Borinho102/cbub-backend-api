@@ -46,15 +46,22 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['business_partner_user.business_partner'];
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar');
     }
 
     /**
-     * Get the business partner of the user.
+     * Get the business partner user.
      */
-    public function business_partner() : HasOne
+    public function business_partner_user() : HasOne
     {
         return $this->hasOne(BusinessPartnerUser::class, 'user_id');
     }
