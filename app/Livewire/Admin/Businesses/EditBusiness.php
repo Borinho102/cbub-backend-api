@@ -8,10 +8,13 @@ use App\Models\BusinessCategory;
 use App\Models\Country;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.backend.app')]
 class EditBusiness extends Component
 {
+    use WithFileUploads;
+    
     public CreateBusinessForm $form;
 
     public $cities;

@@ -6,7 +6,7 @@
     @endphp
 @enderror
 
-<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'custom-select form-control'])->except('framework') !!}>
+<select name="{{ $name }}" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'custom-select form-control'])->except('framework') !!}>
     {{ $slot }}
 </select>
 @error($name)<x-input-error :message="$message" :framework="$framework" />@enderror

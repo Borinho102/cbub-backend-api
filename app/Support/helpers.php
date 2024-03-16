@@ -2,6 +2,7 @@
 
 use App\Models\Business;
 use App\Models\BusinessCategory;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
@@ -173,5 +174,47 @@ if (!function_exists('generateBusinessCategoryCode')) {
         }
 
         return $code;
+    }
+}
+
+if (!function_exists('generateProductSlugEn')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductSlugEn(string $name, $except = null): string
+    {
+        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = Product::when($except, function ($q) use ($except) {
+            $q->where('slug->en', '!=', $except);
+        })->whereSlug($slug)->exists();
+
+        while ($exists) {
+            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $slug;
+    }
+}
+
+if (!function_exists('generateProductSlugFr')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductSlugFr(string $name, $except = null): string
+    {
+        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = Product::when($except, function ($q) use ($except) {
+            $q->where('slug->fr', '!=', $except);
+        })->whereSlug($slug)->exists();
+
+        while ($exists) {
+            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $slug;
     }
 }

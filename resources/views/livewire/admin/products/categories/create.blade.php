@@ -58,9 +58,13 @@
                                     <div class="form-group">
                                         <x-input-label :value="__('Top Category')" for="parent_id"/>
                                         <x-select-option wire:model.live="form.parent_id" name="form.parent_id" id="parent_id">
-                                            <option value="">{{ __('Select Top Category') }}</option>
+                                            <option>{{ __('Select Top Category') }}</option>
                                             @foreach ($categories as $category)
-                                                <option :value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @if ($form->parent_id == $category->id)
+                                                    <option selected :value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @else
+                                                    <option :value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endif
                                             @endforeach
                                         </x-select-option>
                                     </div>

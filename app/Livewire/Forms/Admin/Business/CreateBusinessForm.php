@@ -98,7 +98,7 @@ class CreateBusinessForm extends Form
         $this->validate();
 
         $business = Business::create([
-            ...$this->except('business'),
+            ...$this->except('business', 'logo'),
             'slug' => generateBusinessSlug(
                 Country::select('code')->find($this->country_id)->code,
                 $this->name
@@ -113,6 +113,8 @@ class CreateBusinessForm extends Form
 
     public function update()
     {
-        $this->business->update($this->all());
+        $this->business->update($this->except('logo', 'business'));
+
+        $this->business->addMedia($this->logo);
     }
 }

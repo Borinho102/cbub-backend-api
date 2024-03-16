@@ -35,8 +35,8 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li>
-                            <a wire:navigate href="{{ route('admin.businesses.categories.index') }}">
-                                <i class="fa fa-circle"></i>Category
+                            <a wire:navigate href="{{ route('admin.businesses.create') }}">
+                                <i class="fa fa-circle"></i>Create Business
                             </a>
                         </li>
                         <li>
@@ -45,8 +45,18 @@
                             </a>
                         </li>
                         <li>
-                            <a wire:navigate href="{{ route('admin.businesses.create') }}">
-                                <i class="fa fa-circle"></i>Create Business
+                            <a wire:navigate href="{{ route('admin.businesses.categories.index') }}">
+                                <i class="fa fa-circle"></i>Category List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-circle"></i>Product List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-circle"></i>User List
                             </a>
                         </li>
                     </ul>

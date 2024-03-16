@@ -17,15 +17,7 @@ class GlobalPathGenerator implements PathGenerator
     */
     public function getPath(Media $media): string
     {
-        if ($media->model() instanceof User) {
-            return 'users/' . $media->model->id . '/' . $media->id;
-        } else if ($media->model() instanceof Product) {
-            return 'businesses/' . $media->model->business_id . '/products/' . $media->model->id . '/' . $media->id;
-        } else if ($media->model() instanceof Business) {
-            return 'businesses/' . $media->model->id . '/' . $media->id;
-        } else {
-            return $media->id;
-        }
+        return $this->getBasePath($media).'/';
     }
 
     /*
@@ -42,5 +34,23 @@ class GlobalPathGenerator implements PathGenerator
     public function getPathForResponsiveImages(Media $media): string
     {
         return $this->getPath($media) . 'responsive/';
+    }
+
+    /*
+     * Get a unique base path for the given media.
+     */
+    protected function getBasePath(Media $media): string
+    {
+        $prefix = config('media-library.prefix', '');
+
+        if ($media->model_type == User::class) {
+            return $prefix . '/users/' . $media->model_id . '/' . $media->id;
+        } else if ($media->model_type == Product::class) {
+            return $prefix . '/businesses/' . $media->model_id . '/products/' . $media->model->id . '/' . $media->id;
+        } else if ($media->model_type == Business::class) {
+            return $prefix . '/businesses/' . $media->model_id . '/' . $media->id;
+        }
+
+        return $prefix . '/' .  $media->getKey();
     }
 }

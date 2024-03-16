@@ -40,7 +40,7 @@ import 'jquery-sparkline/jquery.sparkline.js'
 import '../../public/backend/js/admin-customizer.js'
 
 // dashboard custom js
-import '../../public/backend/js/dashboard/default.js'
+//import '../../public/backend/js/dashboard/default.js'
 
 // right sidebar js
 import '../../public/backend/js/chat-menu.js'
@@ -52,10 +52,10 @@ import '../../public/backend/js/height-equal.js'
 import '../../public/backend/js/admin-script.js'
 
 // Ckeditor admin
-import '@ckeditor/ckeditor5-build-classic/build/ckeditor.js'
-import '../../public/backend/js/editor/ckeditor/ckeditor.custom.js'
+// import '@ckeditor/ckeditor5-build-classic/build/ckeditor.js'
+// import '../../public/backend/js/editor/ckeditor/ckeditor.custom.js'
 
 // Dropzone
-import '../../public/backend/js/dropzone/dropzone.js'
-import '../../public/backend/js/dropzone/dropzone-script.js'
+//import '../../public/backend/js/dropzone/dropzone.js'
+//import '../../public/backend/js/dropzone/dropzone-script.js'
 

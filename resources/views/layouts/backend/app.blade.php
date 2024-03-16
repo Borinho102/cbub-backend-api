@@ -16,13 +16,8 @@
         <script type="text/javascript" src="{{ mix('build/cbub-backend.js') }}" defer></script>
         {{-- <script type="text/javascript" src="{{ mix('build/manifest.js') }}"></script> --}}
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        @if (isset($styles))
-            {{ $styles }}
-        @endif
-
-        @if (isset($scripts))
-            {{ $scripts }}
-        @endif
+        @stack('styles')
+        @stack('scripts')
     </head>
     <body>
         @php

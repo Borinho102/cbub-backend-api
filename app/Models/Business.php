@@ -35,8 +35,23 @@ class Business extends Model implements HasMedia
         return $this->hasMany(BusinessUser::class);
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(BusinessCategory::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
     }
 }

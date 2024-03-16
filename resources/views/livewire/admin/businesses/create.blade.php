@@ -39,12 +39,15 @@
                                     <x-text-input wire:model.live="form.name" name="form.name" id="name" type="text"/>
                                 </div>
                                 <div class="form-group">
-                                    <x-input-label :value="__('Category')" for="sku" required/>
+                                    <x-input-label :value="__('Category')" for="category_id" required/>
                                     <x-select-option wire:model.live="form.category_id" name="form.category_id" id="category">
                                         <option value="">{{ __('Select Business Category') }}</option>
                                         @foreach ($categories as $category)
-                                            <option :value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
+                                            @if ($form->category_id == $category->id)
+                                                <option selected :value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @else
+                                                <option :value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endif                                        @endforeach
                                     </x-select-option>
                                 </div>
 
@@ -90,7 +93,7 @@
 
                                 <div class="form-group">
                                     <x-input-label :value="__('About')" for="about"/>
-                                    <x-text-area-input wire:model.live="form.about" name="form.about" id="about" name="about" rows="4" cols="12"></x-text-area-input>
+                                    <x-text-area-input wire:model.live="form.about" name="form.about" id="about" rows="4" cols="12"></x-text-area-input>
                                 </div>
                             </div>
                         </div>
