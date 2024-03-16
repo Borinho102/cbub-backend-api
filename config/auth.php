@@ -39,7 +39,7 @@ return [
         'users' => [
             'driver' => 'session',
             'provider' => 'users',
-            'redirectTo' => 'user.dashboard',
+            'redirectTo' => 'console.dashboard',
         ],
         'admins' => [
             'driver' => 'session',

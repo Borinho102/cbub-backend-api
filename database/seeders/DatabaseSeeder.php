@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\BusinessCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
         $this->call(WorldTablesSeeder::class);
         $this->call(AdminUserSeeder::class);
-        $this->call(BusinessPartnerSeeder::class);
+        $this->call(BusinessCategorySeeder::class);
+        $this->call(BusinessSeeder::class);
         $this->command->info("Seeding Completed! 🤩");
     }
 }

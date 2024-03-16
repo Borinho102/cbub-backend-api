@@ -51,18 +51,19 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array
      */
-    protected $with = ['business_partner_user.business_partner'];
+    protected $with = ['business_user.business'];
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar');
+        $this->addMediaCollection('avatar')
+            ->singleFile();;
     }
 
     /**
      * Get the business partner user.
      */
-    public function business_partner_user() : HasOne
+    public function business_user() : HasOne
     {
-        return $this->hasOne(BusinessPartnerUser::class, 'user_id');
+        return $this->hasOne(BusinessUser::class, 'user_id');
     }
 }

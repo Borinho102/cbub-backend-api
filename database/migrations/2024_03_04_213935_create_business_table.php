@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_partners', function (Blueprint $table) {
+        Schema::create('businesses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('initials')->unique();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('logo')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('phone_alt')->nullable();
             $table->string('email')->unique();
             $table->longText('about')->nullable();
+
+            // Category
+            $table->foreignId('category_id')
+                ->constrained('business_categories');
 
             // Country & City foreign key
             $table->foreignId('country_id')->default(1)
@@ -55,6 +58,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_partners');
+        Schema::dropIfExists('businesses');
     }
 };

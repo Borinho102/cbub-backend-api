@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->boolean('is_active')->default(1);
+            $table->json('name');
             $table->string('code')->unique();
-            $table->string('image')->nullable();
-            $table->string('hint_text')->nullable();
-            $table->string('description')->nullable();
+            $table->json('hint')->nullable();
+            $table->json('description')->nullable();
+            $table->boolean('is_active')->default(1);
             $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

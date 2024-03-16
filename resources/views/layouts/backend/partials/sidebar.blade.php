@@ -18,10 +18,33 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="active">
-                    <a class="sidebar-header active" href="index.html">
+                    <a
+                        class="sidebar-header {{ request()->is('admin.dashboard') ? 'active' : '' }}"
+                        wire:navigate href="{{ route('admin.dashboard') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         <span>Dashboard</span>
                     </a>
+                </li>
+
+                <li>
+                    <a
+                        class="sidebar-header" href="javascript:void(0)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>Businesses</span>
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a wire:navigate href="{{ route('admin.businesses.index') }}">
+                                <i class="fa fa-circle"></i>Business List
+                            </a>
+                        </li>
+                        <li>
+                            <a wire:navigate href="{{ route('admin.businesses.create') }}">
+                                <i class="fa fa-circle"></i>Create Business
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li>
@@ -41,62 +64,18 @@
 
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="category.html">
+                                    <a wire:navigate href="{{ route('admin.categories.index') }}">
                                         <i class="fa fa-circle"></i>Category
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="category-sub.html">
-                                        <i class="fa fa-circle"></i>Sub Category</a>
-                                </li>
-
-                                <li>
-                                    <a href="product-list.html">
+                                    <a wire:navigate href="{{ route('admin.products.index') }}">
                                         <i class="fa fa-circle"></i>Product List</a>
                                 </li>
 
                                 <li>
-                                    <a href="product-detail.html">
-                                        <i class="fa fa-circle"></i>Product Detail</a>
-                                </li>
-
-                                <li>
-                                    <a href="add-product.html">
-                                        <i class="fa fa-circle"></i>Add Product
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-circle"></i>
-                                <span>Digital</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="category-digital.html">
-                                        <i class="fa fa-circle"></i>Category
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="category-digitalsub.html">
-                                        <i class="fa fa-circle"></i>Sub Category
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="product-listdigital.html">
-                                        <i class="fa fa-circle"></i>Product List
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="add-digital-product.html">
+                                    <a wire:navigate href="{{ route('admin.products.create') }}">
                                         <i class="fa fa-circle"></i>Add Product
                                     </a>
                                 </li>
@@ -252,26 +231,6 @@
 
                 <li>
                     <a class="sidebar-header" href="javascript:void(0)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        <span>Vendors</span>
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </a>
-                    <ul class="sidebar-submenu">
-                        <li>
-                            <a href="list-vendor.html">
-                                <i class="fa fa-circle"></i>Vendor List
-                            </a>
-                        </li>
-                        <li>
-                            <a href="create-vendors.html">
-                                <i class="fa fa-circle"></i>Create Vendor
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a class="sidebar-header" href="javascript:void(0)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chrome"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
                         <span>Localization</span>
                         <i class="fa fa-angle-right pull-right"></i>
@@ -343,7 +302,9 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="active">
-                    <a class="sidebar-header active" href="index.html">
+                    <a
+                        class="sidebar-header {{ request()->is('console.dashboard') ? 'active' : '' }}"
+                        wire:navigate href="{{ route('console.dashboard') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         <span>Dashboard</span>
                     </a>
@@ -366,62 +327,18 @@
 
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="category.html">
+                                    <a wire:navigate href="{{ route('console.categories.index') }}">
                                         <i class="fa fa-circle"></i>Category
                                     </a>
                                 </li>
 
                                 <li>
-                                    <a href="category-sub.html">
-                                        <i class="fa fa-circle"></i>Sub Category</a>
-                                </li>
-
-                                <li>
-                                    <a href="product-list.html">
+                                    <a wire:navigate href="{{ route('console.products.index') }}">
                                         <i class="fa fa-circle"></i>Product List</a>
                                 </li>
 
                                 <li>
-                                    <a href="product-detail.html">
-                                        <i class="fa fa-circle"></i>Product Detail</a>
-                                </li>
-
-                                <li>
-                                    <a href="add-product.html">
-                                        <i class="fa fa-circle"></i>Add Product
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i class="fa fa-circle"></i>
-                                <span>Digital</span>
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </a>
-
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="category-digital.html">
-                                        <i class="fa fa-circle"></i>Category
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="category-digitalsub.html">
-                                        <i class="fa fa-circle"></i>Sub Category
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="product-listdigital.html">
-                                        <i class="fa fa-circle"></i>Product List
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="add-digital-product.html">
+                                    <a wire:navigate href="{{ route('console.products.create') }}">
                                         <i class="fa fa-circle"></i>Add Product
                                     </a>
                                 </li>

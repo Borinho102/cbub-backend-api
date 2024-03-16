@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\BusinessPartner;
+use App\Models\Business;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
@@ -46,22 +46,22 @@ if (!function_exists('cbubGuard')) {
     }
 }
 
-if (!function_exists('generateBunsinessPartnerSlug')) {
+if (!function_exists('generateBusinessSlug')) {
     /**
      * @param string $countryCode
-     * @param string $partnerName
+     * @param string $name
      * @param string $except
      * @return string
      */
-    function generatePartnerSlug(string $countryCode, string $partnerName, string $except = null): string
+    function generateBusinessSlug(string $countryCode, string $name, string $except = null): string
     {
-        $slug = Str::lower($countryCode) . '-'. Str::slug($partnerName);
-        $exists = BusinessPartner::when($except, function ($q) use ($except) {
+        $slug = Str::slug($name) . '-' . Str::lower($countryCode);
+        $exists = Business::when($except, function ($q) use ($except) {
             $q->where('slug', '!=', $except);
         })->whereSlug($slug)->exists();
 
         while ($exists) {
-            $slug = Str::lower($countryCode) . '-'. Str::slug($partnerName) . '-' . Str::random(4);
+            $slug = Str::slug($name) . '-' . Str::random(4) . '-' . Str::lower($countryCode);
         }
 
         return $slug;

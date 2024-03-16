@@ -1,9 +1,13 @@
-@props(['messages', 'css_framework' => 'boostrap'])
+@props(['message' => false, 'css_framework' => 'bootstrap'])
 
-@if ($messages)
-    <ul {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1']) }}>
-        @foreach ((array) $messages as $message)
-            <li>{{ $message }}</li>
-        @endforeach
-    </ul>
+@if ($message)
+    @if ($css_framework === 'bootstrap')
+        <div {{ $attributes->merge(['class' => 'invalid-feedback'])->except('message', 'css_framework') }}>
+            {{ $message }}
+        </div>
+    @else
+        <span {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1'])->except('message', 'css_framework') }}>
+            {{ $message }}
+        </span>
+    @endif
 @endif

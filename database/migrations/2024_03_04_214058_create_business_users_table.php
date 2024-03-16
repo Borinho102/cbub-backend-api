@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_partner_users', function (Blueprint $table) {
+        Schema::create('business_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->unique()->default(1)
                 ->constrained('users');
-            $table->foreignId('business_partner_id')->nullable()
-                ->constrained('business_partners');
+            $table->foreignId('business_id')->nullable()
+                ->constrained('businesses');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_partner_users');
+        Schema::dropIfExists('business_users');
     }
 };

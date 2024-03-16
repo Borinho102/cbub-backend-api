@@ -1,10 +1,21 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ProfileController;
+use App\Livewire\Admin\Businesses\BusinessDetails;
+use App\Livewire\Admin\Businesses\BusinessList;
+use App\Livewire\Admin\Businesses\CreateBusiness;
+use App\Livewire\Admin\Businesses\EditBusiness;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\Categories\CreateCategory as AdminCreateCategory;
+use App\Livewire\Admin\Categories\CategoryList as AdminCategoryList;
+
+use App\Livewire\Admin\Products\CreateProduct as AdminCreateProduct;
+use App\Livewire\Admin\Products\EditProduct as AdminEditProduct;
+use App\Livewire\Admin\Products\ProductList as AdminProductList;
+use App\Livewire\Admin\Products\ProductDetails as AdminProductDetails;
+use App\Livewire\User\Dashboard as UserDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +36,9 @@ Route::group([
     'middleware' => 'auth:admins',
     'as' => 'admin.',
 ], function () {
-    Route::get('', AdminDashboardController::class)
-        ->middleware(['verified'])->name('dashboard');
+    Route::get('', AdminDashboard::class)
+        ->middleware(['verified'])
+        ->name('dashboard');
 
     Route::get('/profile', [AdminProfileController::class, 'edit'])
         ->name('profile.edit');
@@ -34,14 +46,31 @@ Route::group([
         ->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])
         ->name('profile.destroy');
+
+    // BUSINESSES ROUTES
+    Route::get('businesses', BusinessList::class)->name('businesses.index');
+    Route::get('businesses/create', CreateBusiness::class)->name('businesses.create');
+    Route::get('businesses/{business}/show', BusinessDetails::class)->name('businesses.show');
+    Route::get('businesses/{business}/edit', EditBusiness::class)->name('businesses.edit');
+
+    // PRODUCTS ROUTES
+    Route::get('products', AdminProductList::class)->name('products.index');
+    Route::get('products/create', AdminCreateProduct::class)->name('products.create');
+    Route::get('products/{product}/show', AdminProductDetails::class)->name('products.show');
+    Route::get('products/{product}/edit', AdminEditProduct::class)->name('products.edit');
+
+    // CATEGORIES ROUTES
+    Route::get('categories', AdminCategoryList::class)->name('categories.index');
+    Route::get('categories/create', AdminCreateCategory::class)->name('categories.create');
+    //Route::get('categories/{category}/edit', EditBusiness::class)->name('categories.edit');
 });
 
 Route::group([
     'prefix' => 'business.portal.66/console',
     'middleware' => 'auth:users',
-    'as' => 'user.',
+    'as' => 'console.',
 ], function () {
-    Route::get('', DashboardController::class)
+    Route::get('', UserDashboard::class)
         ->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])

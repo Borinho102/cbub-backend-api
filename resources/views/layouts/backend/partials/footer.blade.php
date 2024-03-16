@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 footer-copyright text-start">
-                <p class="mb-0">Copyright {{ now()->year }} © Multikart All rights reserved.</p>
+                <p class="mb-0">Copyright {{ now()->year }} © {{ config('app.name', 'Cbub') }} All rights reserved.</p>
             </div>
             <div class="col-md-6 pull-right text-end">
                 <p class=" mb-0">Hand crafted &amp; made with<i class="fa fa-heart"></i></p>

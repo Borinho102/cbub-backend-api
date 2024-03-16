@@ -50,3 +50,12 @@ import '../../public/backend/js/height-equal.js'
 
 // script admin
 import '../../public/backend/js/admin-script.js'
+
+// Ckeditor admin
+import '@ckeditor/ckeditor5-build-classic/build/ckeditor.js'
+import '../../public/backend/js/editor/ckeditor/ckeditor.custom.js'
+
+// Dropzone
+import '../../public/backend/js/dropzone/dropzone.js'
+import '../../public/backend/js/dropzone/dropzone-script.js'
+

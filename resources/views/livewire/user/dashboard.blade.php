@@ -1,4 +1,4 @@
-<x-backend-layout>
+<div>
     <div class="container-fluid">
         <div class="page-header">
             <div class="row">
@@ -994,4 +994,4 @@
             </div>
         </div>
     </div>
-</x-backend-layout>
+</div>

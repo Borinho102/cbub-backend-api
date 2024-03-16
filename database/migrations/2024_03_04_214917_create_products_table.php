@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->json('name');
+            $table->string('sku')->nullable()->unique();
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->json('short_description')->nullable();
+            $table->json('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->integer('quantity')->unsigned();
+            $table->boolean('is_active')->default(true);
             $table->boolean('is_available')->default(true);
             $table->foreignId('category_id')->constrained('product_categories');
-            $table->foreignId('business_partner_id')->constrained('business_partners');
+            $table->foreignId('business_id')->constrained('businesses');
+            $table->json('data')->nullable();
             $table->timestamps();
         });
     }
