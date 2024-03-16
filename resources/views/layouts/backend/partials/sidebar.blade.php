@@ -35,6 +35,11 @@
                     </a>
                     <ul class="sidebar-submenu">
                         <li>
+                            <a wire:navigate href="{{ route('admin.businesses.categories.index') }}">
+                                <i class="fa fa-circle"></i>Category
+                            </a>
+                        </li>
+                        <li>
                             <a wire:navigate href="{{ route('admin.businesses.index') }}">
                                 <i class="fa fa-circle"></i>Business List
                             </a>
@@ -64,7 +69,7 @@
 
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a wire:navigate href="{{ route('admin.categories.index') }}">
+                                    <a wire:navigate href="{{ route('admin.products.categories.index') }}">
                                         <i class="fa fa-circle"></i>Category
                                     </a>
                                 </li>

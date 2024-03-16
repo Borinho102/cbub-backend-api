@@ -3,18 +3,23 @@
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ProfileController;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Businesses\BusinessDetails;
 use App\Livewire\Admin\Businesses\BusinessList;
 use App\Livewire\Admin\Businesses\CreateBusiness;
 use App\Livewire\Admin\Businesses\EditBusiness;
-use App\Livewire\Admin\Dashboard as AdminDashboard;
-use App\Livewire\Admin\Categories\CreateCategory as AdminCreateCategory;
-use App\Livewire\Admin\Categories\CategoryList as AdminCategoryList;
+use App\Livewire\Admin\Businesses\Categories\CreateCategory as AdminCreateBusinessCategory;
+use App\Livewire\Admin\Businesses\Categories\EditCategory as AdminEditBusinessCategory;
+use App\Livewire\Admin\Businesses\Categories\CategoryList as AdminBusinessCategoryList;
 
 use App\Livewire\Admin\Products\CreateProduct as AdminCreateProduct;
 use App\Livewire\Admin\Products\EditProduct as AdminEditProduct;
 use App\Livewire\Admin\Products\ProductList as AdminProductList;
 use App\Livewire\Admin\Products\ProductDetails as AdminProductDetails;
+use App\Livewire\Admin\Products\Categories\CreateCategory as AdminCreateProductCategory;
+use App\Livewire\Admin\Products\Categories\EditCategory as AdminEditProductCategory;
+use App\Livewire\Admin\Products\Categories\CategoryList as AdminProductCategoryList;
+
 use App\Livewire\User\Dashboard as UserDashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -53,16 +58,24 @@ Route::group([
     Route::get('businesses/{business}/show', BusinessDetails::class)->name('businesses.show');
     Route::get('businesses/{business}/edit', EditBusiness::class)->name('businesses.edit');
 
+    // BUSINESSES CATEGORIES ROUTES
+    Route::get('businesses/categories', AdminBusinessCategoryList::class)
+        ->name('businesses.categories.index');
+    Route::get('businesses/categories/create', AdminCreateBusinessCategory::class)
+        ->name('businesses.categories.create');
+    Route::get('businesses/categories/{category}/edit', AdminEditBusinessCategory::class)
+        ->name('businesses.categories.edit');
+
     // PRODUCTS ROUTES
     Route::get('products', AdminProductList::class)->name('products.index');
     Route::get('products/create', AdminCreateProduct::class)->name('products.create');
     Route::get('products/{product}/show', AdminProductDetails::class)->name('products.show');
     Route::get('products/{product}/edit', AdminEditProduct::class)->name('products.edit');
 
-    // CATEGORIES ROUTES
-    Route::get('categories', AdminCategoryList::class)->name('categories.index');
-    Route::get('categories/create', AdminCreateCategory::class)->name('categories.create');
-    //Route::get('categories/{category}/edit', EditBusiness::class)->name('categories.edit');
+    // PRODUCTS CATEGORIES ROUTES
+    Route::get('products/categories', AdminProductCategoryList::class)->name('products.categories.index');
+    Route::get('products/categories/create', AdminCreateProductCategory::class)->name('products.categories.create');
+    Route::get('products/categories/{category}/edit', AdminEditProductCategory::class)->name('products.categories.edit');
 });
 
 Route::group([

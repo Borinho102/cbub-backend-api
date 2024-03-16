@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\Businesses;
 
-use App\Livewire\Forms\Admin\CreateBusinessForm;
+use App\Livewire\Forms\Admin\Business\CreateBusinessForm;
 use App\Models\BusinessCategory;
 use App\Models\City;
 use App\Models\Country;

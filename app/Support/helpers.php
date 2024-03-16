@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Business;
+use App\Models\BusinessCategory;
+use App\Models\ProductCategory;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
@@ -132,3 +134,44 @@ if (!function_exists('generateUniqueOtpCode'))
     }
 }
 
+if (!function_exists('generateProductCategoryCode')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductCategoryCode(string $name, $except = null): string
+    {
+        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = ProductCategory::when($except, function ($q) use ($except) {
+            $q->where('code', '!=', $except);
+        })->whereCode($code)->exists();
+
+        while ($exists) {
+            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $code;
+    }
+}
+
+if (!function_exists('generateBusinessCategoryCode')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateBusinessCategoryCode(string $name, $except = null): string
+    {
+        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = BusinessCategory::when($except, function ($q) use ($except) {
+            $q->where('code', '!=', $except);
+        })->whereCode($code)->exists();
+
+        while ($exists) {
+            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $code;
+    }
+}

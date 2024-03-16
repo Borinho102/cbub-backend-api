@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms\Admin;
+namespace App\Livewire\Forms\Admin\Business;
 
 use App\Models\Business;
 use App\Models\Country;

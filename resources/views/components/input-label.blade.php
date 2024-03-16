@@ -1,6 +1,6 @@
-@props(['value', 'css_framework' => 'boostrap', 'required' => false])
+@props(['value', 'framework' => 'boostrap', 'required' => false])
 
-@if ($css_framework === 'boostrap')
+@if ($framework === 'boostrap')
     <label {{ $attributes->merge(['class' => 'col-form-label']) }}>
         @if ($required)
             <span>*</span>

@@ -1,4 +1,4 @@
-@props(['css_framework' => 'bootstrap', 'disabled' => false, 'name'])
+@props(['framework' => 'bootstrap', 'disabled' => false, 'name'])
 
 @error($name)
     @php
@@ -6,7 +6,7 @@
     @endphp
 @enderror
 
-<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'custom-select form-control'])->except('css_framework') !!}>
+<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'custom-select form-control'])->except('framework') !!}>
     {{ $slot }}
 </select>
-@error($name)<x-input-error :message="$message" :css-framework="$css_framework" />@enderror
+@error($name)<x-input-error :message="$message" :framework="$framework" />@enderror

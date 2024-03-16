@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\Businesses;
 
-use App\Livewire\Forms\Admin\CreateBusinessForm;
+use App\Livewire\Forms\Admin\Business\CreateBusinessForm;
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\Country;
@@ -14,9 +14,23 @@ class EditBusiness extends Component
 {
     public CreateBusinessForm $form;
 
+    public $cities;
+
+    public $countries;
+
+    public $categories;
+
     public function mount(Business $business)
     {
         $this->form->setBusiness($business);
+
+        $this->countries = Country::select('id', 'name')
+            ->active()->get();
+
+        $this->categories = BusinessCategory::select('id', 'name')
+            ->get();
+
+        $this->cities = [];
     }
 
     public function save()
@@ -28,12 +42,6 @@ class EditBusiness extends Component
 
     public function render()
     {
-        return view('livewire.admin.businesses.create')
-            ->with([
-                'categories' => BusinessCategory::select('id', 'name')->get(),
-                'countries' => Country::select('id', 'name')
-                    ->active()->get(),
-                'cities' => collect()
-            ]);
+        return view('livewire.admin.businesses.create');
     }
 }

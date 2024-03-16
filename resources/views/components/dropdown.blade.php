@@ -1,4 +1,4 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white', 'css_framework' => 'boostrap'])
+@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white', 'framework' => 'boostrap'])
 
 @php
 switch ($align) {

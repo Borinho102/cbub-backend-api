@@ -2,7 +2,7 @@
     'name',
     'show' => false,
     'maxWidth' => '2xl',
-    'css_framework' => 'boostrap'
+    'framework' => 'boostrap'
 ])
 
 @php

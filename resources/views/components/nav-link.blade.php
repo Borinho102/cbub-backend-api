@@ -1,4 +1,4 @@
-@props(['active', 'css_framework' => 'boostrap'])
+@props(['active', 'framework' => 'boostrap'])
 
 @php
 $classes = ($active ?? false)
