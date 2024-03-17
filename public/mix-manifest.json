@@ -1,7 +1,9 @@
 {
-    "/build/cbub-backend.js": "/build/cbub-backend.js?id=3204c044dd60c2a2b41fce29267d6e76",
+    "/build/cbub-backend.js": "/build/cbub-backend.js?id=831aa77972a4ad5d694fd7b7f78081ca",
     "/build/cbub-frontend.js": "/build/cbub-frontend.js?id=5bc857eb42c5aafde2ac415394f57321",
-    "/build/cbub-backend.css": "/build/cbub-backend.css?id=9d629ce0d22519e29a36a887b218104e",
+    "/build/cbub-backend.css": "/build/cbub-backend.css?id=3fad5c5506c3b58902d6f30fd80c02c1",
     "/build/cbub-frontend.css": "/build/cbub-frontend.css?id=bc6af1608cd142937a6c4cd65502b2d2",
-    "/build/tailwind.css": "/build/tailwind.css?id=dd1ea0e699460cc9f5e941be2a871e1d"
+    "/build/tailwind-components.css": "/build/tailwind-components.css?id=e1c06d85ae7b8b032bef47e42e4c08f9",
+    "/build/tailwind-utilities.css": "/build/tailwind-utilities.css?id=9322a0579f5a3f08912464be078f4e29",
+    "/build/tailwind-base.css": "/build/tailwind-base.css?id=e0f0984095ceebb9319799a9c774602b"
 }

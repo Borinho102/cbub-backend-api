@@ -2,7 +2,11 @@
 @import '../../public/backend/css/vendors/flag-icon.css';
 @import '../../public/backend/css/vendors/icofont.css';
 @import '../../public/backend/css/vendors/prism.css';
-@import '../../public/backend/css/style.css';
 @import '../../public/backend/css/vendors/chartist.css';
+@import '../../public/backend/css/style.css';
 @import '../../public/backend/css/vendors/bootstrap.css';
 @import '../../public/backend/css/vendors/dropzone.css';
+
+a {
+    text-decoration: none !important;
+}

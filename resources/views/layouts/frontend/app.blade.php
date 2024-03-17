@@ -13,7 +13,9 @@
 
         <!-- Scripts -->
         <link href="{{ mix('build/cbub-frontend.css') }}" rel="stylesheet">
-        {{-- <link href="{{ mix('build/tailwind.css') }}" rel="stylesheet"> --}}
+        {{-- <link href="{{ mix('build/tailwind-base.css') }}" rel="stylesheet"> --}}
+        <link href="{{ mix('build/tailwind-utilities.css') }}" rel="stylesheet">
+        <link href="{{ mix('build/tailwind-components.css') }}" rel="stylesheet">
         <script type="text/javascript" src="{{ mix('build/cbub-frontend.js') }}" defer></script>
     </head>
     <body class="theme-color-1">

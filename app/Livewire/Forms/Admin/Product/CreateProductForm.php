@@ -44,7 +44,7 @@ class CreateProductForm extends Form
     public $quantity;
 
     #[Validate('required|image|max:5120')] // 5MB Max
-    public $images;
+    public $images = [];
 
     public function setProduct(Product $product)
     {

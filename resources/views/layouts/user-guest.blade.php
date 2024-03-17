@@ -12,7 +12,9 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        <link href="{{ mix('build/tailwind.css') }}" rel="stylesheet">
+        <link href="{{ mix('build/tailwind-base.css') }}" rel="stylesheet">
+        <link href="{{ mix('build/tailwind-utilities.css') }}" rel="stylesheet">
+        <link href="{{ mix('build/tailwind-components.css') }}" rel="stylesheet">
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">

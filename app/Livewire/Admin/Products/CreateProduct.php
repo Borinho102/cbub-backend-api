@@ -29,6 +29,21 @@ class CreateProduct extends Component
             ->where('is_active', 1)->get();
     }
 
+    public function updatedFormShortDescriptionEn()
+    {
+        $this->form->short_description_fr = $this->form->short_description_en;
+    }
+
+    public function updatedFormDescriptionEn()
+    {
+        $this->form->description_fr = $this->form->description_en;
+    }
+
+    public function updatedFormNameEn()
+    {
+        $this->form->name_fr = $this->form->name_en;
+    }
+
     public function save()
     {
         $this->form->store();

@@ -6,7 +6,7 @@
             {{ $message }}
         </div>
     @else
-        <span {{ $attributes->merge(['class' => 'text-sm text-red-600 space-y-1'])->except('message', 'framework') }}>
+        <span {{ $attributes->merge(['class' => 'tw-text-sm tw-text-red-600 tw-space-y-1'])->except('message', 'framework') }}>
             {{ $message }}
         </span>
     @endif
