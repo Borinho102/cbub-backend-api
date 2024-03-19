@@ -10,14 +10,15 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+
         <!-- Scripts -->
         <link href="{{ mix('build/cbub-backend.css') }}" rel="stylesheet">
         <link href="{{ mix('build/tailwind-utilities.css') }}" rel="stylesheet">
         <link href="{{ mix('build/tailwind-components.css') }}" rel="stylesheet">
-        <script type="text/javascript" src="{{ mix('build/cbub-backend.js') }}" defer></script>
-        {{-- <script type="text/javascript" src="{{ mix('build/manifest.js') }}"></script> --}}
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         @stack('styles')
+
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script type="text/javascript" src="{{ mix('build/cbub-backend.js') }}" defer></script>
         @stack('scripts')
     </head>
     <body>
@@ -25,7 +26,7 @@
             $auth = Auth::guard(cbubGuard())->user();
             $profile_picture = $auth->getFirstMedia()->getUrl();
         @endphp
-
+        
         <div class="page-wrapper">
             <!-- Page Header Start-->
             @include('layouts.backend.partials.header')

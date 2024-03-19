@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Businesses;
 use App\Livewire\Forms\Admin\Business\CreateBusinessForm;
 use App\Models\Business;
 use App\Models\BusinessCategory;
+use App\Models\City;
 use App\Models\Country;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -14,7 +15,7 @@ use Livewire\WithFileUploads;
 class EditBusiness extends Component
 {
     use WithFileUploads;
-    
+
     public CreateBusinessForm $form;
 
     public $cities;
@@ -34,6 +35,13 @@ class EditBusiness extends Component
             ->get();
 
         $this->cities = [];
+    }
+
+    public function updatedFormCountryId()
+    {
+        $this->cities = City::select('id', 'name')
+            ->where('country_id', $this->form->country_id)
+            ->get();
     }
 
     public function save()

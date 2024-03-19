@@ -37,13 +37,16 @@ class CreateProductForm extends Form
     #[Validate('nullable|string')]
     public $description_fr;
 
-    #[Validate('required|number')]
+    #[Validate('required|numeric')]
     public $price;
 
     #[Validate('required|integer')]
     public $quantity;
 
-    #[Validate('required|image|max:5120')] // 5MB Max
+    #[Validate('required|image|max:2048')]
+    public $preview_image;
+
+    #[Validate(['images.*' => 'image|max:5120'])] // 5MB Max
     public $images = [];
 
     public function setProduct(Product $product)
@@ -63,6 +66,8 @@ class CreateProductForm extends Form
         $this->short_description_fr = $product->getTranslation('short_description_fr', 'fr');
 
         $this->category_id = $product->category_id;
+
+        $this->business_id = $product->business_id;
     }
 
     public function store()
@@ -74,6 +79,10 @@ class CreateProductForm extends Form
                 'price', 'business_id', 'category_id',
                 'sku', 'quantity'
             ]),
+            'name' => [
+                'en' => $this->name_en,
+                'fr' => $this->name_fr,
+            ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
                 'fr' => generateProductSlugFr($this->name_fr),
@@ -87,6 +96,18 @@ class CreateProductForm extends Form
                 'fr' => $this->description_fr
             ],
         ]);
+
+        $product
+            ->addMedia($this->preview_image->getRealPath())
+            ->usingName($this->preview_image->getClientOriginalName())
+            ->toMediaCollection('preview');
+
+        foreach ($this->images as $image) {
+            $product
+                ->addMedia($image->getRealPath())
+                ->usingName($image->getClientOriginalName())
+                ->toMediaCollection('images');
+        }
 
         $this->reset();
     }
@@ -111,5 +132,12 @@ class CreateProductForm extends Form
                 'fr' => $this->description_fr
             ]
         ]);
+
+        if (! is_null($this->preview_image)) {
+            $this->product
+                ->addMedia($this->preview_image->getRealPath())
+                ->usingName($this->preview_image->getClientOriginalName())
+                ->toMediaCollection('preview');
+        }
     }
 }

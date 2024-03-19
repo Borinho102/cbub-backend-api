@@ -63,8 +63,11 @@
                                     @foreach ($businesses as $business)
                                         <tr>
                                             <td>
-                                                <img src="{{ $business->getFirstMediaUrl('logo') ?? asset('images/business_placeholder.jpg') }}"
-                                                    data-field="image" alt="">
+                                                @php
+                                                    $logo = $business->getFirstMediaUrl('logo')
+                                                @endphp
+                                                <img src="{{ !empty($logo) ? $logo : asset('images/business_placeholder.png') }}"
+                                                    data-field="image" alt="{{ $business->name }}">
                                             </td>
 
                                             <td data-field="name">{{ $business->name }}</td>

@@ -4,7 +4,12 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="page-header-left">
-                        <h3>{{ __('Add Business') }}
+                        <h3>
+                            @isset($form->business)
+                                {{ __('Edit Business') }}
+                            @else
+                                {{ __('Add Business') }}
+                            @endif
                             <small>{{ __('Cbub Admin Panel') }}</small>
                         </h3>
                     </div>
@@ -17,7 +22,13 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">{{ __('Dashboard') }}</li>
-                        <li class="breadcrumb-item active">{{ __('Add Business') }}</li>
+                        <li class="breadcrumb-item active">
+                            @isset($form->business)
+                                {{ __('Edit Business') }}
+                            @else
+                                {{ __('Add Business') }}
+                            @endif
+                        </li>
                     </ol>
                 </div>
             </div>
@@ -43,11 +54,8 @@
                                     <x-select-option wire:model.live="form.category_id" name="form.category_id" id="category">
                                         <option value="">{{ __('Select Business Category') }}</option>
                                         @foreach ($categories as $category)
-                                            @if ($form->category_id == $category->id)
-                                                <option selected :value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @else
-                                                <option :value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endif                                        @endforeach
+                                            <option :value="{{ $category->id }}" wire:key="category-{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </x-select-option>
                                 </div>
 
@@ -71,7 +79,7 @@
                                     <x-select-option wire:model.live="form.country_id" name="form.country_id" id="country">
                                         <option value="">{{ __('Select Business Country') }}</option>
                                         @foreach ($countries as $country)
-                                            <option :value="{{ $country->id }}">{{ $country->name }}</option>
+                                            <option :value="{{ $country->id }}" wire:key="country-{{ $country->id }}">{{ $country->name }}</option>
                                         @endforeach
                                     </x-select-option>
                                 </div>
@@ -81,13 +89,13 @@
                                     <x-select-option wire:model.live="form.city_id" name="form.city_id" id="city">
                                         <option value="">{{ __('Select Business City') }}</option>
                                         @foreach ($cities as $city)
-                                            <option :value="{{ $city->id }}">{{ $city->name }}</option>
+                                            <option :value="{{ $city->id }}" wire:key="city-{{ $city->id }}">{{ $city->name }}</option>
                                         @endforeach
                                     </x-select-option>
                                 </div>
 
                                 <div class="form-group col-xl-12">
-                                    <x-input-label :value="__('Logo')" for="logo" required/>
+                                    <x-input-label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
                                     <x:file-upload-input wire:model.live="form.logo" name="form.logo" id="logo"/>
                                 </div>
 
@@ -134,9 +142,16 @@
                                     <x-primary-button type="button" class="btn-light me-2">
                                         {{ __('Clear') }}
                                     </x-primary-button>
-                                    <x-primary-button type="submit" class="btn-primary">
-                                        {{ __('Create') }}
-                                    </x-primary-button>
+                                    @isset($this->form->business)
+                                        <x-primary-button type="submit" class="btn-primary">
+                                            {{ __('Update') }}
+                                        </x-primary-button>
+                                    @else
+                                        <x-primary-button type="submit" class="btn-primary">
+                                            {{ __('Create') }}
+                                        </x-primary-button>
+                                    @endisset
+
                                 </div>
                             </div>
                         </div>

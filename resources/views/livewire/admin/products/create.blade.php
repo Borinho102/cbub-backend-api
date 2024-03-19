@@ -25,7 +25,7 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row product-adding">
+        <form wire:submit="save" class="row product-adding">
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-header">
@@ -106,12 +106,14 @@
                                 <x-text-area-input wire:model.live="form.short_description_fr" name="form.short_description_fr" id="short_description_fr" rows="3" cols="12"></x-text-area-input>
                             </div>
 
-                            <div class="digital-add needs-validation">
-                                <div class="form-group mb-0">
-                                    <div class="description-sm">
-                                        <x-ckeditor id="product-description" class="ckeditor" name="description" cols="10" rows="4" />
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <x-input-label :value="__('Description (English)')" for="description_en"/>
+                                <x-text-area-input wire:model.live="form.description_en" name="form.description_en" id="description_en" rows="3" cols="12"></x-text-area-input>
+                            </div>
+
+                            <div class="form-group">
+                                <x-input-label :value="__('Description (French)')" for="description_fr"/>
+                                <x-text-area-input wire:model.live="form.description_fr" name="form.description_fr" id="description_fr" rows="3" cols="12"></x-text-area-input>
                             </div>
                         </div>
                     </div>
@@ -122,13 +124,17 @@
                     </div>
                     <div class="card-body">
                         <div class="digital-add needs-validation">
-                            <label class="col-form-label pt-0">Images</label>
-                            <div class="dropzone digits" id="singleFileUpload">
-                                <div class="dz-message needsclick"><i class="fa fa-cloud-upload"></i>
-                                    <h4 class="mb-0 f-w-600">Drop files here or click to upload.</h4>
-                                </div>
+                            <div class="form-group col-xl-12">
+                                <x-input-label :value="__('Preview Image')" for="logo" required="{{ !isset($this->form->product) }}"/>
+                                <x:file-upload-input wire:model.live="form.preview_image" name="form.preview_image" id="preview_image"/>
+                            </div>
+
+                            <div class="form-group col-xl-12">
+                                <x-input-label :value="__('Other Images')" for="logo" multiple/>
+                                <x:file-upload-input wire:model.live="form.images" name="form.images" id="preview_image"/>
                             </div>
                         </div>
+
                         <div class="form-group d-flex justify-content-end mb-0 mt-4">
                             <x-primary-button type="button" class="btn-light me-2">
                                 {{ __('Clear') }}
@@ -140,6 +146,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

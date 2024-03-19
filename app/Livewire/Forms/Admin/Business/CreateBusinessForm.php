@@ -33,7 +33,6 @@ class CreateBusinessForm extends Form
     #[Validate('required')]
     public $address;
 
-    #[Validate('required|email|unique:businesses,email')]
     public $email;
 
     #[Validate('nullable|max:500')]
@@ -57,8 +56,9 @@ class CreateBusinessForm extends Form
     #[Validate('nullable|url')]
     public $youtube;
 
-    #[Validate('required|image|max:5120')] // 5MB Max
     public $logo;
+
+    public $banners = [];
 
     public function setBusiness(Business $business)
     {
@@ -95,10 +95,15 @@ class CreateBusinessForm extends Form
 
     public function store()
     {
-        $this->validate();
+        $this->validate(array_merge($this->getRules(), [
+            'email' => 'required|email|unique:businesses,email',
+            'banners' => 'nullable|array',
+            'banners.*' => 'image|max:5120',
+            'logo' => 'required|image|max:5120' // 5MB
+        ]));
 
         $business = Business::create([
-            ...$this->except('business', 'logo'),
+            ...$this->except('business', 'logo', 'banners'),
             'slug' => generateBusinessSlug(
                 Country::select('code')->find($this->country_id)->code,
                 $this->name
@@ -106,15 +111,39 @@ class CreateBusinessForm extends Form
             'initials' => Initials::generate($this->name)
         ]);
 
-        $business->addMedia($this->logo);
+        $business
+            ->addMedia($this->logo->getRealPath())
+            ->usingName($this->logo->getClientOriginalName())
+            ->toMediaCollection('logo');
+
+        foreach ($this->banners as $banner) {
+            $business
+                ->addMedia($banner->getRealPath())
+                ->usingName($banner->getClientOriginalName())
+                ->toMediaCollection('banners');
+        }
 
         $this->reset();
     }
 
     public function update()
     {
-        $this->business->update($this->except('logo', 'business'));
+        $this->validate(array_merge($this->getRules(), [
+            'email' => 'required|email|unique:businesses,email,' . $this->business->id . ',id',
+            'banners' => 'nullable|array',
+            'banners.*' => 'image|max:5120',
+            'logo' => 'nullable|image|max:5120' // 5MB
+        ]));
 
-        $this->business->addMedia($this->logo);
+        $this->business->update(
+            $this->except('logo', 'business', 'banners')
+        );
+
+        if (! is_null($this->logo)) {
+            $this->business
+                ->addMedia($this->logo->getRealPath())
+                ->usingName($this->logo->getClientOriginalName())
+                ->toMediaCollection('logo');
+        }
     }
 }
