@@ -1,5 +1,5 @@
 <x-admin-guest-layout>
-    <div class="tw-mb-4 tw-text-sm tw-text-gray-600">
+    <div class="mb-4 text-sm text-gray-600">
         {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
     </div>
 
@@ -8,20 +8,20 @@
 
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" framework="tailwind"/>
+            <x-input.label for="password" :value="__('Password')" framework="tailwind"/>
 
-            <x-text-input id="password" class="tw-block tw-mt-1 tw-w-full"
+            <x-input.text id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
                             required autocomplete="current-password" framework="tailwind"/>
 
-            <x-input-error :messages="$errors->get('password')" class="tw-mt-2" framework="tailwind"/>
+            <x-input.error :messages="$errors->get('password')" class="mt-2" framework="tailwind"/>
         </div>
 
-        <div class="tw-flex tw-justify-end tw-mt-4">
-            <x-primary-button framework="tailwind">
+        <div class="flex justify-end mt-4">
+            <x-button.primary framework="tailwind">
                 {{ __('Confirm') }}
-            </x-primary-button>
+            </x-button.primary>
         </div>
     </form>
 </x-admin-guest-layout>

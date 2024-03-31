@@ -124,6 +124,8 @@ class CreateBusinessForm extends Form
         }
 
         $this->reset();
+
+        notify()->success(__('Business successfully created!'));
     }
 
     public function update()
@@ -145,5 +147,7 @@ class CreateBusinessForm extends Form
                 ->usingName($this->logo->getClientOriginalName())
                 ->toMediaCollection('logo');
         }
+
+        notify()->success(__('Business successfully updated!'));
     }
 }

@@ -18,9 +18,8 @@ return new class extends Migration
             $table->decimal('old_price', 10, 2);
             $table->decimal('new_price', 10, 2);
             $table->boolean('is_active')->default(1);
-            $table->dateTime('ends_at')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->morphs('user'); // user who discounted the price
-            $table->unique(['product_id', 'is_active']);
             $table->timestamps();
         });
     }

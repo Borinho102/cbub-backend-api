@@ -1,25 +1,25 @@
 <x-admin-guest-layout>
-    <div class="tw-mb-4 tw-text-sm tw-text-gray-600">
+    <div class="mb-4 text-sm text-gray-600">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
 
     <!-- Session Status -->
-    <x-auth-session-status class="tw-mb-4" :status="session('status')" />
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" framework="tailwind"/>
-            <x-text-input id="email" class="tw-block tw-mt-1 tw-w-full" type="email" name="email" :value="old('email')" required autofocus framework="tailwind"/>
-            <x-input-error :messages="$errors->get('email')" class="tw-mt-2" framework="tailwind"/>
+            <x-input.label for="email" :value="__('Email')" framework="tailwind"/>
+            <x-input.text id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus framework="tailwind"/>
+            <x-input.error :messages="$errors->get('email')" class="mt-2" framework="tailwind"/>
         </div>
 
-        <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
-            <x-primary-button framework="tailwind">
+        <div class="flex items-center justify-end mt-4">
+            <x-button.primary framework="tailwind">
                 {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+            </x-button.primary>
         </div>
     </form>
 </x-admin-guest-layout>

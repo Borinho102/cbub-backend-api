@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\DataFeedController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\MiscellaneousController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Businesses\BusinessDetails;
 use App\Livewire\Admin\Businesses\BusinessList;
 use App\Livewire\Admin\Businesses\CreateBusiness;
 use App\Livewire\Admin\Businesses\EditBusiness;
+use App\Livewire\Admin\Businesses\ProductList as AdminBusinessProductList;
+use App\Livewire\Admin\Businesses\UserList as AdminBusinessUserList;
 use App\Livewire\Admin\Businesses\Categories\CreateCategory as AdminCreateBusinessCategory;
 use App\Livewire\Admin\Businesses\Categories\EditCategory as AdminEditBusinessCategory;
 use App\Livewire\Admin\Businesses\Categories\CategoryList as AdminBusinessCategoryList;
@@ -20,7 +22,11 @@ use App\Livewire\Admin\Products\Categories\CreateCategory as AdminCreateProductC
 use App\Livewire\Admin\Products\Categories\EditCategory as AdminEditProductCategory;
 use App\Livewire\Admin\Products\Categories\CategoryList as AdminProductCategoryList;
 
-use App\Livewire\User\Dashboard as UserDashboard;
+use App\Livewire\Admin\PromoCodes\CreatePromoCode as AdminCreatePromoCode;
+use App\Livewire\Admin\PromoCodes\EditPromoCode as AdminEditPromoCode;
+use App\Livewire\Admin\PromoCodes\PromoCodeList as AdminPromoCodeList;
+
+use App\Livewire\Business\Dashboard as BusinessDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,16 +47,12 @@ Route::group([
     'middleware' => 'auth:admins',
     'as' => 'admin.',
 ], function () {
+    Route::get('json-data-feed/{type}', [DataFeedController::class, 'getDataFeed'])
+        ->name('json_data_feed');
+
     Route::get('', AdminDashboard::class)
         ->middleware(['verified'])
         ->name('dashboard');
-
-    Route::get('/profile', [AdminProfileController::class, 'edit'])
-        ->name('profile.edit');
-    Route::patch('/profile', [AdminProfileController::class, 'update'])
-        ->name('profile.update');
-    Route::delete('/profile', [AdminProfileController::class, 'destroy'])
-        ->name('profile.destroy');
 
     // BUSINESSES ROUTES
     Route::get('businesses', BusinessList::class)->name('businesses.index');
@@ -65,6 +67,10 @@ Route::group([
         ->name('businesses.categories.create');
     Route::get('businesses/categories/{category}/edit', AdminEditBusinessCategory::class)
         ->name('businesses.categories.edit');
+    Route::get('businesses/{business}/products', AdminBusinessProductList::class)
+        ->name('businesses.products.index');
+    Route::get('businesses/{business}/users', AdminBusinessUserList::class)
+        ->name('businesses.users.index');
 
     // PRODUCTS ROUTES
     Route::get('products', AdminProductList::class)->name('products.index');
@@ -76,6 +82,12 @@ Route::group([
     Route::get('products/categories', AdminProductCategoryList::class)->name('products.categories.index');
     Route::get('products/categories/create', AdminCreateProductCategory::class)->name('products.categories.create');
     Route::get('products/categories/{category}/edit', AdminEditProductCategory::class)->name('products.categories.edit');
+
+    // PROMO CODE ROUTES
+    Route::get('promo-codes', AdminPromoCodeList::class)->name('promo_codes.index');
+    Route::get('promo-codes/create', AdminCreatePromoCode::class)->name('promo_codes.create');
+    Route::get('promo-codes/{promo_code}/edit', AdminEditPromoCode::class)->name('promo_codes.edit');
+
 });
 
 Route::group([
@@ -83,15 +95,24 @@ Route::group([
     'middleware' => 'auth:users',
     'as' => 'console.',
 ], function () {
-    Route::get('', UserDashboard::class)
+    Route::get('', BusinessDashboard::class)
         ->name('dashboard');
+});
 
-    Route::get('/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])
-        ->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])
-        ->name('profile.destroy');
+
+Route::group([
+    'prefix' => 'miscellaneous',
+    'middleware' => 'auth:users,admins',
+    'as' => 'misc.',
+], function () {
+    Route::get('search/users', [MiscellaneousController::class, 'searchUsers'])
+        ->name('search.users');
+    Route::get('search/products', [MiscellaneousController::class, 'searchProducts'])
+        ->name('search.products');
+    Route::get('search/product-categories', [MiscellaneousController::class, 'searchProductCategories'])
+        ->name('search.product_categories');
+    Route::get('search/businesses', [MiscellaneousController::class, 'searchBusinesses'])
+        ->name('search.businesses');
 });
 
 require __DIR__.'/auth.php';

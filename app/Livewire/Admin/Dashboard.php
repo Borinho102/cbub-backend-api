@@ -2,14 +2,17 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\DataFeed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.backend.app')]
+#[Layout('components.layouts.backend.app')]
 class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.admin.dashboard');
+        $dataFeed = new DataFeed();
+
+        return view('livewire.admin.dashboard', compact('dataFeed'));
     }
 }

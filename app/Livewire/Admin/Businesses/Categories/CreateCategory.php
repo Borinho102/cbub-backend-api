@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.backend.app')]
+#[Layout('components.layouts.backend.app')]
 class CreateCategory extends Component
 {
     use WithFileUploads;

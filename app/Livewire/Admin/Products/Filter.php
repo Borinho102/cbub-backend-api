@@ -4,13 +4,13 @@ namespace App\Livewire\Admin\Products;
 
 use App\Models\Business;
 use App\Models\ProductCategory;
-use Livewire\Attributes\Modelable;
 use Livewire\Component;
 
 class Filter extends Component
 {
-    #[Modelable]
-    public $form;
+    public $business;
+
+    public $category;
 
     public $categories;
 
@@ -24,6 +24,16 @@ class Filter extends Component
 
         $this->categories = ProductCategory::select('id', 'name')
             ->where('is_active', 1)->get();
+    }
+
+    public function updatedBusiness()
+    {
+        $this->dispatch('business-updated', $this->business);
+    }
+
+    public function updatedCategory()
+    {
+        $this->dispatch('category-updated', $this->category);
     }
 
     public function render()

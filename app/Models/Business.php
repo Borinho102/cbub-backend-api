@@ -54,4 +54,10 @@ class Business extends Model implements HasMedia
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function getLogoAttribute()
+    {
+        $logo = $this->getFirstMediaUrl('logo');
+        return !empty($logo) ? $logo : asset('images/business_placeholder.png');
+    }
 }

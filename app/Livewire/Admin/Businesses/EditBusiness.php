@@ -11,7 +11,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('layouts.backend.app')]
+#[Layout('components.layouts.backend.app')]
 class EditBusiness extends Component
 {
     use WithFileUploads;

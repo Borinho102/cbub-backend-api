@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminUserSeeder::class);
         $this->call(BusinessCategorySeeder::class);
         $this->call(BusinessSeeder::class);
+        $this->call(DashboardTableSeeder::class);
         $this->command->info("Seeding Completed! 🤩");
     }
 }

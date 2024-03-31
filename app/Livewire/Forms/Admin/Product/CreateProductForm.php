@@ -110,6 +110,8 @@ class CreateProductForm extends Form
         }
 
         $this->reset();
+
+        notify()->success(__('Product successfully created!'));
     }
 
     public function update()
@@ -139,5 +141,7 @@ class CreateProductForm extends Form
                 ->usingName($this->preview_image->getClientOriginalName())
                 ->toMediaCollection('preview');
         }
+
+        notify()->success(__('Product successfully updated!'));
     }
 }

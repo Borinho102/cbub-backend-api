@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.backend.app')]
+#[Layout('components.layouts.backend.app')]
 class BusinessList extends Component
 {
     use WithPagination;

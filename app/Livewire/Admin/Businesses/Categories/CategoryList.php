@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('layouts.backend.app')]
+#[Layout('components.layouts.backend.app')]
 class CategoryList extends Component
 {
     use WithPagination;

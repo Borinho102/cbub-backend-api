@@ -1,128 +1,69 @@
 <div>
-    <div class="container-fluid">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="page-header-left">
-                        <h3>{{ __('Product List') }}
-                            <small>{{ __('Cbub Admin Panel') }}</small>
-                        </h3>
-                    </div>
+    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+        <div>
+            <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
+                @if (isset($business_details))
+                    {{ $business_details->name }}'s {{ __('Products') }}
+                @else
+                    {{ __('Products') }}
+                @endif
+            </h2>
+            <div class="text-start">
+                <!-- Start -->
+                <ul class="inline-flex flex-wrap text-sm font-medium">
+                    <li class="flex items-center">
+                        <a class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" wire:navigate href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                        <svg class="h-4 w-4 fill-current text-slate-400 dark:text-slate-600 mx-3" viewBox="0 0 16 16">
+                            <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
+                        </svg>
+                    </li>
+                    <li class="flex items-center">
+                        <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('Product List') }}</a>
+                    </li>
+                </ul>
+                <!-- End -->
+            </div>
+        </div>
+
+        <!-- Page header -->
+        <div class="flex justify-between items-center mb-4 md:mb-2 mt-12">
+            <livewire:admin.products.filter lazy />
+            <!-- Right: Actions -->
+            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                <!-- Search form -->
+                <x-search-form wire:model.live="query" name="query" />
+
+                <!-- Export button -->
+                <a
+                    wire:navigate
+                    href="{{ route('admin.products.create') }}"
+                    class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white"
+                >{{ __('New Product') }}</a>
+            </div>
+        </div>
+
+        <!-- Page content -->
+        <div>
+            <div class="mt-8">
+                <div class="grid grid-cols-12 gap-6">
+                    <x-product.item-list :products="$products" />
                 </div>
-                <div class="col-lg-6">
-                    <ol class="breadcrumb pull-right">
-                        <li class="breadcrumb-item">
-                            <a href="index.html">
-                                <i data-feather="home"></i>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">{{ __('Dashboard') }}</li>
-                        <li class="breadcrumb-item active">{{ __('Product List') }}</li>
-                    </ol>
+
+                <!-- Pagination -->
+                <div class="mt-8">
+                    {{ $products->links() }}
+                </div>
+            </div>
+
+            <!-- (Popular Categories) -->
+            <div class="mt-8">
+                <h2 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-5">Popular Categories</h2>
+                <div class="grid grid-cols-12 gap-6">
+                    <x-product.shop-cards-05 />
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="mb-3 d-flex justify-content-end">
-                    <a wire:navigate href="{{ route('admin.products.create') }}" class="btn btn-primary add-row mt-md-0 mt-2">
-                        {{ __('Add Product') }}
-                    </a>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <livewire:admin.products.filter wire:model="form" lazy />
-                        <form wire:submit="search" class="form-inline search-form search-box">
-                            <div class="form-group">
-                                <input class="form-control-plaintext" wire:model.live="form.query" type="search" placeholder="Search..">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="row products-admin ratio_asos p-4">
-                        <div class="col-xl-3 col-sm-6">
-                            <div class="card">
-                                <div class="card-body product-box">
-                                    <div class="img-wrapper">
-                                        <div class="front">
-                                            <a href="javascript:void(0)"><img src="{{ asset('backend/images/pro3/34.jpg') }}"
-                                                    class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                            <div class="product-hover">
-                                                <ul>
-                                                    <li>
-                                                        <button class="btn" type="button" data-original-title=""
-                                                            title=""><i class="ti-pencil-alt"></i></button>
-                                                    </li>
-                                                    <li>
-                                                        <button class="btn"><i class="ti-trash"></i></button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-detail">
-                                        <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                class="fa fa-star"></i></div>
-                                        <a href="javascript:void(0)">
-                                            <h6>Slim Fit Cotton Shirt</h6>
-                                        </a>
-                                        <h4>$500.00 <del>$600.00</del></h4>
-                                        <ul class="color-variant">
-                                            <li class="bg-light0"></li>
-                                            <li class="bg-light1"></li>
-                                            <li class="bg-light2"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @foreach ($products as $product)
-                            <div class="col-xl-3 col-sm-6">
-                                <div class="card">
-                                    <div class="card-body product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                <a href="javascript:void(0)"><img src="{{ asset('backend/images/fashion/pro/1.jpg') }}"
-                                                        class="img-fluid bg-img" alt=""></a>
-                                                <div class="product-hover">
-                                                    <ul>
-                                                        <li>
-                                                            <button class="btn" type="button" data-original-title=""
-                                                                title=""><i class="ti-pencil-alt"></i></button>
-                                                        </li>
-                                                        <li>
-                                                            <button class="btn"><i class="ti-trash"></i></button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div>
-                                            <a href="javascript:void(0)">
-                                                <h6>Slim Fit Cotton Shirt</h6>
-                                            </a>
-                                            <h4>$500.00 <del>$650.00</del></h4>
-                                            <ul class="color-variant">
-                                                <li class="bg-light0"></li>
-                                                <li class="bg-light1"></li>
-                                                <li class="bg-light2"></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-product.discount-modal />
     </div>
 </div>

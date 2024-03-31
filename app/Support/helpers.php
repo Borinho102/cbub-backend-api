@@ -36,11 +36,11 @@ if (!function_exists('redirectWithoutInertia')) {
     }
 }
 
-if (!function_exists('cbubGuard')) {
+if (!function_exists('appGuard')) {
     /**
      * Returns the active waspito guard
      */
-    function cbubGuard()
+    function appGuard()
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
             if (auth()->guard($guard)->check()) return $guard;

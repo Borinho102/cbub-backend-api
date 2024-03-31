@@ -46,12 +46,30 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
+    public static $withoutAppends = false;
+
     /**
      * The relations to eager load on every query.
      *
      * @var array
      */
     protected $with = ['business_user.business'];
+
+    protected function getArrayableAppends()
+    {
+        if (self::$withoutAppends){
+            return [];
+        }
+
+        return parent::getArrayableAppends();
+    }
+
+    public function scopeWithoutAppends($query)
+    {
+        self::$withoutAppends = true;
+
+        return $query;
+    }
 
     public function registerMediaCollections(): void
     {
@@ -65,5 +83,10 @@ class User extends Authenticatable implements HasMedia
     public function business_user() : HasOne
     {
         return $this->hasOne(BusinessUser::class, 'user_id');
+    }
+
+    public function promo_codes()
+    {
+        return $this->belongsToMany(PromoCode::class);
     }
 }

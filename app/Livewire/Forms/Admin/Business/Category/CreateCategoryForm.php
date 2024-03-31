@@ -67,6 +67,8 @@ class CreateCategoryForm extends Form
         }
 
         $this->reset();
+
+        notify()->success(__('Business category successfully created!'));
     }
 
     public function update()
@@ -86,5 +88,7 @@ class CreateCategoryForm extends Form
         if ($this->logo) {
             $this->category->addMedia($this->logo);
         }
+
+        notify()->success(__('Business category successfully updated!'));
     }
 }

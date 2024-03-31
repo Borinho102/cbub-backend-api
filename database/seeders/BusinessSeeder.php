@@ -21,7 +21,7 @@ class BusinessSeeder extends Seeder
     public function run(): void
     {
         if (!Business::count()) {
-            $this->command->info('Truncating Cbub Business Partners\' tables');
+            $this->command->info('Truncating Business Partners\' tables');
             $this->truncateBusinesssTable();
             $currency = Currency::where('code', 'XAF')->first();
             $country = Country::where('currency_code', $currency->code)->first();

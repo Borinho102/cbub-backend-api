@@ -72,6 +72,8 @@ class CreateCategoryForm extends Form
         }
 
         $this->reset();
+
+        notify()->success(__('Product category successfully created!'));
     }
 
     public function update()
@@ -91,5 +93,7 @@ class CreateCategoryForm extends Form
         if ($this->logo) {
             $this->category->addMedia($this->logo);
         }
+
+        notify()->success(__('Product category successfully updated!'));
     }
 }

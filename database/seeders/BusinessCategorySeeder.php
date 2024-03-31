@@ -15,7 +15,7 @@ class BusinessCategorySeeder extends Seeder
     public function run(): void
     {
         if (!BusinessCategory::count()) {
-            $this->command->info('Truncating Cbub Business Categories\' tables');
+            $this->command->info('Truncating Business Categories\' tables');
             $this->truncateBusinesssCategoryTable();
 
             $categories = [
