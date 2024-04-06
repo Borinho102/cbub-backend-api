@@ -74,7 +74,7 @@ class ProductList extends Component
                 ->when(! is_null($this->business) && ! empty($this->business), function ($q) {
                     $q->where('business_id', $this->business);
                 })
-                ->paginate(10)
+                ->paginate(12)
         ]);
     }
 }

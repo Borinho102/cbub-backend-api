@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const USER_HOME = '/business.portal.66/console';
+    public const BUSINESS_HOME = '/business.portal.66/console';
 
     /**
      * The path to your application's "home" route.

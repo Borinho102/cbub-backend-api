@@ -36,10 +36,10 @@ return [
     */
 
     'guards' => [
-        'users' => [
+        'business' => [
             'driver' => 'session',
-            'provider' => 'users',
-            'redirectTo' => 'console.dashboard',
+            'provider' => 'business',
+            'redirectTo' => 'business.dashboard',
         ],
         'admins' => [
             'driver' => 'session',
@@ -77,6 +77,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'business' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BusinessUser::class,
         ]
     ],
 
@@ -109,6 +113,12 @@ return [
         'admins' => [
             'provider' => 'admins',
             'table' => 'admin_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'business' => [
+            'provider' => 'business',
+            'table' => 'business_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

@@ -14,4 +14,13 @@ class ProductDiscountPrice extends Model
         'is_active', 'end_date', 'discount_percentage',
         'user_type', 'user_id'
     ];
+
+    protected $casts = [
+        'end_date' => 'datetime'
+    ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

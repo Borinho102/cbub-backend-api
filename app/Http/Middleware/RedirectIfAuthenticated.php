@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                     return redirect(RouteServiceProvider::ADMIN_HOME);
                 }
 
-                return redirect(RouteServiceProvider::USER_HOME);
+                return redirect(RouteServiceProvider::BUSINESS_HOME);
             }
         }
 

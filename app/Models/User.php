@@ -4,7 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -53,7 +56,7 @@ class User extends Authenticatable implements HasMedia
      *
      * @var array
      */
-    protected $with = ['business_user.business'];
+    protected $with = [];
 
     protected function getArrayableAppends()
     {
@@ -77,16 +80,35 @@ class User extends Authenticatable implements HasMedia
             ->singleFile();;
     }
 
-    /**
-     * Get the business partner user.
-     */
-    public function business_user() : HasOne
+    public function getImageAttribute()
     {
-        return $this->hasOne(BusinessUser::class, 'user_id');
+        $avatar = $this->getFirstMediaUrl('avatar');
+        return !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 
     public function promo_codes()
     {
         return $this->belongsToMany(PromoCode::class);
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(UserLocation::class, 'user_id');
+    }
+
+    public function current_location(): HasOne
+    {
+        return $this->hasOne(UserLocation::class, 'user_id')
+            ->where('current', 1)->latest();
+    }
+
+    public function orders(): MorphMany
+    {
+        return $this->morphMany(Order::class, 'customer');
+    }
+
+    public function last_order(): MorphOne
+    {
+        return $this->morphOne(Order::class, 'customer')->latest();
     }
 }

@@ -13,10 +13,43 @@ return new class extends Migration
     {
         Schema::create('business_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->unique()->default(1)
-                ->constrained('users');
+            $table->string('name');
+            $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('language')->default('en');
+
             $table->foreignId('business_id')->nullable()
                 ->constrained('businesses');
+
+            $table->ipAddress('ip_address')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+
+            $table->string('password');
+            $table->rememberToken();
+
+            // Currency
+            $table->foreignId('currency_id')->default(1)
+                ->constrained('currencies');
+
+            // Country & City foreign key
+            $table->foreignId('country_id')->default(1)
+                ->constrained('world_countries');
+            $table->foreignId('city_id')->nullable()
+                ->constrained('world_cities');
+
+            // two_auth & tokens
+            $table->boolean('two_factor_auth')->default(false);
+            $table->string('two_factor_token')->nullable();
+            $table->datetime('two_factor_expiry')->nullable();
+
+            $table->datetime('last_login_at')->nullable();
+            $table->string('last_login_ip')->nullable();
+
+            // ban admin user
+            $table->timestamp('banned_at')->nullable();
+
             $table->timestamps();
         });
     }

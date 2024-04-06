@@ -91,36 +91,21 @@
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->created_at->format('d/m/Y') }}</div>
                                     </td>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
-                                        <div class="relative inline-flex" x-data="{ open: false }">
-                                            <button class="inline-flex justify-center items-center group" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open">
-                                                <div class="flex items-center truncate">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                    </svg>
-                                                </div>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                        <div class="space-x-1">
+                                            <a href="{{ route('admin.businesses.categories.edit', $category->id) }}" wire:navigate class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block">
+                                                <span class="sr-only">Edit</span>
+                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                </svg>
+                                            </a>
+                                            <button class="text-rose-500 hover:text-rose-600 rounded-full">
+                                                <span class="sr-only">Delete</span>
+                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                    <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
+                                                    <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
+                                                </svg>
                                             </button>
-                                            <div
-                                                class="origin-top-right z-10 absolute top-full left-0 min-w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
-                                                @click.outside="open = false"
-                                                @keydown.escape.window="open = false" x-show="open"
-                                                x-transition:enter="transition ease-out duration-200 transform"
-                                                x-transition:enter-start="opacity-0 -translate-y-2"
-                                                x-transition:enter-end="opacity-100 translate-y-0"
-                                                x-transition:leave="transition ease-out duration-200"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                x-cloak
-                                            >
-                                                <ul>
-                                                    <li>
-                                                        <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex items-center py-1 px-3" wire:navigate href="{{ route('admin.businesses.categories.edit', $category->id) }}" @click="open = false" @focus="open = true" @focusout="open = false">Edit</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
                                     </td>
                                 </tr>

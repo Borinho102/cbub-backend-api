@@ -2,6 +2,7 @@
 
 use App\Models\Business;
 use App\Models\BusinessCategory;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Support\Collection;
@@ -216,5 +217,26 @@ if (!function_exists('generateProductSlugFr')) {
         }
 
         return $slug;
+    }
+}
+
+if (!function_exists('generateOrderID')) {
+    /**
+     * @param ?string $prefix
+     * @param string $except
+     * @return string
+     */
+    function generateOrderID(string $prefix = null, $except = null): string
+    {
+        $orderID = fake()->unique()->randomNumber(6);
+        $exists = Order::when($except, function ($q) use ($except) {
+            $q->where('order_id', '!=', $except);
+        })->where('order_id', $orderID)->exists();
+
+        while ($exists) {
+            return generateOrderID($prefix, $except);
+        }
+
+        return $orderID;
     }
 }

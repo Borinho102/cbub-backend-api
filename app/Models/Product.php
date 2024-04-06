@@ -35,6 +35,11 @@ class Product extends Model implements HasMedia
             ->singleFile();
     }
 
+    public function getPreviewImageAttribute()
+    {
+        return $this->getFirstMediaUrl('preview');
+    }
+
     public function business() : BelongsTo
     {
         return $this->belongsTo(Business::class, 'business_id');

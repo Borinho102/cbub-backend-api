@@ -4,6 +4,12 @@ use App\Http\Controllers\Admin\DataFeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
+
+use App\Livewire\Admin\Customers\CustomerDetails as AdminCustomerDetails;
+use App\Livewire\Admin\Customers\CustomerList as AdminCustomerList;
+use App\Livewire\Admin\Orders\OrderDetails as AdminOrderDetails;
+use App\Livewire\Admin\Orders\OrderList as AdminOrderList;
+
 use App\Livewire\Admin\Businesses\BusinessDetails;
 use App\Livewire\Admin\Businesses\BusinessList;
 use App\Livewire\Admin\Businesses\CreateBusiness;
@@ -18,6 +24,8 @@ use App\Livewire\Admin\Products\CreateProduct as AdminCreateProduct;
 use App\Livewire\Admin\Products\EditProduct as AdminEditProduct;
 use App\Livewire\Admin\Products\ProductList as AdminProductList;
 use App\Livewire\Admin\Products\ProductDetails as AdminProductDetails;
+use App\Livewire\Admin\Products\ProductDiscountList as AdminProductDiscountList;
+use App\Livewire\Admin\Products\ProductReviewList as AdminProductReviewList;
 use App\Livewire\Admin\Products\Categories\CreateCategory as AdminCreateProductCategory;
 use App\Livewire\Admin\Products\Categories\EditCategory as AdminEditProductCategory;
 use App\Livewire\Admin\Products\Categories\CategoryList as AdminProductCategoryList;
@@ -77,6 +85,8 @@ Route::group([
     Route::get('products/create', AdminCreateProduct::class)->name('products.create');
     Route::get('products/{product}/show', AdminProductDetails::class)->name('products.show');
     Route::get('products/{product}/edit', AdminEditProduct::class)->name('products.edit');
+    Route::get('products/reviews', AdminProductReviewList::class)->name('products.reviews.index');
+    Route::get('products/discounts', AdminProductDiscountList::class)->name('products.discounts.index');
 
     // PRODUCTS CATEGORIES ROUTES
     Route::get('products/categories', AdminProductCategoryList::class)->name('products.categories.index');
@@ -88,12 +98,19 @@ Route::group([
     Route::get('promo-codes/create', AdminCreatePromoCode::class)->name('promo_codes.create');
     Route::get('promo-codes/{promo_code}/edit', AdminEditPromoCode::class)->name('promo_codes.edit');
 
+    // ORDER ROUTES
+    Route::get('orders', AdminOrderList::class)->name('orders.index');
+    Route::get('orders/{order}', AdminOrderDetails::class)->name('orders.show');
+
+    // CUSTOMERS ROUTES
+    Route::get('customers', AdminCustomerList::class)->name('customers.index');
+    Route::get('customers/{customer}', AdminCustomerDetails::class)->name('customers.show');
 });
 
 Route::group([
     'prefix' => 'business.portal.66/console',
-    'middleware' => 'auth:users',
-    'as' => 'console.',
+    'middleware' => 'auth:business',
+    'as' => 'business.',
 ], function () {
     Route::get('', BusinessDashboard::class)
         ->name('dashboard');

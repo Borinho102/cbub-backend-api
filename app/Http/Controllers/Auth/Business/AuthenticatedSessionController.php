@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\User;
+namespace App\Http\Controllers\Auth\Business;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\BusinessLoginRequest;
@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::USER_HOME);
+        return redirect()->intended(RouteServiceProvider::BUSINESS_HOME);
     }
 
     /**
@@ -37,12 +37,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('users')->logout();
+        Auth::guard('business')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect(route('guest.user.login'));
+        return redirect(route('guest.business.login'));
     }
 }
