@@ -38,6 +38,7 @@ class ProductDiscountList extends Component
                             ->orWhere('sku', 'like', '%' . $this->query . '%');
                     });
                 })
+                ->orderBy('created_at', 'desc')
                 ->paginate(20)
         ]);
     }

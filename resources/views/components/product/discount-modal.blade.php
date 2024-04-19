@@ -26,18 +26,27 @@
             </div>
 
             <div class="mt-6">
-                <x-input.label for="end_date" value="{{ __('End Date') }}" />
-
-                <x-input.text
-                    wire:model="discountForm.end_date"
-                    id="end_date"
-                    name="discountForm.end_date"
-                    type="date"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('End Date') }}"
+                <x-input.label for="start_time" value="{{ __('Start Time') }}" />
+                <x-datetime-picker
+                    id="start_time"
+                    :placeholder="__('Start Time')"
+                    wire:model.defer="discountForm.start_time"
+                    min-time="08:00"
+                    max-time="18:00"
                 />
+                <x-input.error :messages="$errors->get('discount_form.start_time')" class="mt-2" />
+            </div>
 
-                <x-input.error :messages="$errors->get('discount_form.end_date')" class="mt-2" />
+            <div class="mt-6">
+                <x-input.label for="end_time" value="{{ __('End Time') }}" />
+                <x-datetime-picker
+                    id="end_time"
+                    :placeholder="__('End Time')"
+                    min-time="08:00"
+                    max-time="18:00"
+                    wire:model.defer="discountForm.end_time"
+                />
+                <x-input.error :messages="$errors->get('discount_form.end_time')" class="mt-2" />
             </div>
         </x-slot>
 

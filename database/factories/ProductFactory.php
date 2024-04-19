@@ -2,9 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\StockMovementType;
+use App\Models\Admin;
 use App\Models\Business;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductStock;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -52,6 +55,15 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $product) {
+            $product->stocks()->save(new ProductStock([
+                'prev_quantity' => 0,
+                'new_quantity' => $product->quantity,
+                'type' => StockMovementType::In,
+                'comment' => 'Initial stock',
+                'author_id' => 1,
+                'author_type' => Admin::class
+            ]));
+
             $product
                 ->addMedia(public_path(sprintf("images/applications-image-%s.jpg", random_int(10, 31))))
                 ->preservingOriginal()

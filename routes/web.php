@@ -25,6 +25,8 @@ use App\Livewire\Admin\Products\EditProduct as AdminEditProduct;
 use App\Livewire\Admin\Products\ProductList as AdminProductList;
 use App\Livewire\Admin\Products\ProductDetails as AdminProductDetails;
 use App\Livewire\Admin\Products\ProductDiscountList as AdminProductDiscountList;
+use App\Livewire\Admin\Products\ProductStockList as AdminProductStockList;
+
 use App\Livewire\Admin\Products\ProductReviewList as AdminProductReviewList;
 use App\Livewire\Admin\Products\Categories\CreateCategory as AdminCreateProductCategory;
 use App\Livewire\Admin\Products\Categories\EditCategory as AdminEditProductCategory;
@@ -87,6 +89,7 @@ Route::group([
     Route::get('products/{product}/edit', AdminEditProduct::class)->name('products.edit');
     Route::get('products/reviews', AdminProductReviewList::class)->name('products.reviews.index');
     Route::get('products/discounts', AdminProductDiscountList::class)->name('products.discounts.index');
+    Route::get('products/stocks', AdminProductStockList::class)->name('products.stocks.index');
 
     // PRODUCTS CATEGORIES ROUTES
     Route::get('products/categories', AdminProductCategoryList::class)->name('products.categories.index');

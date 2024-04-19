@@ -55,6 +55,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(ProductDiscountPrice::class);
     }
 
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(ProductStock::class, 'product_id');
+    }
+
     public function active_discount_price(): HasOne
     {
         return $this->hasOne(ProductDiscountPrice::class)

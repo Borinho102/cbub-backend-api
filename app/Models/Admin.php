@@ -73,6 +73,7 @@ class Admin extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function getProfilePictureAttribute()
     {
-        return $this->getFirstMedia()->getUrl();
+        $avatar = $this->getFirstMediaUrl('avatar');
+        return !is_null($avatar) && !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 }

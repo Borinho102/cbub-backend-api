@@ -92,7 +92,7 @@
                                         <div class="text-center text-green-500 dark:text-green-400 font-medium">{{ currency($discount->new_price) }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="text-center">{{ $discount->discount_percentage }}</div>
+                                        <div class="text-center">{{ (int) $discount->discount_percentage }}%</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">

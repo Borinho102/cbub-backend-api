@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\StockMovementType;
+use App\Models\ProductStock;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stock_movements', function (Blueprint $table) {
+        Schema::create('product_stocks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->enum('type', ['in', 'out', 'adjustment']);
-            $table->integer('quantity');
+            $table->enum('type', StockMovementType::getValues())->default(StockMovementType::In);
+            $table->integer('prev_quantity');
+            $table->integer('new_quantity');
+            $table->morphs('author');
+            $table->string('comment')->nullable();
             $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock_movements');
+        Schema::dropIfExists('product_stocks');
     }
 };

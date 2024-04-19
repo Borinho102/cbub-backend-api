@@ -36,7 +36,6 @@
     >
     @php
         $auth = Auth::guard(appGuard())->user();
-        $profile_picture = $auth->getFirstMedia()->getUrl();
     @endphp
         <script>
             if (localStorage.getItem('sidebar-expanded') == 'true') {

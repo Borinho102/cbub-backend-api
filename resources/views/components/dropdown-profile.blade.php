@@ -4,7 +4,7 @@
 
 @if (appGuard() === 'admins')
     @php
-        $auth = Auth::user('users');
+        $auth = auth('admins')->user();
     @endphp
     <div class="relative inline-flex" x-data="{ open: false }">
         <button
