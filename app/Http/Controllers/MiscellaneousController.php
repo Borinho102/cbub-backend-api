@@ -78,13 +78,12 @@ class MiscellaneousController extends Controller
      */
     public function searchProductCategories(Request $request): Response|Application|ResponseFactory
     {
-        $search = $request->input('search');
-        $categories = ProductCategory::select('id', 'name', 'parent_id', 'code')
-            ->when($search, function ($q) use ($search) {
-                $q->where('name', 'like', "%$search%");
-            })
+        $categories = ProductCategory::query()
+            ->select('id', 'name', 'parent_id', 'code')
+            ->search()
             ->where('is_active', 1)
             ->orderBy('name', 'asc')
+            ->limit(10)
             ->get()
             ->transform(function ($category) {
                 return [
@@ -104,15 +103,8 @@ class MiscellaneousController extends Controller
      */
     public function searchProducts(Request $request): Response|Application|ResponseFactory
     {
-        $search = $request->input('search');
         $products = Product::select('id', 'name')
-            ->when($search, function ($q) use ($search) {
-                $q->where(function ($q) use ($search) {
-                    $q->where('name->en', 'like', '%' . $search . '%')
-                        ->orWhere('name->fr', 'like', '%' . $search . '%')
-                        ->orWhere('sku', 'like', '%' . $search . '%');
-                });
-            })
+            ->search()
             ->where('is_active', 1)
             ->limit(10)
             ->get()
@@ -137,6 +129,7 @@ class MiscellaneousController extends Controller
         $query = $request->get('search');
 
         $data = User::query()
+            ->select('id', 'name')
             ->withoutAppends()
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
@@ -162,6 +155,7 @@ class MiscellaneousController extends Controller
         $query = $request->get('search');
 
         $data = Business::query()
+            ->select('id', 'name')
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
             })

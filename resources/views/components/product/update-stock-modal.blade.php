@@ -45,29 +45,29 @@
                 <x-input.label for="quantity" value="{{ __('Quantity') }}" required/>
 
                 <x-input.text
-                    wire:model="updateStockForm.quantity"
+                    wire:model.blur="productStockForm.quantity"
                     id="price"
-                    name="updateStockForm.quantity"
+                    name="productStockForm.quantity"
                     type="text"
                     class="mt-1 block w-3/4"
                     placeholder="{{ __('Quantity') }}"
                 />
 
-                <x-input.error :messages="$errors->get('update_stock_form.quantity')" class="mt-2" />
+                <x-input.error :messages="$errors->get('product_stock_form.quantity')" class="mt-2" />
             </div>
             <div class="mt-6">
                 <x-input.label for="quantity" value="{{ __('Comment') }}"/>
 
                 <x-input.textarea
                     id="comment"
-                    wire:model="updateStockForm.comment"
-                    name="updateStockForm.comment"
+                    wire:model.blur="productStockForm.comment"
+                    name="productStockForm.comment"
                     type="text"
                     class="mt-1 block w-3/4"
                     placeholder="{{ __('Comment') }}"
                 />
 
-                <x-input.error :messages="$errors->get('update_stock_form.comment')" class="mt-2" />
+                <x-input.error :messages="$errors->get('product_stock_form.comment')" class="mt-2" />
             </div>
         </x-slot>
 

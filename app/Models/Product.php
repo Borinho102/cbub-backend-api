@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Support\Str;
 
 class Product extends Model implements HasMedia
 {
@@ -97,5 +98,21 @@ class Product extends Model implements HasMedia
             'service_id',
             'promo_code_id'
         );
+    }
+
+    public function scopeSearch($q)
+    {
+        if ($search = request('q', request('search', request('query')))) {
+            $q->where(function ($q) use ($search) {
+                $parts = explode(' ', $search);
+                foreach ($parts as $part) {
+                    // $q->whereRaw("CONVERT(name->>'$.en' USING utf8mb4) LIKE ?", ['%' . Str::lower($part) . '%'])
+                    //     ->orWhereRaw("CONVERT(name->>'$.fr' USING utf8mb4) LIKE ?", ['%' . Str::lower($part) . '%']);
+                   $q->whereRaw("LOWER(JSON_EXTRACT(name, '$.en')) LIKE ?", ['%' . strtolower($part) . '%'])
+                       ->orWhereRaw("LOWER(JSON_EXTRACT(name, '$.fr')) LIKE ?", ['%' . strtolower($part) . '%'])
+                       ->orWhere('sku', 'like', '%' . $part . '%s');
+                }
+            });
+        }
     }
 }

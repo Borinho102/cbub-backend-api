@@ -34,7 +34,7 @@ class EditBusiness extends Component
         $this->categories = BusinessCategory::select('id', 'name')
             ->get();
 
-        $this->cities = [];
+        $this->updatedFormCountryId();
     }
 
     public function updatedFormCountryId()

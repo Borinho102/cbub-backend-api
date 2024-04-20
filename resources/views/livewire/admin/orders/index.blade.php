@@ -67,16 +67,7 @@
                         </tr>
                     </thead>
                     <!-- Table body -->
-                    @foreach($orders as $order)
-                        @php
-                            if ($order->status === 'Approved') :
-                                $status_color = 'bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400';
-                            elseif ($order->status === 'Refunded') :
-                                $status_color = 'bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400';
-                            else :
-                                $status_color = 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400';
-                            endif;
-                        @endphp
+                    @foreach ($orders as $order)
                         <tbody class="text-sm" x-data="{ open: false }">
                             <!-- Row -->
                             <tr>
@@ -103,7 +94,9 @@
                                     <div class="text-left font-medium text-emerald-500">{{ $order->formatted_amount }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 {{$status_color}}">{{ $order->status }}</div>
+                                    <div class="font-medium text-center">
+                                        <x-badge-status status="{{ $order->status }}" label="{{ $order->status }}" />
+                                    </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-center">{{ $order->items_count }}</div>

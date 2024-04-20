@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin\Products;
 
 use App\Enums\StockMovementType;
-use App\Livewire\Forms\Admin\Product\UpdateProductStockForm;
+use App\Livewire\Forms\Admin\Product\ProductStockForm;
 use App\Models\ProductStock;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -15,7 +15,7 @@ class ProductStockList extends Component
 {
     use WithPagination;
 
-    public UpdateProductStockForm $updateStockForm;
+    public ProductStockForm $productStockForm;
 
     public $query = '';
 
@@ -36,8 +36,9 @@ class ProductStockList extends Component
     {
         if (count($this->selectedItems) == 1) {
             $this->selectedProduct = ProductStock::with('product:id,name,quantity')
-                ->where('id', $this->selectedItems[0])->firstOrFail();
-            $this->updateStockForm->setProduct($this->selectedProduct->product);
+                ->where('id', $this->selectedItems[0])
+                ->firstOrFail();
+            $this->productStockForm->setProduct($this->selectedProduct->product);
         }
     }
 
@@ -57,9 +58,12 @@ class ProductStockList extends Component
 
     public function updateStock()
     {
-        $this->updateStockForm->setType($this->stockMovementType);
+        $this->productStockForm->setType($this->stockMovementType);
 
-        $this->updateStockForm->update();
+        $this->productStockForm->update();
+
+        $this->selectedItems = [];
+        $this->selectedProduct = null;
 
         $this->dispatch('close-modal', 'update-stock-modal');
 

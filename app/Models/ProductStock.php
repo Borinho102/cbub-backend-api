@@ -13,7 +13,7 @@ class ProductStock extends Model
 
     protected $fillable = [
         'product_id', 'type',
-        'prev_quantity', 'new_quantity',
+        'old_quantity', 'new_quantity',
         'comment', 'author_id', 'author_type'
     ];
 

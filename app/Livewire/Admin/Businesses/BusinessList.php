@@ -34,6 +34,7 @@ class BusinessList extends Component
                             ->orWhere('email', 'like', '%' . $this->query . '%');
                     });
                 })
+                ->orderBy('created_at', 'desc')
                 ->paginate(10)
         ]);
     }

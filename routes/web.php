@@ -122,7 +122,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'miscellaneous',
-    'middleware' => 'auth:users,admins',
+    'middleware' => 'auth:business,admins',
     'as' => 'misc.',
 ], function () {
     Route::get('search/users', [MiscellaneousController::class, 'searchUsers'])

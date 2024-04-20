@@ -36,77 +36,79 @@
                 <div class="w-full grid gap-5 grid-cols-1 md:grid-cols-2">
                     <div>
                         <x-input.label :value="__('Name (English)')" for="name_en" required/>
-                        <x-input.text wire:model.live="form.name_en" name="form.name_en" id="name_en" type="text"/>
+                        <x-input.text wire:model.blur="form.name_en" name="form.name_en" id="name_en" type="text"/>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Name (French)')" for="name_fr" required/>
-                        <x-input.text wire:model.live="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
+                        <x-input.text wire:model.blur="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Price')" for="price" required/>
-                        <x-input.text wire:model.live="form.price" name="form.price" id="price" type="text"/>
+                        <x-input.text wire:model.blur="form.price" name="form.price" id="price" type="text"/>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Sku')" for="sku"/>
-                        <x-input.text wire:model.live="form.sku" name="form.sku" id="sku" type="text"/>
+                        <x-input.text wire:model.blur="form.sku" name="form.sku" id="sku" type="text"/>
                     </div>
 
                     <div class="col-span-2">
                         <x-input.label :value="__('Quantity')" for="quantity" required/>
-                        <x-input.text wire:model.live="form.quantity" name="form.quantity" id="quantity" type="number"/>
+                        <x-input.text wire:model.blur="form.quantity" name="form.quantity" id="quantity" type="number"/>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Category')" for="category_id" required/>
-                        <x-input.select wire:model.live="form.category_id" name="form.category_id" id="category_id">
+                        <x-input.select wire:change="form.category_id" wire:model="form.category_id" name="form.category_id" id="category_id">
                             <option>{{ __('Select Category') }}</option>
                             @foreach ($categories as $category)
-                                <option wire:key="category-{{ $category->id }}" :value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option wire:key="category-{{ $category->id }}" :value="{{ $category->id }}" @if ($category->id == $form->category_id) selected @endif>{{ $category->name }}</option>
                             @endforeach
                         </x-input.select>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Business')" for="business_id" required/>
-                        <x-input.select wire:model.live="form.business_id" name="form.business_id" id="business_id">
+                        <x-input.select wire:change="form.business_id" wire:model="form.business_id" name="form.business_id" id="business_id">
                             <option>{{ __('Select Business') }}</option>
                             @foreach ($businesses as $business)
-                                <option :value="{{ $business->id }}" wire:key="business-{{ $business->id }}">{{ $business->name }} ({{ $business->country->name }})</option>
+                                <option :value="{{ $business->id }}" wire:key="business-{{ $business->id }}" @if ($business->id == $form->business_id) selected @endif>
+                                    {{ $business->name }} ({{ $business->country->name }})
+                                </option>
                             @endforeach
                         </x-input.select>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Short Description (English)')" for="short_description_en" required/>
-                        <x-input.textarea wire:model.live="form.short_description_en" name="form.short_description_en" id="short_description_en" rows="3" cols="12"></x-input.textarea>
+                        <x-input.textarea wire:model.blur="form.short_description_en" name="form.short_description_en" id="short_description_en" rows="3" cols="12"></x-input.textarea>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Short Description (French)')" for="short_description_fr" required/>
-                        <x-input.textarea wire:model.live="form.short_description_fr" name="form.short_description_fr" id="short_description_fr" rows="3" cols="12"></x-input.textarea>
+                        <x-input.textarea wire:model.blur="form.short_description_fr" name="form.short_description_fr" id="short_description_fr" rows="3" cols="12"></x-input.textarea>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Description (English)')" for="description_en"/>
-                        <x-input.textarea wire:model.live="form.description_en" name="form.description_en" id="description_en" rows="3" cols="12"></x-input.textarea>
+                        <x-input.textarea wire:model.blur="form.description_en" name="form.description_en" id="description_en" rows="3" cols="12"></x-input.textarea>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Description (French)')" for="description_fr"/>
-                        <x-input.textarea wire:model.live="form.description_fr" name="form.description_fr" id="description_fr" rows="3" cols="12"></x-input.textarea>
+                        <x-input.textarea wire:model.blur="form.description_fr" name="form.description_fr" id="description_fr" rows="3" cols="12"></x-input.textarea>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Preview Image')" for="logo" required="{{ !isset($this->form->product) }}"/>
-                        <x:input.file wire:model.live="form.preview_image" name="form.preview_image" id="preview_image"/>
+                        <x:input.file wire:model.blur="form.preview_image" name="form.preview_image" id="preview_image"/>
                     </div>
 
                     <div>
                         <x-input.label :value="__('Other Images')" for="other_images"/>
-                        <x:input.file wire:model.live="form.images" name="form.images" id="other_images"/>
+                        <x:input.file wire:model.blur="form.images" name="form.images" id="other_images"/>
                     </div>
                 </div>
                 <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">
@@ -116,10 +118,22 @@
 
                     @isset ($this->form->category)
                         <x-button.default type="submit">
+                            <div wire:loading>
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
                             {{ __('Update') }}
                         </x-button>
                     @else
                         <x-button.primary type="submit">
+                            <div wire:loading>
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
                             {{ __('Create') }}
                         </x-button.primary>
                     @endisset
