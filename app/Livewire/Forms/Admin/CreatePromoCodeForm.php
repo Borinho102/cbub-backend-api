@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms\Admin\PromoCode;
+namespace App\Livewire\Forms\Admin;
 
 use App\Models\Product;
 use App\Models\ProductCategory;

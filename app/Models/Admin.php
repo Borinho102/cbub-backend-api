@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Admin extends Authenticatable implements MustVerifyEmail, HasMedia
+class Admin extends Authenticatable implements MustVerifyEmail, HasMedia, LaratrustUser
 {
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use InteractsWithMedia;
+    use HasRolesAndPermissions;
 
     protected $table = 'admins';
 

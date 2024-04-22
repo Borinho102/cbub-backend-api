@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\PromoCodes;
 
-use App\Livewire\Forms\Admin\PromoCode\CreatePromoCodeForm;
+use App\Livewire\Forms\Admin\CreatePromoCodeForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;

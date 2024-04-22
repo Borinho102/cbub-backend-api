@@ -5,6 +5,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 
+use App\Livewire\Admin\Admins\AdminList;
+use App\Livewire\Admin\Admins\EditAdmin;
+use App\Livewire\Admin\Admins\CreateAdmin;
+
 use App\Livewire\Admin\Customers\CustomerDetails as AdminCustomerDetails;
 use App\Livewire\Admin\Customers\CustomerList as AdminCustomerList;
 use App\Livewire\Admin\Orders\OrderDetails as AdminOrderDetails;
@@ -108,6 +112,11 @@ Route::group([
     // CUSTOMERS ROUTES
     Route::get('customers', AdminCustomerList::class)->name('customers.index');
     Route::get('customers/{customer}', AdminCustomerDetails::class)->name('customers.show');
+
+    // ADMIN ROUTES
+    Route::get('admins', AdminList::class)->name('admins.index');
+    Route::get('admins/create', CreateAdmin::class)->name('admins.create');
+    Route::get('admins/{id}/edit', EditAdmin::class)->name('admins.edit');
 });
 
 Route::group([
