@@ -14,13 +14,13 @@
             @csrf
 
             <div>
-                <x-primary-button>
+                <x-button.primary framework="tailwind">
                     {{ __('Resend Verification Email') }}
-                </x-primary-button>
+                </x-button.primary>
             </div>
         </form>
 
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('admin.logout') }}">
             @csrf
 
             <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

@@ -4,7 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,16 +49,66 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('avatar');
-    }
+    public static $withoutAppends = false;
 
     /**
-     * Get the business partner of the user.
+     * The relations to eager load on every query.
+     *
+     * @var array
      */
-    public function business_partner() : HasOne
+    protected $with = [];
+
+    protected function getArrayableAppends()
     {
-        return $this->hasOne(BusinessPartnerUser::class, 'user_id');
+        if (self::$withoutAppends){
+            return [];
+        }
+
+        return parent::getArrayableAppends();
+    }
+
+    public function scopeWithoutAppends($query)
+    {
+        self::$withoutAppends = true;
+
+        return $query;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')
+            ->singleFile();;
+    }
+
+    public function getImageAttribute()
+    {
+        $avatar = $this->getFirstMediaUrl('avatar');
+        return !empty($avatar) ? $avatar : asset('images/default_avatar.png');
+    }
+
+    public function promo_codes()
+    {
+        return $this->belongsToMany(PromoCode::class);
+    }
+
+    public function locations(): HasMany
+    {
+        return $this->hasMany(UserLocation::class, 'user_id');
+    }
+
+    public function current_location(): HasOne
+    {
+        return $this->hasOne(UserLocation::class, 'user_id')
+            ->where('current', 1)->latest();
+    }
+
+    public function orders(): MorphMany
+    {
+        return $this->morphMany(Order::class, 'customer');
+    }
+
+    public function last_order(): MorphOne
+    {
+        return $this->morphOne(Order::class, 'customer')->latest();
     }
 }

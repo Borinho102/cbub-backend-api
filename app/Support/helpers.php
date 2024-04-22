@@ -1,6 +1,10 @@
 <?php
 
-use App\Models\BusinessPartner;
+use App\Models\Business;
+use App\Models\BusinessCategory;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
@@ -33,11 +37,11 @@ if (!function_exists('redirectWithoutInertia')) {
     }
 }
 
-if (!function_exists('cbubGuard')) {
+if (!function_exists('appGuard')) {
     /**
      * Returns the active waspito guard
      */
-    function cbubGuard()
+    function appGuard()
     {
         foreach (array_keys(config('auth.guards')) as $guard) {
             if (auth()->guard($guard)->check()) return $guard;
@@ -46,22 +50,22 @@ if (!function_exists('cbubGuard')) {
     }
 }
 
-if (!function_exists('generateBunsinessPartnerSlug')) {
+if (!function_exists('generateBusinessSlug')) {
     /**
      * @param string $countryCode
-     * @param string $partnerName
+     * @param string $name
      * @param string $except
      * @return string
      */
-    function generatePartnerSlug(string $countryCode, string $partnerName, string $except = null): string
+    function generateBusinessSlug(string $countryCode, string $name, string $except = null): string
     {
-        $slug = Str::lower($countryCode) . '-'. Str::slug($partnerName);
-        $exists = BusinessPartner::when($except, function ($q) use ($except) {
+        $slug = Str::slug($name) . '-' . Str::lower($countryCode);
+        $exists = Business::when($except, function ($q) use ($except) {
             $q->where('slug', '!=', $except);
         })->whereSlug($slug)->exists();
 
         while ($exists) {
-            $slug = Str::lower($countryCode) . '-'. Str::slug($partnerName) . '-' . Str::random(4);
+            $slug = Str::slug($name) . '-' . Str::random(4) . '-' . Str::lower($countryCode);
         }
 
         return $slug;
@@ -132,3 +136,107 @@ if (!function_exists('generateUniqueOtpCode'))
     }
 }
 
+if (!function_exists('generateProductCategoryCode')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductCategoryCode(string $name, $except = null): string
+    {
+        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = ProductCategory::when($except, function ($q) use ($except) {
+            $q->where('code', '!=', $except);
+        })->whereCode($code)->exists();
+
+        while ($exists) {
+            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $code;
+    }
+}
+
+if (!function_exists('generateBusinessCategoryCode')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateBusinessCategoryCode(string $name, $except = null): string
+    {
+        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = BusinessCategory::when($except, function ($q) use ($except) {
+            $q->where('code', '!=', $except);
+        })->whereCode($code)->exists();
+
+        while ($exists) {
+            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $code;
+    }
+}
+
+if (!function_exists('generateProductSlugEn')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductSlugEn(string $name, $except = null): string
+    {
+        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = Product::when($except, function ($q) use ($except) {
+            $q->where('slug->en', '!=', $except);
+        })->whereSlug($slug)->exists();
+
+        while ($exists) {
+            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $slug;
+    }
+}
+
+if (!function_exists('generateProductSlugFr')) {
+    /**
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateProductSlugFr(string $name, $except = null): string
+    {
+        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $exists = Product::when($except, function ($q) use ($except) {
+            $q->where('slug->fr', '!=', $except);
+        })->whereSlug($slug)->exists();
+
+        while ($exists) {
+            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+        }
+
+        return $slug;
+    }
+}
+
+if (!function_exists('generateOrderID')) {
+    /**
+     * @param ?string $prefix
+     * @param string $except
+     * @return string
+     */
+    function generateOrderID(string $prefix = null, $except = null): string
+    {
+        $orderID = fake()->unique()->randomNumber(6);
+        $exists = Order::when($except, function ($q) use ($except) {
+            $q->where('order_id', '!=', $except);
+        })->where('order_id', $orderID)->exists();
+
+        while ($exists) {
+            return generateOrderID($prefix, $except);
+        }
+
+        return $orderID;
+    }
+}

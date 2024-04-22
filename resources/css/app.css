@@ -1,0 +1,38 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* Additional styles */
+@import 'additional-styles/utility-patterns.css';
+@import 'additional-styles/flatpickr.css';
+
+@import 'tailwindcss/utilities';
+
+/* Table pagination: active page highlight */
+.mary-table-pagination span[aria-current="page"] > span {
+    @apply bg-primary text-base-100;
+}
+
+/* Table pagination: for dark mode*/
+.mary-table-pagination span[aria-disabled="true"] span {
+    @apply bg-inherit;
+}
+
+/* Table pagination: for dark mode */
+.mary-table-pagination button {
+    @apply bg-base-100;
+}
+
+.w-full + [x-ref="popover"] {
+    width: 100% !important;
+}
+
+[x-show="popover"][x-ref="popover"] > div:last-child {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.btn {
+    padding: 0.5rem 1rem !important;
+    height: auto !important;
+    min-height: auto !important;
+}

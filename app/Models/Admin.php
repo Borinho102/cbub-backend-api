@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Admin extends Authenticatable implements MustVerifyEmail, HasMedia
+class Admin extends Authenticatable implements MustVerifyEmail, HasMedia, LaratrustUser
 {
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use InteractsWithMedia;
+    use HasRolesAndPermissions;
 
     protected $table = 'admins';
 
@@ -69,5 +72,11 @@ class Admin extends Authenticatable implements MustVerifyEmail, HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar');
+    }
+
+    public function getProfilePictureAttribute()
+    {
+        $avatar = $this->getFirstMediaUrl('avatar');
+        return !is_null($avatar) && !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 }

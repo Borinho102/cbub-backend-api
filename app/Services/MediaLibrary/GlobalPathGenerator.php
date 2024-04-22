@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Services\MediaLibrary;
+
+use App\Models\Business;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\WaspitoPackage;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
+
+
+class GlobalPathGenerator implements PathGenerator
+{
+    /*
+    * Get the path for the given media, relative to the root storage path.
+    */
+    public function getPath(Media $media): string
+    {
+        return $this->getBasePath($media).'/';
+    }
+
+    /*
+     * Get the path for conversions of the given media, relative to the root storage path.
+     */
+    public function getPathForConversions(Media $media): string
+    {
+        return $this->getPath($media) . 'conversions/';
+    }
+
+    /*
+     * Get the path for responsive images of the given media, relative to the root storage path.
+     */
+    public function getPathForResponsiveImages(Media $media): string
+    {
+        return $this->getPath($media) . 'responsive/';
+    }
+
+    /*
+     * Get a unique base path for the given media.
+     */
+    protected function getBasePath(Media $media): string
+    {
+        $prefix = config('media-library.prefix', '');
+
+        if ($media->model_type == User::class) {
+            return $prefix . '/users/' . $media->model_id . '/' . $media->id;
+        } else if ($media->model_type == Product::class) {
+            return $prefix . '/businesses/' . $media->model_id . '/products/' . $media->model->id . '/' . $media->id;
+        } else if ($media->model_type == Business::class) {
+            return $prefix . '/businesses/' . $media->model_id . '/' . $media->id;
+        }
+
+        return $prefix . '/' .  $media->getKey();
+    }
+}

@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\User\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\User\ConfirmablePasswordController;
-use App\Http\Controllers\Auth\User\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\User\EmailVerificationPromptController;
-use App\Http\Controllers\Auth\User\NewPasswordController;
-use App\Http\Controllers\Auth\User\PasswordController;
-use App\Http\Controllers\Auth\User\PasswordResetLinkController;
-use App\Http\Controllers\Auth\User\VerifyEmailController;
+use App\Http\Controllers\Auth\Business\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\Business\ConfirmablePasswordController;
+use App\Http\Controllers\Auth\Business\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\Business\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\Business\NewPasswordController;
+use App\Http\Controllers\Auth\Business\PasswordController;
+use App\Http\Controllers\Auth\Business\PasswordResetLinkController;
+use App\Http\Controllers\Auth\Business\VerifyEmailController;
 
 use App\Http\Controllers\Auth\Admin\AuthenticatedSessionController as AdminAuthenticatedSessionController;
 use App\Http\Controllers\Auth\Admin\ConfirmablePasswordController as AdminConfirmablePasswordController;
@@ -24,12 +24,12 @@ Route::group([
 ], function () {
     Route::group([
         'as' => 'guest.',
-        'middleware' => 'guest:users,admins',
+        'middleware' => 'guest:business,admins',
     ], function () {
         // login & password reset routes for business user
         Route::group([
             'prefix' => 'business.portal.66/console',
-            'as' => 'user.',
+            'as' => 'business.',
         ], function () {
             Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -65,8 +65,8 @@ Route::group([
 
     Route::group([
         'prefix' => 'business.portal.66/console',
-        'as' => 'user.',
-        'middleware' => 'auth:users'
+        'as' => 'business.',
+        'middleware' => 'auth:business'
     ], function () {
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');

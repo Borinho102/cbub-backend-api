@@ -8,20 +8,20 @@
 
         <!-- Password -->
         <div>
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input.label for="password" :value="__('Password')" framework="tailwind"/>
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-input.text id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
-                            required autocomplete="current-password" />
+                            required autocomplete="current-password" framework="tailwind"/>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input.error :messages="$errors->get('password')" class="mt-2" framework="tailwind"/>
         </div>
 
         <div class="flex justify-end mt-4">
-            <x-primary-button>
+            <x-button.primary framework="tailwind">
                 {{ __('Confirm') }}
-            </x-primary-button>
+            </x-button.primary>
         </div>
     </form>
 </x-admin-guest-layout>

@@ -12,6 +12,6 @@ class BackendLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.backend.app');
+        return view('components.layouts.backend.app');
     }
 }

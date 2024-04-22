@@ -21,7 +21,7 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         if (!Admin::count()) {
-            $this->command->info('Truncating Cbub Admin\'s tables');
+            $this->command->info('Truncating Admin\'s tables');
             $this->truncateAdminUsersTable();
             //Artisan::call("passport:install --force");
             $currency = Currency::where('code', 'XAF')->first();
@@ -31,7 +31,7 @@ class AdminUserSeeder extends Seeder
             $users = [
                 [
                     'name' => 'Super Admin',
-                    'email' => 'superadmin@cbub.com',
+                    'email' => 'superadmin@gmail.com',
                     'username' => 'superadmin',
                     'address' => 'Douala',
                     'email_verified_at' => Carbon::now(),
@@ -59,7 +59,7 @@ class AdminUserSeeder extends Seeder
                     ->toMediaCollection('avatar');
             }
 
-            $this->seedCbubUsers($country, $city, $currency);
+            $this->seedUsers($country, $city, $currency);
         }
     }
 
@@ -75,9 +75,9 @@ class AdminUserSeeder extends Seeder
     }
 
     /**
-     * Seed cbub users
+     * Seed users
      */
-    private function seedCbubUsers(Country $country, City $city, Currency $currency) {
+    private function seedUsers(Country $country, City $city, Currency $currency) {
         $users = [
             [
                 'name' => 'Business User 1',

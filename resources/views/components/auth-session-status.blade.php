@@ -1,4 +1,4 @@
-@props(['status', 'css_framework' => 'boostrap'])
+@props(['status', 'framework' => 'boostrap'])
 
 @if ($status)
     <div {{ $attributes->merge(['class' => 'font-medium text-sm text-green-600']) }}>
