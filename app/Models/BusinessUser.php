@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class BusinessUser extends Authenticatable implements HasMedia
+class BusinessUser extends Authenticatable implements HasMedia, LaratrustUser
 {
-    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia, HasRolesAndPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +24,12 @@ class BusinessUser extends Authenticatable implements HasMedia
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'business_id'
+        'username',
+        'address',
+        'business_id',
+        'city_id',
+        'country_id',
+        'password'
     ];
 
     /**
@@ -43,7 +49,7 @@ class BusinessUser extends Authenticatable implements HasMedia
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password' => 'hashed'
     ];
 
     public function registerMediaCollections(): void
@@ -52,7 +58,7 @@ class BusinessUser extends Authenticatable implements HasMedia
             ->singleFile();;
     }
 
-    public function getImageAttribute()
+    public function getProfilePictureAttribute()
     {
         $avatar = $this->getFirstMediaUrl('avatar');
         return !empty($avatar) ? $avatar : asset('images/default_avatar.png');

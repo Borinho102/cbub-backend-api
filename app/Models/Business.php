@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laratrust\Contracts\LaratrustUser;
-use Laratrust\Traits\HasRolesAndPermissions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Business extends Model implements HasMedia, LaratrustUser
+class Business extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
-    use HasRolesAndPermissions;
 
     protected $fillable = [
         'name', 'phone', 'category_id',

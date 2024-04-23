@@ -38,6 +38,39 @@ return [
             'transactions' => 'r',
             'promo_codes' => 'c,r,u,d',
             'statistics' => 'r'
+        ],
+        'business_owner' => [
+            'users' => 'c,r,u,d',
+            'product_categories' => 'c,r,u,d',
+            'products' => 'c,r,u,d',
+            'product_discounts' => 'c,r,u,d',
+            'product_reviews' => 'r,u,d',
+            'product_stocks' => 'c,r,u,d',
+            'orders' => 'r',
+            'promo_codes' => 'c,r,u,d',
+            'statistics' => 'r'
+        ],
+        'business_admin' => [
+            'users' => 'c,r,u,d',
+            'product_categories' => 'c,r,u,d',
+            'products' => 'c,r,u,d',
+            'product_discounts' => 'c,r,u,d',
+            'product_reviews' => 'r,u,d',
+            'product_stocks' => 'c,r,u,d',
+            'orders' => 'r',
+            'promo_codes' => 'c,r,u,d',
+            'statistics' => 'r'
+        ],
+        'business_member' => [
+            'users' => 'c,r,u,d',
+            'product_categories' => 'c,r,u,d',
+            'products' => 'c,r,u,d',
+            'product_discounts' => 'c,r,u,d',
+            'product_reviews' => 'r,u,d',
+            'product_stocks' => 'c,r,u,d',
+            'orders' => 'r',
+            'promo_codes' => 'c,r,u,d',
+            'statistics' => 'r'
         ]
     ],
 

@@ -3,11 +3,14 @@
 namespace App\Livewire\Forms\Admin\Business;
 
 use App\Models\Business;
+use App\Models\BusinessUser;
 use App\Models\Country;
 use App\Services\Utils\Initials;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class CreateBusinessForm extends Form
 {
@@ -56,6 +59,14 @@ class CreateBusinessForm extends Form
     #[Validate('nullable|url')]
     public $youtube;
 
+    public $owner_name;
+
+    public $owner_email;
+
+    public $owner_phone;
+
+    public $owner_address;
+
     public $logo;
 
     public $banners = [];
@@ -99,33 +110,60 @@ class CreateBusinessForm extends Form
             'email' => 'required|email|unique:businesses,email',
             'banners' => 'nullable|array',
             'banners.*' => 'image|max:5120',
-            'logo' => 'required|image|max:5120' // 5MB
+            'logo' => 'required|image|max:5120', // 5MB
+            'owner_name' => 'required',
+            'owner_email' => 'required|unique:business_users,email',
+            'owner_phone' => 'required|unique:business_users,phone',
+            'owner_address' => 'nullable|string',
         ]));
 
-        $business = Business::create([
-            ...$this->except('business', 'logo', 'banners'),
-            'slug' => generateBusinessSlug(
-                Country::select('code')->find($this->country_id)->code,
-                $this->name
-            ),
-            'initials' => Initials::generate($this->name)
-        ]);
+        DB::beginTransaction();
 
-        $business
-            ->addMedia($this->logo->getRealPath())
-            ->usingName($this->logo->getClientOriginalName())
-            ->toMediaCollection('logo');
+        try {
+            $business = Business::create([
+                ...$this->except('business', 'logo', 'banners', 'owner_name', 'owner_email', 'owner_phone', 'owner_address'),
+                'slug' => generateBusinessSlug(
+                    Country::select('code')->find($this->country_id)->code,
+                    $this->name
+                ),
+                'initials' => Initials::generate($this->name)
+            ]);
 
-        foreach ($this->banners as $banner) {
             $business
-                ->addMedia($banner->getRealPath())
-                ->usingName($banner->getClientOriginalName())
-                ->toMediaCollection('banners');
+                ->addMedia($this->logo->getRealPath())
+                ->usingName($this->logo->getClientOriginalName())
+                ->toMediaCollection('logo');
+
+            foreach ($this->banners as $banner) {
+                $business
+                    ->addMedia($banner->getRealPath())
+                    ->usingName($banner->getClientOriginalName())
+                    ->toMediaCollection('banners');
+            }
+
+            $owner = BusinessUser::create([
+                'name' => $this->owner_name,
+                'email' => $this->owner_email,
+                'phone' => $this->owner_phone,
+                'address' => $this->owner_address,
+                'city_id' => $this->city_id,
+                'country_id' => $this->country_id,
+                'password' => bcrypt(Str::random(12)),
+                'username' => $this->owner_email,
+                'business_id' => $business->id
+            ]);
+
+            $owner->syncRoles(['business_owner']);
+
+            DB::commit();
+
+            notify()->success(__('Business successfully created!'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
         }
 
         $this->reset();
-
-        notify()->success(__('Business successfully created!'));
     }
 
     public function update()

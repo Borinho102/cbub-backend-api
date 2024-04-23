@@ -102,7 +102,7 @@ return [
     */
     'user_models' => [
         'admins' => \App\Models\Admin::class,
-        'businesses' => \App\Models\Business::class,
+        'businesse_users' => \App\Models\BusinessUser::class,
         'users' => \App\Models\User::class
     ],
 

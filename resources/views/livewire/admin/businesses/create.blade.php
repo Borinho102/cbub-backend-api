@@ -41,7 +41,7 @@
 
                     <div>
                         <x-input.label :value="__('Category')" for="category_id" required/>
-                        <x-input.select wire:change="form.category_id" name="form.category_id" id="category">
+                        <x-input.select wire:model="form.category_id" wire:change="form.category_id" name="form.category_id" id="category">
                             <option value="">{{ __('Select Business Category') }}</option>
                             @foreach ($categories as $category)
                                 <option :value="{{ $category->id }}" wire:key="category-{{ $category->id }}" @if ($category->id == $form->category_id) selected @endif>{{ $category->name }}</option>
@@ -66,7 +66,7 @@
 
                     <div>
                         <x-input.label :value="__('Country')" for="country" required/>
-                        <x-input.select wire:change="form.country_id" name="form.country_id" id="country">
+                        <x-input.select wire:model.blur="form.country_id" wire:change="form.country_id" name="form.country_id" id="country">
                             <option value="">{{ __('Select Business Country') }}</option>
                             @foreach ($countries as $country)
                                 <option :value="{{ $country->id }}" @if ($country->id == $form->country_id) selected @endif wire:key="country-{{ $country->id }}">{{ $country->name }}</option>
@@ -76,7 +76,7 @@
 
                     <div>
                         <x-input.label :value="__('City')" for="city" required/>
-                        <x-input.select wire:change="form.city_id" name="form.city_id" id="city">
+                        <x-input.select wire:model="form.city_id" wire:change="form.city_id" name="form.city_id" id="city">
                             <option value="">{{ __('Select Business City') }}</option>
                             @foreach ($cities as $city)
                                 <option :value="{{ $city->id }}" @if ($city->id == $form->city_id) selected @endif wire:key="city-{{ $city->id }}">{{ $city->name }}</option>
@@ -123,6 +123,30 @@
                         <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
                         <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                     </div>
+
+                    @if(!isset($this->form->business))
+                        <div class="col-span-3 border-b my-2">
+                        </div>
+                        <div>
+                            <x-input.label :value="__('Owner Name')" for="owner_name" required/>
+                            <x-input.text wire:model.blur="form.owner_name" id="owner_name" name="form.owner_name" type="text"/>
+                        </div>
+
+                        <div>
+                            <x-input.label :value="__('Owner Email')" for="owner_email" required/>
+                            <x-input.text wire:model.blur="form.owner_email" id="owner_email" name="form.owner_email" type="text"/>
+                        </div>
+
+                        <div>
+                            <x-input.label :value="__('Owner Phone')" for="owner_phone" required/>
+                            <x-input.text wire:model.blur="form.owner_phone" id="owner_email" name="form.owner_email" type="text"/>
+                        </div>
+
+                        <div>
+                            <x-input.label :value="__('Owner Address')" for="owner_address"/>
+                            <x-input.text wire:model.blur="form.owner_address" id="owner_address" name="form.owner_address" type="text"/>
+                        </div>
+                    @endif
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-3">
                         <x-button.danger type="button">
