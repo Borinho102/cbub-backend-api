@@ -54,31 +54,36 @@
                         <x-input.text wire:model.blur="form.sku" name="form.sku" id="sku" type="text"/>
                     </div>
 
-                    <div class="col-span-2">
-                        <x-input.label :value="__('Quantity')" for="quantity" required/>
-                        <x-input.text wire:model.blur="form.quantity" name="form.quantity" id="quantity" type="number"/>
+                    @if (!isset($form->product))
+                        <div class="col-span-2">
+                            <x-input.label :value="__('Quantity')" for="quantity" required/>
+                            <x-input.text wire:model.blur="form.quantity" name="form.quantity" id="quantity" type="number"/>
+                        </div>
+                    @endif
+
+                    <div class="col-span-1">
+                        <x-select
+                            class="w-full"
+                            :label="__('Category')"
+                            placeholder="Category"
+                            wire:model="form.category_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.product_categories')"
+                        />
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Category')" for="category_id" required/>
-                        <x-input.select wire:change="form.category_id" wire:model="form.category_id" name="form.category_id" id="category_id">
-                            <option>{{ __('Select Category') }}</option>
-                            @foreach ($categories as $category)
-                                <option wire:key="category-{{ $category->id }}" :value="{{ $category->id }}" @if ($category->id == $form->category_id) selected @endif>{{ $category->name }}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Business')" for="business_id" required/>
-                        <x-input.select wire:change="form.business_id" wire:model="form.business_id" name="form.business_id" id="business_id">
-                            <option>{{ __('Select Business') }}</option>
-                            @foreach ($businesses as $business)
-                                <option :value="{{ $business->id }}" wire:key="business-{{ $business->id }}" @if ($business->id == $form->business_id) selected @endif>
-                                    {{ $business->name }} ({{ $business->country->name }})
-                                </option>
-                            @endforeach
-                        </x-input.select>
+                    <div class="col-span-1">
+                        <x-select
+                            class="w-full"
+                            :label="__('Business')"
+                            placeholder="Business"
+                            wire:model="form.business_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.businesses')"
+                            required
+                        />
                     </div>
 
                     <div>
@@ -101,9 +106,23 @@
                         <x-input.textarea wire:model.blur="form.description_fr" name="form.description_fr" id="description_fr" rows="3" cols="12"></x-input.textarea>
                     </div>
 
+                    <div class="col-span-2">
+                        <x-select
+                            class="w-full"
+                            :label="__('Select Tag(s)')"
+                            placeholder="Select Tag(s)"
+                            multiselect
+                            wire:model="form.tags"
+                        >
+                            @foreach ($tagOptions as $id => $tag)
+                                <x-select.option wire:key="tag-{{ $id }}" label="{{ $tag }}" value="{{ $id }}" />
+                            @endforeach
+                        </x-select>
+                    </div>
+
                     <div>
-                        <x-input.label :value="__('Preview Image')" for="logo" required="{{ !isset($this->form->product) }}"/>
-                        <x:input.file wire:model.blur="form.preview_image" name="form.preview_image" id="preview_image"/>
+                        <x-input.label :value="__('Thumbnail Image')" for="logo" required="{{ !isset($this->form->product) }}"/>
+                        <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
                     </div>
 
                     <div>

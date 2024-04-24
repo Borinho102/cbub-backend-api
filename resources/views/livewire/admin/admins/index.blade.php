@@ -86,17 +86,7 @@
                     <!-- Table body -->
                     <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
                         <!-- Row -->
-                        @php
-                            $colors = [
-                                'bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400',
-                                'bg-sky-100 dark:bg-sky-400/30 text-sky-600 dark:text-sky-400',
-                                'bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400'
-                            ];
-                        @endphp
                         @foreach ($admins as $admin)
-                            @php
-                                shuffle($colors);
-                            @endphp
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="flex items-center">
@@ -129,7 +119,7 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-left">
                                         @foreach ($admin->roles as $role)
-                                            <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ $colors[random_int(0, 2)] }}">{{ $role->display_name }}</div>
+                                            <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">{{ $role->display_name }}</div>
                                         @endforeach
                                     </div>
                                 </td>

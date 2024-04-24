@@ -12,7 +12,7 @@ class ProductReview extends Model
 
     protected $fillable = [
         'title', 'body', 'rating',
-        'product_id', 'user_id'
+        'product_id', 'user_id', 'published'
     ];
 
     public function user() : BelongsTo

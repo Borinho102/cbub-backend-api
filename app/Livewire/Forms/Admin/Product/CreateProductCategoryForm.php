@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Forms\Admin\Product\Category;
+namespace App\Livewire\Forms\Admin\Product;
 
 use App\Models\ProductCategory;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
-class CreateCategoryForm extends Form
+class CreateProductCategoryForm extends Form
 {
     use WithFileUploads;
 
@@ -32,7 +32,16 @@ class CreateCategoryForm extends Form
     public $parent_id;
 
     #[Validate('nullable|image|max:2048')] // 2MB Max
-    public $logo;
+    public $icon;
+
+    #[Validate('nullable|image|max:2048')] // 2MB Max
+    public $banner_image;
+
+    #[Validate('nullable|image|max:2048')] // 2MB Max
+    public $cover_image;
+
+    #[Validate('nullable')]
+    public $tags;
 
     public function setCategory(ProductCategory $category)
     {
@@ -48,6 +57,8 @@ class CreateCategoryForm extends Form
 
         $this->parent_id = $category->parent_id;
 
+        $this->tags = $category->tags;
+
         $this->code = $category->code;
     }
 
@@ -56,7 +67,7 @@ class CreateCategoryForm extends Form
         $this->validate();
 
         $category = ProductCategory::create([
-            ...$this->only('code', 'parent_id'),
+            ...$this->only('code', 'parent_id', 'tags'),
             'name' => [
                 'en' => $this->name_en,
                 'fr' => $this->name_fr
@@ -67,8 +78,25 @@ class CreateCategoryForm extends Form
             ]
         ]);
 
-        if ($this->logo) {
-            $category->addMedia($this->logo);
+        if ($this->icon) {
+            $category
+                ->addMedia($this->icon->getRealPath())
+                ->usingName($this->icon->getClientOriginalName())
+                ->toMediaCollection('icon_image');
+        }
+
+        if ($this->cover_image) {
+            $category
+                ->addMedia($this->cover_image->getRealPath())
+                ->usingName($this->cover_image->getClientOriginalName())
+                ->toMediaCollection('cover_image');
+        }
+
+        if ($this->banner_image) {
+            $category
+                ->addMedia($this->banner_image->getRealPath())
+                ->usingName($this->banner_image->getClientOriginalName())
+                ->toMediaCollection('banner_image');
         }
 
         $this->reset();
@@ -90,8 +118,25 @@ class CreateCategoryForm extends Form
             ]
         ]);
 
-        if ($this->logo) {
-            $this->category->addMedia($this->logo);
+        if ($this->icon) {
+            $this->category
+                ->addMedia($this->icon->getRealPath())
+                ->usingName($this->icon->getClientOriginalName())
+                ->toMediaCollection('icon_image');
+        }
+
+        if ($this->cover_image) {
+            $this->category
+                ->addMedia($this->cover_image->getRealPath())
+                ->usingName($this->cover_image->getClientOriginalName())
+                ->toMediaCollection('cover_image');
+        }
+
+        if ($this->banner_image) {
+            $this->category
+                ->addMedia($this->banner_image->getRealPath())
+                ->usingName($this->banner_image->getClientOriginalName())
+                ->toMediaCollection('banner_image');
         }
 
         notify()->success(__('Product category successfully updated!'));

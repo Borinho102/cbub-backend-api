@@ -36,7 +36,8 @@ class AdminUserSeeder extends Seeder
                     'address' => 'Douala',
                     'email_verified_at' => Carbon::now(),
                     'two_factor_auth' => true,
-                    'password' => 'password'
+                    'password' => 'password',
+                    'roles' => ['admin', 'owner']
                 ]
             ];
 
@@ -57,6 +58,8 @@ class AdminUserSeeder extends Seeder
                     ->addMedia(public_path('images/default_avatar.png'))
                     ->preservingOriginal()
                     ->toMediaCollection('avatar');
+
+                $adminUser->syncRoles($user['roles']);
             }
 
             $this->seedUsers($country, $city, $currency);
@@ -80,18 +83,18 @@ class AdminUserSeeder extends Seeder
     private function seedUsers(Country $country, City $city, Currency $currency) {
         $users = [
             [
-                'name' => 'Business User 1',
-                'email' => 'business.user.1@gmail.com',
-                'password' => bcrypt('business-user-1'),
+                'name' => 'Customer 1',
+                'email' => 'customer.1@gmail.com',
+                'password' => bcrypt('password'),
                 'permissions' => [],
-                'roles' => [],
+                'roles' => ['customer'],
                 'email_verified_at' => Carbon::now(),
                 'phone_verified_at' => Carbon::now()
             ]
         ];
 
         foreach ($users as $user) {
-            $businessUser = User::create([
+            $user_ = User::create([
                 'name' => $user['name'],
                 'email' => $user['email'],
                 'currency_id' => $currency->id,
@@ -101,13 +104,13 @@ class AdminUserSeeder extends Seeder
                 'email_verified_at' => $user['email_verified_at']
             ]);
 
-            $businessUser
+            $user_
                 ->addMedia(public_path('images/default_avatar.png'))
                 ->preservingOriginal()
                 ->toMediaCollection('avatar');
 
-            //$businessUser->syncRoles($user['roles']);
-            //$businessUser->syncPermissions($user['permissions']);
+            $user_->syncRoles($user['roles']);
+            $user_->syncPermissions($user['permissions']);
         }
     }
 }

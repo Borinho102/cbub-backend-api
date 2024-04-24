@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('initials')->unique();
+            $table->string('initials');
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('address')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->nullable()->unique();
             $table->string('phone_alt')->nullable();
             $table->string('email')->unique();
             $table->longText('about')->nullable();

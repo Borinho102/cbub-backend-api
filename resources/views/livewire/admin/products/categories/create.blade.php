@@ -42,22 +42,22 @@
                         <x-input.label :value="__('Name (French)')" for="name_fr" required/>
                         <x-input.text wire:model.blur="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
                     </div>
-                    <div class="{{ $categories->isNotEmpty() ? 'col-span-1' : 'col-span-2' }}">
+                    <div class="col-span-2">
                         <x-input.label :value="__('Code')" for="code" required/>
                         <x-input.text wire:model.blur="form.code" name="form.code" id="code" readonly type="text"/>
                     </div>
 
-                    @if ($categories->isNotEmpty())
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Top Category')" for="parent_id"/>
-                            <x-input.select wire:model="form.parent_id" wire:change="form.parent_id" name="form.parent_id" id="parent_id">
-                                <option>{{ __('Select Top Category') }}</option>
-                                @foreach ($categories as $category)
-                                    <option wire:key="category-{{ $category->id }}" :value="{{ $category->id }}" @if ($category->id == $form->parent_id) selected @endif>{{ $category->name }}</option>
-                                @endforeach
-                            </x-input.select>
-                        </div>
-                    @endif
+                    <div class="col-span-2">
+                        <x-select
+                            class="w-full"
+                            :label="__('Top Category')"
+                            placeholder="Select Top Category"
+                            wire:model="form.parent_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.product_categories')"
+                        />
+                    </div>
 
                     <div class="col-span-1">
                         <x-input.label :value="__('Description (English)')" for="description_en"/>
@@ -70,8 +70,32 @@
                     </div>
 
                     <div class="col-span-2">
-                        <x-input.label :value="__('Logo')" for="logo"/>
-                        <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                        <x-select
+                            class="w-full"
+                            :label="__('Select Tag(s)')"
+                            placeholder="Select Tag(s)"
+                            multiselect
+                            wire:model="form.tags"
+                        >
+                            @foreach ($tagOptions as $id => $tag)
+                                <x-select.option wire:key="tag-{{ $id }}" label="{{ $tag }}" value="{{ $id }}" />
+                            @endforeach
+                        </x-select>
+                    </div>
+
+                    <div>
+                        <x-input.label :value="__('Icon')" for="icon"/>
+                        <x:input.file wire:model.blur="form.icon" name="form.icon" id="icon"/>
+                    </div>
+
+                    <div>
+                        <x-input.label :value="__('Cover Image')" for="icon"/>
+                        <x:input.file wire:model.blur="form.cover_image" name="form.cover_image" id="cover_image"/>
+                    </div>
+
+                    <div>
+                        <x-input.label :value="__('Banner Image')" for="banner_image"/>
+                        <x:input.file wire:model.blur="form.banner_image" name="form.banner_image" id="banner_image"/>
                     </div>
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">

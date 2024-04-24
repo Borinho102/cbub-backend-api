@@ -92,7 +92,7 @@ class CreatePromoCodeForm extends Form
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
-                    'preview_image' => $product->preview_image
+                    'thumbnail' => $product->thumbnail
                 ];
             })->pluck('id')->all() : [];
 

@@ -149,7 +149,7 @@ class CreateBusinessForm extends Form
                 'city_id' => $this->city_id,
                 'country_id' => $this->country_id,
                 'password' => bcrypt(Str::random(12)),
-                'username' => $this->owner_email,
+                'username' => generateUsername(new BusinessUser, explode('@', $this->owner_email)[0]),
                 'business_id' => $business->id
             ]);
 

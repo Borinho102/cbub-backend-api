@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Enums\ProductTagType;
 use App\Livewire\Forms\Admin\Product\CreateProductForm;
-use App\Models\Business;
-use App\Models\ProductCategory;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -16,17 +15,10 @@ class CreateProduct extends Component
 
     public CreateProductForm $form;
 
-    public $businesses;
-
-    public $categories;
+    public $tagOptions;
 
     public function mount() {
-        $this->businesses = Business::select('id', 'name', 'country_id')
-            ->with('country')
-            ->get();
-
-        $this->categories = ProductCategory::select('id', 'name')
-            ->where('is_active', 1)->get();
+        $this->tagOptions = ProductTagType::asSelectArray();
     }
 
     public function updatedFormShortDescriptionEn()

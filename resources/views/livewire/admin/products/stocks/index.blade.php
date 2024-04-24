@@ -87,7 +87,7 @@
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->product->preview_image }}" alt="{{ $product_stock->product->name }}" />
+                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->product->thumbnail }}" alt="{{ $product_stock->product->name }}" />
                                             </div>
                                             <div class="font-medium text-slate-800 dark:text-slate-100">{{ $product_stock->product->name }}</div>
                                         </div>

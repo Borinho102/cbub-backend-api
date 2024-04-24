@@ -112,7 +112,7 @@ class MiscellaneousController extends Controller
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
-                    'image' => $product->preview_image
+                    'thumbnail' => $product->thumbnail
                 ];
             });
 

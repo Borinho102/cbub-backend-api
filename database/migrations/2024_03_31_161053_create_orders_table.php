@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('order_id')->unique();
             $table->nullableMorphs('customer');
-            $table->decimal('amount');
+            $table->decimal('amount', 10, 2);
             $table->string('currency');
             $table->enum('status', ['pending', 'refunded', 'approved']);
             $table->text('description')->nullable();

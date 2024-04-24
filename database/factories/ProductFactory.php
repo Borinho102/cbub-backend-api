@@ -67,7 +67,7 @@ class ProductFactory extends Factory
             $product
                 ->addMedia(public_path(sprintf("images/applications-image-%s.jpg", random_int(10, 31))))
                 ->preservingOriginal()
-                ->toMediaCollection('preview');
+                ->toMediaCollection('thumbnail');
         });
     }
 }

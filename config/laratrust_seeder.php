@@ -71,6 +71,12 @@ return [
             'orders' => 'r',
             'promo_codes' => 'c,r,u,d',
             'statistics' => 'r'
+        ],
+        'customer' => [
+
+        ],
+        'deliver' => [
+
         ]
     ],
 

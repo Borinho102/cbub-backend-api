@@ -20,12 +20,22 @@ class ProductCategory extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'code', 'hint', 'description',
-        'is_active', 'parent_id'
+        'is_active', 'parent_id', 'tags'
+    ];
+
+    protected $casts = [
+        'tags' => 'array'
     ];
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('logo')
+        $this->addMediaCollection('icon_image')
+            ->singleFile();
+
+        $this->addMediaCollection('banner_image')
+            ->singleFile();
+
+        $this->addMediaCollection('cover_image')
             ->singleFile();
     }
 
@@ -48,10 +58,22 @@ class ProductCategory extends Model implements HasMedia
         );
     }
 
-    public function getLogoAttribute()
+    public function getIconAttribute()
     {
-        $logo = $this->getFirstMediaUrl('logo');
-        return !empty($logo) ? $logo : asset('images/category_placeholder.jpg');
+        $icon = $this->getFirstMediaUrl('icon');
+        return !empty($icon) ? $icon : null;
+    }
+
+    public function getBannerAttribute()
+    {
+        $banner = $this->getFirstMediaUrl('banner');
+        return !empty($banner) ? $banner : null;
+    }
+
+    public function getCoverImageAttribute()
+    {
+        $cover_image = $this->getFirstMediaUrl('cover_image');
+        return !empty($cover_image) ? $cover_image : null;
     }
 
     public function scopeSearch($q)

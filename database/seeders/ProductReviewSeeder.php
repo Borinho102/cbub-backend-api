@@ -22,6 +22,7 @@ class ProductReviewSeeder extends Seeder
                         'product_id' => $product->id,
                         'user_id' => $user->id
                     ], [
+                        'published' => random_int(0, 1),
                         'rating' => random_int(3, 5),
                         'title' => fake()->words(3, true),
                         'body' => fake()->sentence(1, true)

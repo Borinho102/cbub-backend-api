@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Support\Str;
 
 class Product extends Model implements HasMedia
 {
@@ -24,21 +23,28 @@ class Product extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'description', 'short_description', 'slug',
-        'sku', 'quantity', 'price', 'is_active', 'sku',
-        'is_available', 'category_id', 'business_id'
+        'sku', 'quantity', 'price', 'is_active', 'sku', 'weight',
+        'is_available', 'category_id', 'business_id', 'tags',
+        'video_link', 'video_provider', 'data', 'refundable',
+        'free_shipping', 'min_purchase_quantity', 'barcode'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+        'data' => 'array'
     ];
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images');
 
-        $this->addMediaCollection('preview')
+        $this->addMediaCollection('thumbnail')
             ->singleFile();
     }
 
-    public function getPreviewImageAttribute()
+    public function getThumbnailAttribute()
     {
-        return $this->getFirstMediaUrl('preview');
+        return $this->getFirstMediaUrl('thumbnail');
     }
 
     public function business() : BelongsTo

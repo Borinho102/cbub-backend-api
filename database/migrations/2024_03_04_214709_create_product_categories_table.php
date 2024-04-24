@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->json('hint')->nullable();
             $table->json('description')->nullable();
+            $table->json('tags')->nullable();
             $table->boolean('is_active')->default(1);
             $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->json('data')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\ModelAccessAction;
+use App\Enums\ModelLogType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('model_access_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->morphs('model');
             $table->morphs('user');
-            $table->enum('action', ['view', 'search', 'ads']);
+            $table->morphs('model');
+            $table->enum('action', ModelAccessAction::getValues());
             $table->json('data')->nullable();
             $table->timestamps();
         });

@@ -5,6 +5,8 @@ use App\Models\BusinessCategory;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
@@ -238,5 +240,64 @@ if (!function_exists('generateOrderID')) {
         }
 
         return $orderID;
+    }
+}
+
+if (!function_exists('randomBadgeColor')) {
+    /**
+     * @return string
+     */
+    function randomBadgeColor(): string
+    {
+        $colors = [
+            'bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400',
+            'bg-sky-100 dark:bg-sky-400/30 text-sky-600 dark:text-sky-400',
+            'bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-400'
+        ];
+
+        shuffle($colors);
+
+        return $colors[random_int(0, count($colors) - 1)];
+    }
+}
+
+if (!function_exists('generateUsername')) {
+    /**
+     * @param Illuminate\Foundation\Auth\User $model
+     * @param string $username
+     * @param string $except
+     * @return string
+     */
+    function generateUsername(Authenticatable $model, $username, $except = null): string
+    {
+        $exists = $model::when($except, function ($q) use ($except) {
+            $q->where('username', '!=', $except);
+        })->where('username', $username)->exists();
+
+        while ($exists) {
+            return generateUsername($model, $username . random_int(10, 99), $except);
+        }
+
+        return $username;
+    }
+}
+
+if (!function_exists('generateSlug')) {
+    /**
+     * @param Illuminate\Database\Eloquent\Model $model
+     * @param string $name
+     * @return string
+     */
+    function generateSlug(Model $model, $name): string
+    {
+        $slug = Str::slug($name);
+
+        $exists = $model::where('slug', $slug)->exists();
+
+        while ($exists) {
+            return generateSlug($model, $name . random_int(1000, 9999));
+        }
+
+        return $slug;
     }
 }

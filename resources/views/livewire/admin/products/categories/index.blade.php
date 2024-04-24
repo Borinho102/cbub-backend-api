@@ -48,10 +48,22 @@
                                     <div class="font-semibold text-start">{{ __('Name') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-semibold text-start">{{ __('Icon') }}</div>
+                                </th>
+                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-semibold text-start">{{ __('Banner') }}</div>
+                                </th>
+                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-semibold text-start">{{ __('Cover') }}</div>
+                                </th>
+                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Status') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Products') }}</div>
+                                </th>
+                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-semibold text-center">{{ __('Tags') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Created At') }}</div>
@@ -67,14 +79,34 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="flex items-center">
+                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
+                                    </td>
+                                    <td>
+                                        @if ($category->icon)
                                             <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->logo }}" width="36" height="36" alt="{{ $category->name }}" />
+                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->icon }}" width="36" height="36" alt="{{ $category->name }}" />
                                             </div>
-                                            <div>
-                                                <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($category->banner)
+                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->banner }}" width="36" height="36" alt="{{ $category->banner }}" />
                                             </div>
-                                        </div>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($category->cover)
+                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->cover }}" width="36" height="36" alt="{{ $category->cover }}" />
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">
@@ -83,6 +115,17 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->products_count }}</div>
+                                    </td>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        @if ($category->tags)
+                                            <div class="text-left">
+                                                @foreach ($category->tags as $tag)
+                                                    <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">{{ \App\Enums\ProductTagType::getDescription($tag) }}</div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->created_at->format('d/m/Y') }}</div>

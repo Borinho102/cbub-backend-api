@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->string('title')->nullable();
             $table->text('body')->nullable();
+            $table->boolean('published')->default(false);
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
