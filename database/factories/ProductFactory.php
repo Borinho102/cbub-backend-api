@@ -2,13 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Enums\ModelAccessAction;
 use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Business;
+use App\Models\ModelAccessLog;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductStock;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -68,6 +72,35 @@ class ProductFactory extends Factory
                 ->addMedia(public_path(sprintf("images/applications-image-%s.jpg", random_int(10, 31))))
                 ->preservingOriginal()
                 ->toMediaCollection('thumbnail');
+
+            ModelAccessLog::create([
+                'model_id' => $product->id,
+                'model_type' => Product::class,
+                'user_id' => User::inRandomOrder()->first()->id,
+                'user_type' => User::class,
+                'action' => ModelAccessAction::Search,
+                'data' => [
+                    'query' => fake()->word()
+                ]
+            ]);
+
+            ModelAccessLog::create([
+                'model_id' => $product->id,
+                'model_type' => Product::class,
+                'user_id' => User::inRandomOrder()->first()->id,
+                'user_type' => User::class,
+                'action' => ModelAccessAction::Click,
+                'data' => null
+            ]);
+
+            ModelAccessLog::create([
+                'model_id' => $product->id,
+                'model_type' => Product::class,
+                'user_id' => User::inRandomOrder()->first()->id,
+                'user_type' => User::class,
+                'action' => ModelAccessAction::Wishlist,
+                'data' => null
+            ]);
         });
     }
 }
