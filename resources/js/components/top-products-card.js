@@ -1,0 +1,39 @@
+
+// Import utilities
+import { formatValue, formatThousands } from '../utils';
+
+const topProductsCard = () => {
+  const ctx = document.getElementById('product-statistics');
+  if (!ctx) return;
+
+  const darkMode = localStorage.getItem('dark-mode') === 'true';
+
+  fetch('/secure.portal.99/console/statistics/2')
+    .then(a => {
+      return a.json();
+    })
+    .then(response => {
+        let html = ''
+        response.data.forEach(data => {
+            html += `
+                <li class="relative px-2 py-1">
+                    <div class="absolute inset-0" aria-hidden="true"></div>
+                    <div class="relative flex justify-between space-x-2">
+                        <div class="flex flex-row flex-nowrap items-center">
+                            <img class="h-6 w-6 rounded-full mr-2" src="${data.product.thumbnail}" />
+                            <div>
+                                <div class="line-clamp-1 text-sm text-gray-600 font-semibold">${data.product.name}</div>
+                                <div class="text-xs text-gray-600 font-medium">${formatThousands(data.total_sales)} Sales</div>
+                            </div>
+                        </div>
+                        <div class="font-medium text-sm">${formatValue(data.total_amount)}</div>
+                    </div>
+                </li>
+            `
+        });
+
+        ctx.innerHTML = html
+    });
+};
+
+export default topProductsCard;

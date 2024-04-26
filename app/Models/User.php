@@ -88,6 +88,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function promo_codes()
     {
         return $this->belongsToMany(PromoCode::class);

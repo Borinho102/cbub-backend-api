@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DataFeedController;
+use App\Http\Controllers\Admin\StatisticController as AdminStatisticController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -117,6 +118,10 @@ Route::group([
     Route::get('admins', AdminList::class)->name('admins.index');
     Route::get('admins/create', CreateAdmin::class)->name('admins.create');
     Route::get('admins/{id}/edit', EditAdmin::class)->name('admins.edit');
+
+    Route::get('statistics/{type}', AdminStatisticController::class)
+        ->middleware(['json.response'])
+        ->name('statistics');
 });
 
 Route::group([

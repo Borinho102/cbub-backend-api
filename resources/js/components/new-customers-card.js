@@ -11,8 +11,8 @@ Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, T
 
 // A chart built with Chart.js 3
 // https://www.chartjs.org/
-const dashboardCard02 = () => {
-  const ctx = document.getElementById('dashboard-card-02');
+const newCustomersCard = () => {
+  const ctx = document.getElementById('dashboard-card-03');
   if (!ctx) return;
 
   const darkMode = localStorage.getItem('dark-mode') === 'true';
@@ -37,7 +37,7 @@ const dashboardCard02 = () => {
     dark: '#475569'
   };
 
-  fetch('/secure.portal.99/console/json-data-feed/2')
+  fetch('/secure.portal.99/console/json-data-feed/3')
     .then(a => {
       return a.json();
     })
@@ -144,4 +144,4 @@ const dashboardCard02 = () => {
     });
 };
 
-export default dashboardCard02;
+export default newCustomersCard;

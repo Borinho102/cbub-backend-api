@@ -11,7 +11,7 @@ Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, T
 
 // A chart built with Chart.js 3
 // https://www.chartjs.org/
-const dashboardCard01 = () => {
+const totalOrdersCard = () => {
   const ctx = document.getElementById('dashboard-card-01');
   if (!ctx) return;
 
@@ -144,4 +144,4 @@ const dashboardCard01 = () => {
     });
 };
 
-export default dashboardCard01;
+export default totalOrdersCard;
