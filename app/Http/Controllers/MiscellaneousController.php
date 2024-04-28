@@ -20,7 +20,7 @@ class MiscellaneousController extends Controller
      * @param Request $request
      * @return Application|ResponseFactory|Response
      */
-    public function loadCountries(Request $request): Response|Application|ResponseFactory
+    public function searchCountries(Request $request): Response|Application|ResponseFactory
     {
         $query = $request->get('search');
         $countries = Country::active()
@@ -49,23 +49,25 @@ class MiscellaneousController extends Controller
      * @param string $country
      * @return Application|ResponseFactory|Response
      */
-    public function loadCities(Request $request, string $country): Response|Application|ResponseFactory
+    public function searchCountryCities(Request $request, string $country): Response|Application|ResponseFactory
     {
         $cities = [];
-        $search = $request->has('search');
+        $search = $request->get('search');
         $country = Country::find($country);
+
         if ($country) {
-            $cities = $country->cities()->when($search, function ($q) use ($search) {
-                $q->where('name', 'LIKE', '%' .$search . '%');
-            })
-            ->get()
-            ->transform(function ($city) {
-                return [
-                    'id' => $city->id,
-                    'name' => $city->name,
-                    'code' => $city->code,
-                ];
-            });
+            $cities = $country->cities()
+                ->when(isset($search) && !empty($search), function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%');
+                })
+                ->get()
+                ->transform(function ($city) {
+                    return [
+                        'id' => $city->id,
+                        'name' => $city->name,
+                        'code' => $city->code,
+                    ];
+                });
         }
 
         return response($cities);

@@ -147,6 +147,10 @@ Route::group([
         ->name('search.product_categories');
     Route::get('search/businesses', [MiscellaneousController::class, 'searchBusinesses'])
         ->name('search.businesses');
+    Route::get('search/countries', [MiscellaneousController::class, 'searchCountries'])
+        ->name('search.countries');
+    Route::get('search/countries/{country}/cities', [MiscellaneousController::class, 'searchCountryCities'])
+        ->name('search.countries.cities');
 });
 
 require __DIR__.'/auth.php';

@@ -6,6 +6,8 @@ use App\Enums\DashboardStatisticType;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -85,12 +87,113 @@ class StatisticController extends Controller
                             'percentage' => round(($statistic->total_amount / $total_amount) * 100, 0),
                             'customer' => [
                                 'name' => $statistic->customer->name . ' ' . $statistic->customer->country->emoji,
-                                'profile_picture' => $statistic->customer->profile_picture
+                                'image' => $statistic->customer->image
                             ]
                         ];
                     }),
                     'total_amount' => $total_amount,
                     'total_count' => $total_orders
+                ]);
+            case DashboardStatisticType::TotalSalesThisWeek:
+                $last_week_amount = Order::query()
+                    ->whereBetween('created_at', [now()->subMonth(2), now()->subMonth()])
+                    ->sum('amount') ?? 0;
+
+                $statistics = Order::query()
+                    ->selectRaw('count(id) as total_orders, sum(amount) as total_amount, customer_id, customer_type, created_at')
+                    ->whereBetween('created_at', [now()->subMonth(), now()])
+                    ->orderBy('created_at', 'asc')
+                    ->groupBy('created_at')
+                    ->get();
+                $total_orders = array_sum(array_column($statistics->all(), 'total_orders'));
+                $total_amount = array_sum(array_column($statistics->all(), 'total_amount'));
+                $labels = array_column($statistics->all(), 'created_at');
+                $percentage_difference = $last_week_amount == 0 ? 100 : (($total_amount - $last_week_amount) / $last_week_amount) * 100;
+
+                return response([
+                    'data' => $statistics->transform(function ($statistic) {
+                        return (float) $statistic->total_amount;
+                    })->all(),
+                    'labels' => collect($labels)->transform(function ($label) {
+                        return Carbon::parse($label)->format('m-d-Y');
+                    })->all(),
+                    'total_amount' => $total_amount,
+                    'total_count' => $total_orders,
+                    'percentage_difference' => $percentage_difference > 0 ?
+                        '+' . $percentage_difference . '%' :
+                        '-' . $percentage_difference . '%'
+                ]);
+            case DashboardStatisticType::NewOrdersThisWeek:
+                $last_week_orders = Order::query()
+                    ->whereBetween('created_at', [now()->subMonth(2), now()->subMonth()])
+                    ->sum('amount') ?? 0;
+
+                $statistics = Order::query()
+                    ->selectRaw('count(id) as total_orders, customer_id, customer_type, created_at')
+                    ->whereBetween('created_at', [now()->subMonth(), now()])
+                    ->orderBy('created_at', 'asc')
+                    ->groupBy('created_at')
+                    ->get();
+                $total_orders = array_sum(array_column($statistics->all(), 'total_orders'));
+                $labels = array_column($statistics->all(), 'created_at');
+                $percentage_difference = $last_week_orders == 0 ? 100 : (($total_orders - $last_week_orders) / $last_week_orders) * 100;
+
+                return response([
+                    'data' => $statistics->transform(function ($statistic) {
+                        return (float) $statistic->total_orders;
+                    })->all(),
+                    'labels' => collect($labels)->transform(function ($label) {
+                        return Carbon::parse($label)->format('m-d-Y');
+                    })->all(),
+                    'total_count' => $total_orders,
+                    'percentage_difference' => $percentage_difference > 0 ?
+                        '+' . $percentage_difference . '%' :
+                        '-' . $percentage_difference . '%'
+                ]);
+            case DashboardStatisticType::NewCustomersThisWeek:
+                $statistics = Order::query()
+                    ->selectRaw('count(distinct(customer_id)) as total_count, created_at')
+                    ->whereHas('customer', function ($q) {
+                        $q->whereDoesntHave('orders', function ($q) {
+                            $q->where('created_at', '<', now()->subMonth(2));
+                        })
+                        ->whereHas('orders', function ($q) {
+                            $q->whereBetween('created_at', [now()->subMonth(), now()]);
+                        });
+                    })
+                    ->orderBy('created_at', 'asc')
+                    ->groupBy('created_at')
+                    ->get();
+                $total_customers = array_sum(array_column($statistics->all(), 'total_count'));
+                $labels = array_column($statistics->all(), 'created_at');
+
+                return response([
+                    'data' => $statistics->transform(function ($statistic) {
+                        return (float) $statistic->total_count;
+                    })->all(),
+                    'labels' => collect($labels)->transform(function ($label) {
+                        return Carbon::parse($label)->format('m-d-Y');
+                    })->all(),
+                    'total_count' => $total_customers
+                ]);
+            case DashboardStatisticType::LatestOrderCard:
+                return response([
+                    'orders' => Order::latest()
+                        ->with('customer.country')
+                        ->limit(5)
+                        ->get()
+                        ->transform(function ($order) {
+                            return [
+                                'order_id' => $order->order_id,
+                                'amount' => $order->amount,
+                                'currency' => $order->currency,
+                                'customer' => [
+                                    'name' => $order->customer->name,
+                                    'image' => $order->customer->image
+                                ],
+                                'date' => $order->created_at->format('d/m/Y')
+                            ];
+                        })
                 ]);
             case DashboardStatisticType::TopBusinessChart:
                 $period = request('period', 'monthly');

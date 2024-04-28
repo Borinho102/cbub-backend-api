@@ -13,14 +13,14 @@ const topProductsCard = () => {
       return a.json();
     })
     .then(response => {
-        let html = ''
+        let html = '<ul class="space-y-1 text-sm text-slate-800 dark:text-slate-100 mt-3 mb-4">'
         response.data.forEach(data => {
             html += `
                 <li class="relative px-2 py-1">
                     <div class="absolute inset-0" aria-hidden="true"></div>
                     <div class="relative flex justify-between space-x-2">
                         <div class="flex flex-row flex-nowrap items-center">
-                            <img class="h-6 w-6 rounded-full mr-2" src="${data.product.thumbnail}" />
+                            <img class="h-8 w-8 rounded-full mr-2" src="${data.product.thumbnail}" />
                             <div>
                                 <div class="line-clamp-1 text-sm text-gray-600 font-semibold">${data.product.name}</div>
                                 <div class="text-xs text-gray-600 font-medium">${formatThousands(data.total_sales)} Sales</div>
@@ -31,7 +31,7 @@ const topProductsCard = () => {
                 </li>
             `
         });
-
+        html += '</ul>'
         ctx.innerHTML = html
     });
 };

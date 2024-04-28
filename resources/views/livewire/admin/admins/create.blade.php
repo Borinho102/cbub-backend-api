@@ -55,26 +55,30 @@
                     </div>
 
                     <div>
-                        <x-input.label :value="__('Country')" for="country_id" required/>
-                        <x-input.select wire:change="form.country_id" wire:model.blur="form.country_id" name="form.country_id" id="country_id">
-                            <option>{{ __('Select Country') }}</option>
-                            @foreach ($countries as $country)
-                                <option wire:key="country-{{ $country->id }}" :value="{{ $country->id }}" @if ($country->id == $form->country_id) selected @endif>{{ $country->name }}</option>
-                            @endforeach
-                        </x-input.select>
+                        <x-input.label :value="__('Country')" for="name" required/>
+                        <x-select
+                            class="w-full"
+                            placeholder="Select Country"
+                            wire:model.blur="form.country_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.countries')"
+                        />
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('City')" for="city_id" required/>
-                        <x-input.select wire:change="form.city_id" wire:model="form.city_id" name="form.city_id" id="city_id">
-                            <option>{{ __('Select City') }}</option>
-                            @foreach ($cities as $city)
-                                <option :value="{{ $city->id }}" wire:key="city-{{ $city->id }}" @if ($city->id == $form->city_id) selected @endif>
-                                    {{ $city->name }}
-                                </option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
+                    @if (isset($form->country_id))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('City')" for="name" required/>
+                            <x-select
+                                class="w-full"
+                                placeholder="Select City"
+                                wire:model="form.city_id"
+                                option-value="id"
+                                option-label="name"
+                                :async-data="route('misc.search.countries.cities', $form->country_id)"
+                            />
+                        </div>
+                    @endif
 
                     <div class="col-span-2">
                         <x-input.label :value="__('Role(s)')" for="roles" required/>

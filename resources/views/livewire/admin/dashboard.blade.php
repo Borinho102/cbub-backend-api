@@ -20,6 +20,9 @@
         <!-- Report card (Top Businesses) -->
         <x-dashboard.top-businesses-card />
 
+        <!-- Report card (Latest Orders) -->
+        <x-dashboard.latest-orders-card />
+
         <!-- Report card (Top Products) -->
         <x-dashboard.top-products-card />
 

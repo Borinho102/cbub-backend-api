@@ -7,13 +7,14 @@ import { Chart, CategoryScale } from 'chart.js';
 import flatpickr from 'flatpickr';
 
 // import component from './components/component';
-import totalOrdersCard from './components/total-orders-card';
+import totalSalesCard from './components/total-sales-card';
 import newOrdersCard from './components/new-orders-card';
 import newCustomersCard from './components/new-customers-card';
 import topBusinessesCard from './components/top-businesses-card';
 import topCustomersCard from './components/top-customers-card';
 import topProductsCard from './components/top-products-card';
 import topBusinessesChart from './components/top-businesses-chart';
+import latestOrdersCard from './components/latest-orders-card';
 
 // Define Chart.js default settings
 /* eslint-disable prefer-destructuring */
@@ -101,11 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Charts & Cards
-    totalOrdersCard();
+    totalSalesCard();
     newOrdersCard();
     newCustomersCard();
     topBusinessesCard();
     topCustomersCard();
     topProductsCard();
+    latestOrdersCard();
     topBusinessesChart();
 });
