@@ -2,7 +2,7 @@
     <header class="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 class="font-semibold text-slate-800 dark:text-slate-100">{{ __('Top Customers') }}</h2>
     </header>
-    <div class="grow p-3">
+    <div class="grow px-3">
         <div class="flex flex-col h-full">
             <!-- Card content -->
             <div class="grow min-h-72" id="customers-statistics">

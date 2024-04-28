@@ -6,6 +6,7 @@ use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductStock;
+use App\Models\Shop;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -22,8 +23,8 @@ class CreateProductForm extends Form
     #[Validate('nullable|unique:products,sku')]
     public $sku;
 
-    #[Validate('required|exists:businesses,id', 'Business')]
-    public $business_id;
+    #[Validate('required|exists:shops,id', 'Shop')]
+    public $shop_id;
 
     #[Validate('required|exists:product_categories,id', 'Category')]
     public $category_id;
@@ -72,7 +73,7 @@ class CreateProductForm extends Form
 
         $this->category_id = $product->category_id;
 
-        $this->business_id = $product->business_id;
+        $this->shop_id = $product->shop_id;
 
         $this->tags = $product->tags;
     }
@@ -83,11 +84,14 @@ class CreateProductForm extends Form
             'quantity' => 'required|integer'
         ]));
 
+        $shop = Shop::find($this->shop_id);
+
         $product = Product::create([
             ...$this->only([
-                'price', 'business_id', 'category_id',
+                'price', 'shop_id', 'category_id',
                 'sku', 'quantity', 'tags'
             ]),
+            'business_id' => $shop->business_id,
             'name' => [
                 'en' => $this->name_en,
                 'fr' => $this->name_fr,
@@ -135,11 +139,14 @@ class CreateProductForm extends Form
 
     public function update()
     {
+        $shop = Shop::find($this->shop_id);
+
         $this->product->update([
             ...$this->only([
-                'price', 'business_id', 'tags',
+                'price', 'shop_id', 'tags',
                 'category_id', 'sku'
             ]),
+            'business_id' => $shop->business_id,
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
                 'fr' => generateProductSlugFr($this->name_fr),

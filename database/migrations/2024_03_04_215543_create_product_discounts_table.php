@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_discount_prices', function (Blueprint $table) {
+        Schema::create('product_discounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('product_id')->constrained('products');
             $table->decimal('discount_percentage', 4, 2);
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_discount_prices');
+        Schema::dropIfExists('product_discounts');
     }
 };

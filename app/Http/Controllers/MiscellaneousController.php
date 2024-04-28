@@ -7,6 +7,7 @@ use App\Models\Business;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -157,6 +158,32 @@ class MiscellaneousController extends Controller
         $query = $request->get('search');
 
         $data = Business::query()
+            ->select('id', 'name')
+            ->when($query != null, function ($q) use ($query) {
+                $q->where('name', 'like', "%$query%");
+            })
+            ->limit(10)
+            ->get()
+            ->transform(function ($business) {
+                return [
+                    'id' => $business->id,
+                    'name' => $business->name,
+                    'logo' => $business->logo
+                ];
+            });
+        return response($data);
+    }
+
+    /**
+     * Search shops
+     *
+     * @param Request $request
+     */
+    public function searchShops(Request $request)
+    {
+        $query = $request->get('search');
+
+        $data = Shop::query()
             ->select('id', 'name')
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");

@@ -20,4 +20,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
 }

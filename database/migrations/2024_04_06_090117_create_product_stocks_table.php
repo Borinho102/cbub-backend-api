@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
             $table->enum('type', StockMovementType::getValues())->default(StockMovementType::In);
-            $table->integer('prev_quantity');
+            $table->integer('old_quantity');
             $table->integer('new_quantity');
             $table->morphs('author');
             $table->string('comment')->nullable();

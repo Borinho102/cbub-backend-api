@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class ProductReview extends Model
+class Review extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title', 'body', 'rating',
-        'product_id', 'user_id', 'published'
+        'title', 'body', 'rating', 'reviewable_type',
+        'reviewable_id', 'user_id', 'published'
     ];
 
     public function user() : BelongsTo
@@ -20,8 +21,8 @@ class ProductReview extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product() : BelongsTo
+    public function reviewable() : MorphTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->morphTo();
     }
 }

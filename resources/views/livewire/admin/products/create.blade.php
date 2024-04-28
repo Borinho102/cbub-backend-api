@@ -62,10 +62,10 @@
                     @endif
 
                     <div class="col-span-1">
+                        <x-input.label :value="__('Category')" for="form.category_id" required/>
                         <x-select
                             class="w-full"
-                            :label="__('Category')"
-                            placeholder="Category"
+                            :placeholder="__('Select Category')"
                             wire:model="form.category_id"
                             option-value="id"
                             option-label="name"
@@ -74,14 +74,14 @@
                     </div>
 
                     <div class="col-span-1">
+                        <x-input.label :value="__('Shop')" for="form.shop_id" required/>
                         <x-select
                             class="w-full"
-                            :label="__('Business')"
-                            placeholder="Business"
-                            wire:model="form.business_id"
+                            :placeholder="__('Select Shop')"
+                            wire:model="form.shop_id"
                             option-value="id"
                             option-label="name"
-                            :async-data="route('misc.search.businesses')"
+                            :async-data="route('misc.search.shops')"
                             required
                         />
                     </div>

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\Products;
 
-use App\Models\ProductDiscountPrice;
+use App\Models\ProductDiscount;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,7 +18,7 @@ class ProductDiscountList extends Component
 
     public function mount()
     {
-        $this->count = ProductDiscountPrice::count();
+        $this->count = ProductDiscount::count();
     }
 
     public function search()
@@ -29,7 +29,7 @@ class ProductDiscountList extends Component
     public function render()
     {
         return view('livewire.admin.products.discounts.index', [
-            'product_discounts' => ProductDiscountPrice::query()
+            'product_discounts' => ProductDiscount::query()
                 ->with('product:id,name')
                 ->when($this->query, function ($q) {
                     $q->whereHas('product', function ($q) {

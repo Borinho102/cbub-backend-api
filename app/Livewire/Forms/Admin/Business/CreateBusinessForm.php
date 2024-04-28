@@ -5,7 +5,6 @@ namespace App\Livewire\Forms\Admin\Business;
 use App\Models\Business;
 use App\Models\BusinessUser;
 use App\Models\Country;
-use App\Services\Utils\Initials;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -27,9 +26,6 @@ class CreateBusinessForm extends Form
     #[Validate('required|exists:world_countries,id', 'country')]
     public $country_id;
 
-    #[Validate('required|exists:world_cities,id', 'city')]
-    public $city_id;
-
     #[Validate('required')]
     public $phone;
 
@@ -40,24 +36,6 @@ class CreateBusinessForm extends Form
 
     #[Validate('nullable|max:500')]
     public $about;
-
-    #[Validate('nullable|url')]
-    public $website;
-
-    #[Validate('nullable|url')]
-    public $facebook;
-
-    #[Validate('nullable|url')]
-    public $twitter;
-
-    #[Validate('nullable|url')]
-    public $instagram;
-
-    #[Validate('nullable|url')]
-    public $linkedin;
-
-    #[Validate('nullable|url')]
-    public $youtube;
 
     public $owner_name;
 
@@ -81,8 +59,6 @@ class CreateBusinessForm extends Form
 
         $this->country_id = $business->country_id;
 
-        $this->city_id = $business->city_id;
-
         $this->address = $business->address;
 
         $this->email = $business->email;
@@ -90,18 +66,6 @@ class CreateBusinessForm extends Form
         $this->phone = $business->phone;
 
         $this->about = $business->about;
-
-        $this->website = $business->website;
-
-        $this->facebook = $business->facebook;
-
-        $this->twitter = $business->twitter;
-
-        $this->instagram = $business->instagram;
-
-        $this->linkedin = $business->linkedin;
-
-        $this->youtube = $business->youtube;
     }
 
     public function store()
@@ -125,8 +89,7 @@ class CreateBusinessForm extends Form
                 'slug' => generateBusinessSlug(
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
-                ),
-                'initials' => Initials::generate($this->name)
+                )
             ]);
 
             $business
@@ -146,7 +109,6 @@ class CreateBusinessForm extends Form
                 'email' => $this->owner_email,
                 'phone' => $this->owner_phone,
                 'address' => $this->owner_address,
-                'city_id' => $this->city_id,
                 'country_id' => $this->country_id,
                 'password' => bcrypt(Str::random(12)),
                 'username' => generateUsername(new BusinessUser, explode('@', $this->owner_email)[0]),

@@ -5,7 +5,7 @@ namespace App\Enums;
 use BenSampo\Enum\Enum;
 
 /**
- * @method static static TopBusinessCard()
+ * @method static static TopShopCard()
  * @method static static TopProductCard()
  * @method static static TopCustomerCard()
  * @method static static TopBusinessChart()
@@ -16,7 +16,7 @@ use BenSampo\Enum\Enum;
  */
 final class DashboardStatisticType extends Enum
 {
-    const TopBusinessCard = 1;
+    const TopShopCard = 1;
     const TopProductCard = 2;
     const TopCustomerCard = 3;
     const TopBusinessChart = 4;

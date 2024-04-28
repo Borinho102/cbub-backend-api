@@ -67,7 +67,7 @@
                                     <div class="font-semibold text-center">{{ __('Country') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-center">{{ __('City') }}</div>
+                                    <div class="font-semibold text-center">{{ __('Shops') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Products') }}</div>
@@ -115,7 +115,7 @@
                                         <div class="font-medium text-center">{{ $business->country->name }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-center">{{ $business->city ? $business->city->name : '' }}</div>
+                                        <div class="font-medium text-center">{{ $business->shops_count }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $business->products_count }}</div>

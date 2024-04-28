@@ -5,6 +5,7 @@ use App\Models\BusinessCategory;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Shop;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
@@ -63,6 +64,28 @@ if (!function_exists('generateBusinessSlug')) {
     {
         $slug = Str::slug($name) . '-' . Str::lower($countryCode);
         $exists = Business::when($except, function ($q) use ($except) {
+            $q->where('slug', '!=', $except);
+        })->whereSlug($slug)->exists();
+
+        while ($exists) {
+            $slug = Str::slug($name) . '-' . Str::random(4) . '-' . Str::lower($countryCode);
+        }
+
+        return $slug;
+    }
+}
+
+if (!function_exists('generateShopSlug')) {
+    /**
+     * @param string $countryCode
+     * @param string $name
+     * @param string $except
+     * @return string
+     */
+    function generateShopSlug(string $countryCode, string $name, string $except = null): string
+    {
+        $slug = Str::slug($name) . '-' . Str::lower($countryCode);
+        $exists = Shop::when($except, function ($q) use ($except) {
             $q->where('slug', '!=', $except);
         })->whereSlug($slug)->exists();
 

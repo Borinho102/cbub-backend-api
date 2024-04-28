@@ -2,8 +2,8 @@
 // Import utilities
 import { formatValue } from '../utils';
 
-const topCategoriesCard = () => {
-  const ctx = document.getElementById('business-statistics');
+const topShopsCard = () => {
+  const ctx = document.getElementById('shop-statistics');
   if (!ctx) return;
   const darkMode = localStorage.getItem('dark-mode') === 'true';
 
@@ -19,9 +19,9 @@ const topCategoriesCard = () => {
                     <div class="absolute inset-0" aria-hidden="true"></div>
                     <div class="relative flex justify-between space-x-2">
                         <div class="flex flex-row flex-nowrap items-center">
-                            <img class="h-8 w-8 rounded-full mr-2" src="${data.business.logo}" />
+                            <img class="h-6 w-6 bg-white mr-2" src="${data.shop.logo}" />
                             <div>
-                                <div class="line-clamp-1 text-sm text-gray-600 font-semibold">${data.business.name}</div>
+                                <div class="line-clamp-1 text-sm text-gray-600 font-semibold">${data.shop.name}</div>
                                 <div class="text-xs text-gray-600 font-medium">${data.total_orders} Orders</div>
                             </div>
                         </div>
@@ -35,4 +35,4 @@ const topCategoriesCard = () => {
     });
 };
 
-export default topCategoriesCard;
+export default topShopsCard;

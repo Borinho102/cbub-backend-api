@@ -78,50 +78,6 @@
                         />
                     </div>
 
-                    @if (isset($form->country_id))
-                        <div class="col-span-1">
-                            <x-input.label :value="__('City')" for="name" required/>
-                            <x-select
-                                class="w-full"
-                                placeholder="Select Business City"
-                                wire:model="form.city_id"
-                                option-value="id"
-                                option-label="name"
-                                :async-data="route('misc.search.countries.cities', $form->country_id)"
-                            />
-                        </div>
-                    @endif
-
-                    <div>
-                        <x-input.label :value="__('Website')" for="website"/>
-                        <x-input.text wire:model.blur="form.website" name="form.website" id="website" type="url"/>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Facebook')" for="facebook"/>
-                        <x-input.text wire:model.blur="form.facebook" name="form.facebook" id="facebook" type="url"/>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Twitter')" for="twitter"/>
-                        <x-input.text wire:model.blur="form.twitter" name="form.twitter" id="twitter" type="url"/>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Instagram')" for="instagram"/>
-                        <x-input.text wire:model.blur="form.instagram" name="form.instagram" id="instagram" type="url"/>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Linkedin')" for="linkedin"/>
-                        <x-input.text wire:model.blur="form.linkedin" id="linkedin" name="form.linkedin" type="url"/>
-                    </div>
-
-                    <div>
-                        <x-input.label :value="__('Youtube')" for="youtube"/>
-                        <x-input.text wire:model.blur="form.youtube" id="youtube" name="form.youtube" type="url"/>
-                    </div>
-
                     <div class="col-span-3">
                         <x-input.label :value="__('About')" for="about"/>
                         <x-input.textarea wire:model.blur="form.about" name="form.about" id="about" rows="4" cols="12"></x-input.textarea>

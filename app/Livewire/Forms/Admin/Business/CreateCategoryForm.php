@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms\Admin\Business\Category;
+namespace App\Livewire\Forms\Admin\Business;
 
 use App\Models\BusinessCategory;
 use Livewire\Attributes\Validate;

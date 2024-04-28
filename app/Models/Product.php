@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -22,7 +23,7 @@ class Product extends Model implements HasMedia
     public $translatable = ['name', 'description', 'short_description', 'slug'];
 
     protected $fillable = [
-        'name', 'description', 'short_description', 'slug',
+        'name', 'description', 'short_description', 'slug', 'type',
         'sku', 'quantity', 'price', 'is_active', 'sku', 'weight',
         'is_available', 'category_id', 'business_id', 'tags',
         'video_link', 'video_provider', 'data', 'refundable',
@@ -49,7 +50,12 @@ class Product extends Model implements HasMedia
 
     public function business() : BelongsTo
     {
-        return $this->belongsTo(Business::class, 'business_id');
+        return $this->belongsTo(Business::class);
+    }
+
+    public function shop() : BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function category() : BelongsTo
@@ -57,9 +63,9 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
-    public function discount_prices(): HasMany
+    public function discounts(): HasMany
     {
-        return $this->hasMany(ProductDiscountPrice::class);
+        return $this->hasMany(ProductDiscount::class);
     }
 
     public function stocks(): HasMany
@@ -69,7 +75,7 @@ class Product extends Model implements HasMedia
 
     public function active_discount_price(): HasOne
     {
-        return $this->hasOne(ProductDiscountPrice::class)
+        return $this->hasOne(ProductDiscount::class)
             ->latest()
             ->where('is_active', 1)
             ->where(function ($q) {
@@ -78,17 +84,18 @@ class Product extends Model implements HasMedia
             });
     }
 
-    public function reviews(): HasMany
+    public function reviews(): MorphMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->morphMany(Review::class, 'reviewable');
     }
 
     public function scopeWithAverageRating(Builder $q)
     {
         return $q->addSelect(['rating_avg' => function ($q) {
             $q->selectRaw('avg(rating)')
-                ->from('product_reviews')
-                ->whereColumn('product_id', 'products.id');
+                ->from('reviews')
+                ->where('reviewable_type', Product::class)
+                ->whereColumn('reviewable_id', 'products.id');
         }]);
     }
 

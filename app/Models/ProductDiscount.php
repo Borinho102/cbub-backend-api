@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductDiscountPrice extends Model
+class ProductDiscount extends Model
 {
     use HasFactory;
 

@@ -10,7 +10,7 @@ import flatpickr from 'flatpickr';
 import totalSalesCard from './components/total-sales-card';
 import newOrdersCard from './components/new-orders-card';
 import newCustomersCard from './components/new-customers-card';
-import topBusinessesCard from './components/top-businesses-card';
+import topShopsCard from './components/top-shops-card';
 import topCustomersCard from './components/top-customers-card';
 import topProductsCard from './components/top-products-card';
 import topBusinessesChart from './components/top-businesses-chart';
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     totalSalesCard();
     newOrdersCard();
     newCustomersCard();
-    topBusinessesCard();
+    topShopsCard();
     topCustomersCard();
     topProductsCard();
     latestOrdersCard();

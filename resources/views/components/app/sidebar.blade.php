@@ -108,6 +108,15 @@
                                 </ul>
                             </div>
                         </li>
+                        <!-- Shops -->
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(3), ['shops'])){{ 'bg-slate-900' }}@endif">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(3), ['shops'])){{ 'hover:text-slate-200' }}@endif" wire:navigate href="{{ route('admin.shops.index') }}">
+                                <div class="flex items-center">
+                                    <x-icon name="shopping-bag" class="w-6 h-6 @if(in_array(Request::segment(3), ['shops'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif"/>
+                                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{{ __('Shops') }}</span>
+                                </div>
+                            </a>
+                        </li>
                         <!-- Product -->
                         <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(3), ['products'])){{ 'bg-slate-900' }}@endif" x-data="{ open: {{ in_array(Request::segment(3), ['products']) ? 1 : 0 }} }">
                             <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(3), ['products'])){{ 'hover:text-slate-200' }}@endif" href="#0" @click.prevent="open = !open; sidebarExpanded = true">

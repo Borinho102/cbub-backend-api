@@ -19,10 +19,10 @@ class StatisticController extends Controller
     public function __invoke(Request $request, $type)
     {
         switch ($type) {
-            case DashboardStatisticType::TopBusinessCard:
+            case DashboardStatisticType::TopShopCard:
                 $statistics = OrderItem::query()
-                    ->selectRaw('count(DISTINCT(order_id)) as total_orders, sum(quantity) total_products, sum(total_amount) as total_amount, business_id')
-                    ->with('business:id,name')
+                    ->selectRaw('count(DISTINCT(order_id)) as total_orders, sum(quantity) total_products, sum(total_amount) as total_amount, shop_id')
+                    ->with('shop:id,name')
                     ->orderBy('total_amount', 'desc')
                     ->groupBy('business_id')
                     ->get()
@@ -35,9 +35,9 @@ class StatisticController extends Controller
                             ...$statistic->toArray(),
                             'total_amount' => $statistic->total_amount,
                             'percentage' => round(($statistic->total_amount / $total_amount) * 100, 0),
-                            'business' => [
-                                'name' => $statistic->business->name,
-                                'logo' => $statistic->business->logo
+                            'shop' => [
+                                'name' => $statistic->shop->name,
+                                'logo' => $statistic->shop->logo
                             ]
                         ];
                     }),
@@ -113,10 +113,10 @@ class StatisticController extends Controller
                 return response([
                     'data' => $statistics->transform(function ($statistic) {
                         return (float) $statistic->total_amount;
-                    })->all(),
+                    })->take(7),
                     'labels' => collect($labels)->transform(function ($label) {
                         return Carbon::parse($label)->format('m-d-Y');
-                    })->all(),
+                    })->take(7),
                     'total_amount' => $total_amount,
                     'total_count' => $total_orders,
                     'percentage_difference' => $percentage_difference > 0 ?
@@ -141,10 +141,10 @@ class StatisticController extends Controller
                 return response([
                     'data' => $statistics->transform(function ($statistic) {
                         return (float) $statistic->total_orders;
-                    })->all(),
+                    })->take(7),
                     'labels' => collect($labels)->transform(function ($label) {
                         return Carbon::parse($label)->format('m-d-Y');
-                    })->all(),
+                    })->take(7),
                     'total_count' => $total_orders,
                     'percentage_difference' => $percentage_difference > 0 ?
                         '+' . $percentage_difference . '%' :
@@ -170,10 +170,10 @@ class StatisticController extends Controller
                 return response([
                     'data' => $statistics->transform(function ($statistic) {
                         return (float) $statistic->total_count;
-                    })->all(),
+                    })->take(7),
                     'labels' => collect($labels)->transform(function ($label) {
                         return Carbon::parse($label)->format('m-d-Y');
-                    })->all(),
+                    })->take(7),
                     'total_count' => $total_customers
                 ]);
             case DashboardStatisticType::LatestOrderCard:

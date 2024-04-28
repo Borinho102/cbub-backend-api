@@ -22,11 +22,11 @@ class OrderSeeder extends Seeder
             $this->command->info('Truncating Order\'s tables');
             $this->truncateOrdersTable();
 
-            for ($i = 0; $i < 200; $i++) {
+            for ($i = 0; $i < 500; $i++) {
                 $user = User::with('current_location')
                     ->whereHas('current_location')
                     ->inRandomOrder()->first();
-                    
+
                 $order = Order::create([
                     'customer_id' => $user->id,
                     'customer_type' => User::class,
@@ -45,14 +45,20 @@ class OrderSeeder extends Seeder
                 $order_amount = 0;
                 foreach ($products as $product) {
                     $qty = random_int(1, 4);
+                    $date = now()->subDays(random_int(0, 7));
                     $item = OrderItem::create([
                         'item_id' => $product->id,
                         'item_type' => Product::class,
                         'business_id' => $product->business_id,
+                        'shop_id' => $product->shop_id,
                         'order_id' => $order->id,
                         'quantity' => $qty,
                         'unit_amount' => $product->price,
                         'total_amount' => $qty * $product->price
+                    ]);
+                    $order->update([
+                        'created_at' => $date,
+                        'updated_at' => $date
                     ]);
                     $order_amount += $item->total_amount;
                 }

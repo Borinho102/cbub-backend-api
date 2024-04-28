@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin\Businesses\Categories;
 
-use App\Livewire\Forms\Admin\Business\Category\CreateCategoryForm;
+use App\Livewire\Forms\Admin\Business\CreateCategoryForm;
 use App\Models\BusinessCategory;
 use Livewire\Attributes\Layout;
 use Livewire\Component;

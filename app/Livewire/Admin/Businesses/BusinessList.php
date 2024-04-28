@@ -22,8 +22,8 @@ class BusinessList extends Component
     public function render()
     {
         return view('livewire.admin.businesses.index', [
-            'businesses' => Business::with('category', 'country', 'city')
-                ->withCount('users', 'products')
+            'businesses' => Business::with('category', 'country')
+                ->withCount('users', 'products', 'shops')
                 ->when($this->query, function ($q) {
                     $q->where(function ($q) {
                         $q->where('name', 'like', '%' . $this->query . '%')

@@ -15,9 +15,11 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('order_id')
                 ->constrained('orders');
+            $table->morphs('item');
             $table->foreignId('business_id')->nullable()
                 ->constrained('businesses');
-            $table->morphs('item');
+            $table->foreignId('shop_id')->nullable()
+                ->constrained('shops');
             $table->integer('quantity');
             $table->decimal('unit_amount');
             $table->decimal('total_amount');

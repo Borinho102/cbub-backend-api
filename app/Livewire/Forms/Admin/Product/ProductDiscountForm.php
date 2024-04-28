@@ -4,7 +4,7 @@ namespace App\Livewire\Forms\Admin\Product;
 
 use App\Models\Admin;
 use App\Models\Product;
-use App\Models\ProductDiscountPrice;
+use App\Models\ProductDiscount;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Form;
@@ -35,14 +35,14 @@ class ProductDiscountForm extends Form
         DB::beginTransaction();
 
         try {
-            ProductDiscountPrice::query()
+            ProductDiscount::query()
                 ->where('product_id', $this->product->id)
                 ->update([
                     'is_active' => 0,
                     'end_date' => now()
                 ]);
 
-            ProductDiscountPrice::create([
+            ProductDiscount::create([
                 'product_id' => $this->product->id,
                 'old_price' => $this->product->price,
                 'new_price' => $this->price,

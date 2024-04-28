@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('initials');
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('address')->nullable();
@@ -21,6 +20,8 @@ return new class extends Migration
             $table->string('phone_alt')->nullable();
             $table->string('email')->unique();
             $table->longText('about')->nullable();
+            $table->integer('number_of_shops');
+            $table->integer('max_shops')->nullable();
 
             // Category
             $table->foreignId('category_id')
@@ -29,25 +30,7 @@ return new class extends Migration
             // Country & City foreign key
             $table->foreignId('country_id')->default(1)
                 ->constrained('world_countries');
-            $table->foreignId('city_id')->nullable()
-                ->constrained('world_cities');
 
-            // Currency
-            $table->foreignId('currency_id')->default(1)
-                ->constrained('currencies');
-
-            // goe-location
-            $table->point('location')->nullable();
-            // Add a Polygon spatial data field named area
-            $table->polygon('area')->nullable();
-
-            // social links
-            $table->string('website')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('linkedin')->nullable();
-            $table->string('youtube')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

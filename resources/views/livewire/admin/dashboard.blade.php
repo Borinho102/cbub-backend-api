@@ -17,8 +17,8 @@
         <!-- Report Chart (Top Businesses) -->
         <x-dashboard.top-businesses-chart />
 
-        <!-- Report card (Top Businesses) -->
-        <x-dashboard.top-businesses-card />
+        <!-- Report card (Top Shops) -->
+        <x-dashboard.top-shops-card />
 
         <!-- Report card (Latest Orders) -->
         <x-dashboard.latest-orders-card />

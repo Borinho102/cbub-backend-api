@@ -41,6 +41,10 @@ use App\Livewire\Admin\PromoCodes\CreatePromoCode as AdminCreatePromoCode;
 use App\Livewire\Admin\PromoCodes\EditPromoCode as AdminEditPromoCode;
 use App\Livewire\Admin\PromoCodes\PromoCodeList as AdminPromoCodeList;
 
+use App\Livewire\Admin\Shops\CreateShop as AdminCreateShop;
+use App\Livewire\Admin\Shops\EditShop as AdminEditShop;
+use App\Livewire\Admin\Shops\ShopList as AdminShopList;
+
 use App\Livewire\Business\Dashboard as BusinessDashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -86,6 +90,12 @@ Route::group([
         ->name('businesses.products.index');
     Route::get('businesses/{business}/users', AdminBusinessUserList::class)
         ->name('businesses.users.index');
+
+    // SHOPS ROUTES
+    Route::get('shops', AdminShopList::class)->name('shops.index');
+    Route::get('shops/create', AdminCreateShop::class)->name('shops.create');
+    //Route::get('shops/{shop}/show', AdminShopDetails::class)->name('businesses.show');
+    Route::get('shops/{shop}/edit', AdminEditShop::class)->name('shops.edit');
 
     // PRODUCTS ROUTES
     Route::get('products', AdminProductList::class)->name('products.index');
@@ -147,6 +157,8 @@ Route::group([
         ->name('search.product_categories');
     Route::get('search/businesses', [MiscellaneousController::class, 'searchBusinesses'])
         ->name('search.businesses');
+    Route::get('search/shops', [MiscellaneousController::class, 'searchShops'])
+        ->name('search.shops');
     Route::get('search/countries', [MiscellaneousController::class, 'searchCountries'])
         ->name('search.countries');
     Route::get('search/countries/{country}/cities', [MiscellaneousController::class, 'searchCountryCities'])
