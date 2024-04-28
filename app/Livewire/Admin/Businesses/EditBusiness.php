@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Businesses;
 
 use App\Livewire\Forms\Admin\Business\CreateBusinessForm;
+use App\Models\Business;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,6 +14,11 @@ class EditBusiness extends Component
     use WithFileUploads;
 
     public CreateBusinessForm $form;
+
+    public function mount(Business $business)
+    {
+        $this->form->setBusiness($business);
+    }
 
     public function save()
     {

@@ -127,15 +127,29 @@
                         <x-input.textarea wire:model="form.about" name="form.about" id="about" rows="4" cols="12"></x-input.textarea>
                     </div>
 
-                    <div class="col-span-1">
-                        <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->image) }}"/>
-                        <x:input.file wire:model="form.image" name="form.image" id="image"/>
-                    </div>
+                    @if (isset($this->form->shop) || isset($form->image))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->image) ? $form->image->temporaryUrl() : $this->form->shop->image }}" name="form.image" id="image"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
+                        </div>
+                    @endif
 
-                    <div class="col-span-1">
-                        <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
-                        <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
-                    </div>
+                    @if (isset($this->form->shop) || isset($form->image))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.image wire:model.blur="form.logo" initialImage="{{ isset($form->logo) ? $form->logo->temporaryUrl() : $this->form->shop->logo }}" name="form.logo" id="logo"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.image wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                        </div>
+                    @endif
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-3">
                         <x-button.danger type="button">
@@ -144,7 +158,7 @@
 
                         @isset($this->form->shop)
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -154,7 +168,7 @@
                             </x-button.primary>
                         @else
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

@@ -207,7 +207,7 @@
                             </a>
                         </li>
                         <!-- Roles & Permissions -->
-                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(3), ['promo-codes'])){{ 'bg-slate-900' }}@endif">
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(7), ['rabc'])){{ 'bg-slate-900' }}@endif">
                             <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(7), ['rabc'])){{ 'hover:text-slate-200' }}@endif" href="/APP__/u/1/secure.portal.99/admin/control/rabc">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @if(in_array(Request::segment(7), ['rabc'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif">

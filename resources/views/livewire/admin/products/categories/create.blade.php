@@ -83,20 +83,41 @@
                         </x-select>
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Icon')" for="icon"/>
-                        <x:input.file wire:model.blur="form.icon" name="form.icon" id="icon"/>
-                    </div>
+                    @if (isset($this->form->category) || isset($form->icon))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Icon')" for="icon" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.icon" initialImage="{{ isset($form->icon) ? $form->icon->temporaryUrl() : $this->form->category->icon }}" name="form.icon" id="icon"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Icon')" for="icon" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.icon" name="form.icon" id="icon"/>
+                        </div>
+                    @endif
 
-                    <div>
-                        <x-input.label :value="__('Cover Image')" for="icon"/>
-                        <x:input.file wire:model.blur="form.cover_image" name="form.cover_image" id="cover_image"/>
-                    </div>
+                    @if (isset($this->form->category) || isset($form->cover_image))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Cover Image')" for="cover_image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.cover_image" initialImage="{{ isset($form->cover_image) ? $form->cover_image->temporaryUrl() : $this->form->category->cover_image }}" name="form.cover_image" id="cover_image"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Cover Image')" for="cover_image" required="{{ !isset($this->form->cover_image) }}"/>
+                            <x:input.image wire:model.blur="form.cover_image" name="form.cover_image" id="cover_image"/>
+                        </div>
+                    @endif
 
-                    <div>
-                        <x-input.label :value="__('Banner Image')" for="banner_image"/>
-                        <x:input.file wire:model.blur="form.banner_image" name="form.banner_image" id="banner_image"/>
-                    </div>
+                    @if (isset($this->form->category) || isset($form->banner_image))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Banner Image')" for="banner_image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.banner_image" initialImage="{{ isset($form->banner_image) ? $form->banner_image->temporaryUrl() : $this->form->category->banner_image }}" name="form.banner_image" id="banner_image"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Banner Image')" for="banner_image" required="{{ !isset($this->form->banner_image) }}"/>
+                            <x:input.image wire:model.blur="form.banner_image" name="form.banner_image" id="banner_image"/>
+                        </div>
+                    @endif
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">
                         <x-button.danger type="button">
@@ -105,7 +126,7 @@
 
                         @isset ($this->form->category)
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -115,7 +136,7 @@
                             </x-button.primary>
                         @else
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
