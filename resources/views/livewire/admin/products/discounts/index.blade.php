@@ -1,20 +1,39 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-    <div class="sm:flex sm:justify-between sm:items-center mb-8">
-        <!-- Left: Title -->
-        <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">{{ __('Product Discounts ✨') }}</h1>
+    <div>
+        <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
+            {{ __('Product Discounts') }}
+        </h2>
+        <div class="text-start">
+            <!-- Start -->
+            <ul class="inline-flex flex-wrap text-sm font-medium">
+                <li class="flex items-center">
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" wire:navigate href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    <svg class="h-4 w-4 fill-current text-slate-400 dark:text-slate-600 mx-3" viewBox="0 0 16 16">
+                        <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('Product Discounts') }}</a>
+                </li>
+            </ul>
+            <!-- End -->
         </div>
+    </div>
 
+    <!-- Page header -->
+    <div class="flex justify-end items-center mb-4 md:mb-2 mt-12">
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-            <!-- Delete button -->
-            <x-actions.delete-button />
+            <!-- Search form -->
+            <x-search-form wire:model.live="query" name="query" />
 
-            <!-- Dropdown -->
-            <x-date-select />
-
-            <!-- Filter button -->
-            <x-dropdown-filter align="right" />
+            <!-- Export button -->
+            <button type="button" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white"
+                x-data=""
+                x-on:click.prevent="$wire.dispatchTo('admin.products.product-discount-list', 'show-discount-modal')"
+            >
+                {{ __('Add Discount') }}
+            </button>
         </div>
     </div>
 
@@ -96,11 +115,12 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">
-                                            @if ($discount->is_active && (!$discount->end_date || !$discount->end_date->isPast()))
+                                            <x-toggle id="product-discount-toggle-{{ $discount->id }}" :checked="$discount->is_active == 1" wire:change="toggleStatus({{ $discount->id }})" primary xl />
+                                            {{-- @if ($discount->is_active && (!$discount->end_date || !$discount->end_date->isPast()))
                                                 <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">{{ __('Active') }}</div>
                                             @else
                                                 <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400">{{ __('Inactive') }}</div>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -116,7 +136,17 @@
                                         <div class="text-center">{{ $discount->created_at->format('d/m/Y') }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                        <div class="flex items-center">
+                                        <div class="space-x-1">
+                                            <button
+                                                type="button"
+                                                x-on:click.prevent="$wire.dispatchTo('admin.products.product-discount-list', 'show-discount-modal', { discount_id: {{ $discount->id }} })"
+                                                class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block"
+                                            >
+                                                <span class="sr-only">Edit</span>
+                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                </svg>
+                                            </button>
                                             <button
                                                 class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 transform"
                                                 :class="{ 'rotate-180': open }"
@@ -159,6 +189,8 @@
     <div class="mt-8">
         {{ $product_discounts->links() }}
     </div>
+
+    <x-product.discount-modal />
 
     <script>
         // A basic demo function to handle "select all" functionality

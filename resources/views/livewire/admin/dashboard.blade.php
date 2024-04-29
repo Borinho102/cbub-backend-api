@@ -26,6 +26,9 @@
         <!-- Report card (Top Products) -->
         <x-dashboard.top-products-card />
 
+        <!-- Report card (Top Requested Products Chart) -->
+        <x-dashboard.top-requested-products-chart />
+
         <!-- Report card (Top Customers) -->
         <x-dashboard.top-customers-card />
     </div>

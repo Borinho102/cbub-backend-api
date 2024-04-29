@@ -13,7 +13,6 @@ class CreatePromoCodeForm extends Form
 {
     public ?PromoCode $promoCode;
 
-    #[Validate('required|min:4|unique:promo_codes,code')]
     public $code;
 
     #[Validate('required|min:5')]
@@ -39,6 +38,9 @@ class CreatePromoCodeForm extends Form
 
     #[Validate('nullable|integer', 'Max Usage Per User')]
     public $max_usage_per_user;
+
+    #[Validate('nullable|exists:shops,id')]
+    public $shop_id;
 
     #[Validate('nullable|array')]
     public $users = [];
@@ -70,6 +72,8 @@ class CreatePromoCodeForm extends Form
 
         $this->title = $promoCode->title;
 
+        $this->shop_id = $promoCode->shop_id;
+
         $this->discount_type = $promoCode->discount_type;
 
         if ($promoCode->discount_type == 'percentage') {
@@ -78,31 +82,14 @@ class CreatePromoCodeForm extends Form
             $this->discount_price = $promoCode->discount_value;
         }
 
-        $this->users = $promoCode->users ?
-            $promoCode->users->transform(function ($user) {
-                return [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'avatar' => $user->avatar
-                ];
-            })->pluck('id')->all() : [];
+        $this->users = $promoCode->users->isNotEmpty() ?
+            $promoCode->users->pluck('id')->all() : [];
 
-        $this->products = $promoCode->products ?
-            $promoCode->products->transform(function ($product) {
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'thumbnail' => $product->thumbnail
-                ];
-            })->pluck('id')->all() : [];
+        $this->products = $promoCode->products->isNotEmpty() ?
+            $promoCode->products->pluck('id')->all() : [];
 
-        $this->categories = $promoCode->categories ?
-            $promoCode->categories->transform(function ($category) {
-                return [
-                    'id' => $category->id,
-                    'name' => $category->name
-                ];
-            })->pluck('id')->all() : [];
+        $this->categories = $promoCode->categories->isNotEmpty() ?
+            $promoCode->categories->pluck('id')->all() : [];
 
         $this->free_delivery = $promoCode->free_delivery;
 
@@ -121,7 +108,9 @@ class CreatePromoCodeForm extends Form
 
     public function store()
     {
-        $this->validate();
+        $this->validate(array_merge($this->getRules(), [
+            'code' => 'required|min:4|unique:promo_codes,code'
+        ]));
 
         $promoCode = PromoCode::create([
             ...$this->except('products', 'categories', 'users', 'discount_price', 'discount_percentage', 'banner'),
@@ -159,8 +148,41 @@ class CreatePromoCodeForm extends Form
 
     public function update()
     {
-        $this->validate();
-        //
+        $this->validate(array_merge($this->getRules(), [
+            'code' => 'required|min:4|unique:promo_codes,code,' . $this->promoCode->id . ',id'
+        ]));
+
+        $this->promoCode->update([
+            ...$this->except('products', 'categories', 'users', 'discount_price', 'discount_percentage', 'banner'),
+            'discount_value' => $this->discount_type === 'percentage' ?
+                $this->discount_percentage : $this->discount_price
+        ]);
+
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                Product::find($product)
+                    ->promo_codes()
+                    ->sync($this->promoCode);
+            }
+        }
+
+        if ($this->categories) {
+            foreach ($this->categories as $category) {
+                ProductCategory::find($category)
+                    ->promo_codes()
+                    ->sync($this->promoCode);
+            }
+        }
+
+        if ($this->users) {
+            foreach ($this->users as $user) {
+                User::find($user)->promo_codes()
+                    ->sync($this->promoCode);
+            }
+        }
+
+        $this->reset();
+
         notify()->success(__('Promo Code successfully updated!'));
     }
 }

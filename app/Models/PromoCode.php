@@ -23,7 +23,7 @@ class PromoCode extends Model implements HasMedia
 
     protected $fillable = [
         'title', 'code', 'tags', 'start_date', 'end_date',
-        'business_id', 'max_usage', 'data', 'is_active',
+        'shop_id', 'max_usage', 'data', 'is_active',
         'max_usage_per_user', 'minimum_spend','maximum_spend',
         'discount_value', 'free_delivery'
     ];

@@ -67,15 +67,19 @@ class CreateProductForm extends Form
 
         $this->description_fr = $product->getTranslation('description', 'fr');
 
-        $this->short_description_en = $product->getTranslation('short_description_en', 'en');
+        $this->short_description_en = $product->getTranslation('short_description', 'en');
 
-        $this->short_description_fr = $product->getTranslation('short_description_fr', 'fr');
+        $this->short_description_fr = $product->getTranslation('short_description', 'fr');
 
         $this->category_id = $product->category_id;
 
         $this->shop_id = $product->shop_id;
 
         $this->tags = $product->tags;
+
+        $this->price = $product->price;
+
+        $this->sku = $product->sku;
     }
 
     public function store()

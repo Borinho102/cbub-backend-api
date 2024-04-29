@@ -54,7 +54,7 @@
                         <x-input.text wire:model.blur="form.address" name="form.address" id="address" type="text"/>
                     </div>
 
-                    <div>
+                    <div class="{{ isset($form->country_id) ? 'col-span-1' : 'col-span-2' }}">
                         <x-input.label :value="__('Country')" for="name" required/>
                         <x-select
                             class="w-full"
@@ -90,10 +90,17 @@
                         </x-input.select>
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Profile Picture')" for="profile_picture"/>
-                        <x:input.file wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
-                    </div>
+                    @if (isset($this->form->admin) || isset($form->profile_picture))
+                        <div class="col-span-2">
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->admin) }}"/>
+                            <x:input.image wire:model.blur="form.profile_picture" initialImage="{{ isset($form->profile_picture) ? $form->profile_picture->temporaryUrl() : $this->form->admin->profile_picture }}" name="form.profile_picture" id="profile_picture"/>
+                        </div>
+                    @else
+                        <div class="col-span-2">
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->admin) }}"/>
+                            <x:input.image wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
+                        </div>
+                    @endif
                 </div>
                 <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">
                     <x-button.danger type="button">

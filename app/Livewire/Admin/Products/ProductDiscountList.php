@@ -2,8 +2,11 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Livewire\Forms\Admin\Product\ProductDiscountForm;
+use App\Models\Product;
 use App\Models\ProductDiscount;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,13 +15,49 @@ class ProductDiscountList extends Component
 {
     use WithPagination;
 
+    public ProductDiscountForm $discountForm;
+
     public $query = '';
 
     public $count;
 
+    public $mode;
+
     public function mount()
     {
         $this->count = ProductDiscount::count();
+
+        $this->mode = 'create';
+    }
+
+    #[On('show-discount-modal')]
+    public function showDiscountModal(?int $discount_id = null)
+    {
+        if ($discount_id) {
+            $this->mode = 'update';
+            $this->discountForm->setProductDiscount(
+                ProductDiscount::with('product')->findOrFail($discount_id)
+            );
+
+            $this->dispatch('open-modal', name: 'product-discount-modal', mode: 'update');
+        } else {
+            $this->dispatch('open-modal', name: 'product-discount-modal', mode: 'create');
+        }
+    }
+
+    public function saveDiscount() {
+        $this->discountForm->update();
+
+        $this->dispatch('close-modal', name: 'product-discount-modal');
+
+        notify()->success(__('Product discount successfully updated!'));
+    }
+
+    public function toggleStatus(ProductDiscount $discount)
+    {
+        $discount->update(['is_active' => !$discount->is_active]);
+
+        notify()->success(__('Product discount successfully toggled!'));
     }
 
     public function search()

@@ -30,8 +30,8 @@ return new class extends Migration
                 ->comment('Number of times the promo code can be use by a specific user.');
             $table->boolean('free_delivery')->nullable();
             $table->boolean('is_active')->default(1);
-            $table->foreignId('business_id')->nullable()
-                ->constrained('businesses');
+            $table->foreignId('shop_id')->nullable()
+                ->constrained('shops');
             $table->string('tags')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();

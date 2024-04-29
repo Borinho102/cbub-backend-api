@@ -6,63 +6,64 @@ use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductStock;
+use BenSampo\Enum\Rules\Enum;
 use Livewire\Form;
 
 class ProductStockForm extends Form
 {
-    public ?Product $product;
-
     public $quantity;
 
     public $comment;
 
     public $type;
 
-    public function setProduct(Product $product)
-    {
-        $this->product = $product;
-    }
+    public $product_id;
 
-    public function setType($type)
+    public function store()
     {
-        $this->type = $type;
-    }
+        $this->validate([
+            'product_id' => 'required|exists:products,id',
+            'comment' => 'nullable|string',
+            'type' => 'required'
+        ]);
 
-    public function update()
-    {
         if ($this->type == StockMovementType::In) {
             $this->validate([
-                'quantity' => 'required|numeric|min:1',
-                'comment' => 'nullable|string'
+                'quantity' => 'required|numeric|min:1'
             ]);
 
+            $product = Product::find($this->product_id);
+
             $productStock = ProductStock::create([
-                'old_quantity' => $this->product->quantity,
-                'new_quantity' => $this->product->quantity + $this->quantity,
+                'old_quantity' => $product->quantity,
+                'new_quantity' => $product->quantity + $this->quantity,
                 'comment' => $this->comment,
-                'product_id' => $this->product->id,
+                'product_id' => $product->id,
                 'type' => StockMovementType::In,
                 'author_type' => Admin::class,
                 'author_id' => auth('admins')->user()->id
             ]);
-        } else {
+        } else if ($this->type == StockMovementType::Out)  {
+            $product = Product::find($this->product_id);
+
             $this->validate([
-                'quantity' => 'required|numeric|min:1|max:' . $this->product->quantity,
-                'comment' => 'nullable|string'
+                'quantity' => 'required|numeric|min:1|max:' . $product->quantity,
             ]);
 
             $productStock = ProductStock::create([
-                'old_quantity' => $this->product->quantity,
-                'new_quantity' => $this->product->quantity - $this->quantity,
+                'old_quantity' => $product->quantity,
+                'new_quantity' => $product->quantity - $this->quantity,
                 'comment' => $this->comment,
-                'product_id' => $this->product->id,
+                'product_id' => $product->id,
                 'type' => StockMovementType::Out,
                 'author_type' => Admin::class,
                 'author_id' => auth('admins')->user()->id
             ]);
+        } else {
+            abort(404);
         }
 
-        $this->product->update(['quantity' => $productStock->new_quantity]);
+        $product->update(['quantity' => $productStock->new_quantity]);
 
         $this->reset();
     }

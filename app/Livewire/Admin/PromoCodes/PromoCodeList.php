@@ -30,6 +30,13 @@ class PromoCodeList extends Component
         $this->resetPage();
     }
 
+    public function toggleStatus(PromoCode $promoCode)
+    {
+        $promoCode->update(['is_active' => !$promoCode->is_active]);
+
+        notify()->success(__('Promo code successfully toggled!'));
+    }
+
     public function render()
     {
         return view('livewire.admin.promo_codes.index', [

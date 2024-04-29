@@ -4,10 +4,6 @@
     </header>
     <div class="px-5 py-3">
         <div class="flex flex-wrap justify-between items-end">
-            <div class="flex items-center">
-                <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">244.7%</div>
-                <div class="text-sm text-slate-500 dark:text-slate-400"><span class="font-medium text-slate-800 dark:text-slate-100">17.4%</span> AVG</div>
-            </div>
             <div id="top-businesses-legend" class="grow ml-2 mb-1">
                 <ul class="flex flex-wrap justify-end"></ul>
             </div>

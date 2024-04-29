@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\Products;
 
-use App\Livewire\Forms\Admin\Product\ProductDiscountForm;
 use App\Models\Product;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -13,8 +12,6 @@ use Livewire\WithPagination;
 class ProductList extends Component
 {
     use WithPagination;
-
-    public ProductDiscountForm $discountForm;
 
     public $query = '';
 
@@ -32,21 +29,6 @@ class ProductList extends Component
     public function categoryUpdated($category)
     {
         $this->category = $category;
-    }
-
-    #[On('show-discount-modal')]
-    public function showDiscountModal(Product $product) {
-        $this->discountForm->setProduct($product);
-
-        $this->dispatch('open-modal', 'product-discount-modal');
-    }
-
-    public function saveDiscount() {
-        $this->discountForm->store();
-
-        $this->dispatch('close-modal', 'product-discount-modal');
-
-        notify()->success(__('Product discount successfully created!'));
     }
 
     public function search()

@@ -77,12 +77,9 @@
                 </div>
                 <!-- Card footer -->
                 <div>
-                    <button class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white"
-                        x-data=""
-                        x-on:click.prevent="$wire.dispatchTo('admin.products.product-list', 'show-discount-modal', { product: {{ $product->id }} })"
-                    >
-                        {{ __('Add Discount') }}
-                    </button>
+                    <a wire:navigate href="{{ route('admin.products.edit', $product->id) }}" class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white">
+                        {{ __('Edit') }}
+                    </a>
                 </div>
             </div>
         </div>

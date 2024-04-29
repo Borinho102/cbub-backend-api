@@ -48,6 +48,9 @@
                                 <div class="font-semibold text-left">{{ __('Rating') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">{{ __('Published?') }}</div>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold">{{ __('Date') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -56,10 +59,10 @@
                         </tr>
                     </thead>
                     <!-- Table body -->
-                        @foreach($product_reviews as $review)
+                        @foreach ($product_reviews as $review)
                             <tbody class="text-sm" x-data="{ open: false }">
                                 <!-- Row -->
-                                <tr>
+                                <tr wire:key="product-review-{{ $review->id }}">
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                         <div class="flex items-center">
                                             <label class="inline-flex">
@@ -103,6 +106,9 @@
                                                 </button>
                                             @endfor
                                         </div>
+                                    </td>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        <x-toggle id="product-review-toggle-{{ $review->id }}" :checked="$review->published == 1" wire:change="toggleStatus({{ $review->id }})" primary xl />
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="text-center">{{ $review->created_at->format('d/m/Y') }}</div>

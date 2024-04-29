@@ -27,6 +27,13 @@ class ProductReviewList extends Component
         $this->resetPage();
     }
 
+    public function toggleStatus(Review $review)
+    {
+        $review->update(['published' => !$review->published]);
+
+        notify()->success(__('Product review successfully toggled!'));
+    }
+
     public function render()
     {
         return view('livewire.admin.products.reviews.index', [

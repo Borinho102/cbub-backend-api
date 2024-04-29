@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\DashboardStatisticType;
+use App\Enums\ModelAccessAction;
 use App\Http\Controllers\Controller;
+use App\Models\ModelAccessLog;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,6 +71,26 @@ class StatisticController extends Controller
                     }),
                     'total_amount' => $total_amount,
                     'total_count' => $total_sales
+                ]);
+            case DashboardStatisticType::TopRequestedProductChart:
+                $statistics = ModelAccessLog::query()
+                    ->selectRaw('count(model_id) as total_requests, model_id, model_type')
+                    ->with('model:id,name')
+                    ->where('model_type', Product::class)
+                    ->where('action', request('action', ModelAccessAction::Search))
+                    ->orderBy('total_requests', 'desc')
+                    ->groupBy('model_id')
+                    ->get()
+                    ->take(request('limit', 10));
+
+                $total_sales = array_sum(array_column($statistics->all(), 'total_sales'));
+                $total_amount = array_sum(array_column($statistics->all(), 'total_amount'));
+
+                return response([
+                    'data' => array_column($statistics->all(), 'total_requests'),
+                    'labels' => $statistics->transform(function ($statistic) {
+                        return $statistic->model->name;
+                    }),
                 ]);
             case DashboardStatisticType::TopCustomerCard:
                 $statistics = Order::query()

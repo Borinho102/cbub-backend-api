@@ -54,16 +54,6 @@
                     {{ $products->links() }}
                 </div>
             </div>
-
-            <!-- (Popular Categories) -->
-            <div class="mt-8">
-                <h2 class="text-xl leading-snug text-slate-800 dark:text-slate-100 font-bold mb-5">Popular Categories</h2>
-                <div class="grid grid-cols-12 gap-6">
-                    <x-product.shop-cards-05 />
-                </div>
-            </div>
         </div>
-
-        <x-product.discount-modal />
     </div>
 </div>

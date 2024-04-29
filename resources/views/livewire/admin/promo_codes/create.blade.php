@@ -58,18 +58,18 @@
                         <div class="col-span-2">
                             <x-select
                                 class="w-full"
-                                :label="__('Business')"
-                                placeholder="Select business"
-                                wire:model="form.business_id"
+                                :label="__('Shop')"
+                                placeholder="Select shop"
+                                wire:model.blur="form.shop_id"
                                 option-value="id"
                                 option-label="name"
-                                :async-data="route('misc.search.businesses')"
+                                :async-data="route('misc.search.shops')"
                             />
                         </div>
 
                         <div class="col-span-1">
                             <x-input.label :value="__('Title')" for="title" required/>
-                            <x-input.text wire:model.change="form.title" name="form.title" id="title" type="text"/>
+                            <x-input.text wire:model="form.title" name="form.title" id="title" type="text"/>
                         </div>
 
                         <div class="col-span-1">
@@ -90,12 +90,12 @@
                         @if ($form->discount_type === 'percentage')
                             <div class="col-span-1">
                                 <x-input.label :value="__('Discount Percentage')" for="discount_percentage" required/>
-                                <x-input.text wire:model.change="form.discount_percentage" name="form.discount_percentage" id="discount_percentage" type="number" min="5" max="100"/>
+                                <x-input.text wire:model="form.discount_percentage" name="form.discount_percentage" id="discount_percentage" type="number" min="5" max="100"/>
                             </div>
                         @else
                             <div class="col-span-1">
                                 <x-input.label :value="__('Discount Price')" for="discount_price" required/>
-                                <x-input.text wire:model.change="form.discount_price" name="form.discount_price" id="discount_price" type="text"/>
+                                <x-input.text wire:model="form.discount_price" name="form.discount_price" id="discount_price" type="text"/>
                             </div>
                         @endif
 
@@ -105,7 +105,7 @@
                                 id="start_date"
                                 parse-format="DD-MM-YYYY"
                                 :placeholder="__('Start Date')"
-                                wire:model.live="form.start_date"
+                                wire:model="form.start_date"
                             />
                         </div>
 
@@ -115,7 +115,7 @@
                                 id="end_date"
                                 parse-format="DD-MM-YYYY"
                                 :placeholder="__('End Date')"
-                                wire:model.live="form.end_date"
+                                wire:model="form.end_date"
                             />
                         </div>
                     </div>
@@ -125,7 +125,7 @@
                             <x-select
                                 class="w-full"
                                 :label="__('Product(s)')"
-                                placeholder="Select Product(s)"
+                                :placeholder="__('Select Product(s)')"
                                 multiselect
                                 wire:model="form.products"
                                 option-value="id"
@@ -138,7 +138,7 @@
                             <x-select
                                 class="w-full"
                                 :label="__('Product Categorie(s)')"
-                                placeholder="Select categorie(s)"
+                                :placeholder="__('Select categorie(s)')"
                                 multiselect
                                 wire:model="form.categories"
                                 option-value="id"
@@ -151,7 +151,7 @@
                             <x-select
                                 class="w-full"
                                 :label="__('User(s)')"
-                                placeholder="Select user(s)"
+                                :placeholder="__('Select user(s)')"
                                 multiselect
                                 wire:model="form.users"
                                 option-value="id"
@@ -167,17 +167,17 @@
 
                         <div class="col-span-1">
                             <x-input.label :value="__('Maximum Spend')" for="maximum_spend"/>
-                            <x-input.text wire:model.change="form.maximum_spend" name="form.maximum_spend" id="maximum_spend" type="text"/>
+                            <x-input.text wire:model="form.maximum_spend" name="form.maximum_spend" id="maximum_spend" type="text"/>
                         </div>
 
                         <div class="col-span-1">
                             <x-input.label :value="__('Maximum Usage')" for="max_usage"/>
-                            <x-input.text wire:model.change="form.max_usage" name="form.max_usage" id="max_usage" type="number"/>
+                            <x-input.text wire:model="form.max_usage" name="form.max_usage" id="max_usage" type="number"/>
                         </div>
 
                         <div class="col-span-1">
                             <x-input.label :value="__('Maximum Usage / User')" for="max_usage_per_user"/>
-                            <x-input.text wire:model.change="form.max_usage_per_user" name="form.max_usage_per_user" id="max_usage_per_user" type="number"/>
+                            <x-input.text wire:model="form.max_usage_per_user" name="form.max_usage_per_user" id="max_usage_per_user" type="number"/>
                         </div>
                     </div>
                 @endif
@@ -187,7 +187,7 @@
                     </x-button.danger>
 
                     @isset ($this->form->promoCode)
-                        <x-button.default type="submit">
+                        <x-button.primary type="submit">
                             <div wire:loading wire:target="save">
                                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -195,7 +195,7 @@
                                 </svg>
                             </div>
                             {{ __('Update') }}
-                        </x-button>
+                        </x-button.primary>
                     @else
                         <x-button.primary type="submit">
                             <div wire:loading wire:target="save">
