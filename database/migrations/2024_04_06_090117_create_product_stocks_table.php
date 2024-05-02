@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('product_id');
+            $table->morphs('product');
             $table->enum('type', StockMovementType::getValues())->default(StockMovementType::In);
             $table->integer('old_quantity');
             $table->integer('new_quantity');
             $table->morphs('author');
             $table->string('comment')->nullable();
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

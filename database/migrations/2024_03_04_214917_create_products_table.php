@@ -33,6 +33,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('product_categories');
             $table->foreignId('business_id')->constrained('businesses');
             $table->foreignId('shop_id')->constrained('shops');
+            $table->foreignId('parent_id')->nullable()->constrained('products');
             $table->enum('type', ProductType::getValues())->default(ProductType::Physical);
             $table->json('data')->nullable();
             $table->timestamps();

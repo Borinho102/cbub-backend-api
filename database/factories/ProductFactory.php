@@ -12,7 +12,6 @@ use App\Models\ProductCategory;
 use App\Models\ProductDiscount;
 use App\Models\ProductStock;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -66,7 +65,6 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product) {
             $product->discounts()->save(new ProductDiscount([
-                'product_id' => $product->id,
                 'old_price' => $product->price,
                 'new_price' => $product->price / 2,
                 'discount_percentage' => 50,

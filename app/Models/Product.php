@@ -27,7 +27,7 @@ class Product extends Model implements HasMedia
         'sku', 'quantity', 'price', 'is_active', 'sku', 'weight',
         'is_available', 'category_id', 'business_id', 'tags',
         'video_link', 'video_provider', 'data', 'refundable',
-        'free_shipping', 'min_purchase_quantity', 'barcode'
+        'free_shipping', 'min_purchase_quantity', 'barcode', 'parent_id'
     ];
 
     protected $casts = [
@@ -53,6 +53,11 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Business::class);
     }
 
+    public function variants() : HasMany
+    {
+        return $this->hasMany(Product::class, 'parent_id');
+    }
+
     public function shop() : BelongsTo
     {
         return $this->belongsTo(Shop::class);
@@ -63,14 +68,14 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
-    public function discounts(): HasMany
+    public function discounts(): MorphMany
     {
-        return $this->hasMany(ProductDiscount::class);
+        return $this->morphMany(ProductDiscount::class, 'product');
     }
 
-    public function stocks(): HasMany
+    public function stocks(): MorphMany
     {
-        return $this->hasMany(ProductStock::class, 'product_id');
+        return $this->morphMany(ProductStock::class, 'product');
     }
 
     public function active_discount_price(): HasOne
