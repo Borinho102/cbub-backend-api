@@ -20,8 +20,12 @@ class Shop extends Model implements HasMedia
     protected $fillable = [
         'name', 'phone', 'country_id', 'city_id', 'business_id',
         'address', 'slug', 'email', 'website', 'facebook',
-        'twitter', 'instagram', 'linkedin',
+        'twitter', 'instagram', 'linkedin', 'schedule',
         'about', 'youtube', 'slug', 'phone_alt', 'owner_id'
+    ];
+
+    protected $casts = [
+        'schedule' => 'array'
     ];
 
     public function registerMediaCollections(): void
@@ -31,6 +35,28 @@ class Shop extends Model implements HasMedia
         $this->addMediaCollection('image')
             ->singleFile();
         $this->addMediaCollection('banners');
+    }
+
+    /**
+     * Get the doctor's working days
+     */
+    protected function getWorkingDaysAttribute()
+    {
+        if (!$this->schedule) return [];
+        if (!isset($this->schedule['working_days'])) return [];
+
+        return $this->schedule['working_days'];
+    }
+
+    /**
+     * Get the doctor's working hours
+     */
+    protected function getWorkingHoursAttribute()
+    {
+        if (!$this->schedule) return [];
+        if (!isset($this->schedule['working_hours'])) return [];
+
+        return $this->schedule['working_hours'];
     }
 
     public function business(): BelongsTo

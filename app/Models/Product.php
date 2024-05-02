@@ -41,6 +41,9 @@ class Product extends Model implements HasMedia
 
         $this->addMediaCollection('thumbnail')
             ->singleFile();
+
+        $this->addMediaCollection('specifications')
+            ->singleFile();
     }
 
     public function getThumbnailAttribute()

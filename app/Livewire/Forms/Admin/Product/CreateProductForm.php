@@ -14,6 +14,8 @@ class CreateProductForm extends Form
 {
     public ?Product $product;
 
+    public ?Product $parentProduct;
+
     #[Validate('required|min:5')]
     public $name_en;
 
@@ -28,6 +30,9 @@ class CreateProductForm extends Form
 
     #[Validate('required|exists:product_categories,id', 'Category')]
     public $category_id;
+
+    #[Validate('required|exists:products,id,parent_id,NULL', 'Parent Product')]
+    public $parent_id;
 
     #[Validate('required')]
     public $short_description_en;
@@ -47,6 +52,9 @@ class CreateProductForm extends Form
     #[Validate('required|image|max:2048')]
     public $thumbnail;
 
+    #[Validate('nullable|file|mines:pdf|max:5120')]
+    public $specifications;
+
     #[Validate(['images.*' => 'image|max:5120'])] // 5MB Max
     public $images = [];
 
@@ -54,6 +62,10 @@ class CreateProductForm extends Form
     public $tags = [];
 
     public $quantity;
+
+    public $items_count;
+
+    public $type;
 
     public function setProduct(Product $product)
     {
@@ -80,29 +92,40 @@ class CreateProductForm extends Form
         $this->price = $product->price;
 
         $this->sku = $product->sku;
+
+        $this->type = $product->type;
+    }
+
+    public function setParentProduct(Product $product)
+    {
+        $this->parentProduct = $product;
     }
 
     public function store()
     {
         $this->validate(array_merge($this->getRules(), [
-            'quantity' => 'required|integer'
+            'quantity' => 'required|integer',
+            'items_count' => 'nullable|integer'
         ]));
 
-        $shop = Shop::find($this->shop_id);
+        $shop = Shop::find($this->parentProduct ? $this->parentProduct->shop_id : $this->shop_id);
 
         $product = Product::create([
             ...$this->only([
-                'price', 'shop_id', 'category_id',
-                'sku', 'quantity', 'tags'
+                'price', 'shop_id', 'parent_id', 'type',
+                'sku', 'quantity', 'tags', 'items_count'
             ]),
             'business_id' => $shop->business_id,
+            'category_id' => $this->parentProduct ?
+                $this->parentProduct->category_id :
+                $shop->business_id,
             'name' => [
                 'en' => $this->name_en,
-                'fr' => $this->name_fr,
+                'fr' => $this->name_fr
             ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
-                'fr' => generateProductSlugFr($this->name_fr),
+                'fr' => generateProductSlugFr($this->name_fr)
             ],
             'short_description' => [
                 'en' => $this->short_description_en,
@@ -126,6 +149,13 @@ class CreateProductForm extends Form
                 ->toMediaCollection('images');
         }
 
+        if ($this->specifications) {
+            $product
+                ->addMedia($this->specifications->getRealPath())
+                ->usingName($this->specifications->getClientOriginalName())
+                ->toMediaCollection('specifications');
+        }
+
         ProductStock::create([
             'old_quantity' => 0,
             'new_quantity' => $product->quantity,
@@ -147,17 +177,17 @@ class CreateProductForm extends Form
 
         $this->product->update([
             ...$this->only([
-                'price', 'shop_id', 'tags',
-                'category_id', 'sku'
+                'price', 'shop_id', 'tags', 'type',
+                'category_id', 'sku', 'items_count'
             ]),
             'business_id' => $shop->business_id,
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
-                'fr' => generateProductSlugFr($this->name_fr),
+                'fr' => generateProductSlugFr($this->name_fr)
             ],
             'short_description' => [
                 'en' => $this->short_description_en,
-                'fr' => $this->short_description_fr,
+                'fr' => $this->short_description_fr
             ],
             'description' => [
                 'en' => $this->description_en,

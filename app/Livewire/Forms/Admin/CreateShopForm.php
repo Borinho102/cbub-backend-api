@@ -61,6 +61,16 @@ class CreateShopForm extends Form
 
     public $banners = [];
 
+    public $schedule = [
+        'sunday' => ['', ''],
+        'monday' => ['', ''],
+        'tuesday' => ['', ''],
+        'wednesday' => ['', ''],
+        'thursday' => ['', ''],
+        'friday' => ['', ''],
+        'saturday' => ['', '']
+    ];
+
     public function setShop(Shop $shop)
     {
         $this->shop = $shop;
@@ -90,6 +100,16 @@ class CreateShopForm extends Form
         $this->linkedin = $shop->linkedin;
 
         $this->youtube = $shop->youtube;
+
+        $this->schedule = $shop->schedule ? $shop->schedule : [
+            'sunday' => ['', ''],
+            'monday' => ['', ''],
+            'tuesday' => ['', ''],
+            'wednesday' => ['', ''],
+            'thursday' => ['', ''],
+            'friday' => ['', ''],
+            'saturday' => ['', '']
+        ];
     }
 
     public function store()

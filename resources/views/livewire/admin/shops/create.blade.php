@@ -140,16 +140,33 @@
                     @endif
 
                     @if (isset($this->form->shop) || isset($form->image))
-                        <div class="col-span-1">
+                        <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image wire:model.blur="form.logo" initialImage="{{ isset($form->logo) ? $form->logo->temporaryUrl() : $this->form->shop->logo }}" name="form.logo" id="logo"/>
                         </div>
                     @else
-                        <div class="col-span-1">
+                        <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @endif
+
+                    @foreach (\App\Enums\WeekDay::asSelectArray() as $key => $weekDay)
+                        <div class="col-span-3" wire:key="{{ $key }}">
+                            <div class="w-min-auto flex flex-row items-center space-x-4 justify-between">
+                                <div class="capitalize w-52">
+                                    <x-input.label :value="$key" for="form.schedule.{{ $key }}.0"/>
+                                </div>
+                                <div class="w-72">
+                                    <x-time-picker wire:model="form.schedule.{{ $key }}.0" name="form.schedule.{{ $key }}.0" id="form.schedule.{{ $key }}.0" interval="30"></x-time-picker>
+                                </div>
+                                <div>-</div>
+                                <div class="w-64">
+                                    <x-time-picker wire:model="form.schedule.{{ $key }}.1" name="form.schedule.{{ $key }}.1" id="form.schedule.{{ $key }}.1" interval="30"></x-time-picker>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-3">
                         <x-button.danger type="button">
