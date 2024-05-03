@@ -16,8 +16,8 @@ class Business extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-        'name', 'phone', 'category_id',
-        'country_id', 'address', 'slug',
+        'name', 'phone', 'category_id', 'fiscal_id',
+        'country_id', 'address', 'slug', 'rccm',
         'email', 'slug', 'phone_alt', 'about',
         'owner_id', 'max_shops', 'number_of_shops'
     ];

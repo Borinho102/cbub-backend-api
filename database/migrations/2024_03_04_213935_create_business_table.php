@@ -22,6 +22,8 @@ return new class extends Migration
             $table->longText('about')->nullable();
             $table->integer('number_of_shops');
             $table->integer('max_shops')->nullable();
+            $table->string('fiscal_id')->nullable();
+            $table->string('rccm')->nullable();
 
             // Category
             $table->foreignId('category_id')
