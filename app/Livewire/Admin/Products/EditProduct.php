@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Enums\ProductTagType;
 use App\Livewire\Forms\Admin\Product\CreateProductForm;
 use App\Models\Product;
 use Livewire\Attributes\Layout;
@@ -15,12 +16,13 @@ class EditProduct extends Component
 
     public CreateProductForm $form;
 
-    public $businesses;
+    public $tagOptions;
 
-    public function mount(Product $product) {
-        $this->businesses = [];
-
+    public function mount(Product $product)
+    {
         $this->form->setProduct($product);
+
+        $this->tagOptions = ProductTagType::asSelectArray();
     }
 
     public function save()

@@ -3,7 +3,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div>
             <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
-                @if (isset($form->product))
+                @if (isset($form->admin))
                     {{ __('Update Admin') }}
                 @else
                     {{ __('Add Admin') }}
@@ -54,27 +54,31 @@
                         <x-input.text wire:model.blur="form.address" name="form.address" id="address" type="text"/>
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Country')" for="country_id" required/>
-                        <x-input.select wire:change="form.country_id" wire:model.blur="form.country_id" name="form.country_id" id="country_id">
-                            <option>{{ __('Select Country') }}</option>
-                            @foreach ($countries as $country)
-                                <option wire:key="country-{{ $country->id }}" :value="{{ $country->id }}" @if ($country->id == $form->country_id) selected @endif>{{ $country->name }}</option>
-                            @endforeach
-                        </x-input.select>
+                    <div class="{{ isset($form->country_id) ? 'col-span-1' : 'col-span-2' }}">
+                        <x-input.label :value="__('Country')" for="name" required/>
+                        <x-select
+                            class="w-full"
+                            placeholder="Select Country"
+                            wire:model.blur="form.country_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.countries')"
+                        />
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('City')" for="city_id" required/>
-                        <x-input.select wire:change="form.city_id" wire:model="form.city_id" name="form.city_id" id="city_id">
-                            <option>{{ __('Select City') }}</option>
-                            @foreach ($cities as $city)
-                                <option :value="{{ $city->id }}" wire:key="city-{{ $city->id }}" @if ($city->id == $form->city_id) selected @endif>
-                                    {{ $city->name }}
-                                </option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
+                    @if (isset($form->country_id))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('City')" for="name" required/>
+                            <x-select
+                                class="w-full"
+                                placeholder="Select City"
+                                wire:model="form.city_id"
+                                option-value="id"
+                                option-label="name"
+                                :async-data="route('misc.search.countries.cities', $form->country_id)"
+                            />
+                        </div>
+                    @endif
 
                     <div class="col-span-2">
                         <x-input.label :value="__('Role(s)')" for="roles" required/>
@@ -86,10 +90,17 @@
                         </x-input.select>
                     </div>
 
-                    <div>
-                        <x-input.label :value="__('Profile Picture')" for="profile_picture"/>
-                        <x:input.file wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
-                    </div>
+                    @if (isset($this->form->admin) || isset($form->profile_picture))
+                        <div class="col-span-2">
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->admin) }}"/>
+                            <x:input.image wire:model.blur="form.profile_picture" initialImage="{{ isset($form->profile_picture) ? $form->profile_picture->temporaryUrl() : $this->form->admin->profile_picture }}" name="form.profile_picture" id="profile_picture"/>
+                        </div>
+                    @else
+                        <div class="col-span-2">
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->admin) }}"/>
+                            <x:input.image wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
+                        </div>
+                    @endif
                 </div>
                 <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">
                     <x-button.danger type="button">
@@ -108,7 +119,7 @@
                         </x-button>
                     @else
                         <x-button.primary type="submit">
-                            <div wire:loading>
+                            <div wire:loading wire:target="save">
                                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -122,12 +133,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-{{-- Cropper.js --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
-
-{{-- Sortable.js --}}
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.1/Sortable.min.js"></script>
-@endpush

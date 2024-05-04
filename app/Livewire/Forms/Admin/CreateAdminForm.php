@@ -65,7 +65,7 @@ class CreateAdminForm extends Form
 
         $admin = Admin::create([
             ...$this->except('admin', 'permissions', 'roles'),
-            'username' => $this->email,
+            'username' => generateUsername(new Admin, explode('@', $this->email)[0]),
             'password' => bcrypt(Str::random(10))
         ]);
 

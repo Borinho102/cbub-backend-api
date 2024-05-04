@@ -54,6 +54,9 @@
                                     <div class="font-semibold text-center">{{ __('Products') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="font-semibold text-center">{{ __('Tags') }}</div>
+                                </th>
+                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Created At') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -68,12 +71,18 @@
                                 <tr>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->logo }}" width="36" height="36" alt="{{ $category->name }}" />
+                                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
+                                                @if ($category->image)
+                                                    <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                                                        <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->image }}" width="36" height="36" alt="{{ $category->name }}" />
+                                                    </div>
+                                                @else
+                                                    <div class="w-9 h-9 shrink-0 text-white font-bold text-center table-cell align-middle rounded-full bg-purple-600">
+                                                        {{ $category->initials }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div>
-                                                <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
-                                            </div>
+                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -83,6 +92,17 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->products_count }}</div>
+                                    </td>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        @if ($category->tags)
+                                            <div class="text-left">
+                                                @foreach ($category->tags as $tag)
+                                                    <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">{{ \App\Enums\ProductTagType::getDescription($tag) }}</div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->created_at->format('d/m/Y') }}</div>

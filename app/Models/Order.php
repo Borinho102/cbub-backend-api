@@ -31,4 +31,14 @@ class Order extends Model
     {
         return currency($this->amount, null, $this->currency);
     }
+
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
 }

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Support\Str;
 
 class Product extends Model implements HasMedia
 {
@@ -23,27 +23,47 @@ class Product extends Model implements HasMedia
     public $translatable = ['name', 'description', 'short_description', 'slug'];
 
     protected $fillable = [
-        'name', 'description', 'short_description', 'slug',
-        'sku', 'quantity', 'price', 'is_active', 'sku',
-        'is_available', 'category_id', 'business_id'
+        'name', 'description', 'short_description', 'slug', 'type',
+        'sku', 'quantity', 'price', 'is_active', 'sku', 'weight',
+        'is_available', 'category_id', 'business_id', 'tags',
+        'video_link', 'video_provider', 'data', 'refundable',
+        'free_shipping', 'min_purchase_quantity', 'barcode', 'parent_id'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+        'data' => 'array'
     ];
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images');
 
-        $this->addMediaCollection('preview')
+        $this->addMediaCollection('thumbnail')
+            ->singleFile();
+
+        $this->addMediaCollection('specifications')
             ->singleFile();
     }
 
-    public function getPreviewImageAttribute()
+    public function getThumbnailAttribute()
     {
-        return $this->getFirstMediaUrl('preview');
+        return $this->getFirstMediaUrl('thumbnail');
     }
 
     public function business() : BelongsTo
     {
-        return $this->belongsTo(Business::class, 'business_id');
+        return $this->belongsTo(Business::class);
+    }
+
+    public function variants() : HasMany
+    {
+        return $this->hasMany(Product::class, 'parent_id');
+    }
+
+    public function shop() : BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function category() : BelongsTo
@@ -51,19 +71,19 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
-    public function discount_prices(): HasMany
+    public function discounts(): MorphMany
     {
-        return $this->hasMany(ProductDiscountPrice::class);
+        return $this->morphMany(ProductDiscount::class, 'product');
     }
 
-    public function stocks(): HasMany
+    public function stocks(): MorphMany
     {
-        return $this->hasMany(ProductStock::class, 'product_id');
+        return $this->morphMany(ProductStock::class, 'product');
     }
 
     public function active_discount_price(): HasOne
     {
-        return $this->hasOne(ProductDiscountPrice::class)
+        return $this->hasOne(ProductDiscount::class)
             ->latest()
             ->where('is_active', 1)
             ->where(function ($q) {
@@ -72,17 +92,18 @@ class Product extends Model implements HasMedia
             });
     }
 
-    public function reviews(): HasMany
+    public function reviews(): MorphMany
     {
-        return $this->hasMany(ProductReview::class);
+        return $this->morphMany(Review::class, 'reviewable');
     }
 
     public function scopeWithAverageRating(Builder $q)
     {
         return $q->addSelect(['rating_avg' => function ($q) {
             $q->selectRaw('avg(rating)')
-                ->from('product_reviews')
-                ->whereColumn('product_id', 'products.id');
+                ->from('reviews')
+                ->where('reviewable_type', Product::class)
+                ->whereColumn('reviewable_id', 'products.id');
         }]);
     }
 

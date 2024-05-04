@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\Products;
 
-use App\Enums\StockMovementType;
 use App\Livewire\Forms\Admin\Product\ProductStockForm;
 use App\Models\ProductStock;
 use Livewire\Attributes\Layout;
@@ -21,51 +20,23 @@ class ProductStockList extends Component
 
     public $count;
 
-    public $selectedItems = [];
-
-    public $selectedProduct;
-
-    public $stockMovementType;
-
     public function mount()
     {
         $this->count = ProductStock::count();
     }
 
-    public function updatedSelectedItems($value)
+
+    #[On('show-stock-modal')]
+    public function showStockModal()
     {
-        if (count($this->selectedItems) == 1) {
-            $this->selectedProduct = ProductStock::with('product:id,name,quantity')
-                ->where('id', $this->selectedItems[0])
-                ->firstOrFail();
-            $this->productStockForm->setProduct($this->selectedProduct->product);
-        }
+        $this->dispatch('open-modal', name: 'create-stock-modal');
     }
 
-    #[On('show-add-stock-modal')]
-    public function showAddStockModal()
+    public function saveStock()
     {
-        $this->stockMovementType = StockMovementType::In;
-        $this->dispatch('open-modal', 'update-stock-modal');
-    }
+        $this->productStockForm->store();
 
-    #[On('show-remove-stock-modal')]
-    public function showRemoveStockModal()
-    {
-        $this->stockMovementType = StockMovementType::Out;
-        $this->dispatch('open-modal', 'update-stock-modal');
-    }
-
-    public function updateStock()
-    {
-        $this->productStockForm->setType($this->stockMovementType);
-
-        $this->productStockForm->update();
-
-        $this->selectedItems = [];
-        $this->selectedProduct = null;
-
-        $this->dispatch('close-modal', 'update-stock-modal');
+        $this->dispatch('close-modal', name: 'create-stock-modal');
 
         notify()->success(__('Product stock successfully updated!'));
     }

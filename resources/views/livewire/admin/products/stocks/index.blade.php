@@ -1,10 +1,26 @@
 <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-    <div class="sm:flex sm:justify-between sm:items-center mb-8">
-        <!-- Left: Title -->
-        <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">{{ __('Product Stocks ✨') }}</h1>
+    <div>
+        <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
+            {{ __('Product Stocks') }}
+        </h2>
+        <div class="text-start">
+            <!-- Start -->
+            <ul class="inline-flex flex-wrap text-sm font-medium">
+                <li class="flex items-center">
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" wire:navigate href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    <svg class="h-4 w-4 fill-current text-slate-400 dark:text-slate-600 mx-3" viewBox="0 0 16 16">
+                        <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('Product Stocks') }}</a>
+                </li>
+            </ul>
+            <!-- End -->
         </div>
+    </div>
 
+    <div class="sm:flex sm:justify-end sm:items-center mb-4">
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Dropdown -->
@@ -12,6 +28,14 @@
 
             <!-- Filter button -->
             <x-dropdown-filter align="right" />
+
+            <!-- Export button -->
+            <button type="button" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white mr-2"
+                x-data=""
+                x-on:click.prevent="$wire.dispatchTo('admin.products.product-stock-list', 'show-stock-modal')"
+            >
+                {{ __('Add Stock') }}
+            </button>
         </div>
     </div>
 
@@ -20,23 +44,9 @@
             <header class="px-5 py-4">
                 <h2 class="font-semibold text-slate-800 dark:text-slate-100">{{ __('Product Stocks') }} <span class="text-slate-400 dark:text-slate-500 font-medium">{{ $count }}</span></h2>
             </header>
-            <div class="table-items-action {{ isset($selectedItems) && count($selectedItems) == 1 ? 'block' : 'hidden' }} mr-2">
-                <div class="flex items-center">
-                    <button
-                        x-data=""
-                        x-on:click.prevent="$wire.dispatchTo('admin.products.product-stock-list', 'show-add-stock-modal')"
-                        class="mr-3 btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-green-500">
-                        {{ __('Add Stock') }}
-                    </button>
-
-                    <button
-                        x-data=""
-                        x-on:click.prevent="$wire.dispatchTo('admin.products.product-stock-list', 'show-remove-stock-modal')"
-                        class="btn bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-red-500">
-
-                        {{ __('Remove Stock') }}
-                    </button>
-                </div>
+            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2 mr-2">
+                <!-- Search form -->
+                <x-search-form wire:model.live="query" name="query" />
             </div>
         </div>
 
@@ -47,7 +57,6 @@
                     <!-- Table header -->
                     <thead class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
                         <tr>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px"></th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">{{ __('Product') }}</div>
                             </th>
@@ -76,18 +85,10 @@
                             <tbody class="text-sm" x-data="{ open: false }">
                                 <!-- Row -->
                                 <tr>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                        <div class="flex items-center">
-                                            <label class="inline-flex">
-                                                <span class="sr-only">{{ __('Select') }}</span>
-                                                <input wire:model.live="selectedItems" value="{{ $product_stock->id }}" class="table-item form-checkbox" type="checkbox" />
-                                            </label>
-                                        </div>
-                                    </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->product->preview_image }}" alt="{{ $product_stock->product->name }}" />
+                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->product->thumbnail }}" alt="{{ $product_stock->product->name }}" />
                                             </div>
                                             <div class="font-medium text-slate-800 dark:text-slate-100">{{ $product_stock->product->name }}</div>
                                         </div>
@@ -161,31 +162,5 @@
         {{ $product_stocks->links() }}
     </div>
 
-    <x-product.update-stock-modal
-        :movementType="$stockMovementType"
-        :selectedProduct="$selectedProduct" />
-
-    <script>
-        // A basic demo function to handle "select all" functionality
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('handleSelect', () => ({
-                selectall: false,
-                selectAction() {
-                    countEl = document.querySelector('.table-items-action');
-                    if (!countEl) return;
-                    checkboxes = document.querySelectorAll('input.table-item:checked');
-                    if (checkboxes.length == 1) {
-                        countEl.classList.remove('hidden');
-                    } else {
-                        countEl.classList.add('hidden');
-                    }
-                },
-                uncheckParent() {
-                    this.selectall = false;
-                    document.getElementById('parent-checkbox').checked = false;
-                    this.selectAction();
-                }
-            }))
-        })
-    </script>
+    <x-product.create-stock-modal />
 </div>

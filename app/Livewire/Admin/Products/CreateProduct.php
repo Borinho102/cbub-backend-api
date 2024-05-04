@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin\Products;
 
+use App\Enums\ProductType;
 use App\Livewire\Forms\Admin\Product\CreateProductForm;
-use App\Models\Business;
-use App\Models\ProductCategory;
+use App\Models\Product;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -16,22 +16,31 @@ class CreateProduct extends Component
 
     public CreateProductForm $form;
 
-    public $businesses;
+    public $productType;
 
-    public $categories;
-
-    public function mount() {
-        $this->businesses = Business::select('id', 'name', 'country_id')
-            ->with('country')
-            ->get();
-
-        $this->categories = ProductCategory::select('id', 'name')
-            ->where('is_active', 1)->get();
-    }
+    public bool $showForm;
 
     public function updatedFormShortDescriptionEn()
     {
         $this->form->short_description_fr = $this->form->short_description_en;
+    }
+
+    public function updatedProductType()
+    {
+        $this->form->type = $this->productType;
+    }
+
+    public function updatedFormQuantity()
+    {
+        if ($this->form->parent_id) {
+            $this->form->items_count = $this->form->quantity;
+        }
+    }
+
+    public function updatedFormParentId()
+    {
+        $this->form->parent_id = $this->form->parent_id;
+        $this->form->setParentProduct(Product::find($this->form->parent_id));
     }
 
     public function updatedFormDescriptionEn()
@@ -42,6 +51,16 @@ class CreateProduct extends Component
     public function updatedFormNameEn()
     {
         $this->form->name_fr = $this->form->name_en;
+    }
+
+    public function showForm()
+    {
+        $this->showForm = true;
+    }
+
+    public function selectProductType($type)
+    {
+        $this->productType = $type;
     }
 
     public function save()

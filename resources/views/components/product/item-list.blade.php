@@ -3,7 +3,7 @@
         <div class="flex flex-col h-full">
             <!-- Image -->
             <div class="relative">
-                <img class="w-full h-40" src="{{ $product->preview_image }}" alt="Application 05" />
+                <img class="w-full h-40" src="{{ $product->thumbnail }}" alt="Application 05" />
                 <!-- Popular label -->
                 <div class="absolute top-0 left-4 mt-4">
                     <div class="inline-flex items-center text-xs font-medium text-slate-100 dark:text-slate-300 bg-slate-900/60 dark:bg-slate-800/60 rounded-full text-center px-2 py-0.5">
@@ -77,12 +77,9 @@
                 </div>
                 <!-- Card footer -->
                 <div>
-                    <button class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white"
-                        x-data=""
-                        x-on:click.prevent="$wire.dispatchTo('admin.products.product-list', 'show-discount-modal', { product: {{ $product->id }} })"
-                    >
-                        {{ __('Add Discount') }}
-                    </button>
+                    <a wire:navigate href="{{ route('admin.products.edit', $product->id) }}" class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white">
+                        {{ __('Edit') }}
+                    </a>
                 </div>
             </div>
         </div>

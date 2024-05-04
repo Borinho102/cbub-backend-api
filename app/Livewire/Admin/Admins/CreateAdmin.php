@@ -31,7 +31,8 @@ class CreateAdmin extends Component
         $this->countries = Country::select('id', 'name')
             ->active()->get();
 
-        $this->roles = Role::select('id', 'name', 'display_name')->get();
+        $this->roles = Role::select('id', 'name', 'display_name')
+            ->whereIn('name', ['admin', 'owner'])->get();
 
         $this->permissions = Permission::select('id', 'name', 'display_name')
             ->whereHas('roles', function ($q) {

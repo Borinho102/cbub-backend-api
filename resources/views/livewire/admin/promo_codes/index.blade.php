@@ -93,16 +93,17 @@
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-center">{{ $promo_code->code }}</div>
+                                        <div class="font-medium text-start">{{ $promo_code->code }}</div>
                                     </td>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-center">
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap mx-auto">
+                                        {{-- <div class="font-medium text-center">
                                             @if ($promo_code->is_active)
                                                 <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">{{ __('Active') }}</div>
                                             @else
                                                 <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400">{{ __('Inactive') }}</div>
                                             @endif
-                                        </div>
+                                        </div> --}}
+                                        <x-toggle id="promo-code-toggle-{{ $promo_code->id }}" :checked="$promo_code->is_active == 1" wire:change="toggleStatus({{ $promo_code->id }})" primary xl />
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">
@@ -118,35 +119,14 @@
                                         <div class="font-medium text-center">{{ $promo_code->created_at->format('d/m/Y') }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
-                                        <div class="relative inline-flex" x-data="{ open: false }">
-                                            <button class="inline-flex justify-center items-center group" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open">
-                                                <div class="flex items-center truncate">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                    </svg>
-                                                </div>
-                                            </button>
-                                            <div
-                                                class="origin-top-right z-10 absolute top-full left-0 min-w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
-                                                @click.outside="open = false"
-                                                @keydown.escape.window="open = false" x-show="open"
-                                                x-transition:enter="transition ease-out duration-200 transform"
-                                                x-transition:enter-start="opacity-0 -translate-y-2"
-                                                x-transition:enter-end="opacity-100 translate-y-0"
-                                                x-transition:leave="transition ease-out duration-200"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                x-cloak
+                                        <div class="space-x-1">
+                                            <a wire:navigate href="{{ route('admin.promo_codes.edit', $promo_code->id) }}" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block"
                                             >
-                                                <ul>
-                                                    <li>
-                                                        <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex items-center py-1 px-3" wire:navigate href="{{ route('admin.promo_codes.edit', $promo_code->id) }}" @click="open = false" @focus="open = true" @focusout="open = false">Edit</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                                <span class="sr-only">Edit</span>
+                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                </svg>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

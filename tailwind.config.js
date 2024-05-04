@@ -1,6 +1,8 @@
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 const plugin = require('tailwindcss/plugin');
+const colors = require('tailwindcss/colors')
+
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -22,7 +24,34 @@ export default {
 	],
     darkMode: 'class',
     theme: {
+        zIndex: {
+            '5': 5,
+            '10': 10,
+            '15': 15,
+            '20': 20,
+            '25': 25,
+            '30': 30,
+            '35': 35,
+            '40': 40,
+            '45': 45,
+            '50': 50,
+            '75': 75,
+            '100': 100,
+            '200': 200,
+            '999': 999,
+            '1000': 1000,
+            '9999': 9999,
+            'auto': 'auto',
+        },
         extend: {
+            colors: {
+                primary: colors.purple,
+                secondary: colors.gray,
+                positive: colors.emerald,
+                negative: colors.red,
+                warning: colors.amber,
+                info: colors.blue
+            },
             boxShadow: {
                 DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',
                 md: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
@@ -64,10 +93,7 @@ export default {
             maxWidth: {
                 '8xl': '88rem',
                 '9xl': '96rem',
-            },
-            zIndex: {
-                60: '60',
-            },
+            }
         },
     },
     plugins: [

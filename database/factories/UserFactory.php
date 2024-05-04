@@ -52,7 +52,7 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (User $user) {
-            for($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 UserLocation::create([
                     'user_id' => $user->id,
                     'name' => $i === 0 ? 'Home Location' : fake()->address(),

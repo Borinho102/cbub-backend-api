@@ -49,14 +49,6 @@
                         <!-- Table header -->
                         <thead class="text-xs font-semibold uppercase text-slate-500 border-t border-b border-slate-200 dark:border-slate-700">
                             <tr>
-                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                    <div class="flex items-center">
-                                        <label class="inline-flex">
-                                            <span class="sr-only">Select all</span>
-                                            <input id="parent-checkbox" class="form-checkbox" type="checkbox" />
-                                        </label>
-                                    </div>
-                                </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-start">{{ __('Logo') }}</div>
                                 </th>
@@ -67,7 +59,7 @@
                                     <div class="font-semibold text-center">{{ __('Country') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-center">{{ __('City') }}</div>
+                                    <div class="font-semibold text-center">{{ __('Shops') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Products') }}</div>
@@ -88,14 +80,6 @@
                             <!-- Row -->
                             @foreach($businesses as $business)
                                 <tr>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                        <div class="flex items-center">
-                                            <label class="inline-flex">
-                                                <span class="sr-only">Select</span>
-                                                <input class="table-item form-checkbox" type="checkbox" @click.stop="uncheckParent" />
-                                            </label>
-                                        </div>
-                                    </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
@@ -108,14 +92,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-center">{{ $business->category->name }}</div>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
+                                        <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">{{ $business->category->name }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $business->country->name }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-center">{{ $business->city ? $business->city->name : '' }}</div>
+                                        <div class="font-medium text-center">{{ $business->shops_count }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $business->products_count }}</div>
@@ -156,37 +140,4 @@
             {{ $businesses->links() }}
         </div>
     </div>
-
-    <script>
-        // A basic demo function to handle "select all" functionality
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('handleSelect', () => ({
-                selectall: false,
-                selectAction() {
-                    countEl = document.querySelector('.table-items-action');
-                    if (!countEl) return;
-                    checkboxes = document.querySelectorAll('input.table-item:checked');
-                    document.querySelector('.table-items-count').innerHTML = checkboxes.length;
-                    if (checkboxes.length > 0) {
-                        countEl.classList.remove('hidden');
-                    } else {
-                        countEl.classList.add('hidden');
-                    }
-                },
-                toggleAll() {
-                    this.selectall = !this.selectall;
-                    checkboxes = document.querySelectorAll('input.table-item');
-                    [...checkboxes].map((el) => {
-                        el.checked = this.selectall;
-                    });
-                    this.selectAction();
-                },
-                uncheckParent() {
-                    this.selectall = false;
-                    document.getElementById('parent-checkbox').checked = false;
-                    this.selectAction();
-                },
-            }))
-        })
-    </script>
 </div>

@@ -42,22 +42,22 @@
                         <x-input.label :value="__('Name (French)')" for="name_fr" required/>
                         <x-input.text wire:model.blur="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
                     </div>
-                    <div class="{{ $categories->isNotEmpty() ? 'col-span-1' : 'col-span-2' }}">
+                    <div class="col-span-2">
                         <x-input.label :value="__('Code')" for="code" required/>
                         <x-input.text wire:model.blur="form.code" name="form.code" id="code" readonly type="text"/>
                     </div>
 
-                    @if ($categories->isNotEmpty())
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Top Category')" for="parent_id"/>
-                            <x-input.select wire:model="form.parent_id" wire:change="form.parent_id" name="form.parent_id" id="parent_id">
-                                <option>{{ __('Select Top Category') }}</option>
-                                @foreach ($categories as $category)
-                                    <option wire:key="category-{{ $category->id }}" :value="{{ $category->id }}" @if ($category->id == $form->parent_id) selected @endif>{{ $category->name }}</option>
-                                @endforeach
-                            </x-input.select>
-                        </div>
-                    @endif
+                    <div class="col-span-2">
+                        <x-select
+                            class="w-full"
+                            :label="__('Top Category')"
+                            placeholder="Select Top Category"
+                            wire:model="form.parent_id"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.product_categories')"
+                        />
+                    </div>
 
                     <div class="col-span-1">
                         <x-input.label :value="__('Description (English)')" for="description_en"/>
@@ -70,9 +70,30 @@
                     </div>
 
                     <div class="col-span-2">
-                        <x-input.label :value="__('Logo')" for="logo"/>
-                        <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                        <x-select
+                            class="w-full"
+                            :label="__('Select Tag(s)')"
+                            placeholder="Select Tag(s)"
+                            multiselect
+                            wire:model="form.tags"
+                        >
+                            @foreach ($tagOptions as $id => $tag)
+                                <x-select.option wire:key="tag-{{ $id }}" label="{{ $tag }}" value="{{ $id }}" />
+                            @endforeach
+                        </x-select>
                     </div>
+
+                    @if (isset($this->form->category) || isset($form->image))
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->icon) ? $form->image->temporaryUrl() : $this->form->category->image }}" name="form.image" id="image"/>
+                        </div>
+                    @else
+                        <div class="col-span-1">
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
+                        </div>
+                    @endif
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">
                         <x-button.danger type="button">
@@ -81,7 +102,7 @@
 
                         @isset ($this->form->category)
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -91,7 +112,7 @@
                             </x-button.primary>
                         @else
                             <x-button.primary type="submit">
-                                <div wire:loading>
+                                <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

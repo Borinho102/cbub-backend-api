@@ -35,7 +35,8 @@ class EditAdmin extends Component
         $this->countries = Country::select('id', 'name')
             ->active()->get();
 
-        $this->roles = Role::select('id', 'name', 'display_name')->get();
+        $this->roles = Role::select('id', 'name', 'display_name')
+            ->whereIn('name', ['admin', 'owner'])->get();
 
         $this->permissions = Permission::select('id', 'name', 'display_name')
             ->whereRoleIs(['admin', 'owner'])->get();

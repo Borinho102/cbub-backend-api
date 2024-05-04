@@ -42,7 +42,7 @@
                                 <span class="sr-only">{{ __('Favourite') }}</span>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Order') }}</div>
+                                <div class="font-semibold text-left">{{ __('Name') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">{{ __('Email') }}</div>
