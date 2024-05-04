@@ -3,7 +3,7 @@
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
         <div>
             <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
-                @if (isset($form->product))
+                @if (isset($form->admin))
                     {{ __('Update Admin') }}
                 @else
                     {{ __('Add Admin') }}
@@ -133,12 +133,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-{{-- Cropper.js --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
-
-{{-- Sortable.js --}}
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.1/Sortable.min.js"></script>
-@endpush

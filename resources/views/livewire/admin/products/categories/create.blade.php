@@ -83,39 +83,15 @@
                         </x-select>
                     </div>
 
-                    @if (isset($this->form->category) || isset($form->icon))
+                    @if (isset($this->form->category) || isset($form->image))
                         <div class="col-span-1">
-                            <x-input.label :value="__('Icon')" for="icon" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.icon" initialImage="{{ isset($form->icon) ? $form->icon->temporaryUrl() : $this->form->category->icon }}" name="form.icon" id="icon"/>
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->icon) ? $form->image->temporaryUrl() : $this->form->category->image }}" name="form.image" id="image"/>
                         </div>
                     @else
                         <div class="col-span-1">
-                            <x-input.label :value="__('Icon')" for="icon" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.icon" name="form.icon" id="icon"/>
-                        </div>
-                    @endif
-
-                    @if (isset($this->form->category) || isset($form->cover_image))
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Cover Image')" for="cover_image" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.cover_image" initialImage="{{ isset($form->cover_image) ? $form->cover_image->temporaryUrl() : $this->form->category->cover_image }}" name="form.cover_image" id="cover_image"/>
-                        </div>
-                    @else
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Cover Image')" for="cover_image" required="{{ !isset($this->form->cover_image) }}"/>
-                            <x:input.image wire:model.blur="form.cover_image" name="form.cover_image" id="cover_image"/>
-                        </div>
-                    @endif
-
-                    @if (isset($this->form->category) || isset($form->banner_image))
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Banner Image')" for="banner_image" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.banner_image" initialImage="{{ isset($form->banner_image) ? $form->banner_image->temporaryUrl() : $this->form->category->banner_image }}" name="form.banner_image" id="banner_image"/>
-                        </div>
-                    @else
-                        <div class="col-span-1">
-                            <x-input.label :value="__('Banner Image')" for="banner_image" required="{{ !isset($this->form->banner_image) }}"/>
-                            <x:input.image wire:model.blur="form.banner_image" name="form.banner_image" id="banner_image"/>
+                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @endif
 

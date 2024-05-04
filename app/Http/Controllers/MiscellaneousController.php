@@ -81,10 +81,25 @@ class MiscellaneousController extends Controller
      */
     public function searchProductCategories(Request $request): Response|Application|ResponseFactory
     {
+        $guard = appGuard();
+        $business = request('business');
         $categories = ProductCategory::query()
             ->select('id', 'name', 'parent_id', 'code')
             ->search()
             ->where('is_active', 1)
+            ->when($business && $guard != 'business', function ($q) use ($business) {
+                $q->where('business_id', $business);
+            })
+            ->when(!$business, function ($q) use ($guard) {
+                $q->where(function ($q) use ($guard) {
+                    if ($guard === 'business') {
+                        $q->where('business_id', auth()->user()->business_id)
+                            ->orWhereNull('business_id');
+                    } else {
+                        $q->whereNull('business_id');
+                    }
+                });
+            })
             ->orderBy('name', 'asc')
             ->limit(10)
             ->get()
@@ -106,9 +121,24 @@ class MiscellaneousController extends Controller
      */
     public function searchProducts(Request $request): Response|Application|ResponseFactory
     {
+        $business = request('business');
+        $shop = request('shop');
+        $guard = appGuard();
+
         $products = Product::select('id', 'name')
             ->search()
             ->where('is_active', 1)
+            ->when($business && $guard != 'business', function ($q) use ($business) {
+                $q->where('business_id', $business);
+            })
+            ->when(!$business && $guard === 'business', function ($q) {
+                $q->where(function ($q) {
+                    $q->where('business_id', auth()->user()->business_id);
+                });
+            })
+            ->when($shop, function ($q) use ($shop) {
+                $q->where('shop_id', $shop);
+            })
             ->limit(10)
             ->get()
             ->transform(function ($product) {
@@ -130,9 +160,61 @@ class MiscellaneousController extends Controller
     public function searchUsers(Request $request)
     {
         $query = $request->get('search');
+        $guard = appGuard();
+        $business = request('business');
+        $shop = request('shop');
 
         $data = User::query()
             ->select('id', 'name')
+            ->withoutAppends()
+            ->when($query != null, function ($q) use ($query) {
+                $q->where('name', 'like', "%$query%");
+            })
+            ->when($shop || $business || $guard === 'business', function ($q) use ($shop, $business, $guard) {
+                $q->whereHas('orders', function ($q) use ($shop, $business, $guard) {
+                    $q->whereHas('items', function ($q) use ($shop, $business, $guard) {
+                        if ($guard === 'business') {
+                            $q->where('business_id', auth()->user()->business_id);
+                        } else if ($business) {
+                            $q->where('business_id', $business);
+                        }
+
+                        if ($shop) {
+                            $q->where('shop_id', $shop);
+                        }
+                    });
+                });
+            })
+            ->limit(10)
+            ->get()
+            ->transform(function ($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name
+                ];
+            });
+
+        return response($data);
+    }
+
+    /**
+     * Search customers
+    */
+    public function searchCustomers()
+    {
+        $query = request('search');
+        $guard = appGuard();
+        $business = request('business');
+
+        $data = User::query()
+            ->select('id', 'name')
+            ->whereHas('customers', function ($q) use ($guard, $business) {
+                if ($guard === 'business') {
+                    $q->where('business_id', auth()->user()->business_id);
+                } else {
+                    $q->where('business_id', $business);
+                }
+            })
             ->withoutAppends()
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
@@ -145,6 +227,7 @@ class MiscellaneousController extends Controller
                     'name' => $user->name
                 ];
             });
+
         return response($data);
     }
 
@@ -182,11 +265,25 @@ class MiscellaneousController extends Controller
     public function searchShops(Request $request)
     {
         $query = $request->get('search');
+        $business = request('business');
+        $shop = request('shop');
+        $guard = appGuard();
 
         $data = Shop::query()
             ->select('id', 'name')
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
+            })
+            ->when(true, function ($q) use ($guard, $business, $shop) {
+                if ($guard === 'business') {
+                    $q->where('business_id', auth()->user()->business_id);
+                } else if ($business) {
+                    $q->where('business_id', $business);
+                }
+
+                if ($shop) {
+                    $q->where('id', $shop);
+                }
             })
             ->limit(10)
             ->get()

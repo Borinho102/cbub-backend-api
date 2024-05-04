@@ -43,7 +43,7 @@ import { formatNumber } from 'chart.js/helpers';
 
     const colors = ['indigo', 'amber', 'slate', 'orange', 'stone'];
 
-    fetch('/secure.portal.99/console/statistics/4')
+    fetch('/miscellaneous/statistics/4')
         .then(a => {
             return a.json();
         })

@@ -32,6 +32,8 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->foreignId('shop_id')->nullable()
                 ->constrained('shops');
+            $table->foreignId('business_id')->nullable()
+                ->constrained('businesses');
             $table->string('tags')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();

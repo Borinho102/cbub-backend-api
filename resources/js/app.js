@@ -16,6 +16,7 @@ import topProductsCard from './components/top-products-card';
 import topBusinessesChart from './components/top-businesses-chart';
 import latestOrdersCard from './components/latest-orders-card';
 import topRequestedProductsChart from './components/top-requested-products-chart';
+import topBusinesShopsChart from './components/top-business-shops-chart';
 
 // Define Chart.js default settings
 /* eslint-disable prefer-destructuring */
@@ -112,4 +113,5 @@ document.addEventListener('DOMContentLoaded', () => {
     latestOrdersCard();
     topBusinessesChart();
     topRequestedProductsChart();
+    topBusinesShopsChart();
 });

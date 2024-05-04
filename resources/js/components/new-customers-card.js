@@ -37,7 +37,7 @@ const newCustomersCard = () => {
         dark: '#475569'
     };
 
-    fetch('/secure.portal.99/console/statistics/8')
+    fetch('/miscellaneous/statistics/8')
         .then(a => {
             return a.json();
         })
@@ -45,6 +45,11 @@ const newCustomersCard = () => {
             const countElt = document.getElementById('total-customers-count');
             if (countElt) {
                 countElt.textContent = formatThousands(response.total_count);
+            }
+
+            const percentageElt = document.getElementById('new-customers-percentage-diff');
+            if (percentageElt) {
+                percentageElt.textContent = response.percentage_difference
             }
 
             const chart = new Chart(ctx, {

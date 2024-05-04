@@ -118,4 +118,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
     {
         return $this->morphOne(Order::class, 'customer')->latest();
     }
+
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Customer::class, 'user_id');
+    }
 }

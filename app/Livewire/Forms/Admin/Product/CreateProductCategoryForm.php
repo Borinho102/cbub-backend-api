@@ -32,13 +32,7 @@ class CreateProductCategoryForm extends Form
     public $parent_id;
 
     #[Validate('nullable|image|max:2048')] // 2MB Max
-    public $icon;
-
-    #[Validate('nullable|image|max:2048')] // 2MB Max
-    public $banner_image;
-
-    #[Validate('nullable|image|max:2048')] // 2MB Max
-    public $cover_image;
+    public $image;
 
     #[Validate('nullable')]
     public $tags;
@@ -78,25 +72,11 @@ class CreateProductCategoryForm extends Form
             ]
         ]);
 
-        if ($this->icon) {
+        if ($this->image) {
             $category
-                ->addMedia($this->icon->getRealPath())
-                ->usingName($this->icon->getClientOriginalName())
-                ->toMediaCollection('icon_image');
-        }
-
-        if ($this->cover_image) {
-            $category
-                ->addMedia($this->cover_image->getRealPath())
-                ->usingName($this->cover_image->getClientOriginalName())
-                ->toMediaCollection('cover_image');
-        }
-
-        if ($this->banner_image) {
-            $category
-                ->addMedia($this->banner_image->getRealPath())
-                ->usingName($this->banner_image->getClientOriginalName())
-                ->toMediaCollection('banner_image');
+                ->addMedia($this->image->getRealPath())
+                ->usingName($this->image->getClientOriginalName())
+                ->toMediaCollection('image');
         }
 
         $this->reset();
@@ -118,25 +98,11 @@ class CreateProductCategoryForm extends Form
             ]
         ]);
 
-        if ($this->icon) {
+        if ($this->image) {
             $this->category
-                ->addMedia($this->icon->getRealPath())
-                ->usingName($this->icon->getClientOriginalName())
-                ->toMediaCollection('icon_image');
-        }
-
-        if ($this->cover_image) {
-            $this->category
-                ->addMedia($this->cover_image->getRealPath())
-                ->usingName($this->cover_image->getClientOriginalName())
-                ->toMediaCollection('cover_image');
-        }
-
-        if ($this->banner_image) {
-            $this->category
-                ->addMedia($this->banner_image->getRealPath())
-                ->usingName($this->banner_image->getClientOriginalName())
-                ->toMediaCollection('banner_image');
+                ->addMedia($this->image->getRealPath())
+                ->usingName($this->image->getClientOriginalName())
+                ->toMediaCollection('image');
         }
 
         notify()->success(__('Product category successfully updated!'));

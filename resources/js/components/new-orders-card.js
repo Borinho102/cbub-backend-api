@@ -37,7 +37,7 @@ const newOrdersCard = () => {
     dark: '#475569'
   };
 
-  fetch('/secure.portal.99/console/statistics/7')
+  fetch('/miscellaneous/statistics/7')
     .then(a => {
       return a.json();
     })

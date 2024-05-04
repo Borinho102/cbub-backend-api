@@ -14,6 +14,7 @@ use BenSampo\Enum\Enum;
  * @method static static NewOrdersThisWeek()
  * @method static static NewCustomersThisWeek()
  * @method static static TopRequestedProductChart()
+ * @method static static TopBusinessShopChart()
  */
 final class DashboardStatisticType extends Enum
 {
@@ -26,4 +27,5 @@ final class DashboardStatisticType extends Enum
     const NewOrdersThisWeek = 7;
     const NewCustomersThisWeek = 8;
     const TopRequestedProductChart = 9;
+    const TopBusinessShopChart = 10;
 }

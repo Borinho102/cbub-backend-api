@@ -68,4 +68,9 @@ class BusinessUser extends Authenticatable implements HasMedia, LaratrustUser
     {
         return $this->belongsTo(Business::class);
     }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

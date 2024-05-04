@@ -8,7 +8,7 @@ const topProductsCard = () => {
 
   const darkMode = localStorage.getItem('dark-mode') === 'true';
 
-  fetch('/secure.portal.99/console/statistics/2')
+  fetch('/miscellaneous/statistics/2')
     .then(a => {
       return a.json();
     })

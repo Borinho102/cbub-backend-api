@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('tags')->nullable();
             $table->boolean('is_active')->default(1);
             $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->foreignId('business_id')->nullable()->constrained('businesses');
             $table->json('data')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -4,7 +4,7 @@
             <h2 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2" id="total-customers-count"></h2>
             <div class="text-xs font-bold text-slate-500 dark:text-slate-500 uppercase mb-1">New Customers</div>
             <div class="flex flex-col items-start">
-                <div class="text-xl font-bold text-slate-800 dark:text-slate-100 mr-2">-20.95%</div>
+                <div class="text-xl font-bold text-slate-800 dark:text-slate-100 mr-2" id="new-customers-percentage-diff"></div>
                 <div class="text-xs font-bold text-slate-500 dark:text-slate-500">This Week</div>
             </div>
         </div>

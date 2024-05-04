@@ -10,6 +10,6 @@ class ProductDetails extends Component
 {
     public function render()
     {
-        return view('livewire.business.products.show');
+        return view('livewire.admin.products.show');
     }
 }

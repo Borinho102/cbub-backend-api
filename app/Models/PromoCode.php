@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,7 +26,7 @@ class PromoCode extends Model implements HasMedia
         'title', 'code', 'tags', 'start_date', 'end_date',
         'shop_id', 'max_usage', 'data', 'is_active',
         'max_usage_per_user', 'minimum_spend','maximum_spend',
-        'discount_value', 'free_delivery'
+        'discount_value', 'free_delivery', 'business_id'
     ];
 
     protected $casts = [
@@ -67,6 +68,16 @@ class PromoCode extends Model implements HasMedia
             'service',
             'promo_code_service'
         );
+    }
+
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function registerMediaCollections(): void

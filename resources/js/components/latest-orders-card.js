@@ -8,7 +8,7 @@ const latestOrdersCard = () => {
 
   const darkMode = localStorage.getItem('dark-mode') === 'true';
 
-  fetch('/secure.portal.99/console/statistics/5')
+  fetch('/miscellaneous/statistics/5')
     .then(a => {
       return a.json();
     })

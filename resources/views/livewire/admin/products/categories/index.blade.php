@@ -48,15 +48,6 @@
                                     <div class="font-semibold text-start">{{ __('Name') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-start">{{ __('Icon') }}</div>
-                                </th>
-                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-start">{{ __('Banner') }}</div>
-                                </th>
-                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-start">{{ __('Cover') }}</div>
-                                </th>
-                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Status') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -79,34 +70,20 @@
                             @foreach ($categories as $category)
                                 <tr>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
-                                    </td>
-                                    <td>
-                                        @if ($category->icon)
-                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->icon }}" width="36" height="36" alt="{{ $category->name }}" />
+                                        <div class="flex items-center">
+                                            <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
+                                                @if ($category->image)
+                                                    <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
+                                                        <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->image }}" width="36" height="36" alt="{{ $category->name }}" />
+                                                    </div>
+                                                @else
+                                                    <div class="w-9 h-9 shrink-0 text-white font-bold text-center table-cell align-middle rounded-full bg-purple-600">
+                                                        {{ $category->initials }}
+                                                    </div>
+                                                @endif
                                             </div>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($category->banner)
-                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->banner }}" width="36" height="36" alt="{{ $category->banner }}" />
-                                            </div>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($category->cover)
-                                            <div class="w-9 h-9 shrink-0 mr-2 sm:mr-3">
-                                                <img class="w-9 h-9 rounded-full object-cover" src="{{ $category->cover }}" width="36" height="36" alt="{{ $category->cover }}" />
-                                            </div>
-                                        @else
-                                            -
-                                        @endif
+                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $category->name }}</div>
+                                        </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">

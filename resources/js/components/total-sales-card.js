@@ -37,7 +37,7 @@ const totalSalesCard = () => {
         dark: '#475569'
     };
 
-    fetch('/secure.portal.99/console/statistics/6')
+    fetch('/miscellaneous/statistics/6')
         .then(a => {
             return a.json();
         })

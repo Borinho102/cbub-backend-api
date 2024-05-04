@@ -37,7 +37,7 @@ const topRequestedProductsChart = () => {
         dark: '#475569'
     };
 
-    fetch('/secure.portal.99/console/statistics/9')
+    fetch('/miscellaneous/statistics/9')
         .then(a => {
             return a.json();
         })

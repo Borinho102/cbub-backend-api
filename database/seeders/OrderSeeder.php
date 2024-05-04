@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -33,6 +34,8 @@ class OrderSeeder extends Seeder
                     'order_id' => generateOrderID(),
                     'amount' => random_int(13500, 67900),
                     'currency' => 'XAF',
+                    'business_id' => 1,
+                    'shop_id' => 1,
                     'location_id' => $user->current_location->id,
                     'status' => ['pending', 'refunded', 'approved'][random_int(0, 2)],
                     'description' => fake()->sentence(30)
@@ -56,11 +59,19 @@ class OrderSeeder extends Seeder
                         'unit_amount' => $product->price,
                         'total_amount' => $qty * $product->price
                     ]);
+
                     $order->update([
+                        'business_id' => $product->business_id,
+                        'shop_id' => $product->shop_id,
                         'created_at' => $date,
                         'updated_at' => $date
                     ]);
                     $order_amount += $item->total_amount;
+
+                    Customer::firstOrCreate([
+                        'user_id' => $user->id,
+                        'business_id' => $product->business_id
+                    ], []);
                 }
 
                 $order->update(['amount' => $order_amount]);

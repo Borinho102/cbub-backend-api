@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Services\Utils\Initials;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
@@ -20,7 +22,7 @@ class ProductCategory extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'code', 'hint', 'description',
-        'is_active', 'parent_id', 'tags'
+        'is_active', 'parent_id', 'tags', 'business_id'
     ];
 
     protected $casts = [
@@ -29,19 +31,18 @@ class ProductCategory extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('icon_image')
-            ->singleFile();
-
-        $this->addMediaCollection('banner_image')
-            ->singleFile();
-
-        $this->addMediaCollection('cover_image')
+        $this->addMediaCollection('image')
             ->singleFile();
     }
 
     public function products() : HasMany
     {
         return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function business() : BelongsTo
+    {
+        return $this->belongsTo(Business::class, 'business_id');
     }
 
     /**
@@ -58,22 +59,15 @@ class ProductCategory extends Model implements HasMedia
         );
     }
 
-    public function getIconAttribute()
+    public function getImageAttribute()
     {
-        $icon = $this->getFirstMediaUrl('icon');
-        return !empty($icon) ? $icon : null;
+        $image = $this->getFirstMediaUrl('image');
+        return !empty($image) ? $image : null;
     }
 
-    public function getBannerAttribute()
+    public function getInitialsAttribute()
     {
-        $banner = $this->getFirstMediaUrl('banner');
-        return !empty($banner) ? $banner : null;
-    }
-
-    public function getCoverImageAttribute()
-    {
-        $cover_image = $this->getFirstMediaUrl('cover_image');
-        return !empty($cover_image) ? $cover_image : null;
+        return Initials::generate($this->name);
     }
 
     public function scopeSearch($q)

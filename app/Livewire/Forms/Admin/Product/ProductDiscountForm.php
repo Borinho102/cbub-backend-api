@@ -68,7 +68,7 @@ class ProductDiscountForm extends Form
                 'product_id' => $product->id,
                 'old_price' => $product->price,
                 'new_price' => $this->price,
-                'discount_percentage' => round(100 - ($this->price / $this->product->price) * 100, 0),
+                'discount_percentage' => round(100 - ($this->price / $product->price) * 100, 0),
                 'start_date' => $this->start_time,
                 'end_date' => $this->end_time,
                 'user_type' => get_class($user),

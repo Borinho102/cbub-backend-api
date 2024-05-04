@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
         Product::factory(50)->create();
         $this->call(ProductReviewSeeder::class);
         $this->call(ShopReviewSeeder::class);
-        $this->call(DashboardTableSeeder::class);
         $this->call(OrderSeeder::class);
         $this->command->info("Seeding Completed! 🤩");
     }

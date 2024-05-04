@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Livewire\Business\Products\Categories;
+
+use App\Livewire\Forms\Business\Product\CreateProductCategoryForm;
+use App\Models\ProductCategory;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+
+#[Layout('components.layouts.backend.app')]
+class EditCategory extends Component
+{
+    use WithFileUploads;
+
+    public CreateProductCategoryForm $form;
+
+    public $categories;
+
+    public function mount(ProductCategory $category)
+    {
+        $this->form->setCategory($category);
+
+        $this->categories = ProductCategory::select('id', 'name')
+            ->whereNull('parent_id')->get();
+    }
+
+    public function save()
+    {
+        $this->form->update();
+
+        return $this->redirect(route('admin.products.categories.index'));
+    }
+
+    public function render()
+    {
+        return view('livewire.business.products.categories.create');
+    }
+}

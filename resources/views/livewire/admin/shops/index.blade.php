@@ -16,7 +16,7 @@
                         </svg>
                     </li>
                     <li class="flex items-center">
-                        <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('Shop List') }}</a>
+                        <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#">{{ __('Shop List') }}</a>
                     </li>
                 </ul>
                 <!-- End -->

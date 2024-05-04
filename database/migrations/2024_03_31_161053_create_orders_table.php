@@ -22,6 +22,8 @@ return new class extends Migration
             $table->json('data')->nullable();
             $table->foreignId('location_id')
                 ->constrained('user_locations');
+            $table->foreignId('business_id')->constrained('businesses');
+            $table->foreignId('shop_id')->constrained('shops');
             $table->timestamps();
             $table->softDeletes();
         });
