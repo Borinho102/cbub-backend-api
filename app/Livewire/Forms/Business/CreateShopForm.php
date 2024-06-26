@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
-
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class CreateShopForm extends Form
 {
@@ -33,6 +33,12 @@ class CreateShopForm extends Form
 
     #[Validate('nullable|max:500')]
     public $about;
+
+    #[Validate('required_with:longitude|numeric')]
+    public $latitude;
+
+    #[Validate('required_with:latitude|numeric')]
+    public $longitude;
 
     #[Validate('nullable|url')]
     public $website;
@@ -128,13 +134,15 @@ class CreateShopForm extends Form
                 ->firstOrFail();
 
             $shop = Shop::create([
-                ...$this->except('shop', 'logo', 'banners', 'image'),
+                ...$this->except('shop', 'logo', 'banners', 'image', 'latitute', 'longitude'),
                 'owner_id' => $business_owner->id,
                 'business_id' => $user->business_id,
                 'slug' => generateShopSlug(
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
-                )
+                ),
+                'location' => $this->latitude ?
+                    new Point($this->latitude, $this->longitude) : null,
             ]);
 
             $shop
@@ -181,8 +189,10 @@ class CreateShopForm extends Form
             ->firstOrFail();
 
         $this->shop->update([
-            ...$this->except('logo', 'shop', 'banners', 'image'),
-            'owner_id' => $business_owner->id
+            ...$this->except('logo', 'shop', 'banners', 'image', 'latitute', 'longitude'),
+            'owner_id' => $business_owner->id,
+            'location' => $this->latitude ?
+                new Point($this->latitude, $this->longitude) : null,
         ]);
 
         if (! is_null($this->logo)) {

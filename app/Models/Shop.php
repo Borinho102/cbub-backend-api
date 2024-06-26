@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use MatanYadaev\EloquentSpatial\Objects\Point;
+use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -25,7 +27,9 @@ class Shop extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'schedule' => 'array'
+        'schedule' => 'array',
+        'location' => Point::class,
+        'area' => Polygon::class,
     ];
 
     public function registerMediaCollections(): void
