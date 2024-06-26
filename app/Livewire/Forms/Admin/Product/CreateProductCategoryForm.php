@@ -25,9 +25,6 @@ class CreateProductCategoryForm extends Form
     #[Validate('nullable|min:4')]
     public $description_fr;
 
-    #[Validate('required|min:4|unique:product_categories,code')]
-    public $code;
-
     #[Validate('nullable|exists:product_categories,id')]
     public $parent_id;
 
@@ -52,8 +49,6 @@ class CreateProductCategoryForm extends Form
         $this->parent_id = $category->parent_id;
 
         $this->tags = $category->tags;
-
-        $this->code = $category->code;
     }
 
     public function store()
@@ -62,6 +57,9 @@ class CreateProductCategoryForm extends Form
 
         $category = ProductCategory::create([
             ...$this->only('code', 'parent_id', 'tags'),
+            'code' => generateProductCategoryCode(
+                $this->name_en
+            ),
             'name' => [
                 'en' => $this->name_en,
                 'fr' => $this->name_fr
@@ -80,8 +78,6 @@ class CreateProductCategoryForm extends Form
         }
 
         $this->reset();
-
-        notify()->success(__('Product category successfully created!'));
     }
 
     public function update()
@@ -104,7 +100,5 @@ class CreateProductCategoryForm extends Form
                 ->usingName($this->image->getClientOriginalName())
                 ->toMediaCollection('image');
         }
-
-        notify()->success(__('Product category successfully updated!'));
     }
 }

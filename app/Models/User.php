@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Sanctum\HasApiTokens;
@@ -29,6 +30,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         'name',
         'email',
         'password',
+        'device_type',
+        'device_token',
+        'language'
     ];
 
     /**
@@ -39,6 +43,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
     protected $hidden = [
         'password',
         'remember_token',
+        'device_token'
     ];
 
     /**
@@ -74,6 +79,22 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         self::$withoutAppends = true;
 
         return $query;
+    }
+
+    /**
+     * Route notifications for the Firebase channel.
+     */
+    public function routeNotificationForFirebase(Notification $notification): string
+    {
+        return $this->device_token;
+    }
+
+    /**
+     * Route notifications for the Sms channel.
+     */
+    public function routeNotificationForSms(Notification $notification): string
+    {
+        return $this->phone;
     }
 
     public function registerMediaCollections(): void

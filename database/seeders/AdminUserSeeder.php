@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Currency;
 use App\Models\Admin;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -20,7 +20,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        if (!Admin::count()) {
+        if (! Admin::count()) {
             $this->command->info('Truncating Admin\'s tables');
             $this->truncateAdminUsersTable();
             //Artisan::call("passport:install --force");
@@ -37,8 +37,8 @@ class AdminUserSeeder extends Seeder
                     'email_verified_at' => Carbon::now(),
                     'two_factor_auth' => true,
                     'password' => 'password',
-                    'roles' => ['admin', 'owner']
-                ]
+                    'roles' => ['admin', 'owner'],
+                ],
             ];
 
             foreach ($users as $user) {
@@ -51,7 +51,7 @@ class AdminUserSeeder extends Seeder
                     'city_id' => $city->id,
                     'address' => $user['address'],
                     'password' => bcrypt($user['password']),
-                    'email_verified_at' => $user['email_verified_at']
+                    'email_verified_at' => $user['email_verified_at'],
                 ]);
 
                 $adminUser
@@ -68,6 +68,7 @@ class AdminUserSeeder extends Seeder
 
     /**
      * Truncates the users table
+     *
      * @return void
      */
     public function truncateAdminUsersTable()
@@ -80,7 +81,8 @@ class AdminUserSeeder extends Seeder
     /**
      * Seed users
      */
-    private function seedUsers(Country $country, City $city, Currency $currency) {
+    private function seedUsers(Country $country, City $city, Currency $currency)
+    {
         $users = [
             [
                 'name' => 'Customer 1',
@@ -89,8 +91,8 @@ class AdminUserSeeder extends Seeder
                 'permissions' => [],
                 'roles' => ['customer'],
                 'email_verified_at' => Carbon::now(),
-                'phone_verified_at' => Carbon::now()
-            ]
+                'phone_verified_at' => Carbon::now(),
+            ],
         ];
 
         foreach ($users as $user) {
@@ -101,7 +103,7 @@ class AdminUserSeeder extends Seeder
                 'country_id' => $country->id,
                 'city_id' => $city->id,
                 'password' => $user['password'],
-                'email_verified_at' => $user['email_verified_at']
+                'email_verified_at' => $user['email_verified_at'],
             ]);
 
             $user_

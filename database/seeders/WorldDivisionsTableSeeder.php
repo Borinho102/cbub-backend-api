@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class WorldDivisionsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,1102 +13,979 @@ class WorldDivisionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('world_divisions')->truncate();
-        
-        \DB::table('world_divisions')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('world_divisions')->insert([
+            0 => [
                 'id' => 1,
                 'country_id' => 58,
                 'name' => 'Chungcheongbuk-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '43',
                 'has_city' => 1,
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 2,
                 'country_id' => 58,
                 'name' => 'Chungcheongnam-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '44',
                 'has_city' => 1,
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 3,
                 'country_id' => 58,
                 'name' => 'Daegu',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '27',
                 'has_city' => 1,
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 4,
                 'country_id' => 58,
                 'name' => 'Gangwon-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '42',
                 'has_city' => 1,
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 5,
                 'country_id' => 58,
                 'name' => 'Gyeonggi-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '49',
                 'has_city' => 1,
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 6,
                 'country_id' => 58,
                 'name' => 'Gyeongsangbuk-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '47',
                 'has_city' => 1,
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 7,
                 'country_id' => 58,
                 'name' => 'Gyeongsangnam-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '48',
                 'has_city' => 1,
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 8,
                 'country_id' => 58,
                 'name' => 'Jeollabuk-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '45',
                 'has_city' => 1,
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 9,
                 'country_id' => 58,
                 'name' => 'Jeollanam-do',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '46',
                 'has_city' => 1,
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 10,
                 'country_id' => 87,
                 'name' => 'Johor',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'jh',
                 'has_city' => 1,
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 11,
                 'country_id' => 87,
                 'name' => 'Kedah',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'kd',
                 'has_city' => 1,
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 12,
                 'country_id' => 87,
                 'name' => 'Kelantan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'kn',
                 'has_city' => 1,
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 13,
                 'country_id' => 87,
                 'name' => 'Kuala Lumpur',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'kl',
                 'has_city' => 1,
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 14,
                 'country_id' => 87,
                 'name' => 'Labuan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'lb',
                 'has_city' => 1,
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 15,
                 'country_id' => 87,
                 'name' => 'Malacca',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ml',
                 'has_city' => 1,
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 16,
                 'country_id' => 87,
                 'name' => 'Negeri Sembilan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ns',
                 'has_city' => 1,
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 17,
                 'country_id' => 87,
                 'name' => 'Pahang',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'pg',
                 'has_city' => 1,
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 18,
                 'country_id' => 87,
                 'name' => 'Perak',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'pk',
                 'has_city' => 1,
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 19,
                 'country_id' => 87,
                 'name' => 'Perlis',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ps',
                 'has_city' => 1,
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 20,
                 'country_id' => 87,
                 'name' => 'Pulau Pinang',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ph',
                 'has_city' => 1,
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 21,
                 'country_id' => 87,
                 'name' => 'Sabah',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sb',
                 'has_city' => 1,
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 22,
                 'country_id' => 87,
                 'name' => 'Sarawak',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sr',
                 'has_city' => 1,
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 23,
                 'country_id' => 87,
                 'name' => 'Selangor',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sl',
                 'has_city' => 1,
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 24,
                 'country_id' => 87,
                 'name' => 'Terengganu',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'tr',
                 'has_city' => 1,
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 25,
                 'country_id' => 101,
                 'name' => 'Anhui',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '34',
                 'has_city' => 1,
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 26,
                 'country_id' => 101,
                 'name' => 'Beijing',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '11',
                 'has_city' => 1,
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 27,
                 'country_id' => 101,
                 'name' => 'Chongqing',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '50',
                 'has_city' => 1,
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 28,
                 'country_id' => 101,
                 'name' => 'Fujian',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '35',
                 'has_city' => 1,
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 29,
                 'country_id' => 101,
                 'name' => 'Gansu',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '62',
                 'has_city' => 1,
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 30,
                 'country_id' => 101,
                 'name' => 'Guangdong',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '44',
                 'has_city' => 1,
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 31,
                 'country_id' => 101,
                 'name' => 'Guangxi',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '45',
                 'has_city' => 1,
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 32,
                 'country_id' => 101,
                 'name' => 'Guizhou',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '52',
                 'has_city' => 1,
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 33,
                 'country_id' => 101,
                 'name' => 'Hainan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '46',
                 'has_city' => 1,
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 34,
                 'country_id' => 101,
                 'name' => 'Hebei',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '13',
                 'has_city' => 1,
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 35,
                 'country_id' => 101,
                 'name' => 'Heilongjiang',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '23',
                 'has_city' => 1,
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 36,
                 'country_id' => 101,
                 'name' => 'Henan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '41',
                 'has_city' => 1,
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 37,
                 'country_id' => 101,
                 'name' => 'Hubei',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '42',
                 'has_city' => 1,
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 38,
                 'country_id' => 101,
                 'name' => 'Hunan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '43',
                 'has_city' => 1,
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 39,
                 'country_id' => 101,
                 'name' => 'Inner Mongolia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '15',
                 'has_city' => 1,
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 40,
                 'country_id' => 101,
                 'name' => 'Jiangsu',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '32',
                 'has_city' => 1,
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 41,
                 'country_id' => 101,
                 'name' => 'Jiangxi',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '36',
                 'has_city' => 1,
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 42,
                 'country_id' => 101,
                 'name' => 'Jilin',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '22',
                 'has_city' => 1,
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 43,
                 'country_id' => 101,
                 'name' => 'Liaoning',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '21',
                 'has_city' => 1,
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 44,
                 'country_id' => 101,
                 'name' => 'Ningxia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '64',
                 'has_city' => 1,
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 45,
                 'country_id' => 101,
                 'name' => 'Qinghai',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '63',
                 'has_city' => 1,
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 46,
                 'country_id' => 101,
                 'name' => 'Shaanxi',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '61',
                 'has_city' => 1,
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 47,
                 'country_id' => 101,
                 'name' => 'Shandong',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '37',
                 'has_city' => 1,
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 48,
                 'country_id' => 101,
                 'name' => 'Shanghai',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '31',
                 'has_city' => 1,
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 49,
                 'country_id' => 101,
                 'name' => 'Shanxi',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '14',
                 'has_city' => 1,
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 50,
                 'country_id' => 101,
                 'name' => 'Sichuan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '51',
                 'has_city' => 1,
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 51,
                 'country_id' => 101,
                 'name' => 'Taiwan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '71',
                 'has_city' => 1,
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 52,
                 'country_id' => 101,
                 'name' => 'Tianjin',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '12',
                 'has_city' => 1,
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 53,
                 'country_id' => 101,
                 'name' => 'Tibet',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '54',
                 'has_city' => 1,
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 54,
                 'country_id' => 101,
                 'name' => 'Xinjiang',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '65',
                 'has_city' => 1,
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 55,
                 'country_id' => 101,
                 'name' => 'Yunnan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '53',
                 'has_city' => 1,
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 56,
                 'country_id' => 101,
                 'name' => 'Zhejiang',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => '33',
                 'has_city' => 1,
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 57,
                 'country_id' => 148,
                 'name' => 'England',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'eng',
                 'has_city' => 1,
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 58,
                 'country_id' => 148,
                 'name' => 'Northern Ireland',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nir',
                 'has_city' => 1,
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 59,
                 'country_id' => 148,
                 'name' => 'Scotland',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sct',
                 'has_city' => 1,
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 60,
                 'country_id' => 148,
                 'name' => 'Wales',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wls',
                 'has_city' => 1,
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 61,
                 'country_id' => 167,
                 'name' => 'Alabama',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'al',
                 'has_city' => 1,
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 62,
                 'country_id' => 167,
                 'name' => 'Alaska',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ak',
                 'has_city' => 1,
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 63,
                 'country_id' => 167,
                 'name' => 'Arizona',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'az',
                 'has_city' => 1,
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 64,
                 'country_id' => 167,
                 'name' => 'Arkansas',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ar',
                 'has_city' => 1,
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 65,
                 'country_id' => 167,
                 'name' => 'California',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ca',
                 'has_city' => 1,
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 66,
                 'country_id' => 167,
                 'name' => 'Colorado',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'co',
                 'has_city' => 1,
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 67,
                 'country_id' => 167,
                 'name' => 'Connecticut',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ct',
                 'has_city' => 1,
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 68,
                 'country_id' => 167,
                 'name' => 'Delaware',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'de',
                 'has_city' => 1,
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 69,
                 'country_id' => 167,
                 'name' => 'District of Columbia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'dc',
                 'has_city' => 1,
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 70,
                 'country_id' => 167,
                 'name' => 'Florida',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'fl',
                 'has_city' => 1,
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 71,
                 'country_id' => 167,
                 'name' => 'Georgia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ga',
                 'has_city' => 1,
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 72,
                 'country_id' => 167,
                 'name' => 'Hawaii',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'hi',
                 'has_city' => 1,
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 73,
                 'country_id' => 167,
                 'name' => 'Idaho',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'id',
                 'has_city' => 1,
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 74,
                 'country_id' => 167,
                 'name' => 'Illinois',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'il',
                 'has_city' => 1,
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 75,
                 'country_id' => 167,
                 'name' => 'Indiana',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'in',
                 'has_city' => 1,
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 76,
                 'country_id' => 167,
                 'name' => 'Iowa',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ia',
                 'has_city' => 1,
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 77,
                 'country_id' => 167,
                 'name' => 'Kansas',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ks',
                 'has_city' => 1,
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 78,
                 'country_id' => 167,
                 'name' => 'Kentucky',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ky',
                 'has_city' => 1,
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 79,
                 'country_id' => 167,
                 'name' => 'Louisiana',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'la',
                 'has_city' => 1,
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 80,
                 'country_id' => 167,
                 'name' => 'Maine',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'me',
                 'has_city' => 1,
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 81,
                 'country_id' => 167,
                 'name' => 'Maryland',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'md',
                 'has_city' => 1,
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 82,
                 'country_id' => 167,
                 'name' => 'Massachusetts',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ma',
                 'has_city' => 1,
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 83,
                 'country_id' => 167,
                 'name' => 'Michigan',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'mi',
                 'has_city' => 1,
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 84,
                 'country_id' => 167,
                 'name' => 'Minnesota',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'mn',
                 'has_city' => 1,
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 85,
                 'country_id' => 167,
                 'name' => 'Mississippi',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ms',
                 'has_city' => 1,
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 86,
                 'country_id' => 167,
                 'name' => 'Missouri',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'mo',
                 'has_city' => 1,
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 87,
                 'country_id' => 167,
                 'name' => 'Montana',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'mt',
                 'has_city' => 1,
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 88,
                 'country_id' => 167,
                 'name' => 'Nebraska',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ne',
                 'has_city' => 1,
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 89,
                 'country_id' => 167,
                 'name' => 'Nevada',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nv',
                 'has_city' => 1,
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 90,
                 'country_id' => 167,
                 'name' => 'New Hampshire',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nh',
                 'has_city' => 1,
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 91,
                 'country_id' => 167,
                 'name' => 'New Jersey',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nj',
                 'has_city' => 1,
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 92,
                 'country_id' => 167,
                 'name' => 'New Mexico',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nm',
                 'has_city' => 1,
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 93,
                 'country_id' => 167,
                 'name' => 'New York',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ny',
                 'has_city' => 1,
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 94,
                 'country_id' => 167,
                 'name' => 'North Carolina',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nc',
                 'has_city' => 1,
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 95,
                 'country_id' => 167,
                 'name' => 'North Dakota',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nd',
                 'has_city' => 1,
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 96,
                 'country_id' => 167,
                 'name' => 'Ohio',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'oh',
                 'has_city' => 1,
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 97,
                 'country_id' => 167,
                 'name' => 'Oklahoma',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ok',
                 'has_city' => 1,
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 98,
                 'country_id' => 167,
                 'name' => 'Oregon',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'or',
                 'has_city' => 1,
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 99,
                 'country_id' => 167,
                 'name' => 'Pennsylvania',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'pa',
                 'has_city' => 1,
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 100,
                 'country_id' => 167,
                 'name' => 'Rhode Island',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ri',
                 'has_city' => 1,
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 101,
                 'country_id' => 167,
                 'name' => 'South Carolina',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sc',
                 'has_city' => 1,
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 102,
                 'country_id' => 167,
                 'name' => 'South Dakota',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sd',
                 'has_city' => 1,
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 103,
                 'country_id' => 167,
                 'name' => 'Tennessee',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'tn',
                 'has_city' => 1,
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 104,
                 'country_id' => 167,
                 'name' => 'Texas',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'tx',
                 'has_city' => 1,
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 105,
                 'country_id' => 167,
                 'name' => 'Utah',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'ut',
                 'has_city' => 1,
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 106,
                 'country_id' => 167,
                 'name' => 'Vermont',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'vt',
                 'has_city' => 1,
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 107,
                 'country_id' => 167,
                 'name' => 'Virginia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'va',
                 'has_city' => 1,
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 108,
                 'country_id' => 167,
                 'name' => 'Washington',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wa',
                 'has_city' => 1,
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 109,
                 'country_id' => 167,
                 'name' => 'West Virginia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wv',
                 'has_city' => 1,
-            ),
-            109 => 
-            array (
+            ],
+            109 => [
                 'id' => 110,
                 'country_id' => 167,
                 'name' => 'Wisconsin',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wi',
                 'has_city' => 1,
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 111,
                 'country_id' => 167,
                 'name' => 'Wyoming',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wy',
                 'has_city' => 1,
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 112,
                 'country_id' => 170,
                 'name' => 'Australian Capital Territory',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'act',
                 'has_city' => 1,
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 113,
                 'country_id' => 170,
                 'name' => 'New South Wales',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nsw',
                 'has_city' => 1,
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 114,
                 'country_id' => 170,
                 'name' => 'Northern Territory',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'nt',
                 'has_city' => 1,
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 115,
                 'country_id' => 170,
                 'name' => 'Queensland',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'qld',
                 'has_city' => 1,
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 116,
                 'country_id' => 170,
                 'name' => 'South Australia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'sa',
                 'has_city' => 1,
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 117,
                 'country_id' => 170,
                 'name' => 'Tasmania',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'tas',
                 'has_city' => 1,
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 118,
                 'country_id' => 170,
                 'name' => 'Victoria',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'vic',
                 'has_city' => 1,
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 119,
                 'country_id' => 170,
                 'name' => 'Western Australia',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'wa',
                 'has_city' => 1,
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 121,
                 'country_id' => 101,
                 'name' => 'Hongkong',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'hk',
                 'has_city' => 0,
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 122,
                 'country_id' => 101,
                 'name' => 'Macau',
-                'full_name' => NULL,
+                'full_name' => null,
                 'code' => 'mo',
                 'has_city' => 0,
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

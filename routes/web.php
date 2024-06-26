@@ -3,6 +3,7 @@
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MiscellaneousController;
+
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 
 use App\Livewire\Admin\Admins\AdminList;
@@ -24,6 +25,9 @@ use App\Livewire\Admin\Businesses\Categories\CreateCategory as AdminCreateBusine
 use App\Livewire\Admin\Businesses\Categories\EditCategory as AdminEditBusinessCategory;
 use App\Livewire\Admin\Businesses\Categories\CategoryList as AdminBusinessCategoryList;
 
+use App\Livewire\Admin\Notifications\NotificationList as AdminNotificationList;
+use App\Livewire\Admin\Notifications\CreateNotification as AdminCreateNotification;
+
 use App\Livewire\Admin\Products\CreateProduct as AdminCreateProduct;
 use App\Livewire\Admin\Products\EditProduct as AdminEditProduct;
 use App\Livewire\Admin\Products\ProductList as AdminProductList;
@@ -44,12 +48,19 @@ use App\Livewire\Admin\Shops\CreateShop as AdminCreateShop;
 use App\Livewire\Admin\Shops\EditShop as AdminEditShop;
 use App\Livewire\Admin\Shops\ShopList as AdminShopList;
 
+use App\Livewire\Business\Dashboard as BusinessDashboard;
+
 use App\Livewire\Business\Users\UserList as BusinessUserList;
 use App\Livewire\Business\Users\EditUser as EditBusinessUser;
 use App\Livewire\Business\Users\CreateUser as CreateBusinessUser;
 
 use App\Livewire\Business\Customers\CustomerDetails as BusinessCustomerDetails;
 use App\Livewire\Business\Customers\CustomerList as BusinessCustomerList;
+use App\Livewire\Business\Customers\CreateCustomer as BusinessCreateCustomer;
+
+use App\Livewire\Business\Notifications\NotificationList as BusinessNotificationList;
+use App\Livewire\Business\Notifications\CreateNotification as BusinessCreateNotification;
+
 use App\Livewire\Business\Orders\OrderDetails as BusinessOrderDetails;
 use App\Livewire\Business\Orders\OrderList as BusinessOrderList;
 
@@ -73,7 +84,6 @@ use App\Livewire\Business\Shops\CreateShop as BusinessCreateShop;
 use App\Livewire\Business\Shops\EditShop as BusinessEditShop;
 use App\Livewire\Business\Shops\ShopList as BusinessShopList;
 
-use App\Livewire\Business\Dashboard as BusinessDashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,6 +163,11 @@ Route::group([
     Route::get('admins', AdminList::class)->name('admins.index');
     Route::get('admins/create', CreateAdmin::class)->name('admins.create');
     Route::get('admins/{id}/edit', EditAdmin::class)->name('admins.edit');
+
+    // NOTIFICATION ROUTES
+    Route::get('notifications', AdminNotificationList::class)->name('notifications.index');
+    Route::get('notifications/create', AdminCreateNotification::class)->name('notifications.create');
+
 });
 
 Route::group([
@@ -196,12 +211,17 @@ Route::group([
 
     // CUSTOMERS ROUTES
     Route::get('customers', BusinessCustomerList::class)->name('customers.index');
+    Route::get('customers/create', BusinessCreateCustomer::class)->name('customers.create');
     Route::get('customers/{customer}', BusinessCustomerDetails::class)->name('customers.show');
 
     // USERS ROUTES
     Route::get('users', BusinessUserList::class)->name('users.index');
     Route::get('users/create', CreateBusinessUser::class)->name('users.create');
     Route::get('users/{id}/edit', EditBusinessUser::class)->name('users.edit');
+
+    // NOTIFICATION ROUTES
+    Route::get('notifications', BusinessNotificationList::class)->name('notifications.index');
+    Route::get('notifications/create', BusinessCreateNotification::class)->name('notifications.create');
 });
 
 

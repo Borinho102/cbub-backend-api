@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->decimal('unit_amount');
             $table->decimal('total_amount');
+            $table->string('currency');
             $table->text('description')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();

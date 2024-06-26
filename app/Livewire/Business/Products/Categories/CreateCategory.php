@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Business\Products\Categories;
 
-use App\Enums\ProductTagType;
 use App\Livewire\Forms\Business\Product\CreateProductCategoryForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;

@@ -54,9 +54,6 @@
                                     <div class="font-semibold text-center">{{ __('Products') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-semibold text-center">{{ __('Tags') }}</div>
-                                </th>
-                                <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-semibold text-center">{{ __('Created At') }}</div>
                                 </th>
                                 <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -92,17 +89,6 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->products_count }}</div>
-                                    </td>
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        @if ($category->tags)
-                                            <div class="text-left">
-                                                @foreach ($category->tags as $tag)
-                                                    <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">{{ \App\Enums\ProductTagType::getDescription($tag) }}</div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            -
-                                        @endif
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">{{ $category->created_at->format('d/m/Y') }}</div>

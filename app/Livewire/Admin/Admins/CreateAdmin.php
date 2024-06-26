@@ -53,6 +53,8 @@ class CreateAdmin extends Component
     {
         $this->form->store();
 
+        notify()->success(__('User successfully created!'));
+
         return $this->redirect(route('admin.admins.index'));
     }
 

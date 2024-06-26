@@ -38,13 +38,10 @@
                         <x-input.label :value="__('Name (English)')" for="name_en" required/>
                         <x-input.text wire:model.blur="form.name_en" name="form.name_en" id="name_en" type="text"/>
                     </div>
+
                     <div class="col-span-1">
                         <x-input.label :value="__('Name (French)')" for="name_fr" required/>
                         <x-input.text wire:model.blur="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
-                    </div>
-                    <div class="col-span-2">
-                        <x-input.label :value="__('Code')" for="code" required/>
-                        <x-input.text wire:model.blur="form.code" name="form.code" id="code" readonly type="text"/>
                     </div>
 
                     <div class="col-span-2">
@@ -77,7 +74,7 @@
                             multiselect
                             wire:model="form.tags"
                         >
-                            @foreach ($tagOptions as $id => $tag)
+                            @foreach ([] as $id => $tag)
                                 <x-select.option wire:key="tag-{{ $id }}" label="{{ $tag }}" value="{{ $id }}" />
                             @endforeach
                         </x-select>
@@ -85,12 +82,12 @@
 
                     @if (isset($this->form->category) || isset($form->image))
                         <div class="col-span-1">
-                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x-input.label :value="__('Image')" for="image"/>
                             <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->icon) ? $form->image->temporaryUrl() : $this->form->category->image }}" name="form.image" id="image"/>
                         </div>
                     @else
                         <div class="col-span-1">
-                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->category) }}"/>
+                            <x-input.label :value="__('Image')" for="image"/>
                             <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @endif
