@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Shop;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
@@ -322,5 +323,51 @@ if (!function_exists('generateSlug')) {
         }
 
         return $slug;
+    }
+}
+
+if (!function_exists('filterByPeriod')) {
+    /**
+     * @param $query
+     * @param null $period
+     * @param string $type
+     * @return mixed
+     */
+    function filterByPeriod($query, $period = null, string $type = 'users')
+    {
+        $today = Carbon::today();
+        switch ($period) {
+            case 'this_year':
+                $query = $query->whereYear($type.'.created_at', $today->year);
+                break;
+            case 'last_year':
+                $query = $query->whereYear($type.'.created_at', $today->year - 1);
+                break;
+            case 'this_month':
+                $query = $query->whereYear($type.'.created_at', $today->year)
+                    ->whereMonth($type.'.created_at', $today->month);
+                break;
+            case 'last_month':
+                $query = $query->whereYear($type.'.created_at', $today->year)
+                    ->whereMonth($type.'.created_at', $today->month - 1);
+                break;
+            case 'this_week':
+                $query = $query->whereBetween($type.'.created_at', [
+                    Carbon::now()->startOfWeek(),
+                    Carbon::now()->endOfWeek()
+                ]);
+                break;
+            case 'last_week':
+                $query = $query->whereBetween($type.'.created_at', [
+                    Carbon::now()->subWeek()->startOfWeek(),
+                    Carbon::now()->subWeek()->endOfWeek()
+                ]);
+                break;
+            case 'today':
+                $query = $query->whereDate($type.'.created_at', $today);
+                break;
+            default:
+        }
+        return $query;
     }
 }
