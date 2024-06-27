@@ -85,7 +85,9 @@ class AdminUserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Customer 1',
+                'first_name' => 'Customer 1',
+                'last_name' => 'Customer 1',
+                'username' => 'customer.1',
                 'email' => 'customer.1@gmail.com',
                 'password' => bcrypt('password'),
                 'permissions' => [],
@@ -97,7 +99,9 @@ class AdminUserSeeder extends Seeder
 
         foreach ($users as $user) {
             $user_ = User::create([
-                'name' => $user['name'],
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'username' => $user['username'],
                 'email' => $user['email'],
                 'currency_id' => $currency->id,
                 'country_id' => $country->id,

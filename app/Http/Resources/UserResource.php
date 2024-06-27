@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Services\Utils\Initials;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,20 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'first_name' => $this->name,
+            'last_name' => $this->name,
+            'username' => $this->email,
+            'initials' => Initials::generate($this->name),
+            'image' => $this->image,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'language' => $this->language,
+            'country' => $this->whenLoaded('country', fn () => CountryResource::make($this->country)),
+            'city' => $this->whenLoaded('city', fn () => CityResource::make($this->city)),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
+        ];
     }
 }

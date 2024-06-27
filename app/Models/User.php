@@ -27,10 +27,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'username',
+        'phone',
         'email',
         'password',
-        'device_type',
+        'device_platform',
         'device_token',
         'language'
     ];
