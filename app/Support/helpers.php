@@ -3,6 +3,7 @@
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\Order;
+use App\Models\OtpCode;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Shop;
@@ -147,18 +148,6 @@ if (!function_exists('getPhoneNumberProvider'))
         }
 
         return 'unknown provider';
-    }
-}
-
-if (!function_exists('generateUniqueOtpCode'))
-{
-    function generateUniqueOtpCode($partner = null) : int
-    {
-        // do {
-        //     $code = rand(100000, 999999);
-        // } while (TRUE);
-
-        return rand(100000, 999999);
     }
 }
 
@@ -369,5 +358,19 @@ if (!function_exists('filterByPeriod')) {
             default:
         }
         return $query;
+    }
+
+    if (!function_exists('generateUniqueOtpCode')){
+        function generateUniqueOtpCode($user = null) : string
+        {
+            $digits = '0123456789';
+
+            do {
+                $digits = str_shuffle($digits);
+                $code = substr($digits, 0, 6);
+            } while (OtpCode::where('code', $code)->exists());
+
+            return $code;
+        }
     }
 }

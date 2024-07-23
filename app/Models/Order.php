@@ -12,6 +12,21 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'order_id',
+        'customer_id',
+        'customer_type',
+        'amount',
+        'curreny',
+        'status',
+        'description',
+        'data',
+        'business_id',
+        'shop_id',
+        'delivery_address_id'
+    ];
+
     public function customer(): MorphTo
     {
         return $this->morphTo();
@@ -22,9 +37,9 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function location(): BelongsTo
+    public function delivery_address(): BelongsTo
     {
-        return $this->belongsTo(UserLocation::class);
+        return $this->belongsTo(DeliveryAddress::class);
     }
 
     public function getFormattedAmountAttribute()

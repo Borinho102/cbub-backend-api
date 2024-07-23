@@ -112,6 +112,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -122,15 +127,15 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return $this->belongsToMany(PromoCode::class);
     }
 
-    public function locations(): HasMany
+    public function addresses(): HasMany
     {
-        return $this->hasMany(UserLocation::class, 'user_id');
+        return $this->hasMany(DeliveryAddress::class, 'user_id');
     }
 
-    public function current_location(): HasOne
+    public function default_address(): HasOne
     {
-        return $this->hasOne(UserLocation::class, 'user_id')
-            ->where('current', 1)->latest();
+        return $this->hasOne(DeliveryAddress::class, 'user_id')
+            ->where('use_as_default', 1)->latest();
     }
 
     public function orders(): MorphMany

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,11 +18,11 @@ return new class extends Migration
             $table->nullableMorphs('customer');
             $table->decimal('amount', 10, 2);
             $table->string('currency');
-            $table->enum('status', ['pending', 'refunded', 'approved']);
+            $table->enum('status', OrderStatus::getValues())->default(OrderStatus::Pending);
             $table->text('description')->nullable();
             $table->json('data')->nullable();
-            $table->foreignId('location_id')
-                ->constrained('user_locations');
+            $table->foreignId('delivery_address_id')
+                ->constrained('delivery_addresses');
             $table->foreignId('business_id')->constrained('businesses');
             $table->foreignId('shop_id')->constrained('shops');
             $table->timestamps();

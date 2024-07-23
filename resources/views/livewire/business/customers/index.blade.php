@@ -112,7 +112,7 @@
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">@if($customer->user->current_location){{ $customer->user->current_location->name }}@else{{ '-' }}@endif</div>
+                                    <div class="text-left">@if($customer->user->default_address){{ $customer->user->default_address->name }}@else{{ '-' }}@endif</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-left">{{ $customer->orders_count }}</div>

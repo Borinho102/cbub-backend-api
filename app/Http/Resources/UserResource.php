@@ -17,10 +17,10 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->name,
-            'last_name' => $this->name,
-            'username' => $this->email,
-            'initials' => Initials::generate($this->name),
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'username' => $this->username,
+            'initials' => Initials::generate($this->first_name . ' ' . $this->last_name),
             'image' => $this->image,
             'email' => $this->email,
             'phone' => $this->phone,

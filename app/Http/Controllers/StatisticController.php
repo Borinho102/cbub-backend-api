@@ -116,7 +116,7 @@ class StatisticController extends Controller
                     ->groupBy('customer_id')
                     ->get()
                     ->take(5);
-                    
+
                 $total_orders = array_sum(array_column($statistics->all(), 'total_orders'));
                 $total_amount = array_sum(array_column($statistics->all(), 'total_amount'));
 

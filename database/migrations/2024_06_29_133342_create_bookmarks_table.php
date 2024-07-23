@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_locations', function (Blueprint $table) {
+        Schema::create('bookmarks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->foreignId('user_id')
-                ->constrained('users');
-            $table->boolean('current')->default(0);
-            $table->geometry('location', 'point')->nullable();
-            $table->geometry('area', 'polygon')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->morphs('item');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_locations');
+        Schema::dropIfExists('bookmarks');
     }
 };

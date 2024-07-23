@@ -14,6 +14,15 @@ class ProductCategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'code' => $this->code,
+            'image' => $this->image,
+            'description' => $this->whenHas('description'),
+            'tags' => $this->whenHas('tags'),
+            'parent' => $this->whenLoaded('parent', fn () => $this::make($this->parent)),
+            'children' => $this->whenLoaded('children', fn () => $this::collection($this->children)),
+        ];
     }
 }

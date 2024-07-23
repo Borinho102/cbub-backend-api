@@ -131,7 +131,7 @@ class CreateShopForm extends Form
                 ->firstOrFail();
 
             $shop = Shop::create([
-                ...$this->except('shop', 'logo', 'banners', 'image'),
+                ...$this->except('shop', 'logo', 'banners', 'image', 'schedule'),
                 'owner_id' => $business_owner->id,
                 'slug' => generateShopSlug(
                     Country::select('code')->find($this->country_id)->code,

@@ -116,7 +116,7 @@
                                     <div class="text-left">{{ $customer->email }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">@if($customer->current_location){{ $customer->current_location->name }}@else{{ '-' }}@endif</div>
+                                    <div class="text-left">@if($customer->default_address){{ $customer->default_address->name }}@else{{ '-' }}@endif</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-center">{{ $customer->orders_count }}</div>
