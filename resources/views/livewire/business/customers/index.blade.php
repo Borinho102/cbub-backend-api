@@ -59,9 +59,6 @@
                                 <div class="font-semibold text-left">{{ __('Name') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Location') }}</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold">{{ __('Orders') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -110,9 +107,6 @@
                                             <div class="text-left">{{ $customer->user->email }}</div>
                                         </div>
                                     </div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">@if($customer->user->default_address){{ $customer->user->default_address->name }}@else{{ '-' }}@endif</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-left">{{ $customer->orders_count }}</div>

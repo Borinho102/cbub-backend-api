@@ -84,6 +84,8 @@ class AuthController extends ApiController
             'language' => $request->headers->get('accept-language', 'en')
         ]);
 
+        $user->syncRoles(['customer']);
+
         event(new Registered($user));
 
         return response([

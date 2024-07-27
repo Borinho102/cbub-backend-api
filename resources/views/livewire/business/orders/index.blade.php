@@ -69,7 +69,7 @@
                                 <div class="font-semibold">Items</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Location</div>
+                                <div class="font-semibold text-left">Delivery Address</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Date</div>
@@ -115,13 +115,24 @@
                                     <div class="text-center">{{ $order->items_count }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">{{ $order->location->name }}</div>
+                                    <div class="text-left">{{ $order->delivery_address?->address }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div>{{ $order->created_at->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="flex items-center">
+                                        @if (!in_array($order->status, [\App\Enums\OrderStatus::Canceled, \App\Enums\OrderStatus::Refunded]))
+                                            <a
+                                                wire:navigate href="{{ route('business.orders.edit', $order->order_id) }}"
+                                                class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block"
+                                            >
+                                                <span class="sr-only">Edit</span>
+                                                <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                    <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
+                                                </svg>
+                                            </a>
+                                        @endif
                                         <button
                                             class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 transform"
                                             :class="{ 'rotate-180': open }"

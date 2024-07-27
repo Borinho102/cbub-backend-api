@@ -18,7 +18,7 @@ class Order extends Model
         'customer_id',
         'customer_type',
         'amount',
-        'curreny',
+        'currency',
         'status',
         'description',
         'data',
@@ -35,6 +35,11 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function statuses(): HasMany
+    {
+        return $this->hasMany(OrderStatus::class, 'order_id');
     }
 
     public function delivery_address(): BelongsTo

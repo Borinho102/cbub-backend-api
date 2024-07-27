@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
 /**
@@ -12,7 +13,7 @@ use BenSampo\Enum\Enum;
  * @method static static Refunded()
  * @method static static Delivered()
  */
-final class OrderStatus extends Enum
+final class OrderStatus extends Enum implements LocalizedEnum
 {
     const Pending = 'pending';
     const Approved = 'approved';

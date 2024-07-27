@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'barcode' => $this->barcode,
             'slug' => $this->slug,
             'weight' => $this->weight,
-            'short_description' => $this->short_description,
+            'short_description' => $this->whenHas('short_description'),
             'description' => $this->whenHas('description'),
             'thumbnail' => $this->thumbnail,
             'images' => $this->images,

@@ -7,6 +7,7 @@ use App\Models\Business;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\PromoCode;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -150,6 +151,43 @@ class MiscellaneousController extends Controller
             });
 
         return response($products);
+    }
+
+    /**
+     * Search promo codes
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
+     */
+    public function searchPromoCodes(Request $request): Response|Application|ResponseFactory
+    {
+        $business = request('business');
+        $shop = request('shop');
+        $guard = appGuard();
+
+        $promo_codes = PromoCode::select('id', 'title', 'code')
+            ->search()
+            ->where('is_active', 1)
+            ->when(isset($business) && $guard != 'business', function ($q) use ($business) {
+                $q->where('business_id', $business);
+            })
+            ->when(!isset($business) && $guard === 'business', function ($q) {
+                $q->where(function ($q) {
+                    $q->where('business_id', auth()->user()->business_id);
+                });
+            })
+            ->when(isset($shop), function ($q) use ($shop) {
+                $q->where('shop_id', $shop);
+            })
+            ->limit(10)
+            ->get()
+            ->transform(function ($promo_code) {
+                return [
+                    'id' => $promo_code->id,
+                    'name' => $promo_code->title . '(' . $promo_code->code . ')'
+                ];
+            });
+
+        return response($promo_codes);
     }
 
     /**

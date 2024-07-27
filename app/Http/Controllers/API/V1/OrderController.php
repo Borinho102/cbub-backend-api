@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Enums\OrderStatus;
+use App\Events\NewOrderCreated;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
@@ -25,7 +26,7 @@ class OrderController extends ApiController
 
         $orders = Order::query()
             ->withCount('items')
-            ->with('items')
+            ->with('shop:id,name,email,slug,address,phone,currency_id')
             ->when($relationships, function ($q) use ($relationships) {
                 $q->with($relationships);
             })
@@ -62,13 +63,16 @@ class OrderController extends ApiController
             'products.*.shop_id' => 'required|exists:shops,id',
             'products.*.price' => 'required|numeric',
             'products.*.quantity' => 'required|integer',
-            'delivery_address' => 'nullable|exists:delivery_addresses,id'
+            'delivery_address' => 'nullable|exists:delivery_addresses,id',
+            'delivery_notes' => 'nullable|string',
+            'payment_method' => 'nullable'
         ]);
 
         DB::beginTransaction();
 
         try {
             $products = collect($request->products)->groupBy('shop_id');
+            $orders = [];
 
             foreach ($products as $shopId => $shopProducts) {
                 $totalAmount = 0;
@@ -83,7 +87,8 @@ class OrderController extends ApiController
                     'status' => OrderStatus::Pending,
                     'business_id' => $shop->business_id,
                     'delivery_address_id' => $request->delivery_address,
-                    'shop_id' => $shopId
+                    'shop_id' => $shopId,
+                    'description' => $request->delivery_notes
                 ]);
 
                 foreach ($shopProducts as $product) {
@@ -108,9 +113,15 @@ class OrderController extends ApiController
                 OrderItem::insert($orderItems);
 
                 $order->update(['amount' => $totalAmount]);
+
+                $orders[] = $order;
             }
 
             DB::commit();
+
+            foreach ($orders as $order) {
+                event(new NewOrderCreated($order));
+            }
 
             return $this->successfulResponse(
                 true,
@@ -132,7 +143,7 @@ class OrderController extends ApiController
 
         $order = Order::query()
             ->withCount('items')
-            ->with('items', 'shop')
+            ->with(['items.item', 'shop:id,name,email,slug,address,phone,currency_id', 'statuses'])
             ->when($relationships, function ($q) use ($relationships) {
                 $q->with($relationships);
             })

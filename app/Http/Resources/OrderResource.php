@@ -24,6 +24,7 @@ class OrderResource extends JsonResource
             'currency' => $this->currency,
             'amount' => (float) $this->amount,
             'shop_id' => $this->shop_id,
+            'statuses' => $this->whenLoaded('statuses', fn () => OrderStatusResource::collection($this->statuses)),
             'shop' => $this->whenLoaded('shop', fn () => ShopResource::make($this->shop)),
             'items' => $this->whenLoaded('items', fn () => OrderItemResource::collection($this->items)),
             'description' => $this->whenHas('description'),

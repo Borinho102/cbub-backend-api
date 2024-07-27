@@ -54,10 +54,11 @@ class DeliveryAddressController extends ApiController
         }
 
         $address = DeliveryAddress::create([
-            ...$request->only('full_name', 'phone', 'address', 'default'),
+            ...$request->only('full_name', 'phone', 'address'),
             'country_id' => $request->country,
             'city_id' => $request->city,
-            'user_id' => auth('api')->user()->id
+            'user_id' => auth('api')->user()->id,
+            'use_as_default' => $request->default
         ]);
 
         return $this->successfulResponse(

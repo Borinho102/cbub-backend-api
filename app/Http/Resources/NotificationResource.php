@@ -16,11 +16,27 @@ class NotificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => $this->type,
+            'type' => isset($this->data['notification_type']) ?
+                $this->data['notification_type'] : $this->type,
             'title' => $this->data['title'],
-            'message' => $this->data['message'],
+            'body' => $this->data['body'],
+            'image' => isset($this->data['image']) ? $this->data['image'] : null,
+            'redirect_to' => $this->getAppRedirectToPage(),
+            'data' => $this->data,
             'read_at' => $this->read_at,
             'created_at' => $this->created_at
         ];
+    }
+
+    private function getAppRedirectToPage()
+    {
+        if (isset($this->data['order_id'])) {
+            return '/orders/' . $this->data['order_id'];
+        } else if (isset($this->data['product_id'])) {
+            return '/products/' . $this->data['product_id'];
+        } else if (isset($this->data['shop_id'])) {
+            return '/shops/' . $this->data['shop_id'];
+        }
+        return null;
     }
 }

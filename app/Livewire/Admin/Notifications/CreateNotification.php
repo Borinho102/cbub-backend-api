@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Notifications;
 
+use App\Jobs\BroadcastNotificationJob;
 use App\Livewire\Forms\Admin\CreateNotificationForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -13,7 +14,13 @@ class CreateNotification extends Component
 
     public function send()
     {
-        $this->form->store();
+        $notification = $this->form->store();
+
+        dispatch(new BroadcastNotificationJob($notification->load('shop')));
+
+        notify()->success(__('Notification successfully created!'));
+
+        return $this->redirect(route('admin.notifications.index'));
     }
 
     public function render()

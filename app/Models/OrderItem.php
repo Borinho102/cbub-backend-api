@@ -11,6 +11,8 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function item(): MorphTo
     {
         return $this->morphTo();

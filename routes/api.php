@@ -79,10 +79,11 @@ Route::group([
             ->name('auth.profile');
         Route::post('profile', [AuthController::class, 'updateUserProfile'])
             ->name('auth.profile');
+
         # ============== NOTIFICATIONS ROUTES ==============
-        Route::get('notifications/data/load', [NotificationController::class, 'index'])
-            ->name('notifications.data');
-        Route::get('notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+        Route::get('notifications', [NotificationController::class, 'index'])
+            ->name('notifications');
+        Route::post('notifications/{id}/read', [NotificationController::class, 'markAsRead'])
             ->name('notifications.read');
 
         # ============== SHOPS ROUTES ==============
