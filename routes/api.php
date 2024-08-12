@@ -78,7 +78,7 @@ Route::group([
         Route::get('profile', [AuthController::class, 'getUserProfile'])
             ->name('auth.profile');
         Route::post('profile', [AuthController::class, 'updateUserProfile'])
-            ->name('auth.profile');
+            ->name('auth.profile.update');
 
         # ============== NOTIFICATIONS ROUTES ==============
         Route::get('notifications', [NotificationController::class, 'index'])
