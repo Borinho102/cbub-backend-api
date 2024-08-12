@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\OrderStatus;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -24,8 +25,8 @@ class OrderSeeder extends Seeder
             $this->truncateOrdersTable();
 
             for ($i = 0; $i < 500; $i++) {
-                $user = User::with('current_location')
-                    ->whereHas('current_location')
+                $user = User::with('default_address')
+                    ->whereHas('default_address')
                     ->inRandomOrder()->first();
 
                 $order = Order::create([
@@ -36,8 +37,8 @@ class OrderSeeder extends Seeder
                     'currency' => 'XAF',
                     'business_id' => 1,
                     'shop_id' => 1,
-                    'location_id' => $user->current_location->id,
-                    'status' => ['pending', 'refunded', 'approved'][random_int(0, 2)],
+                    'delivery_address_id' => $user->default_address->id,
+                    'status' => OrderStatus::getValues()[random_int(0, 2)],
                     'description' => fake()->sentence(30)
                 ]);
 

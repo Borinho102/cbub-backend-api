@@ -63,6 +63,7 @@ use App\Livewire\Business\Notifications\CreateNotification as BusinessCreateNoti
 
 use App\Livewire\Business\Orders\OrderDetails as BusinessOrderDetails;
 use App\Livewire\Business\Orders\OrderList as BusinessOrderList;
+use App\Livewire\Business\Orders\EditOrder as BusinessEditOrder;
 
 use App\Livewire\Business\Products\CreateProduct as BusinessCreateProduct;
 use App\Livewire\Business\Products\EditProduct as BusinessEditProduct;
@@ -207,7 +208,8 @@ Route::group([
 
     // ORDER ROUTES
     Route::get('orders', BusinessOrderList::class)->name('orders.index');
-    Route::get('orders/{order}', BusinessOrderDetails::class)->name('orders.show');
+    Route::get('orders/{order_id}/edit', BusinessEditOrder::class)->name('orders.edit');
+    Route::get('orders/{order_id}', BusinessOrderDetails::class)->name('orders.show');
 
     // CUSTOMERS ROUTES
     Route::get('customers', BusinessCustomerList::class)->name('customers.index');
@@ -238,6 +240,8 @@ Route::group([
         ->name('search.users');
     Route::get('search/products', [MiscellaneousController::class, 'searchProducts'])
         ->name('search.products');
+    Route::get('search/promo-codes', [MiscellaneousController::class, 'searchPromoCodes'])
+        ->name('search.promo_codes');
     Route::get('search/product-categories', [MiscellaneousController::class, 'searchProductCategories'])
         ->name('search.product_categories');
     Route::get('search/businesses', [MiscellaneousController::class, 'searchBusinesses'])

@@ -30,6 +30,56 @@
         <div class="w-full flex flex-col md:flex-row justify-between mt-6">
             <x-form-section submit="send">
                 <div class="w-full grid gap-5 grid-cols-1 md:grid-cols-2">
+                    <div class="col-span-2">
+                        <x-select
+                            class="w-full"
+                            :label="__('Shop')"
+                            placeholder="Select shop"
+                            wire:model.blur="form.shop"
+                            option-value="id"
+                            option-label="name"
+                            :async-data="route('misc.search.shops')"
+                        />
+                    </div>
+
+                    <div class="col-span-2">
+                        <x-select
+                            class="w-full"
+                            :label="__('Notification Type')"
+                            placeholder="Select type"
+                            wire:model.blur="form.type"
+                            :options="$types"
+                            option-value="id"
+                            option-label="name"
+                        />
+                    </div>
+
+                    @if (in_array($form->type, [\App\Enums\NotificationType::NewProduct, \App\Enums\NotificationType::ProductDiscount, \App\Enums\NotificationType::Publicity, \App\Enums\NotificationType::Announcement]))
+                        <div class="col-span-2">
+                            <x-select
+                                class="w-full"
+                                :label="__('Product')"
+                                placeholder="Select product"
+                                wire:model.blur="form.product"
+                                option-value="id"
+                                option-label="name"
+                                :async-data="route('misc.search.products')"
+                            />
+                        </div>
+                    @elseif ($form->type === \App\Enums\NotificationType::PromoCode)
+                        <div class="col-span-2">
+                            <x-select
+                                class="w-full"
+                                :label="__('Promo Code')"
+                                placeholder="Select promo code"
+                                wire:model.blur="form.promo_code"
+                                option-value="id"
+                                option-label="name"
+                                :async-data="route('misc.search.promo_codes', ['shop' => $form->shop])"
+                            />
+                        </div>
+                    @endif
+
                     <div class="col-span-1">
                         <x-input.label :value="__('Title (English)')" for="title_en" required/>
                         <x-input.text wire:model.blur="form.title_en" name="form.title_en" id="title_en" type="text"/>

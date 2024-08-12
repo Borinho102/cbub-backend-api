@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Forms\Business;
 
+use App\Enums\NotificationType;
 use App\Models\BroadcastNotification;
+use BenSampo\Enum\Rules\EnumValue;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -23,14 +25,26 @@ class CreateNotificationForm extends Form
     #[Validate('nullable|date')]
     public $broadcast_at;
 
-    #[Validate('required_with:image_fr|image|max:2048')] // 2MB Max
+    #[Validate('nullable|required_with:image_fr|image|max:2048')] // 2MB Max
     public $image_en;
 
-    #[Validate('required_with:image_en|image|max:2048')] // 2MB Max
+    #[Validate('nullable|required_with:image_en|image|max:2048')] // 2MB Max
     public $image_fr;
 
     #[Validate('nullable|exists:users,id')]
     public $users = [];
+
+    #[Validate('nullable|exists:shops,id')]
+    public $shop;
+
+    #[Validate('nullable|exists:products,id')]
+    public $product;
+
+    #[Validate('nullable|exists:promo_codes,id')]
+    public $promo_code;
+
+    #[Validate('required|' . new EnumValue(NotificationType::class))]
+    public $type = NotificationType::Default;
 
     public function store() : BroadcastNotification
     {
@@ -47,6 +61,18 @@ class CreateNotificationForm extends Form
         }
 
         $user = auth()->user();
+        $data = [];
+        if (!empty($this->users)) {
+            $data['users'] = $this->users;
+        }
+
+        if (isset($this->product)) {
+            $data['product_id'] = $this->product;
+        }
+
+        if (isset($this->promo_code)) {
+            $data['promo_code_id'] = $this->promo_code;
+        }
 
         $notification = BroadcastNotification::create([
             'title' => [
@@ -58,13 +84,13 @@ class CreateNotificationForm extends Form
                 'fr' => $this->body_fr
             ],
             'image' => !empty($images) ? $images : null,
-            'data' => !empty($this->users) ? [
-                'users' => $this->users
-            ] : null,
+            'data' => $data,
             'broadcast_at' => $this->broadcast_at,
             'business_id' => $user->business_id,
+            'shop_id' => $this->shop,
             'broadcaster_id' => $user->id,
-            'broadcaster_type' => get_class($user)
+            'broadcaster_type' => get_class($user),
+            'type' => $this->type
         ]);
 
         $this->reset();

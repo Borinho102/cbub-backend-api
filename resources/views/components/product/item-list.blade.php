@@ -66,8 +66,8 @@
                         </div>
                         <!-- Price -->
                         <div class="flex items-center space-x-2">
-                            @if ($product->active_discount_price)
-                                <div class="inline-flex text-sm font-medium bg-green-100 dark:bg-green-500/30 text-green-500 dark:text-green-400 rounded-full text-center px-2 py-0.5">{{ currency($product->active_discount_price->new_price) }}</div>
+                            @if ($product->active_discount)
+                                <div class="inline-flex text-sm font-medium bg-green-100 dark:bg-green-500/30 text-green-500 dark:text-green-400 rounded-full text-center px-2 py-0.5">{{ currency($product->active_discount->new_price) }}</div>
                                 <div class="inline-flex text-sm font-medium text-red-500 dark:text-red-400 line-through">{{ currency($product->price) }}</div>
                             @else
                                 <div class="inline-flex text-sm font-medium bg-green-100 dark:bg-green-500/30 text-green-500 dark:text-green-400 rounded-full text-center px-2 py-0.5">{{ currency($product->price) }}</div>

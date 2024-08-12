@@ -109,14 +109,14 @@
                                         <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
                                             <img class="rounded-full h-full w-full object-cover" src="{{ $customer->image }}" alt="{{ $customer->name }}" />
                                         </div>
-                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $customer->name }}</div>
+                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $customer->first_name . ' ' . $customer->last_name}}</div>
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-left">{{ $customer->email }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">@if($customer->current_location){{ $customer->current_location->name }}@else{{ '-' }}@endif</div>
+                                    <div class="text-left">@if($customer->default_address){{ $customer->default_address->name }}@else{{ '-' }}@endif</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-center">{{ $customer->orders_count }}</div>

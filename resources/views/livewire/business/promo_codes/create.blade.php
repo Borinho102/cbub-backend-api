@@ -40,7 +40,7 @@
                                 class="{{ $activeTab === 'general' ? 'text-indigo-500' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300' }} whitespace-nowrap cursor-pointer"
                                 wire:click="$set('activeTab', 'general')"
                             >
-                                {{ __('General') }}
+                                General
                             </div>
                         </li>
                         <li class="pb-3 mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
@@ -48,7 +48,7 @@
                                 class="{{ $activeTab === 'restriction' ? 'text-indigo-500' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300' }} whitespace-nowrap cursor-pointer"
                                 wire:click="$set('activeTab', 'restriction')"
                             >
-                                {{ __('Restriction') }}
+                                Restriction
                             </div>
                         </li>
                     </ul>

@@ -34,7 +34,7 @@
 
     <div class="bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800 dark:text-slate-100">{{ __('All Notifications') }} <span class="text-slate-400 dark:text-slate-500 font-medium">200</span></h2>
+            <h2 class="font-semibold text-slate-800 dark:text-slate-100">{{ __('All Notifications') }} <span class="text-slate-400 dark:text-slate-500 font-medium">{{ $count }}</span></h2>
         </header>
 
         <div x-data="handleSelect">
@@ -44,43 +44,77 @@
                     <!-- Table header -->
                     <thead class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
                         <tr>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                <div class="flex items-center">
-                                    <label class="inline-flex">
-                                        <span class="sr-only">{{ __('Select all') }}</span>
-                                        <input id="parent-checkbox" class="form-checkbox" type="checkbox" @click="toggleAll" />
-                                    </label>
-                                </div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                <span class="sr-only">{{ __('Favourite') }}</span>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-center">{{ __('Title') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Name') }}</div>
+                                <div class="font-semibold text-center">{{ __('Body') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Location') }}</div>
+                                <div class="font-semibold text-center">{{ __('Type') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold">{{ __('Orders') }}</div>
+                                <div class="font-semibold text-center">{{ __('Shop') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Last order') }}</div>
+                                <span class="font-semibold text-center">{{ __('Date') }}</span>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Total spent') }}</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold">{{ __('Refunds') }}</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <span class="sr-only">{{ __('Menu') }}</span>
+                                <span class="sr-only">Menu</span>
                             </th>
                         </tr>
                     </thead>
                     <!-- Table body -->
-                    <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700">
-
+                    <tbody class="text-sm divide-y divide-slate-200 dark:divide-slate-700" x-data="{ open: false }">
+                        @foreach ($notifications as $notification)
+                            <tr>
+                                <td class="px-2 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="text-center">{{ $notification->title }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-wrap">
+                                    <div class="text-center">{{ substr($notification->body, 0, 70) }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="text-center font-medium text-sky-500">
+                                        <div class="text-xs inline-flex font-medium rounded-md text-center px-2.5 py-1 {{ randomBadgeColor() }}">
+                                            {{ \App\Enums\NotificationType::getDescription($notification->type) }}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="text-center">{{ $notification->shop?->name }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    <div class="text-center">{{ $notification->created_at?->format('d/m/Y') }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                    <div class="flex items-center">
+                                        <button
+                                            class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 transform"
+                                            :class="{ 'rotate-180': open }"
+                                            @click.prevent="open = !open"
+                                            :aria-expanded="open"
+                                            aria-controls="description-{{ $notification->id }}"
+                                        >
+                                            <span class="sr-only">Menu</span>
+                                            <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
+                                                <path d="M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="description-{{ $notification->id }}" role="region" x-show="open" x-cloak>
+                                <td colspan="10" class="px-2 first:pl-5 last:pr-5 py-3">
+                                    <div class="flex items-center bg-slate-50 dark:bg-slate-900/30 dark:text-slate-400 p-3 mt-2">
+                                        <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 dark:text-slate-500 mr-2">
+                                            <path d="M1 16h3c.3 0 .5-.1.7-.3l11-11c.4-.4.4-1 0-1.4l-3-3c-.4-.4-1-.4-1.4 0l-11 11c-.2.2-.3.4-.3.7v3c0 .6.4 1 1 1zm1-3.6l10-10L13.6 4l-10 10H2v-1.6z" />
+                                        </svg>
+                                        <div class="italic">{{ $notification->body }}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -88,7 +122,7 @@
     </div>
 
     <!-- Pagination -->
-    {{-- <div class="mt-8">
-        {{ $customers->links() }}
-    </div> --}}
+    <div class="mt-8">
+        {{ $notifications->links() }}
+    </div>
 </div>

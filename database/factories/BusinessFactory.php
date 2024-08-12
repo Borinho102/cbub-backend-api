@@ -7,6 +7,8 @@ use App\Models\BusinessCategory;
 use App\Models\BusinessUser;
 use App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use MatanYadaev\EloquentSpatial\Enums\Srid;
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Business>
@@ -62,7 +64,8 @@ class BusinessFactory extends Factory
                 'address' => fake()->address(),
                 'about' => fake()->sentences(1, true),
                 'business_id' => $business->id,
-                'owner_id' => $owner->id
+                'owner_id' => $owner->id,
+                'location' => new Point(fake()->latitude(2, 13), fake()->longitude(9, 16), Srid::WGS84)
             ]);
         });
     }

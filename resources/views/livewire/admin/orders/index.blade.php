@@ -73,7 +73,7 @@
                                 <div class="font-semibold">Items</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Location</div>
+                                <div class="font-semibold text-left">Delivery Address</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Date</div>
@@ -119,7 +119,7 @@
                                     <div class="text-center">{{ $order->items_count }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">{{ $order->location->name }}</div>
+                                    <div class="text-left">{{ $order->delivery_address?->address }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div>{{ $order->created_at->format('d/m/Y') }}</div>

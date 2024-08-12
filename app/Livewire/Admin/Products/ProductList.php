@@ -40,7 +40,7 @@ class ProductList extends Component
     {
         return view('livewire.admin.products.index', [
             'products' => Product::query()
-                ->with('business', 'category', 'active_discount_price')
+                ->with('business', 'category', 'active_discount')
                 ->withAverageRating()
                 ->withCount('reviews')
                 ->when($this->query, function ($q) {

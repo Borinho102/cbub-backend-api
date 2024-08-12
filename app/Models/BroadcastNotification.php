@@ -17,7 +17,7 @@ class BroadcastNotification extends Model
     protected $fillable = [
         'broadcaster_id', 'broadcaster_type',
         'business_id', 'title', 'body', 'data',
-        'broadcast_at', 'image'
+        'broadcast_at', 'image', 'shop_id', 'type'
     ];
 
     protected $casts = [
@@ -33,5 +33,10 @@ class BroadcastNotification extends Model
     public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
     }
 }

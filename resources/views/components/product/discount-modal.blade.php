@@ -6,7 +6,7 @@
     }"
     x-on:open-modal.window="mode = $event.detail.mode"
 >
-    <x-modal.dialog name="product-discount-modal" focusable>
+    <x-modal.dialog name="product-discount-modal">
         <x-slot name="title">
             <div x-show="mode == 'update'">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">

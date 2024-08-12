@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_locations', function (Blueprint $table) {
+        Schema::create('order_update_statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->foreignId('user_id')
-                ->constrained('users');
-            $table->boolean('current')->default(0);
-            $table->geometry('location', 'point')->nullable();
-            $table->geometry('area', 'polygon')->nullable();
+            $table->foreignId('order_id')->constrained('orders');
+            $table->string('from_status');
+            $table->string('to_status');
+            $table->string('description')->nullable();
+            $table->morphs('user');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_locations');
+        Schema::dropIfExists('order_update_statuses');
     }
 };
