@@ -48,7 +48,11 @@ class ProductDiscountList extends Component
     }
 
     public function saveDiscount() {
-        $this->discountForm->update();
+        if ($this->mode == 'update') {
+            $this->discountForm->update();
+        } else {
+            $this->discountForm->store();
+        }
 
         $this->dispatch('close-modal', name: 'product-discount-modal');
 
