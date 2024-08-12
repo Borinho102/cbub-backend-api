@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use MatanYadaev\EloquentSpatial\Objects\Point;
+use MatanYadaev\EloquentSpatial\Objects\Polygon;
+use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -16,6 +19,7 @@ class Shop extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use HasSpatial;
 
     protected $fillable = [
         'name', 'phone', 'country_id', 'city_id', 'business_id',
@@ -25,7 +29,9 @@ class Shop extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'schedule' => 'array'
+        'schedule' => 'array',
+        'location' => Point::class,
+        'area' => Polygon::class,
     ];
 
     public function registerMediaCollections(): void
@@ -74,6 +80,11 @@ class Shop extends Model implements HasMedia
         return $this->hasMany(Product::class);
     }
 
+    public function popularProducts(): HasMany
+    {
+        return $this->products()->limit(6);
+    }
+
     public function product_sold(): HasMany
     {
         return $this->hasMany(OrderItem::class, 'shop_id');
@@ -89,6 +100,11 @@ class Shop extends Model implements HasMedia
         return $this->belongsTo(Country::class);
     }
 
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
+    }
+
     public function reviews(): MorphMany
     {
         return $this->morphMany(Review::class, 'reviewable');
@@ -101,6 +117,17 @@ class Shop extends Model implements HasMedia
                 ->from('reviews')
                 ->where('reviewable_type', Shop::class)
                 ->whereColumn('reviewable_id', 'shops.id');
+        }]);
+    }
+
+    public function scopeWithBookmarkedColumn(Builder $q)
+    {
+        return $q->addSelect(['bookmarked' => function ($q) {
+            $q->select('id')
+                ->from('bookmarks')
+                ->where('bookmarks.user_id', auth()->user()->id)
+                ->where('item_type', Shop::class)
+                ->whereColumn('item_id', 'shops.id');
         }]);
     }
 

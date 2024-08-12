@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\Products\Categories;
 
-use App\Enums\ProductTagType;
 use App\Livewire\Forms\Admin\Product\CreateProductCategoryForm;
 use App\Models\ProductCategory;
 use Livewire\Attributes\Layout;
@@ -18,21 +17,19 @@ class EditCategory extends Component
 
     public $categories;
 
-    public $tagOptions;
-
     public function mount(ProductCategory $category)
     {
         $this->form->setCategory($category);
 
         $this->categories = ProductCategory::select('id', 'name')
             ->whereNull('parent_id')->get();
-
-        $this->tagOptions = ProductTagType::asSelectArray();
     }
 
     public function save()
     {
         $this->form->update();
+
+        notify()->success(__('Product category successfully updated!'));
 
         return $this->redirect(route('admin.products.categories.index'));
     }

@@ -1,4 +1,4 @@
-<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+<div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
     <div>
         <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
             {{ __('Product Stocks') }}
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="sm:flex sm:justify-end sm:items-center mb-4">
+    <div class="sm:flex sm:justify-end sm:items-center mt-4 mb-4">
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
             <!-- Dropdown -->

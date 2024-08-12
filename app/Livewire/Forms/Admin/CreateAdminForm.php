@@ -38,6 +38,9 @@ class CreateAdminForm extends Form
     #[Validate('nullable|image')]
     public $profile_picture;
 
+    #[Validate('nullable|min:8')]
+    public $password;
+
     public function setAdmin(Admin $admin)
     {
         $this->admin = $admin;
@@ -66,7 +69,7 @@ class CreateAdminForm extends Form
         $admin = Admin::create([
             ...$this->except('admin', 'permissions', 'roles'),
             'username' => generateUsername(new Admin, explode('@', $this->email)[0]),
-            'password' => bcrypt(Str::random(10))
+            'password' => bcrypt($this->password ?? Str::random(10))
         ]);
 
         $admin->syncRoles($this->roles);
@@ -83,8 +86,6 @@ class CreateAdminForm extends Form
         }
 
         $this->reset();
-
-        notify()->success(__('User successfully created!'));
     }
 
     public function update()

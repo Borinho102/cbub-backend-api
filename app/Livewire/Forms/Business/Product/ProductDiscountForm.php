@@ -45,6 +45,7 @@ class ProductDiscountForm extends Form
             'end_time' => 'required|date|after:start_time'
         ]);
 
+
         $product = Product::findOrFail($this->product_id);
 
         $this->validate([
@@ -66,6 +67,7 @@ class ProductDiscountForm extends Form
 
             ProductDiscount::create([
                 'product_id' => $product->id,
+                'product_type' => get_class($product),
                 'old_price' => $product->price,
                 'new_price' => $this->price,
                 'discount_percentage' => round(100 - ($this->price / $product->price) * 100, 0),
@@ -92,7 +94,6 @@ class ProductDiscountForm extends Form
             'price' => 'required|numeric',
             'start_time' => 'required|date|before:end_time',
             'end_time' => 'required|date|after:start_time',
-            'is_active' => 'required|boolean'
         ]);
 
         $product = Product::findOrFail($this->product_id);

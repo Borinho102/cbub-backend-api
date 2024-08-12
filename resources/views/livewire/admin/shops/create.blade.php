@@ -93,6 +93,16 @@
                     @endif
 
                     <div>
+                        <x-input.label :value="__('Latitude')" for="latitude"/>
+                        <x-input.text wire:model.blur="form.latitude" name="form.latitude" id="latitude" type="text"/>
+                    </div>
+
+                    <div>
+                        <x-input.label :value="__('Longitude')" for="longitude"/>
+                        <x-input.text wire:model.blur="form.longitude" name="form.longitude" id="longitude" type="text"/>
+                    </div>
+
+                    <div>
                         <x-input.label :value="__('Website')" for="website"/>
                         <x-input.text wire:model="form.website" name="form.website" id="website" type="url"/>
                     </div>

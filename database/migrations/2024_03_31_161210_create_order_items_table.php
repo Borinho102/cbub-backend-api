@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,9 +21,11 @@ return new class extends Migration
                 ->constrained('businesses');
             $table->foreignId('shop_id')->nullable()
                 ->constrained('shops');
+            $table->enum('status', OrderStatus::getValues())->default(OrderStatus::Pending);
             $table->integer('quantity');
             $table->decimal('unit_amount');
             $table->decimal('total_amount');
+            $table->string('currency');
             $table->text('description')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();

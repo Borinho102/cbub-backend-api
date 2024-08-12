@@ -28,7 +28,7 @@
             <x-search-form wire:model.live="query" name="query" />
 
             <!-- Export button -->
-            <a wire:navigate href="#" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white">{{ __('New Customer') }}</a>
+            <a wire:navigate href="{{ route('business.customers.create') }}" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white">{{ __('New Customer') }}</a>
         </div>
     </div>
 
@@ -57,9 +57,6 @@
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">{{ __('Name') }}</div>
-                            </th>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">{{ __('Location') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold">{{ __('Orders') }}</div>
@@ -94,7 +91,7 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="flex items-center relative">
                                         <button>
-                                            <svg class="w-4 h-4 shrink-0 fill-current @if($customer->fav){{ 'text-amber-500' }}@else{{ 'text-slate-300 dark:text-slate-600' }}@endif" viewBox="0 0 16 16">
+                                            <svg class="w-4 h-4 shrink-0 fill-current @if($customer->favorite){{ 'text-amber-500' }}@else{{ 'text-slate-300 dark:text-slate-600' }}@endif" viewBox="0 0 16 16">
                                                 <path d="M8 0L6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934h-6L8 0z" />
                                             </svg>
                                         </button>
@@ -110,9 +107,6 @@
                                             <div class="text-left">{{ $customer->user->email }}</div>
                                         </div>
                                     </div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">@if($customer->user->current_location){{ $customer->user->current_location->name }}@else{{ '-' }}@endif</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="text-left">{{ $customer->orders_count }}</div>

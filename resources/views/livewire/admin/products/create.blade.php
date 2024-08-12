@@ -1,6 +1,6 @@
 <div background="bg-gray-100 dark:bg-slate-900 h-full">
     <!-- Content -->
-    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto h-full">
+    <div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto h-full">
         <div>
             <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
                 @if (isset($form->product))
@@ -25,7 +25,7 @@
                         </svg>
                     </li>
                     <li class="flex items-center">
-                        <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('New Product') }}</a>
+                        <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#0">{{ __('Create') }}</a>
                     </li>
                 </ul>
                 <!-- End -->

@@ -33,7 +33,7 @@ class OrderList extends Component
         return view('livewire.business.orders.index', [
             'orders' => Order::query()
                 ->where('business_id', auth()->user()->business_id)
-                ->with('customer', 'location')
+                ->with('customer', 'delivery_address')
                 ->withCount('items')
                 ->when($this->query, function ($q) {
                     $q->where(function ($q) {

@@ -27,22 +27,7 @@
                 </button>
                 <!-- Logo -->
                 <a class="block" wire:navigate href="{{ route('admin.dashboard') }}">
-                    <svg width="32" height="32" viewBox="0 0 32 32">
-                        <defs>
-                            <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
-                                <stop stop-color="#A5B4FC" stop-opacity="0" offset="0%" />
-                                <stop stop-color="#A5B4FC" offset="100%" />
-                            </linearGradient>
-                            <linearGradient x1="88.638%" y1="29.267%" x2="22.42%" y2="100%" id="logo-b">
-                                <stop stop-color="#38BDF8" stop-opacity="0" offset="0%" />
-                                <stop stop-color="#38BDF8" offset="100%" />
-                            </linearGradient>
-                        </defs>
-                        <rect fill="#6366F1" width="32" height="32" rx="16" />
-                        <path d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z" fill="#4F46E5" />
-                        <path d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z" fill="url(#logo-a)" />
-                        <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
-                    </svg>
+                    <img src="{{ asset('images/logo.png') }}" class="h-14 w-14 bg-white rounded-full" alt="">
                 </a>
             </div>
 
@@ -214,6 +199,17 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                                     </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{{ __('Roles & Permissions') }}</span>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- Notifications -->
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(3), ['notifications'])){{ 'bg-slate-900' }}@endif">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(3), ['notifications'])){{ 'hover:text-slate-200' }}@endif" wire:navigate href="{{ route('admin.notifications.index') }}">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @if(in_array(Request::segment(3), ['notifications'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+                                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{{ __('Notifications') }}</span>
                                 </div>
                             </a>
                         </li>
@@ -639,6 +635,17 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                                     </svg>
                                     <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{{ __('Users') }}</span>
+                                </div>
+                            </a>
+                        </li>
+                        <!-- Notifications -->
+                        <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if(in_array(Request::segment(3), ['notifications'])){{ 'bg-slate-900' }}@endif">
+                            <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if(in_array(Request::segment(3), ['notifications'])){{ 'hover:text-slate-200' }}@endif" wire:navigate href="{{ route('business.notifications.index') }}">
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 @if(in_array(Request::segment(3), ['notifications'])){{ 'text-indigo-300' }}@else{{ 'text-slate-400' }}@endif">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+                                    <span class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">{{ __('Notifications') }}</span>
                                 </div>
                             </a>
                         </li>

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class WorldCountriesTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,13 +13,11 @@ class WorldCountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('world_countries')->truncate();
-        
-        \DB::table('world_countries')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('world_countries')->insert([
+            0 => [
                 'id' => 1,
                 'continent_id' => 3,
                 'name' => 'Cameroon',
@@ -34,9 +31,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.cm',
                 'callingcode' => '237',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 2,
                 'continent_id' => 3,
                 'name' => 'Benin',
@@ -50,9 +46,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.bj',
                 'callingcode' => '229',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 3,
                 'continent_id' => 3,
                 'name' => 'Madagascar',
@@ -66,9 +61,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Malagasy Ariary',
                 'tld' => '.mg',
                 'callingcode' => '261',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 4,
                 'continent_id' => 3,
                 'name' => 'Rwanda',
@@ -82,9 +76,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Rwanda Franc',
                 'tld' => '.rw',
                 'callingcode' => '250',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 5,
                 'continent_id' => 3,
                 'name' => 'Seychelles',
@@ -98,9 +91,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Seychelles Rupee',
                 'tld' => '.sc',
                 'callingcode' => '248',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 6,
                 'continent_id' => 3,
                 'name' => 'Cote d’Ivoire',
@@ -114,9 +106,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.ci',
                 'callingcode' => '225',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 7,
                 'continent_id' => 3,
                 'name' => 'Egypt',
@@ -130,9 +121,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Egyptian Pound',
                 'tld' => '.eg',
                 'callingcode' => '20',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 8,
                 'continent_id' => 3,
                 'name' => 'Mauritius',
@@ -146,9 +136,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Mauritius Rupee',
                 'tld' => '.mu',
                 'callingcode' => '230',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 9,
                 'continent_id' => 3,
                 'name' => 'Burkina Faso',
@@ -162,9 +151,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.bf',
                 'callingcode' => '226',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 10,
                 'continent_id' => 3,
                 'name' => 'Eritrea',
@@ -178,9 +166,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Nakfa',
                 'tld' => '.er',
                 'callingcode' => '291',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 11,
                 'continent_id' => 3,
                 'name' => 'Sao Tome and Principe',
@@ -194,9 +181,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Dobra',
                 'tld' => '.st',
                 'callingcode' => '239',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 12,
                 'continent_id' => 3,
                 'name' => 'Angola',
@@ -210,9 +196,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kwanza',
                 'tld' => '.ao',
                 'callingcode' => '244',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 13,
                 'continent_id' => 3,
                 'name' => 'Libya',
@@ -226,9 +211,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Libyan Dinar',
                 'tld' => '.ly',
                 'callingcode' => '218',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 14,
                 'continent_id' => 3,
                 'name' => 'Zimbabwe',
@@ -242,9 +226,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Zimbabwe Dollar',
                 'tld' => '.zw',
                 'callingcode' => '263',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 15,
                 'continent_id' => 3,
                 'name' => 'Guinea',
@@ -258,9 +241,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Guinea Franc',
                 'tld' => '.gn',
                 'callingcode' => '224',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 16,
                 'continent_id' => 3,
                 'name' => 'Sierra Leone',
@@ -274,9 +256,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Leone',
                 'tld' => '.sl',
                 'callingcode' => '232',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 17,
                 'continent_id' => 3,
                 'name' => 'Reunion',
@@ -290,9 +271,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.re',
                 'callingcode' => '262',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 18,
                 'continent_id' => 3,
                 'name' => 'Gabon',
@@ -306,9 +286,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.ga',
                 'callingcode' => '241',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 19,
                 'continent_id' => 3,
                 'name' => 'Ghana',
@@ -322,9 +301,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Ghana Cedi',
                 'tld' => '.gh',
                 'callingcode' => '233',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 20,
                 'continent_id' => 3,
                 'name' => 'Tanzania',
@@ -338,9 +316,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Tanzanian shilling',
                 'tld' => '.tz',
                 'callingcode' => '255',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 21,
                 'continent_id' => 3,
                 'name' => 'Mali',
@@ -354,9 +331,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.ml',
                 'callingcode' => '223',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 22,
                 'continent_id' => 3,
                 'name' => 'Somalia',
@@ -370,9 +346,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Somali Shilling',
                 'tld' => '.so',
                 'callingcode' => '252',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 23,
                 'continent_id' => 3,
                 'name' => 'Mauritania',
@@ -386,9 +361,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Ouguiya',
                 'tld' => '.mr',
                 'callingcode' => '222',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 24,
                 'continent_id' => 3,
                 'name' => 'Uganda',
@@ -402,9 +376,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Uganda Shilling',
                 'tld' => '.ug',
                 'callingcode' => '256',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 25,
                 'continent_id' => 3,
                 'name' => 'Chad',
@@ -418,9 +391,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.td',
                 'callingcode' => '235',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 26,
                 'continent_id' => 3,
                 'name' => 'Mayotte',
@@ -434,9 +406,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.yt',
                 'callingcode' => '262',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 27,
                 'continent_id' => 3,
                 'name' => 'Comoros',
@@ -450,9 +421,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Comoro Franc',
                 'tld' => '.km',
                 'callingcode' => '269',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 28,
                 'continent_id' => 3,
                 'name' => 'Botswana',
@@ -466,9 +436,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pula',
                 'tld' => '.bw',
                 'callingcode' => '267',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 29,
                 'continent_id' => 3,
                 'name' => 'Senegal',
@@ -482,9 +451,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.sn',
                 'callingcode' => '221',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 30,
                 'continent_id' => 3,
                 'name' => 'Eswatini',
@@ -498,9 +466,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lilangeni',
                 'tld' => '.sz',
                 'callingcode' => '268',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 31,
                 'continent_id' => 3,
                 'name' => 'Guinea-Bissau',
@@ -514,9 +481,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.gw',
                 'callingcode' => '245',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 32,
                 'continent_id' => 3,
                 'name' => 'DR Congo',
@@ -530,9 +496,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Congolese franc',
                 'tld' => '.cd',
                 'callingcode' => '243',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 33,
                 'continent_id' => 3,
                 'name' => 'Central African Republic',
@@ -546,9 +511,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.cf',
                 'callingcode' => '236',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 34,
                 'continent_id' => 3,
                 'name' => 'Lesotho',
@@ -562,9 +526,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lesotho loti',
                 'tld' => '.ls',
                 'callingcode' => '266',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 35,
                 'continent_id' => 3,
                 'name' => 'Congo',
@@ -578,9 +541,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.cg',
                 'callingcode' => '242',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 36,
                 'continent_id' => 3,
                 'name' => 'South Africa',
@@ -594,9 +556,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Rand',
                 'tld' => '.za',
                 'callingcode' => '27',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 37,
                 'continent_id' => 3,
                 'name' => 'Liberia',
@@ -610,9 +571,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Liberian Dollar',
                 'tld' => '.lr',
                 'callingcode' => '231',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 38,
                 'continent_id' => 3,
                 'name' => 'Tunisia',
@@ -626,9 +586,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Tunisian Dinar',
                 'tld' => '.tn',
                 'callingcode' => '216',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 39,
                 'continent_id' => 3,
                 'name' => 'Zambia',
@@ -642,9 +601,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Zambian Kwacha',
                 'tld' => '.zm',
                 'callingcode' => '260',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 40,
                 'continent_id' => 3,
                 'name' => 'Niger',
@@ -658,9 +616,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.ne',
                 'callingcode' => '227',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 41,
                 'continent_id' => 3,
                 'name' => 'Western Sahara',
@@ -674,9 +631,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Algerian dinar',
                 'tld' => '.eh',
                 'callingcode' => '212',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 42,
                 'continent_id' => 3,
                 'name' => 'Togo',
@@ -690,9 +646,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BCEAO',
                 'tld' => '.tg',
                 'callingcode' => '228',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 43,
                 'continent_id' => 3,
                 'name' => 'Namibia',
@@ -706,9 +661,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Namibian dollar',
                 'tld' => '.na',
                 'callingcode' => '264',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 44,
                 'continent_id' => 3,
                 'name' => 'Mozambique',
@@ -722,9 +676,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Mozambique Metical',
                 'tld' => '.mz',
                 'callingcode' => '258',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 45,
                 'continent_id' => 3,
                 'name' => 'Ethiopia',
@@ -738,9 +691,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Ethiopian Birr',
                 'tld' => '.et',
                 'callingcode' => '251',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 46,
                 'continent_id' => 3,
                 'name' => 'Morocco',
@@ -754,9 +706,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Moroccan Dirham',
                 'tld' => '.ma',
                 'callingcode' => '212',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 47,
                 'continent_id' => 3,
                 'name' => 'Malawi',
@@ -770,9 +721,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kwacha',
                 'tld' => '.mw',
                 'callingcode' => '265',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 48,
                 'continent_id' => 3,
                 'name' => 'Nigeria',
@@ -786,9 +736,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Naira',
                 'tld' => '.ng',
                 'callingcode' => '234',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 49,
                 'continent_id' => 3,
                 'name' => 'Cabo Verde',
@@ -802,9 +751,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Cabo Verde Escudo',
                 'tld' => '.cv',
                 'callingcode' => '238',
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 50,
                 'continent_id' => 3,
                 'name' => 'Burundi',
@@ -818,9 +766,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Burundi Franc',
                 'tld' => '.bi',
                 'callingcode' => '257',
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 51,
                 'continent_id' => 3,
                 'name' => 'Algeria',
@@ -834,9 +781,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Algerian Dinar',
                 'tld' => '.dz',
                 'callingcode' => '213',
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 52,
                 'continent_id' => 3,
                 'name' => 'Djibouti',
@@ -850,9 +796,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Djibouti Franc',
                 'tld' => '.dj',
                 'callingcode' => '253',
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 53,
                 'continent_id' => 6,
                 'name' => 'Guadeloupe',
@@ -866,9 +811,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.gp',
                 'callingcode' => '590',
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 54,
                 'continent_id' => 3,
                 'name' => 'Equatorial Guinea',
@@ -882,9 +826,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFA Franc BEAC',
                 'tld' => '.gq',
                 'callingcode' => '240',
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 55,
                 'continent_id' => 3,
                 'name' => 'Sudan',
@@ -898,9 +841,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Sudanese Pound',
                 'tld' => '.sd',
                 'callingcode' => '249',
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 56,
                 'continent_id' => 3,
                 'name' => 'Kenya',
@@ -914,9 +856,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kenyan Shilling',
                 'tld' => '.ke',
                 'callingcode' => '254',
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 57,
                 'continent_id' => 1,
                 'name' => 'Singapore',
@@ -930,9 +871,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Singapore Dollar',
                 'tld' => '.sg',
                 'callingcode' => '65',
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 58,
                 'continent_id' => 1,
                 'name' => 'South Korea',
@@ -946,9 +886,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'South Korean won',
                 'tld' => '.kr',
                 'callingcode' => '82',
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 59,
                 'continent_id' => 1,
                 'name' => 'Syria',
@@ -962,9 +901,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Syrian Pound',
                 'tld' => '.sy',
                 'callingcode' => '963',
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 60,
                 'continent_id' => 1,
                 'name' => 'Uzbekistan',
@@ -978,9 +916,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Uzbekistan Sum',
                 'tld' => '.uz',
                 'callingcode' => '998',
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 61,
                 'continent_id' => 1,
                 'name' => 'Bahrain',
@@ -994,9 +931,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Bahraini Dinar',
                 'tld' => '.bh',
                 'callingcode' => '973',
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 62,
                 'continent_id' => 1,
                 'name' => 'Japan',
@@ -1010,9 +946,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Yen',
                 'tld' => '.jp',
                 'callingcode' => '81',
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 63,
                 'continent_id' => 1,
                 'name' => 'Jordan',
@@ -1026,9 +961,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Jordanian Dinar',
                 'tld' => '.jo',
                 'callingcode' => '962',
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 64,
                 'continent_id' => 1,
                 'name' => 'Vietnam',
@@ -1042,9 +976,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Dong',
                 'tld' => '.vn',
                 'callingcode' => '84',
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 65,
                 'continent_id' => 1,
                 'name' => 'Kyrgyzstan',
@@ -1058,9 +991,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Som',
                 'tld' => '.kg',
                 'callingcode' => '996',
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 66,
                 'continent_id' => 1,
                 'name' => 'Thailand',
@@ -1074,9 +1006,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Baht',
                 'tld' => '.th',
                 'callingcode' => '66',
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 67,
                 'continent_id' => 1,
                 'name' => 'Sri Lanka',
@@ -1090,9 +1021,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Sri Lanka Rupee',
                 'tld' => '.lk',
                 'callingcode' => '94',
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 68,
                 'continent_id' => 1,
                 'name' => 'United Arab Emirates',
@@ -1106,9 +1036,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'UAE Dirham',
                 'tld' => '.ae',
                 'callingcode' => '971',
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 69,
                 'continent_id' => 1,
                 'name' => 'Laos',
@@ -1122,9 +1051,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kip',
                 'tld' => '.la',
                 'callingcode' => '856',
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 70,
                 'continent_id' => 1,
                 'name' => 'Afghanistan',
@@ -1138,9 +1066,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Afghani',
                 'tld' => '.af',
                 'callingcode' => '93',
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 71,
                 'continent_id' => 1,
                 'name' => 'Macau',
@@ -1154,9 +1081,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Macanese pataca',
                 'tld' => '.mo',
                 'callingcode' => '853',
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 72,
                 'continent_id' => 1,
                 'name' => 'Tajikistan',
@@ -1170,9 +1096,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Somoni',
                 'tld' => '.tj',
                 'callingcode' => '992',
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 73,
                 'continent_id' => 1,
                 'name' => 'North Korea',
@@ -1186,9 +1111,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'North Korean won',
                 'tld' => '.kp',
                 'callingcode' => '850',
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 74,
                 'continent_id' => 1,
                 'name' => 'Palestine',
@@ -1202,9 +1126,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Israeli new shekel',
                 'tld' => '.ps',
                 'callingcode' => '970',
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 75,
                 'continent_id' => 1,
                 'name' => 'Hong Kong',
@@ -1218,9 +1141,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Hong Kong dollar',
                 'tld' => '.hk',
                 'callingcode' => '852',
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 76,
                 'continent_id' => 1,
                 'name' => 'Iraq',
@@ -1234,9 +1156,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Iraqi Dinar',
                 'tld' => '.iq',
                 'callingcode' => '964',
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 77,
                 'continent_id' => 1,
                 'name' => 'Lebanon',
@@ -1250,9 +1171,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lebanese Pound',
                 'tld' => '.lb',
                 'callingcode' => '961',
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 78,
                 'continent_id' => 1,
                 'name' => 'Kuwait',
@@ -1266,9 +1186,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kuwaiti Dinar',
                 'tld' => '.kw',
                 'callingcode' => '965',
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 79,
                 'continent_id' => 1,
                 'name' => 'Brunei',
@@ -1282,9 +1201,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Brunei Dollar',
                 'tld' => '.bn',
                 'callingcode' => '673',
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 80,
                 'continent_id' => 1,
                 'name' => 'Maldives',
@@ -1298,9 +1216,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Rufiyaa',
                 'tld' => '.mv',
                 'callingcode' => '960',
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 81,
                 'continent_id' => 1,
                 'name' => 'Indonesia',
@@ -1314,9 +1231,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Rupiah',
                 'tld' => '.id',
                 'callingcode' => '62',
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 82,
                 'continent_id' => 1,
                 'name' => 'Israel',
@@ -1330,9 +1246,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Israeli Sheqel',
                 'tld' => '.il',
                 'callingcode' => '972',
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 83,
                 'continent_id' => 1,
                 'name' => 'Mongolia',
@@ -1346,9 +1261,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Tugrik',
                 'tld' => '.mn',
                 'callingcode' => '976',
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 84,
                 'continent_id' => 1,
                 'name' => 'Oman',
@@ -1362,9 +1276,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Rial Omani',
                 'tld' => '.om',
                 'callingcode' => '968',
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 85,
                 'continent_id' => 1,
                 'name' => 'India',
@@ -1378,9 +1291,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Indian Rupee',
                 'tld' => '.in',
                 'callingcode' => '91',
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 86,
                 'continent_id' => 1,
                 'name' => 'Myanmar',
@@ -1394,9 +1306,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kyat',
                 'tld' => '.mm',
                 'callingcode' => '95',
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 87,
                 'continent_id' => 1,
                 'name' => 'Malaysia',
@@ -1410,9 +1321,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Malaysian Ringgit',
                 'tld' => '.my',
                 'callingcode' => '60',
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 88,
                 'continent_id' => 1,
                 'name' => 'East Timor',
@@ -1426,9 +1336,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.tl',
                 'callingcode' => '670',
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 89,
                 'continent_id' => 1,
                 'name' => 'Yemen',
@@ -1442,9 +1351,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Yemeni Rial',
                 'tld' => '.ye',
                 'callingcode' => '967',
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 90,
                 'continent_id' => 1,
                 'name' => 'Bhutan',
@@ -1458,9 +1366,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Bhutanese ngultrum',
                 'tld' => '.bt',
                 'callingcode' => '975',
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 91,
                 'continent_id' => 1,
                 'name' => 'Cambodia',
@@ -1474,9 +1381,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Riel',
                 'tld' => '.kh',
                 'callingcode' => '855',
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 92,
                 'continent_id' => 1,
                 'name' => 'Pakistan',
@@ -1490,9 +1396,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pakistan Rupee',
                 'tld' => '.pk',
                 'callingcode' => '92',
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 93,
                 'continent_id' => 1,
                 'name' => 'Bangladesh',
@@ -1506,9 +1411,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Taka',
                 'tld' => '.bd',
                 'callingcode' => '880',
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 94,
                 'continent_id' => 1,
                 'name' => 'Saudi Arabia',
@@ -1522,9 +1426,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Saudi Riyal',
                 'tld' => '.sa',
                 'callingcode' => '966',
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 95,
                 'continent_id' => 1,
                 'name' => 'Turkmenistan',
@@ -1538,9 +1441,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Turkmenistan New Manat',
                 'tld' => '.tm',
                 'callingcode' => '993',
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 96,
                 'continent_id' => 1,
                 'name' => 'Qatar',
@@ -1554,9 +1456,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Qatari Rial',
                 'tld' => '.qa',
                 'callingcode' => '974',
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 97,
                 'continent_id' => 1,
                 'name' => 'Nepal',
@@ -1570,9 +1471,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Nepalese Rupee',
                 'tld' => '.np',
                 'callingcode' => '977',
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 98,
                 'continent_id' => 1,
                 'name' => 'Kazakhstan',
@@ -1586,9 +1486,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Tenge',
                 'tld' => '.kz',
                 'callingcode' => '76',
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 99,
                 'continent_id' => 1,
                 'name' => 'Philippines',
@@ -1602,9 +1501,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Philippine Peso',
                 'tld' => '.ph',
                 'callingcode' => '63',
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 100,
                 'continent_id' => 1,
                 'name' => 'Taiwan',
@@ -1618,9 +1516,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Taiwan dollar',
                 'tld' => '.tw',
                 'callingcode' => '886',
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 101,
                 'continent_id' => 1,
                 'name' => 'China',
@@ -1634,9 +1531,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Yuan Renminbi',
                 'tld' => '.cn',
                 'callingcode' => '86',
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 102,
                 'continent_id' => 1,
                 'name' => 'Iran',
@@ -1650,9 +1546,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Iranian rial',
                 'tld' => '.ir',
                 'callingcode' => '98',
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 103,
                 'continent_id' => 6,
                 'name' => 'Costa Rica',
@@ -1666,9 +1561,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Costa Rican Colon',
                 'tld' => '.cr',
                 'callingcode' => '506',
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 104,
                 'continent_id' => 6,
                 'name' => 'Cuba',
@@ -1682,9 +1576,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Cuban convertible peso',
                 'tld' => '.cu',
                 'callingcode' => '53',
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 105,
                 'continent_id' => 6,
                 'name' => 'Dominican',
@@ -1698,9 +1591,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Dominican Peso',
                 'tld' => '.do',
                 'callingcode' => '1809',
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 106,
                 'continent_id' => 6,
                 'name' => 'Mexico',
@@ -1714,9 +1606,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Mexican Peso',
                 'tld' => '.mx',
                 'callingcode' => '52',
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 107,
                 'continent_id' => 6,
                 'name' => 'Nicaragua',
@@ -1730,9 +1621,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Cordoba Oro',
                 'tld' => '.ni',
                 'callingcode' => '505',
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 108,
                 'continent_id' => 6,
                 'name' => 'Panama',
@@ -1746,25 +1636,23 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Panamanian balboa',
                 'tld' => '.pa',
                 'callingcode' => '507',
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 109,
                 'continent_id' => 7,
                 'name' => 'Netherlands Antilles',
                 'full_name' => 'Netherlands Antilles',
-                'capital' => NULL,
+                'capital' => null,
                 'code' => 'an',
                 'code_alpha3' => 'ant',
-                'emoji' => NULL,
+                'emoji' => null,
                 'has_division' => 0,
-                'currency_code' => NULL,
-                'currency_name' => NULL,
-                'tld' => NULL,
-                'callingcode' => NULL,
-            ),
-            109 => 
-            array (
+                'currency_code' => null,
+                'currency_name' => null,
+                'tld' => null,
+                'callingcode' => null,
+            ],
+            109 => [
                 'id' => 110,
                 'continent_id' => 6,
                 'name' => 'El Salvador',
@@ -1778,9 +1666,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Salvadoran colón',
                 'tld' => '.sv',
                 'callingcode' => '503',
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 111,
                 'continent_id' => 6,
                 'name' => 'Puerto Rico',
@@ -1794,9 +1681,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.pr',
                 'callingcode' => '1787',
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 112,
                 'continent_id' => 6,
                 'name' => 'Saint Vincent and the Grenadines',
@@ -1810,9 +1696,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.vc',
                 'callingcode' => '1784',
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 113,
                 'continent_id' => 6,
                 'name' => 'Honduras',
@@ -1826,9 +1711,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lempira',
                 'tld' => '.hn',
                 'callingcode' => '504',
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 114,
                 'continent_id' => 6,
                 'name' => 'Guatemala',
@@ -1842,9 +1726,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Quetzal',
                 'tld' => '.gt',
                 'callingcode' => '502',
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 115,
                 'continent_id' => 1,
                 'name' => 'Georgia',
@@ -1858,9 +1741,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lari',
                 'tld' => '.ge',
                 'callingcode' => '995',
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 116,
                 'continent_id' => 1,
                 'name' => 'Armenia',
@@ -1874,9 +1756,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Armenian Dram',
                 'tld' => '.am',
                 'callingcode' => '374',
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 117,
                 'continent_id' => 1,
                 'name' => 'Azerbaijan',
@@ -1890,9 +1771,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Azerbaijanian Manat',
                 'tld' => '.az',
                 'callingcode' => '994',
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 118,
                 'continent_id' => 2,
                 'name' => 'Belarus',
@@ -1906,9 +1786,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Belarussian Ruble',
                 'tld' => '.by',
                 'callingcode' => '375',
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 119,
                 'continent_id' => 2,
                 'name' => 'Russia',
@@ -1922,9 +1801,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Russian Ruble',
                 'tld' => '.ru',
                 'callingcode' => '7',
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 120,
                 'continent_id' => 2,
                 'name' => 'Ukraine',
@@ -1938,9 +1816,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Hryvnia',
                 'tld' => '.ua',
                 'callingcode' => '380',
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 121,
                 'continent_id' => 2,
                 'name' => 'Hungary',
@@ -1954,9 +1831,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Forint',
                 'tld' => '.hu',
                 'callingcode' => '36',
-            ),
-            121 => 
-            array (
+            ],
+            121 => [
                 'id' => 122,
                 'continent_id' => 2,
                 'name' => 'Iceland',
@@ -1970,9 +1846,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Iceland Krona',
                 'tld' => '.is',
                 'callingcode' => '354',
-            ),
-            122 => 
-            array (
+            ],
+            122 => [
                 'id' => 123,
                 'continent_id' => 2,
                 'name' => 'Malta',
@@ -1986,9 +1861,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.mt',
                 'callingcode' => '356',
-            ),
-            123 => 
-            array (
+            ],
+            123 => [
                 'id' => 124,
                 'continent_id' => 2,
                 'name' => 'Monaco',
@@ -2002,9 +1876,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.mc',
                 'callingcode' => '377',
-            ),
-            124 => 
-            array (
+            ],
+            124 => [
                 'id' => 125,
                 'continent_id' => 2,
                 'name' => 'Norway',
@@ -2018,9 +1891,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Norwegian Krone',
                 'tld' => '.no',
                 'callingcode' => '47',
-            ),
-            125 => 
-            array (
+            ],
+            125 => [
                 'id' => 126,
                 'continent_id' => 2,
                 'name' => 'Romania',
@@ -2034,9 +1906,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Romanian Leu',
                 'tld' => '.ro',
                 'callingcode' => '40',
-            ),
-            126 => 
-            array (
+            ],
+            126 => [
                 'id' => 127,
                 'continent_id' => 2,
                 'name' => 'San Marino',
@@ -2050,9 +1921,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.sm',
                 'callingcode' => '378',
-            ),
-            127 => 
-            array (
+            ],
+            127 => [
                 'id' => 128,
                 'continent_id' => 2,
                 'name' => 'Sweden',
@@ -2066,9 +1936,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Swedish Krona',
                 'tld' => '.se',
                 'callingcode' => '46',
-            ),
-            128 => 
-            array (
+            ],
+            128 => [
                 'id' => 129,
                 'continent_id' => 2,
                 'name' => 'Switzerland',
@@ -2079,12 +1948,11 @@ class WorldCountriesTableSeeder extends Seeder
                 'emoji' => '🇨🇭',
                 'has_division' => 0,
                 'currency_code' => 'CHE',
-            'currency_name' => 'WIR Euro (complementary currency)',
+                'currency_name' => 'WIR Euro (complementary currency)',
                 'tld' => '.ch',
                 'callingcode' => '41',
-            ),
-            129 => 
-            array (
+            ],
+            129 => [
                 'id' => 130,
                 'continent_id' => 2,
                 'name' => 'Estonia',
@@ -2098,9 +1966,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.ee',
                 'callingcode' => '372',
-            ),
-            130 => 
-            array (
+            ],
+            130 => [
                 'id' => 131,
                 'continent_id' => 2,
                 'name' => 'Latvia',
@@ -2114,9 +1981,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.lv',
                 'callingcode' => '371',
-            ),
-            131 => 
-            array (
+            ],
+            131 => [
                 'id' => 132,
                 'continent_id' => 2,
                 'name' => 'Lithuania',
@@ -2130,9 +1996,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.lt',
                 'callingcode' => '370',
-            ),
-            132 => 
-            array (
+            ],
+            132 => [
                 'id' => 133,
                 'continent_id' => 2,
                 'name' => 'Moldova',
@@ -2146,9 +2011,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Moldovan leu',
                 'tld' => '.md',
                 'callingcode' => '373',
-            ),
-            133 => 
-            array (
+            ],
+            133 => [
                 'id' => 134,
                 'continent_id' => 1,
                 'name' => 'Turkey',
@@ -2162,9 +2026,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Turkish Lira',
                 'tld' => '.tr',
                 'callingcode' => '90',
-            ),
-            134 => 
-            array (
+            ],
+            134 => [
                 'id' => 135,
                 'continent_id' => 2,
                 'name' => 'Slovenia',
@@ -2178,9 +2041,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.si',
                 'callingcode' => '386',
-            ),
-            135 => 
-            array (
+            ],
+            135 => [
                 'id' => 136,
                 'continent_id' => 2,
                 'name' => 'Czech',
@@ -2194,9 +2056,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Czech Koruna',
                 'tld' => '.cz',
                 'callingcode' => '420',
-            ),
-            136 => 
-            array (
+            ],
+            136 => [
                 'id' => 137,
                 'continent_id' => 2,
                 'name' => 'Slovakia',
@@ -2210,9 +2071,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.sk',
                 'callingcode' => '421',
-            ),
-            137 => 
-            array (
+            ],
+            137 => [
                 'id' => 138,
                 'continent_id' => 2,
                 'name' => 'North Macedonia',
@@ -2226,9 +2086,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Macedonian denar',
                 'tld' => '.mk',
                 'callingcode' => '389',
-            ),
-            138 => 
-            array (
+            ],
+            138 => [
                 'id' => 139,
                 'continent_id' => 2,
                 'name' => 'Bosnia Herzegovina',
@@ -2242,9 +2101,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Convertible Mark',
                 'tld' => '.ba',
                 'callingcode' => '387',
-            ),
-            139 => 
-            array (
+            ],
+            139 => [
                 'id' => 140,
                 'continent_id' => 2,
                 'name' => 'Vatican City State',
@@ -2258,9 +2116,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.va',
                 'callingcode' => '3906698',
-            ),
-            140 => 
-            array (
+            ],
+            140 => [
                 'id' => 141,
                 'continent_id' => 2,
                 'name' => 'Netherlands',
@@ -2274,9 +2131,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.nl',
                 'callingcode' => '31',
-            ),
-            141 => 
-            array (
+            ],
+            141 => [
                 'id' => 142,
                 'continent_id' => 2,
                 'name' => 'Croatia',
@@ -2290,9 +2146,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Croatian Kuna',
                 'tld' => '.hr',
                 'callingcode' => '385',
-            ),
-            142 => 
-            array (
+            ],
+            142 => [
                 'id' => 143,
                 'continent_id' => 2,
                 'name' => 'Greece',
@@ -2306,9 +2161,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.gr',
                 'callingcode' => '30',
-            ),
-            143 => 
-            array (
+            ],
+            143 => [
                 'id' => 144,
                 'continent_id' => 2,
                 'name' => 'Ireland',
@@ -2322,9 +2176,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.ie',
                 'callingcode' => '353',
-            ),
-            144 => 
-            array (
+            ],
+            144 => [
                 'id' => 145,
                 'continent_id' => 2,
                 'name' => 'Belgium',
@@ -2338,9 +2191,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.be',
                 'callingcode' => '32',
-            ),
-            145 => 
-            array (
+            ],
+            145 => [
                 'id' => 146,
                 'continent_id' => 1,
                 'name' => 'Cyprus',
@@ -2354,9 +2206,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.cy',
                 'callingcode' => '357',
-            ),
-            146 => 
-            array (
+            ],
+            146 => [
                 'id' => 147,
                 'continent_id' => 2,
                 'name' => 'Denmark',
@@ -2370,9 +2221,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Danish Krone',
                 'tld' => '.dk',
                 'callingcode' => '45',
-            ),
-            147 => 
-            array (
+            ],
+            147 => [
                 'id' => 148,
                 'continent_id' => 2,
                 'name' => 'United Kingdom',
@@ -2386,9 +2236,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound sterling',
                 'tld' => '.uk',
                 'callingcode' => '44',
-            ),
-            148 => 
-            array (
+            ],
+            148 => [
                 'id' => 149,
                 'continent_id' => 2,
                 'name' => 'Germany',
@@ -2402,9 +2251,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.de',
                 'callingcode' => '49',
-            ),
-            149 => 
-            array (
+            ],
+            149 => [
                 'id' => 150,
                 'continent_id' => 2,
                 'name' => 'France',
@@ -2418,9 +2266,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.fr',
                 'callingcode' => '33',
-            ),
-            150 => 
-            array (
+            ],
+            150 => [
                 'id' => 151,
                 'continent_id' => 2,
                 'name' => 'Italy',
@@ -2434,9 +2281,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.it',
                 'callingcode' => '39',
-            ),
-            151 => 
-            array (
+            ],
+            151 => [
                 'id' => 152,
                 'continent_id' => 2,
                 'name' => 'Luxembourg',
@@ -2450,9 +2296,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.lu',
                 'callingcode' => '352',
-            ),
-            152 => 
-            array (
+            ],
+            152 => [
                 'id' => 153,
                 'continent_id' => 2,
                 'name' => 'Portugal',
@@ -2466,9 +2311,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.pt',
                 'callingcode' => '351',
-            ),
-            153 => 
-            array (
+            ],
+            153 => [
                 'id' => 154,
                 'continent_id' => 2,
                 'name' => 'Poland',
@@ -2482,9 +2326,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Zloty',
                 'tld' => '.pl',
                 'callingcode' => '48',
-            ),
-            154 => 
-            array (
+            ],
+            154 => [
                 'id' => 155,
                 'continent_id' => 2,
                 'name' => 'Spain',
@@ -2498,9 +2341,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.es',
                 'callingcode' => '34',
-            ),
-            155 => 
-            array (
+            ],
+            155 => [
                 'id' => 156,
                 'continent_id' => 2,
                 'name' => 'Albania',
@@ -2514,9 +2356,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Lek',
                 'tld' => '.al',
                 'callingcode' => '355',
-            ),
-            156 => 
-            array (
+            ],
+            156 => [
                 'id' => 157,
                 'continent_id' => 2,
                 'name' => 'Andorra',
@@ -2530,9 +2371,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.ad',
                 'callingcode' => '376',
-            ),
-            157 => 
-            array (
+            ],
+            157 => [
                 'id' => 158,
                 'continent_id' => 2,
                 'name' => 'Liechtenstein',
@@ -2546,9 +2386,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Swiss Franc',
                 'tld' => '.li',
                 'callingcode' => '423',
-            ),
-            158 => 
-            array (
+            ],
+            158 => [
                 'id' => 159,
                 'continent_id' => 2,
                 'name' => 'Serbia',
@@ -2562,9 +2401,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Serbian Dinar',
                 'tld' => '.rs',
                 'callingcode' => '381',
-            ),
-            159 => 
-            array (
+            ],
+            159 => [
                 'id' => 160,
                 'continent_id' => 2,
                 'name' => 'Austria',
@@ -2578,9 +2416,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.at',
                 'callingcode' => '43',
-            ),
-            160 => 
-            array (
+            ],
+            160 => [
                 'id' => 161,
                 'continent_id' => 2,
                 'name' => 'Bulgaria',
@@ -2594,9 +2431,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Bulgarian Lev',
                 'tld' => '.bg',
                 'callingcode' => '359',
-            ),
-            161 => 
-            array (
+            ],
+            161 => [
                 'id' => 162,
                 'continent_id' => 2,
                 'name' => 'Finland',
@@ -2610,9 +2446,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.fi',
                 'callingcode' => '358',
-            ),
-            162 => 
-            array (
+            ],
+            162 => [
                 'id' => 163,
                 'continent_id' => 2,
                 'name' => 'Gibraltar',
@@ -2626,9 +2461,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Gibraltar Pound',
                 'tld' => '.gi',
                 'callingcode' => '350',
-            ),
-            163 => 
-            array (
+            ],
+            163 => [
                 'id' => 164,
                 'continent_id' => 6,
                 'name' => 'Dominica',
@@ -2642,9 +2476,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.dm',
                 'callingcode' => '1767',
-            ),
-            164 => 
-            array (
+            ],
+            164 => [
                 'id' => 165,
                 'continent_id' => 6,
                 'name' => 'Bermuda',
@@ -2658,9 +2491,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Bermudian Dollar',
                 'tld' => '.bm',
                 'callingcode' => '1441',
-            ),
-            165 => 
-            array (
+            ],
+            165 => [
                 'id' => 166,
                 'continent_id' => 6,
                 'name' => 'Canada',
@@ -2674,9 +2506,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Canadian Dollar',
                 'tld' => '.ca',
                 'callingcode' => '1',
-            ),
-            166 => 
-            array (
+            ],
+            166 => [
                 'id' => 167,
                 'continent_id' => 6,
                 'name' => 'United States',
@@ -2690,9 +2521,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.us',
                 'callingcode' => '1',
-            ),
-            167 => 
-            array (
+            ],
+            167 => [
                 'id' => 168,
                 'continent_id' => 6,
                 'name' => 'Greenland',
@@ -2706,9 +2536,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Danish Krone',
                 'tld' => '.gl',
                 'callingcode' => '299',
-            ),
-            168 => 
-            array (
+            ],
+            168 => [
                 'id' => 169,
                 'continent_id' => 4,
                 'name' => 'Tonga',
@@ -2722,9 +2551,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pa’anga',
                 'tld' => '.to',
                 'callingcode' => '676',
-            ),
-            169 => 
-            array (
+            ],
+            169 => [
                 'id' => 170,
                 'continent_id' => 4,
                 'name' => 'Australia',
@@ -2738,9 +2566,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.au',
                 'callingcode' => '61',
-            ),
-            170 => 
-            array (
+            ],
+            170 => [
                 'id' => 171,
                 'continent_id' => 4,
                 'name' => 'Cook Islands',
@@ -2754,9 +2581,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Zealand Dollar',
                 'tld' => '.ck',
                 'callingcode' => '682',
-            ),
-            171 => 
-            array (
+            ],
+            171 => [
                 'id' => 172,
                 'continent_id' => 4,
                 'name' => 'Nauru',
@@ -2770,9 +2596,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.nr',
                 'callingcode' => '674',
-            ),
-            172 => 
-            array (
+            ],
+            172 => [
                 'id' => 173,
                 'continent_id' => 4,
                 'name' => 'New Caledonia',
@@ -2786,9 +2611,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFP Franc',
                 'tld' => '.nc',
                 'callingcode' => '687',
-            ),
-            173 => 
-            array (
+            ],
+            173 => [
                 'id' => 174,
                 'continent_id' => 4,
                 'name' => 'Vanuatu',
@@ -2802,9 +2626,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Vatu',
                 'tld' => '.vu',
                 'callingcode' => '678',
-            ),
-            174 => 
-            array (
+            ],
+            174 => [
                 'id' => 175,
                 'continent_id' => 4,
                 'name' => 'Solomon Islands',
@@ -2818,9 +2641,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Solomon Islands Dollar',
                 'tld' => '.sb',
                 'callingcode' => '677',
-            ),
-            175 => 
-            array (
+            ],
+            175 => [
                 'id' => 176,
                 'continent_id' => 4,
                 'name' => 'Samoa',
@@ -2834,9 +2656,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Tala',
                 'tld' => '.ws',
                 'callingcode' => '685',
-            ),
-            176 => 
-            array (
+            ],
+            176 => [
                 'id' => 177,
                 'continent_id' => 4,
                 'name' => 'Tuvalu',
@@ -2850,9 +2671,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.tv',
                 'callingcode' => '688',
-            ),
-            177 => 
-            array (
+            ],
+            177 => [
                 'id' => 178,
                 'continent_id' => 4,
                 'name' => 'Micronesia',
@@ -2866,9 +2686,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.fm',
                 'callingcode' => '691',
-            ),
-            178 => 
-            array (
+            ],
+            178 => [
                 'id' => 179,
                 'continent_id' => 4,
                 'name' => 'Marshall Islands',
@@ -2882,9 +2701,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.mh',
                 'callingcode' => '692',
-            ),
-            179 => 
-            array (
+            ],
+            179 => [
                 'id' => 180,
                 'continent_id' => 4,
                 'name' => 'Kiribati',
@@ -2898,9 +2716,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.ki',
                 'callingcode' => '686',
-            ),
-            180 => 
-            array (
+            ],
+            180 => [
                 'id' => 181,
                 'continent_id' => 4,
                 'name' => 'French Polynesia',
@@ -2914,9 +2731,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFP Franc',
                 'tld' => '.pf',
                 'callingcode' => '689',
-            ),
-            181 => 
-            array (
+            ],
+            181 => [
                 'id' => 182,
                 'continent_id' => 4,
                 'name' => 'New Zealand',
@@ -2930,9 +2746,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Zealand Dollar',
                 'tld' => '.nz',
                 'callingcode' => '64',
-            ),
-            182 => 
-            array (
+            ],
+            182 => [
                 'id' => 183,
                 'continent_id' => 4,
                 'name' => 'Fiji',
@@ -2946,9 +2761,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Fiji Dollar',
                 'tld' => '.fj',
                 'callingcode' => '679',
-            ),
-            183 => 
-            array (
+            ],
+            183 => [
                 'id' => 184,
                 'continent_id' => 4,
                 'name' => 'Papua New Guinea',
@@ -2962,9 +2776,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Kina',
                 'tld' => '.pg',
                 'callingcode' => '675',
-            ),
-            184 => 
-            array (
+            ],
+            184 => [
                 'id' => 185,
                 'continent_id' => 4,
                 'name' => 'Palau',
@@ -2978,9 +2791,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.pw',
                 'callingcode' => '680',
-            ),
-            185 => 
-            array (
+            ],
+            185 => [
                 'id' => 186,
                 'continent_id' => 7,
                 'name' => 'Chile',
@@ -2994,9 +2806,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Chilean Peso',
                 'tld' => '.cl',
                 'callingcode' => '56',
-            ),
-            186 => 
-            array (
+            ],
+            186 => [
                 'id' => 187,
                 'continent_id' => 7,
                 'name' => 'Colombia',
@@ -3010,9 +2821,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Colombian Peso',
                 'tld' => '.co',
                 'callingcode' => '57',
-            ),
-            187 => 
-            array (
+            ],
+            187 => [
                 'id' => 188,
                 'continent_id' => 7,
                 'name' => 'Guyana',
@@ -3026,9 +2836,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Guyana Dollar',
                 'tld' => '.gy',
                 'callingcode' => '592',
-            ),
-            188 => 
-            array (
+            ],
+            188 => [
                 'id' => 189,
                 'continent_id' => 7,
                 'name' => 'Paraguay',
@@ -3042,9 +2851,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Guarani',
                 'tld' => '.py',
                 'callingcode' => '595',
-            ),
-            189 => 
-            array (
+            ],
+            189 => [
                 'id' => 190,
                 'continent_id' => 7,
                 'name' => 'Peru',
@@ -3058,9 +2866,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Nuevo Sol',
                 'tld' => '.pe',
                 'callingcode' => '51',
-            ),
-            190 => 
-            array (
+            ],
+            190 => [
                 'id' => 191,
                 'continent_id' => 7,
                 'name' => 'Suriname',
@@ -3074,9 +2881,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Surinam Dollar',
                 'tld' => '.sr',
                 'callingcode' => '597',
-            ),
-            191 => 
-            array (
+            ],
+            191 => [
                 'id' => 192,
                 'continent_id' => 7,
                 'name' => 'Venezuela',
@@ -3090,9 +2896,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Venezuelan bolívar',
                 'tld' => '.ve',
                 'callingcode' => '58',
-            ),
-            192 => 
-            array (
+            ],
+            192 => [
                 'id' => 193,
                 'continent_id' => 7,
                 'name' => 'Uruguay',
@@ -3106,9 +2911,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Peso Uruguayo',
                 'tld' => '.uy',
                 'callingcode' => '598',
-            ),
-            193 => 
-            array (
+            ],
+            193 => [
                 'id' => 194,
                 'continent_id' => 7,
                 'name' => 'Ecuador',
@@ -3122,9 +2926,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.ec',
                 'callingcode' => '593',
-            ),
-            194 => 
-            array (
+            ],
+            194 => [
                 'id' => 195,
                 'continent_id' => 7,
                 'name' => 'Antigua and Barbuda',
@@ -3138,9 +2941,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.ag',
                 'callingcode' => '1268',
-            ),
-            195 => 
-            array (
+            ],
+            195 => [
                 'id' => 196,
                 'continent_id' => 7,
                 'name' => 'Aruba',
@@ -3154,9 +2956,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Aruban Florin',
                 'tld' => '.aw',
                 'callingcode' => '297',
-            ),
-            196 => 
-            array (
+            ],
+            196 => [
                 'id' => 197,
                 'continent_id' => 7,
                 'name' => 'Bahamas',
@@ -3170,9 +2971,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Bahamian Dollar',
                 'tld' => '.bs',
                 'callingcode' => '1242',
-            ),
-            197 => 
-            array (
+            ],
+            197 => [
                 'id' => 198,
                 'continent_id' => 7,
                 'name' => 'Barbados',
@@ -3186,9 +2986,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Barbados Dollar',
                 'tld' => '.bb',
                 'callingcode' => '1246',
-            ),
-            198 => 
-            array (
+            ],
+            198 => [
                 'id' => 199,
                 'continent_id' => 7,
                 'name' => 'Cayman Islands',
@@ -3202,9 +3001,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Cayman Islands Dollar',
                 'tld' => '.ky',
                 'callingcode' => '1345',
-            ),
-            199 => 
-            array (
+            ],
+            199 => [
                 'id' => 200,
                 'continent_id' => 7,
                 'name' => 'Grenada',
@@ -3218,9 +3016,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.gd',
                 'callingcode' => '1473',
-            ),
-            200 => 
-            array (
+            ],
+            200 => [
                 'id' => 201,
                 'continent_id' => 7,
                 'name' => 'Haiti',
@@ -3234,9 +3031,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Haitian gourde',
                 'tld' => '.ht',
                 'callingcode' => '509',
-            ),
-            201 => 
-            array (
+            ],
+            201 => [
                 'id' => 202,
                 'continent_id' => 7,
                 'name' => 'Jamaica',
@@ -3250,9 +3046,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Jamaican Dollar',
                 'tld' => '.jm',
                 'callingcode' => '1876',
-            ),
-            202 => 
-            array (
+            ],
+            202 => [
                 'id' => 203,
                 'continent_id' => 7,
                 'name' => 'Martinique',
@@ -3266,9 +3061,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.mq',
                 'callingcode' => '596',
-            ),
-            203 => 
-            array (
+            ],
+            203 => [
                 'id' => 204,
                 'continent_id' => 7,
                 'name' => 'Montserrat',
@@ -3282,9 +3076,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.ms',
                 'callingcode' => '1664',
-            ),
-            204 => 
-            array (
+            ],
+            204 => [
                 'id' => 205,
                 'continent_id' => 7,
                 'name' => 'Trinidad and Tobago',
@@ -3298,9 +3091,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Trinidad and Tobago Dollar',
                 'tld' => '.tt',
                 'callingcode' => '1868',
-            ),
-            205 => 
-            array (
+            ],
+            205 => [
                 'id' => 206,
                 'continent_id' => 7,
                 'name' => 'Saint Kitts and Nevis',
@@ -3314,9 +3106,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.kn',
                 'callingcode' => '1869',
-            ),
-            206 => 
-            array (
+            ],
+            206 => [
                 'id' => 207,
                 'continent_id' => 7,
                 'name' => 'Saint Pierre and Miquelon',
@@ -3330,9 +3121,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.pm',
                 'callingcode' => '508',
-            ),
-            207 => 
-            array (
+            ],
+            207 => [
                 'id' => 208,
                 'continent_id' => 7,
                 'name' => 'Argentina',
@@ -3346,9 +3136,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Argentine Peso',
                 'tld' => '.ar',
                 'callingcode' => '54',
-            ),
-            208 => 
-            array (
+            ],
+            208 => [
                 'id' => 209,
                 'continent_id' => 7,
                 'name' => 'Belize',
@@ -3362,9 +3151,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Belize Dollar',
                 'tld' => '.bz',
                 'callingcode' => '501',
-            ),
-            209 => 
-            array (
+            ],
+            209 => [
                 'id' => 210,
                 'continent_id' => 7,
                 'name' => 'Bolivia',
@@ -3378,9 +3166,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Boliviano',
                 'tld' => '.bo',
                 'callingcode' => '591',
-            ),
-            210 => 
-            array (
+            ],
+            210 => [
                 'id' => 211,
                 'continent_id' => 7,
                 'name' => 'Brazil',
@@ -3394,9 +3181,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Brazilian Real',
                 'tld' => '.br',
                 'callingcode' => '55',
-            ),
-            211 => 
-            array (
+            ],
+            211 => [
                 'id' => 212,
                 'continent_id' => 4,
                 'name' => 'American Samoa',
@@ -3410,9 +3196,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.as',
                 'callingcode' => '1684',
-            ),
-            212 => 
-            array (
+            ],
+            212 => [
                 'id' => 213,
                 'continent_id' => 2,
                 'name' => 'Aland Islands',
@@ -3426,9 +3211,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.ax',
                 'callingcode' => '358',
-            ),
-            213 => 
-            array (
+            ],
+            213 => [
                 'id' => 214,
                 'continent_id' => 6,
                 'name' => 'Saint Barthélemy',
@@ -3442,25 +3226,23 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.bl',
                 'callingcode' => '590',
-            ),
-            214 => 
-            array (
+            ],
+            214 => [
                 'id' => 215,
                 'continent_id' => 6,
                 'name' => 'Bonaire, Sint Eustatius and Saba',
                 'full_name' => 'Bonaire, Sint Eustatius and Saba',
-                'capital' => NULL,
+                'capital' => null,
                 'code' => 'bq',
                 'code_alpha3' => 'bes',
                 'emoji' => '🇧🇶',
                 'has_division' => 0,
                 'currency_code' => 'USD',
                 'currency_name' => 'US Dollar',
-                'tld' => NULL,
-                'callingcode' => NULL,
-            ),
-            215 => 
-            array (
+                'tld' => null,
+                'callingcode' => null,
+            ],
+            215 => [
                 'id' => 216,
                 'continent_id' => 7,
                 'name' => 'Bouvet Island',
@@ -3473,14 +3255,13 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_code' => 'NOK',
                 'currency_name' => 'Norwegian krone',
                 'tld' => '.bv',
-                'callingcode' => NULL,
-            ),
-            216 => 
-            array (
+                'callingcode' => null,
+            ],
+            216 => [
                 'id' => 217,
                 'continent_id' => 4,
-            'name' => 'Cocos (Keeling) Islands',
-            'full_name' => 'Cocos (Keeling) Islands',
+                'name' => 'Cocos (Keeling) Islands',
+                'full_name' => 'Cocos (Keeling) Islands',
                 'capital' => 'West Island',
                 'code' => 'cc',
                 'code_alpha3' => 'cck',
@@ -3490,9 +3271,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian dollar',
                 'tld' => '.cc',
                 'callingcode' => '61',
-            ),
-            217 => 
-            array (
+            ],
+            217 => [
                 'id' => 218,
                 'continent_id' => 6,
                 'name' => 'Curaçao',
@@ -3506,9 +3286,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Netherlands Antillean Guilder',
                 'tld' => '.cw',
                 'callingcode' => '5999',
-            ),
-            218 => 
-            array (
+            ],
+            218 => [
                 'id' => 219,
                 'continent_id' => 4,
                 'name' => 'Christmas Island',
@@ -3522,13 +3301,12 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian dollar',
                 'tld' => '.cx',
                 'callingcode' => '61',
-            ),
-            219 => 
-            array (
+            ],
+            219 => [
                 'id' => 220,
                 'continent_id' => 7,
-            'name' => 'Falkland Islands (Malvinas)',
-            'full_name' => 'Falkland Islands (Malvinas)',
+                'name' => 'Falkland Islands (Malvinas)',
+                'full_name' => 'Falkland Islands (Malvinas)',
                 'capital' => 'Stanley',
                 'code' => 'fk',
                 'code_alpha3' => 'flk',
@@ -3538,9 +3316,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Falkland Islands Pound',
                 'tld' => '.fk',
                 'callingcode' => '500',
-            ),
-            220 => 
-            array (
+            ],
+            220 => [
                 'id' => 221,
                 'continent_id' => 2,
                 'name' => 'Faroe Islands',
@@ -3554,9 +3331,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Danish Krone',
                 'tld' => '.fo',
                 'callingcode' => '298',
-            ),
-            221 => 
-            array (
+            ],
+            221 => [
                 'id' => 222,
                 'continent_id' => 7,
                 'name' => 'French Guiana',
@@ -3570,9 +3346,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.gf',
                 'callingcode' => '594',
-            ),
-            222 => 
-            array (
+            ],
+            222 => [
                 'id' => 223,
                 'continent_id' => 2,
                 'name' => 'Guernsey',
@@ -3586,9 +3361,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound Sterling',
                 'tld' => '.gg',
                 'callingcode' => '44',
-            ),
-            223 => 
-            array (
+            ],
+            223 => [
                 'id' => 224,
                 'continent_id' => 7,
                 'name' => 'South Georgia and the South Sandwich Islands',
@@ -3602,9 +3376,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound sterling',
                 'tld' => '.gs',
                 'callingcode' => '500',
-            ),
-            224 => 
-            array (
+            ],
+            224 => [
                 'id' => 225,
                 'continent_id' => 4,
                 'name' => 'Guam',
@@ -3618,9 +3391,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.gu',
                 'callingcode' => '1671',
-            ),
-            225 => 
-            array (
+            ],
+            225 => [
                 'id' => 226,
                 'continent_id' => 4,
                 'name' => 'Heard Island and McDonald Islands',
@@ -3633,10 +3405,9 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_code' => 'AUD',
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.hm',
-                'callingcode' => NULL,
-            ),
-            226 => 
-            array (
+                'callingcode' => null,
+            ],
+            226 => [
                 'id' => 227,
                 'continent_id' => 2,
                 'name' => 'Isle of Man',
@@ -3650,9 +3421,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound Sterling',
                 'tld' => '.im',
                 'callingcode' => '44',
-            ),
-            227 => 
-            array (
+            ],
+            227 => [
                 'id' => 228,
                 'continent_id' => 3,
                 'name' => 'British Indian Ocean Territory',
@@ -3666,9 +3436,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound Sterling',
                 'tld' => '.io',
                 'callingcode' => '246',
-            ),
-            228 => 
-            array (
+            ],
+            228 => [
                 'id' => 229,
                 'continent_id' => 2,
                 'name' => 'Jersey',
@@ -3682,9 +3451,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Pound Sterling',
                 'tld' => '.je',
                 'callingcode' => '44',
-            ),
-            229 => 
-            array (
+            ],
+            229 => [
                 'id' => 230,
                 'continent_id' => 6,
                 'name' => 'Saint Lucia',
@@ -3698,9 +3466,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'East Caribbean Dollar',
                 'tld' => '.lc',
                 'callingcode' => '1758',
-            ),
-            230 => 
-            array (
+            ],
+            230 => [
                 'id' => 231,
                 'continent_id' => 6,
                 'name' => 'Saint Martin',
@@ -3714,9 +3481,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.fr',
                 'callingcode' => '590',
-            ),
-            231 => 
-            array (
+            ],
+            231 => [
                 'id' => 232,
                 'continent_id' => 4,
                 'name' => 'Northern Mariana Islands',
@@ -3730,9 +3496,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.mp',
                 'callingcode' => '1670',
-            ),
-            232 => 
-            array (
+            ],
+            232 => [
                 'id' => 233,
                 'continent_id' => 4,
                 'name' => 'Norfolk Island',
@@ -3746,9 +3511,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Australian Dollar',
                 'tld' => '.nf',
                 'callingcode' => '672',
-            ),
-            233 => 
-            array (
+            ],
+            233 => [
                 'id' => 234,
                 'continent_id' => 4,
                 'name' => 'Niue',
@@ -3762,9 +3526,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Zealand Dollar',
                 'tld' => '.nu',
                 'callingcode' => '683',
-            ),
-            234 => 
-            array (
+            ],
+            234 => [
                 'id' => 236,
                 'continent_id' => 4,
                 'name' => 'Pitcairn',
@@ -3778,25 +3541,23 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Zealand Dollar',
                 'tld' => '.pn',
                 'callingcode' => '64',
-            ),
-            235 => 
-            array (
+            ],
+            235 => [
                 'id' => 237,
                 'continent_id' => 3,
                 'name' => 'Saint Helena',
                 'full_name' => 'Saint Helena',
-                'capital' => NULL,
+                'capital' => null,
                 'code' => 'sh',
                 'code_alpha3' => 'shn',
                 'emoji' => '🇸🇭',
                 'has_division' => 0,
                 'currency_code' => 'SHP',
                 'currency_name' => 'Saint Helena pound',
-                'tld' => NULL,
-                'callingcode' => NULL,
-            ),
-            236 => 
-            array (
+                'tld' => null,
+                'callingcode' => null,
+            ],
+            236 => [
                 'id' => 238,
                 'continent_id' => 2,
                 'name' => 'Svalbard and Jan Mayen Islands',
@@ -3810,9 +3571,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Norwegian krone',
                 'tld' => '.sj',
                 'callingcode' => '4779',
-            ),
-            237 => 
-            array (
+            ],
+            237 => [
                 'id' => 239,
                 'continent_id' => 6,
                 'name' => 'Sint Maarten',
@@ -3826,9 +3586,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Netherlands Antillean Guilder',
                 'tld' => '.sx',
                 'callingcode' => '1721',
-            ),
-            238 => 
-            array (
+            ],
+            238 => [
                 'id' => 240,
                 'continent_id' => 6,
                 'name' => 'Turks and Caicos Islands',
@@ -3842,9 +3601,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.tc',
                 'callingcode' => '1649',
-            ),
-            239 => 
-            array (
+            ],
+            239 => [
                 'id' => 241,
                 'continent_id' => 3,
                 'name' => 'French Southern Territories',
@@ -3857,10 +3615,9 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_code' => 'EUR',
                 'currency_name' => 'Euro',
                 'tld' => '.tf',
-                'callingcode' => NULL,
-            ),
-            240 => 
-            array (
+                'callingcode' => null,
+            ],
+            240 => [
                 'id' => 242,
                 'continent_id' => 4,
                 'name' => 'Tokelau',
@@ -3874,9 +3631,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'New Zealand Dollar',
                 'tld' => '.tk',
                 'callingcode' => '690',
-            ),
-            241 => 
-            array (
+            ],
+            241 => [
                 'id' => 243,
                 'continent_id' => 4,
                 'name' => 'United States Minor Outlying Islands',
@@ -3890,9 +3646,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.us',
                 'callingcode' => '246',
-            ),
-            242 => 
-            array (
+            ],
+            242 => [
                 'id' => 244,
                 'continent_id' => 6,
                 'name' => 'British Virgin Islands',
@@ -3906,9 +3661,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.vg',
                 'callingcode' => '1284',
-            ),
-            243 => 
-            array (
+            ],
+            243 => [
                 'id' => 245,
                 'continent_id' => 6,
                 'name' => 'United States Virgin Islands',
@@ -3922,9 +3676,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'US Dollar',
                 'tld' => '.vi',
                 'callingcode' => '1340',
-            ),
-            244 => 
-            array (
+            ],
+            244 => [
                 'id' => 246,
                 'continent_id' => 4,
                 'name' => 'Wallis and Futuna Islands',
@@ -3935,12 +3688,11 @@ class WorldCountriesTableSeeder extends Seeder
                 'emoji' => '🇼🇫',
                 'has_division' => 0,
                 'currency_code' => 'XPF',
-            'currency_name' => 'CFP franc (franc Pacifique)',
+                'currency_name' => 'CFP franc (franc Pacifique)',
                 'tld' => '.wf',
                 'callingcode' => '681',
-            ),
-            245 => 
-            array (
+            ],
+            245 => [
                 'id' => 247,
                 'continent_id' => 2,
                 'name' => 'Kosovo',
@@ -3952,11 +3704,10 @@ class WorldCountriesTableSeeder extends Seeder
                 'has_division' => 0,
                 'currency_code' => 'EUR',
                 'currency_name' => 'Euro',
-                'tld' => NULL,
+                'tld' => null,
                 'callingcode' => '383',
-            ),
-            246 => 
-            array (
+            ],
+            246 => [
                 'id' => 248,
                 'continent_id' => 2,
                 'name' => 'Montenegro',
@@ -3970,9 +3721,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'Euro',
                 'tld' => '.me',
                 'callingcode' => '382',
-            ),
-            247 => 
-            array (
+            ],
+            247 => [
                 'id' => 249,
                 'continent_id' => 6,
                 'name' => 'Anguilla',
@@ -3986,9 +3736,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'CFP franc',
                 'tld' => '.ai',
                 'callingcode' => '1-264',
-            ),
-            248 => 
-            array (
+            ],
+            248 => [
                 'id' => 250,
                 'continent_id' => 3,
                 'name' => 'Gambia',
@@ -4000,11 +3749,10 @@ class WorldCountriesTableSeeder extends Seeder
                 'has_division' => 1,
                 'currency_code' => 'GMD',
                 'currency_name' => 'Dalasi',
-                'tld' => NULL,
+                'tld' => null,
                 'callingcode' => '220',
-            ),
-            249 => 
-            array (
+            ],
+            249 => [
                 'id' => 251,
                 'continent_id' => 3,
                 'name' => 'South Sudan',
@@ -4018,9 +3766,8 @@ class WorldCountriesTableSeeder extends Seeder
                 'currency_name' => 'South Sudanese pound',
                 'tld' => '.ss',
                 'callingcode' => '211',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

@@ -38,7 +38,7 @@ class ProductReviewList extends Component
     {
         return view('livewire.admin.products.reviews.index', [
             'product_reviews' => Review::query()
-                ->with('reviewable:id,name', 'user:id,name,email')
+                ->with('reviewable:id,name', 'user:id,last_name,first_name,email')
                 ->whereHasMorph('reviewable', [Product::class], function ($q) {
                     $q->when($this->query, function ($q) {
                         $q->where(function ($q) {

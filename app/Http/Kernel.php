@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ForceJsonResponse;
+use App\Http\Middleware\HttpRequestLog;
 use App\Http\Middleware\Localization;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -32,6 +33,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            HttpRequestLog::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -41,6 +43,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            HttpRequestLog::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -67,6 +70,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'json.response' => ForceJsonResponse::class,
-        'localization' => Localization::class
+        'localization' => Localization::class,
+        'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
+        'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
     ];
 }

@@ -1,10 +1,25 @@
-<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-    <div class="sm:flex sm:justify-between sm:items-center mb-8">
-        <!-- Left: Title -->
-        <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold">Orders ✨</h1>
+<div class="px-4 sm:px-6 lg:px-8 py-4 w-full max-w-9xl mx-auto">
+    <div>
+        <h2 class="text-2xl text-slate-800 dark:text-slate-100 font-bold mb-2">
+            {{ __('Orders') }}
+        </h2>
+        <div class="text-start">
+            <!-- Start -->
+            <ul class="inline-flex flex-wrap text-sm font-medium">
+                <li class="flex items-center">
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" wire:navigate href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                    <svg class="h-4 w-4 fill-current text-slate-400 dark:text-slate-600 mx-3" viewBox="0 0 16 16">
+                        <path d="M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z" />
+                    </svg>
+                </li>
+                <li class="flex items-center">
+                    <a class="text-indigo-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-500" href="#">{{ __('Orders') }}</a>
+                </li>
+            </ul>
+            <!-- End -->
         </div>
-
+    </div>
+    <div class="sm:flex sm:justify-end sm:items-center my-4">
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
@@ -16,6 +31,8 @@
 
             <!-- Filter button -->
             <x-dropdown-filter align="right" />
+
+            <a wire:navigate href="#" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white">{{ __('New Order') }}</a>
         </div>
     </div>
 
@@ -56,7 +73,7 @@
                                 <div class="font-semibold">Items</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-left">Location</div>
+                                <div class="font-semibold text-left">Delivery Address</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Date</div>
@@ -102,7 +119,7 @@
                                     <div class="text-center">{{ $order->items_count }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">{{ $order->location->name }}</div>
+                                    <div class="text-left">{{ $order->delivery_address?->address }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div>{{ $order->created_at->format('d/m/Y') }}</div>

@@ -38,10 +38,12 @@ class CustomerList extends Component
                 }])
                 ->whereHas('orders')
                 ->withCount('orders')
-                ->with(['orders', 'current_location:id,name,user_id', 'last_order:id,order_id,amount,customer_id,customer_type,currency'])
+                ->with(['orders', 'default_address:id,full_name,user_id', 'last_order:id,order_id,amount,customer_id,customer_type,currency'])
                 ->when($this->query, function ($q) {
                     $q->where(function ($q) {
-                        $q->where('name', 'like', '%' . $this->query . '%');
+                        $q->where('first_name', 'like', '%' . $this->query . '%')
+                            ->orWhere('last_name', 'like', '%' . $this->query . '%')
+                            ->orWhere('email', 'like', '%' . $this->query . '%');
                     });
                 })
                 ->paginate(20)

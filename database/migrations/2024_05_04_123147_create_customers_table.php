@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('business_id')->constrained('businesses');
+            $table->boolean('favorite')->default(false);
             $table->timestamps();
         });
     }

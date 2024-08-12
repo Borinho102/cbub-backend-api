@@ -51,6 +51,16 @@ class Product extends Model implements HasMedia
         return $this->getFirstMediaUrl('thumbnail');
     }
 
+    public function getImagesAttribute()
+    {
+        $medias = $this->getMedia('images');
+        $images = [];
+        foreach ($medias as $media) {
+            $images[] = $media->getUrl();
+        }
+        return $images;
+    }
+
     public function business() : BelongsTo
     {
         return $this->belongsTo(Business::class);
@@ -81,7 +91,7 @@ class Product extends Model implements HasMedia
         return $this->morphMany(ProductStock::class, 'product');
     }
 
-    public function active_discount_price(): HasOne
+    public function active_discount(): HasOne
     {
         return $this->hasOne(ProductDiscount::class)
             ->latest()
@@ -90,6 +100,17 @@ class Product extends Model implements HasMedia
                 $q->whereDate('end_date', '>', now())
                     ->orWhereNull('end_date');
             });
+    }
+
+    public function scopeWithBookmarkedColumn(Builder $q)
+    {
+        return $q->addSelect(['bookmarked' => function ($q) {
+            $q->select('id')
+                ->from('bookmarks')
+                ->where('bookmarks.user_id', auth()->user()->id)
+                ->where('item_type', Product::class)
+                ->whereColumn('item_id', 'products.id');
+        }]);
     }
 
     public function reviews(): MorphMany

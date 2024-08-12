@@ -91,4 +91,17 @@ class PromoCode extends Model implements HasMedia
         $banner = $this->getFirstMediaUrl('banner');
         return !empty($banner) ? $banner : null;
     }
+
+    public function scopeSearch($q)
+    {
+        if ($search = request('q', request('search', request('query')))) {
+            $q->where(function ($q) use ($search) {
+                $parts = explode(' ', $search);
+                foreach ($parts as $part) {
+                   $q->where('title', 'like', '%s' . $part . '%s')
+                       ->orWhere('code', 'like', '%s' . $part . '%s');
+                }
+            });
+        }
+    }
 }

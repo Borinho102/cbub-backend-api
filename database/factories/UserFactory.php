@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\UserLocation;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\DeliveryAddress;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use MatanYadaev\EloquentSpatial\Objects\Point;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -26,9 +27,12 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $email = fake()->unique()->safeEmail();
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'username' => explode('@', $email)[0],
+            'email' => $email,
             'phone' => fake()->unique()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
@@ -52,12 +56,18 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (User $user) {
+            $country = Country::find(1);
             for ($i = 0; $i < 3; $i++) {
-                UserLocation::create([
+                DeliveryAddress::create([
                     'user_id' => $user->id,
-                    'name' => $i === 0 ? 'Home Location' : fake()->address(),
-                    'location' => new Point(fake()->latitude(), fake()->longitude()),
-                    'current' => $i === 0 ? 1 : 0
+                    'full_name' => fake()->name(),
+                    'address' => fake()->address(),
+                    'phone' => fake()->phoneNumber(),
+                    'lat' => fake()->latitude(),
+                    'lng' => fake()->longitude(),
+                    'country_id' => $country->id,
+                    'city_id' => City::where('country_id', $country->id)
+                        ->inRandomOrder()->first()->id
                 ]);
             }
         });

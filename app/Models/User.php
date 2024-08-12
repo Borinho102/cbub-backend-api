@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,9 +27,15 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'username',
+        'phone',
         'email',
         'password',
+        'device_platform',
+        'device_token',
+        'language'
     ];
 
     /**
@@ -39,6 +46,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
     protected $hidden = [
         'password',
         'remember_token',
+        'device_token'
     ];
 
     /**
@@ -76,6 +84,22 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return $query;
     }
 
+    /**
+     * Route notifications for the Firebase channel.
+     */
+    public function routeNotificationForFirebase(Notification $notification): string
+    {
+        return $this->device_token;
+    }
+
+    /**
+     * Route notifications for the Sms channel.
+     */
+    public function routeNotificationForSms(Notification $notification): string
+    {
+        return $this->phone;
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
@@ -88,6 +112,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return !empty($avatar) ? $avatar : asset('images/default_avatar.png');
     }
 
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -98,15 +127,15 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         return $this->belongsToMany(PromoCode::class);
     }
 
-    public function locations(): HasMany
+    public function addresses(): HasMany
     {
-        return $this->hasMany(UserLocation::class, 'user_id');
+        return $this->hasMany(DeliveryAddress::class, 'user_id');
     }
 
-    public function current_location(): HasOne
+    public function default_address(): HasOne
     {
-        return $this->hasOne(UserLocation::class, 'user_id')
-            ->where('current', 1)->latest();
+        return $this->hasOne(DeliveryAddress::class, 'user_id')
+            ->where('use_as_default', 1)->latest();
     }
 
     public function orders(): MorphMany

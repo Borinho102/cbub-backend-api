@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->longText('about')->nullable();
             $table->json('schedule')->nullable();
-            
+
             $table->foreignId('business_id')
                 ->constrained('businesses');
             $table->foreignId('owner_id')

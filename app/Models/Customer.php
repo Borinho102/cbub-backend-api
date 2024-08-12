@@ -13,7 +13,7 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'business_id'
+        'user_id', 'business_id', 'favorite'
     ];
 
     public function user(): BelongsTo
