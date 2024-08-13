@@ -23,21 +23,30 @@ class AdminUserSeeder extends Seeder
         if (! Admin::count()) {
             $this->command->info('Truncating Admin\'s tables');
             $this->truncateAdminUsersTable();
-            //Artisan::call("passport:install --force");
             $currency = Currency::where('code', 'XAF')->first();
             $country = Country::where('currency_code', $currency->code)->first();
             $city = City::where('code', 'lit')->first(); // Littoral
 
             $users = [
                 [
-                    'name' => 'Super Admin',
-                    'email' => 'superadmin@gmail.com',
-                    'username' => 'superadmin',
+                    'name' => 'Vitih Dinga',
+                    'email' => 'vdinga@scdp.cm',
+                    'username' => 'vitih',
+                    'address' => 'Douala',
+                    'email_verified_at' => Carbon::now(),
+                    'two_factor_auth' => true,
+                    'password' => '#VitihDinga',
+                    'roles' => ['admin', 'owner'],
+                ],
+                [
+                    'name' => 'Jordy Parker',
+                    'email' => 'jordylontsi@gmail.com',
+                    'username' => 'jordyparker',
                     'address' => 'Douala',
                     'email_verified_at' => Carbon::now(),
                     'two_factor_auth' => true,
                     'password' => 'password',
-                    'roles' => ['admin', 'owner'],
+                    'roles' => ['admin', 'developer']
                 ],
             ];
 
