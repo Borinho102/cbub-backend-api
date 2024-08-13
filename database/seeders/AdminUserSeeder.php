@@ -31,7 +31,8 @@ class AdminUserSeeder extends Seeder
                 [
                     'name' => 'Vitih Dinga',
                     'email' => 'vdinga@scdp.cm',
-                    'username' => 'vitih',
+                    'phone' => '+2367655599976',
+                    'username' => 'vitihdinga',
                     'address' => 'Douala',
                     'email_verified_at' => Carbon::now(),
                     'two_factor_auth' => true,
@@ -41,12 +42,13 @@ class AdminUserSeeder extends Seeder
                 [
                     'name' => 'Jordy Parker',
                     'email' => 'jordylontsi@gmail.com',
+                    'phone' => '+2367695113844',
                     'username' => 'jordyparker',
                     'address' => 'Douala',
                     'email_verified_at' => Carbon::now(),
                     'two_factor_auth' => true,
                     'password' => 'password',
-                    'roles' => ['admin', 'developer']
+                    'roles' => ['admin']
                 ],
             ];
 
@@ -55,6 +57,7 @@ class AdminUserSeeder extends Seeder
                     'name' => $user['name'],
                     'username' => $user['username'],
                     'email' => $user['email'],
+                    'phone' => $user['phone'],
                     'currency_id' => $currency->id,
                     'country_id' => $country->id,
                     'city_id' => $city->id,
@@ -94,10 +97,23 @@ class AdminUserSeeder extends Seeder
     {
         $users = [
             [
-                'first_name' => 'Customer 1',
-                'last_name' => 'Customer 1',
-                'username' => 'customer.1',
-                'email' => 'customer.1@gmail.com',
+                'first_name' => 'Vitih',
+                'last_name' => 'Dinga',
+                'username' => 'vitihdinga',
+                'email' => 'vdinga@scdp.cm',
+                'phone' => '+2367655599976',
+                'password' => bcrypt('#VitihDinga'),
+                'permissions' => [],
+                'roles' => ['customer'],
+                'email_verified_at' => Carbon::now(),
+                'phone_verified_at' => Carbon::now(),
+            ],
+            [
+                'first_name' => 'Jordy',
+                'last_name' => 'Parker',
+                'username' => 'jordyparker',
+                'email' => 'jordylontsi@gmail.com',
+                'phone' => '+2367695113844',
                 'password' => bcrypt('password'),
                 'permissions' => [],
                 'roles' => ['customer'],
