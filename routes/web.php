@@ -102,12 +102,10 @@ Route::get('', HomeController::class)->name('index');
 
 Route::group([
     'prefix' => 'secure.portal.99/console',
-    'middleware' => 'auth:admins',
+    'middleware' => ['auth:admins', 'verified'],
     'as' => 'admin.',
 ], function () {
-    Route::get('', AdminDashboard::class)
-        ->middleware(['verified'])
-        ->name('dashboard');
+    Route::get('', AdminDashboard::class)->name('dashboard');
 
     // BUSINESSES ROUTES
     Route::get('businesses', BusinessList::class)->name('businesses.index');
@@ -173,13 +171,10 @@ Route::group([
 
 Route::group([
     'prefix' => 'business.portal.66/console',
-    'middleware' => 'auth:business',
+    'middleware' => ['auth:business', 'verified'],
     'as' => 'business.',
 ], function () {
-
-    Route::get('', BusinessDashboard::class)
-        ->middleware(['verified'])
-        ->name('dashboard');
+    Route::get('', BusinessDashboard::class)->name('dashboard');
 
     // SHOPS ROUTES
     Route::get('shops', BusinessShopList::class)->name('shops.index');

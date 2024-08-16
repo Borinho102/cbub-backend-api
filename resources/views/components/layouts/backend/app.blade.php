@@ -14,6 +14,8 @@
 
         <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
+        <link rel="shortcut icon" type="image/x-icon"
+          href="{{ config('app.shortcut_icon') ?: asset('favicon/favicon.ico') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
         <link rel="manifest" href="{{ asset('favicon/site.webmanifest') }}">
@@ -62,11 +64,11 @@
 
         <!-- Page wrapper -->
         <div class="flex h-[100dvh] overflow-hidden">
-            <x-app.backend.sidebar />
+            <x-app.dashboard-sidebar />
 
             <!-- Content area -->
             <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden @if($attributes['background']){{ $attributes['background'] }}@endif" x-ref="contentarea">
-                <x-app.backend.header />
+                <x-app.dashboard-header />
 
                 @include('notify::components.notify')
 
