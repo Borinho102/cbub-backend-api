@@ -151,7 +151,7 @@
                         @else
                             <div class="col-span-1">
                                 <x-input.label :value="__('Thumbnail Image')" for="thumbnail" required="{{ !isset($this->form->product) }}"/>
-                                <x:input.image wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
                             </div>
                         @endif
 

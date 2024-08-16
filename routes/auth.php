@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\Business\NewPasswordController;
 use App\Http\Controllers\Auth\Business\PasswordController;
 use App\Http\Controllers\Auth\Business\PasswordResetLinkController;
 use App\Http\Controllers\Auth\Business\VerifyEmailController;
+use App\Http\Controllers\Auth\Business\InvitationController;
 
 use App\Http\Controllers\Auth\Admin\AuthenticatedSessionController as AdminAuthenticatedSessionController;
 use App\Http\Controllers\Auth\Admin\ConfirmablePasswordController as AdminConfirmablePasswordController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\Auth\Admin\NewPasswordController as AdminNewPasswordCon
 use App\Http\Controllers\Auth\Admin\PasswordController as AdminPasswordController;
 use App\Http\Controllers\Auth\Admin\PasswordResetLinkController as AdminPasswordResetLinkController;
 use App\Http\Controllers\Auth\Admin\VerifyEmailController as AdminVerifyEmailController;
+use App\Http\Controllers\Auth\Admin\InvitationController as AdminInvitationController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -43,6 +46,10 @@ Route::group([
                 ->name('password.reset');
             Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+            Route::get('invitation/{token}', InvitationController::class)
+                ->name('invitation');
+            Route::post('invitation/{token}', InvitationController::class)
+                ->name('invitation.accept');
         });
 
         // login & password reset routes for admin user
@@ -62,6 +69,10 @@ Route::group([
                 ->name('password.reset');
             Route::post('reset-password', [AdminNewPasswordController::class, 'store'])
                 ->name('password.store');
+            Route::get('invitation/{token}', AdminInvitationController::class)
+                ->name('invitation');
+            Route::post('invitation/{token}', AdminInvitationController::class)
+                ->name('invitation.accept');
         });
     });
 
