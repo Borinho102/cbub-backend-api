@@ -33,16 +33,15 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
+        <div class="flex flex-col items-center justify-end mt-4">
             <x-button.primary class="ms-3" framework="tailwind">
                 {{ __('Log in') }}
             </x-button.primary>
+            @if (Route::has('guest.business.password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 my-4" href="{{ route('guest.business.password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
         </div>
     </form>
 </x-business-guest-layout>

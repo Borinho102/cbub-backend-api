@@ -30,6 +30,7 @@ Route::group([
         Route::group([
             'prefix' => 'business.portal.66/console',
             'as' => 'business.',
+            'middleware' => 'guest:business',
         ], function () {
             Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -48,6 +49,7 @@ Route::group([
         Route::group([
             'prefix' => 'secure.portal.99/console',
             'as' => 'admin.',
+            'middleware' => 'guest:admins',
         ], function () {
             Route::get('login', [AdminAuthenticatedSessionController::class, 'create'])
                 ->name('login');
