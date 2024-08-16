@@ -54,6 +54,15 @@
                 </main>
             </div>
         </div>
+        <script>
+            const notification = document.querySelector('div.notify')
+
+            if (notification) {
+                setTimeout(() => {
+                    notification.remove()
+                }, notify.timeout )
+            }
+        </script>
         @livewireScripts
     </body>
 </html>

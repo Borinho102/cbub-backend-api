@@ -3,6 +3,8 @@
 namespace App\Livewire\Forms\Admin;
 
 use App\Models\Admin;
+use App\Models\Invitation;
+use App\Notifications\AdminInvitation;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Illuminate\Support\Str;
@@ -38,9 +40,6 @@ class CreateAdminForm extends Form
     #[Validate('nullable|image')]
     public $profile_picture;
 
-    #[Validate('nullable|min:8')]
-    public $password;
-
     public function setAdmin(Admin $admin)
     {
         $this->admin = $admin;
@@ -69,7 +68,7 @@ class CreateAdminForm extends Form
         $admin = Admin::create([
             ...$this->except('admin', 'permissions', 'roles'),
             'username' => generateUsername(new Admin, explode('@', $this->email)[0]),
-            'password' => bcrypt($this->password ?? Str::random(10))
+            'password' => bcrypt(Str::random(10))
         ]);
 
         $admin->syncRoles($this->roles);
@@ -84,6 +83,17 @@ class CreateAdminForm extends Form
                 ->usingName($this->profile_picture->getClientOriginalName())
                 ->toMediaCollection('avatar');
         }
+
+        $invitation = Invitation::create([
+            'invitee_id' => $admin->id,
+            'invitee_type' => get_class($admin),
+            'invitor_id' => auth('admins')->user()->id,
+            'invitor_type' => Admin::class,
+            'expires_at' => now()->addDays(2),
+            'token' => Str::random(64)
+        ]);
+
+        $admin->notify(new AdminInvitation($invitation));
 
         $this->reset();
     }
