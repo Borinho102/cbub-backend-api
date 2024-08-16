@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Forms\Admin\Business;
 
+use App\Models\Admin;
 use App\Models\Business;
 use App\Models\BusinessUser;
 use App\Models\Country;
+use App\Models\Invitation;
+use App\Notifications\BusinessInvitation;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -117,7 +120,18 @@ class CreateBusinessForm extends Form
 
             $owner->syncRoles(['business_owner']);
 
+            $invitation = Invitation::create([
+                'invitee_id' => $owner->id,
+                'invitee_type' => get_class($owner),
+                'invitor_id' => auth('admins')->user()->id,
+                'invitor_type' => Admin::class,
+                'expires_at' => now()->addDays(2),
+                'token' => Str::random(64)
+            ]);
+
             DB::commit();
+
+            $owner->notify(new BusinessInvitation($invitation));
 
             notify()->success(__('Business successfully created!'));
         } catch (\Exception $e) {
