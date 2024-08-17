@@ -74,12 +74,12 @@
 
                     <div class="col-span-1">
                         <x-input.label :value="__('Image (English)')" for="image_en"/>
-                        <x:input.image wire:model.blur="form.image_en" name="form.image_en" id="image_en"/>
+                        <x:input.file wire:model.blur="form.image_en" name="form.image_en" id="image_en"/>
                     </div>
 
                     <div class="col-span-1">
                         <x-input.label :value="__('Image (French)')" for="image_fr"/>
-                        <x:input.image wire:model.blur="form.image_fr" name="form.image_fr" id="image_fr"/>
+                        <x:input.file wire:model.blur="form.image_fr" name="form.image_fr" id="image_fr"/>
                     </div>
 
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">

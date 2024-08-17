@@ -3,11 +3,12 @@
     'name',
     'initialImage' => null,
     'placeholder' => null,
+    'canEdit' => false,
     'height' => 'h-36',
     'width' => 'w-36'
 ])
 
-<div class="flex flex-row {{ $height }} {{ $width }} {{ !isset($initialImage) ? 'cursor-pointer' : '' }}"
+<div class="mb-2 flex flex-row {{ $height }} {{ $width }} {{ !isset($initialImage) ? 'cursor-pointer' : '' }}"
     x-on:click="browseFile"
 >
     <input {!! $attributes !!} id="{{ $id }}" type="file" class="hidden"/>
@@ -15,9 +16,11 @@
         <div class="w-full h-full flex items-center justify-center p-4 bg-white border rounded border-gray-300 font-normal hover:border-purple-700 border-dashed text-gray-400 text-sm hover:text-purple-700">
             <img class="h-full w-full object-contain" src="{{ $initialImage }}" />
         </div>
-        <button type="button"  x-on:click="browseFile" class="ml-4 text-purple-600">
-            <x-icon name="pencil" class="h-6 w-6" />
-        </button>
+        @if ($canEdit)
+            <button type="button"  x-on:click="browseFile" class="ml-4 text-purple-600">
+                <x-icon name="pencil" class="h-6 w-6" />
+            </button>
+        @endif
     @else
         <div class="w-full h-full flex flex-col items-center justify-center bg-white border rounded border-gray-300 font-normal hover:border-purple-700 border-dashed text-gray-400 text-sm hover:text-purple-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">

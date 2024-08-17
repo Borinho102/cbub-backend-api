@@ -120,7 +120,7 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center">
                                         <div class="space-x-1">
-                                            <a wire:navigate href="{{ route('admin.promo_codes.edit', $promo_code->id) }}" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block"
+                                            <a wire:navigate href="{{ route('business.promo_codes.edit', $promo_code->id) }}" class="text-slate-400 hover:text-slate-500 dark:text-slate-500 dark:hover:text-slate-400 rounded-full inline-block"
                                             >
                                                 <span class="sr-only">Edit</span>
                                                 <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">

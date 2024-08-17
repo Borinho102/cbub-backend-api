@@ -83,10 +83,11 @@
                         <x-input.textarea wire:model.blur="form.about" name="form.about" id="about" rows="4" cols="12"></x-input.textarea>
                     </div>
 
-                    @if (isset($this->form->business))
+                    @if (isset($this->form->business) && $this->form->business->logo)
                         <div class="col-span-3">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
-                            <x:input.image wire:model.blur="form.logo" initialImage="{{ $this->form->business->logo }}" name="form.logo" id="logo"/>
+                            <x:input.image initialImage="{{ $this->form->business->logo }}" name="logo_preview" id="logo_preview"/>
+                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @else
                         <div class="col-span-3">

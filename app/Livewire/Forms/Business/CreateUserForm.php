@@ -23,9 +23,6 @@ class CreateUserForm extends Form
     #[Validate('nullable|string')]
     public $address;
 
-    #[Validate('nullable|string|min:8')]
-    public $password;
-
     #[Validate('required|array')]
     public $roles = [];
 
@@ -69,7 +66,7 @@ class CreateUserForm extends Form
             'city_id' => $user->city_id,
             'country_id' => $user->city_id,
             'username' => generateUsername(new BusinessUser, explode('@', $this->email)[0]),
-            'password' => bcrypt($this->password ?? Str::random(10))
+            'password' => bcrypt(Str::random(10))
         ]);
 
         $user->syncRoles($this->roles);

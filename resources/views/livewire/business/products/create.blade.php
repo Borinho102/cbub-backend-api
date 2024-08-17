@@ -44,7 +44,6 @@
                                 option-value="id"
                                 option-label="name"
                                 :async-data="route('misc.search.products')"
-                                required
                             />
                         </div>
 
@@ -143,23 +142,37 @@
                             </x-select>
                         </div>
 
-                        @if (isset($this->form->product) || isset($form->logo))
-                            <div class="col-span-1">
+                        @if (isset($this->form->product) && $this->form->product->thumbnail)
+                            <div class="col-span-2">
                                 <x-input.label :value="__('Thumbnail Image')" for="thumbnail" required="{{ !isset($this->form->product) }}"/>
-                                <x:input.image wire:model.blur="form.thumbnail" initialImage="{{ isset($form->thumbnail) ? $form->thumbnail->temporaryUrl() : $this->form->product->thumbnail }}" name="form.thumbnail" id="thumbnail"/>
+                                <x:input.image initialImage="{{ $this->form->product->thumbnail }}" name="thumbnail_preview" id="thumbnail_preview"/>
+                                <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
                             </div>
                         @else
-                            <div class="col-span-1">
+                            <div class="col-span-2">
                                 <x-input.label :value="__('Thumbnail Image')" for="thumbnail" required="{{ !isset($this->form->product) }}"/>
-                                <x:input.image wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
                             </div>
                         @endif
 
-                        <div>
-                            <x-input.label :value="__('Other Images')" for="other_images"/>
-                            <x:input.file wire:model.blur="form.images" name="form.images" id="other_images"/>
-                        </div>
-
+                        @if (isset($this->form->product) && !empty($this->form->product->images))
+                            <div class="col-span-2">
+                                <x-input.label :value="__('Other Images')" for="other_images"/>
+                            </div>
+                            <div class="col-span-2 flex gap-2">
+                                @foreach ($this->form->product->images as $key => $image)
+                                    <x:input.image initialImage="{{ $image }}" name="images.{{ $key }}" id="images.{{ $key }}"/>
+                                @endforeach
+                            </div>
+                            <div class="col-span-2 -mt-4">
+                                <x:input.file multiple wire:model.blur="form.images" name="form.images" id="other_images"/>
+                            </div>
+                        @else
+                            <div class="col-span-2">
+                                <x-input.label :value="__('Other Images')" for="other_images"/>
+                                <x:input.file multiple wire:model.blur="form.images" name="form.images" id="other_images"/>
+                            </div>
+                        @endif
                         <div class="col-span-1">
                             <x-input.label :value="__('Specifications')" for="form.specifications"/>
                             <x:input.file wire:model.blur="form.specifications" name="form.specifications" id="specifications" accept="application/pdf"/>
@@ -170,7 +183,7 @@
                             {{ __('Clear') }}
                         </x-button.danger>
 
-                        @isset ($this->form->category)
+                        @isset ($this->form->product)
                             <x-button.default type="submit">
                                 <div wire:loading wire:target="save">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

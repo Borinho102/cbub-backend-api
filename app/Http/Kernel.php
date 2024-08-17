@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\HttpRequestLog;
 use App\Http\Middleware\Localization;
+use App\Http\Middleware\UpdateDeviceInfo;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -44,6 +45,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             HttpRequestLog::class,
+            UpdateDeviceInfo::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -71,6 +73,7 @@ class Kernel extends HttpKernel
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'json.response' => ForceJsonResponse::class,
         'localization' => Localization::class,
+        'device_info.update' => UpdateDeviceInfo::class,
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,
         'ability' => \Laravel\Sanctum\Http\Middleware\CheckForAnyAbility::class,
     ];
