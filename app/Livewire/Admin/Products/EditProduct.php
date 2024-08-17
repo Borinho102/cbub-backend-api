@@ -15,8 +15,14 @@ class EditProduct extends Component
 
     public CreateProductForm $form;
 
+    public $productType;
+
+    public bool $showForm;
+
     public function mount(Product $product)
     {
+        $this->showForm = true;
+
         $this->form->setProduct($product);
     }
 

@@ -202,6 +202,13 @@ class CreateProductForm extends Form
                 ->toMediaCollection('thumbnail');
         }
 
+        foreach ($this->images as $image) {
+            $this->product
+                ->addMedia($image->getRealPath())
+                ->usingName($image->getClientOriginalName())
+                ->toMediaCollection('images');
+        }
+
         notify()->success(__('Product successfully updated!'));
     }
 }

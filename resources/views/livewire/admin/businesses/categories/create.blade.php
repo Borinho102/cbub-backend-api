@@ -57,15 +57,16 @@
                         <x-input.textarea wire:model.blur="form.description_fr" name="form.description_fr" id="description_fr" rows="4" cols="12"></x-input.textarea>
                     </div>
 
-                    @if (isset($this->form->category) || isset($form->logo))
+                    @if (isset($this->form->category) && $this->form->category->logo)
                         <div class="col-span-1">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.logo" initialImage="{{ isset($form->logo) ? $form->logo->temporaryUrl() : $this->form->category->logo }}" name="form.logo" id="logo"/>
+                            <x:input.image initialImage="{{ $this->form->category->logo }}" name="logo_preview" id="logo_preview"/>
+                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @else
                         <div class="col-span-1">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->category) }}"/>
-                            <x:input.image wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @endif
 

@@ -78,20 +78,15 @@
                         />
                     </div>
 
-                    <div class="col-span-2">
-                        <x-input.label :value="__('Password')" for="password"/>
-                        <x-input.text wire:model="form.password" name="form.password" id="password" type="password"/>
-                    </div>
-
-                    @if (isset($this->form->user) || isset($form->profile_picture))
+                    @if (isset($this->form->user) && $this->form->user->profile_picture)
                         <div class="col-span-2">
-                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->user) }}"/>
-                            <x:input.image wire:model.blur="form.profile_picture" initialImage="{{ isset($form->profile_picture) ? $form->profile_picture->temporaryUrl() : $this->form->user->profile_picture }}" name="form.profile_picture" id="profile_picture"/>
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" />
+                            <x:input.image wire:model.blur="form.profile_picture" initialImage="{{ $this->form->user->profile_picture }}" name="form.profile_picture" id="profile_picture"/>
                         </div>
                     @else
                         <div class="col-span-2">
-                            <x-input.label :value="__('Profile Picture')" for="profile_picture" required="{{ !isset($this->form->user) }}"/>
-                            <x:input.image wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
+                            <x-input.label :value="__('Profile Picture')" for="profile_picture" />
+                            <x:input.file wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
                         </div>
                     @endif
                 </div>
