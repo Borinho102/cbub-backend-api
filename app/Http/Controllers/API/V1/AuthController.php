@@ -44,6 +44,12 @@ class AuthController extends ApiController
 
         $user->tokens()->delete();
         $token = $user->createToken('cbub user console');
+
+        $user->update([
+            'last_login_at' => now(),
+            'last_login_ip' => $request->ip()
+        ]);
+
         $response = [
             'code' => 'LOGIN_SUCCESS',
             'token_type' => 'Bearer',
@@ -79,9 +85,9 @@ class AuthController extends ApiController
             'username' => generateUsername(new User, explode('@', $request->email)[0]),
             'email' => $request->email,
             'password' => $request->password,
-            'device_token' => $request->headers->get('device-token'),
-            'device_platform' => $request->headers->get('device-platform'),
-            'language' => $request->headers->get('accept-language', 'en')
+            'device_token' => $request->header('device-token'),
+            'device_platform' => $request->header('device-platform'),
+            'language' => $request->header('accept-language', 'en')
         ]);
 
         $user->syncRoles(['customer']);
