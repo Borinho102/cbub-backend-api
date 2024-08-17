@@ -89,11 +89,12 @@
                             @endforeach
                         </x-input.select>
                     </div>
-                    
-                    @if (isset($this->form->admin))
+
+                    @if (isset($this->form->admin) && $this->form->admin->profile_picture)
                         <div class="col-span-2">
                             <x-input.label :value="__('Profile Picture')" for="profile_picture"/>
-                            <x:input.image wire:model.blur="form.profile_picture" initialImage="{{ $this->form->admin->profile_picture }}" name="form.profile_picture" id="profile_picture"/>
+                            <x:input.image initialImage="{{ $this->form->admin->profile_picture }}" name="preview_profile_picture" id="preview_profile_picture"/>
+                            <x:input.file wire:model.blur="form.profile_picture" name="form.profile_picture" id="profile_picture"/>
                         </div>
                     @else
                         <div class="col-span-2">

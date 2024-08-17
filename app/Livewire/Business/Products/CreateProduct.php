@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Business\Products;
 
+use App\Enums\ProductType;
 use App\Livewire\Forms\Business\Product\CreateProductForm;
 use App\Models\Product;
 use Livewire\Attributes\Layout;
@@ -19,6 +20,12 @@ class CreateProduct extends Component
 
     public bool $showForm;
 
+    public function mount()
+    {
+        $this->productType = ProductType::Physical;
+
+        $this->showForm = true;
+    }
     public function updatedFormShortDescriptionEn()
     {
         $this->form->short_description_fr = $this->form->short_description_en;

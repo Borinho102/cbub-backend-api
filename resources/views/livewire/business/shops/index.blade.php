@@ -106,7 +106,7 @@
                                 </div>
                                 <!-- Card footer -->
                                 <div>
-                                    <a class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white" wire:navigate href="{{ route('admin.shops.edit', $shop->id) }}">Edit</a>
+                                    <a class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white" wire:navigate href="{{ route('business.shops.edit', $shop->id) }}">Edit</a>
                                 </div>
                             </div>
                         </div>

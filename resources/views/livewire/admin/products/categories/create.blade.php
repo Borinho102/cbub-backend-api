@@ -80,15 +80,16 @@
                         </x-select>
                     </div>
 
-                    @if (isset($this->form->category) || isset($form->image))
+                    @if (isset($this->form->category) && $this->form->category->image)
                         <div class="col-span-1">
                             <x-input.label :value="__('Image')" for="image"/>
-                            <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->icon) ? $form->image->temporaryUrl() : $this->form->category->image }}" name="form.image" id="image"/>
+                            <x:input.image initialImage="{{ $this->form->category->image }}" name="image_preview" id="image_preview"/>
+                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @else
                         <div class="col-span-1">
                             <x-input.label :value="__('Image')" for="image"/>
-                            <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @endif
 

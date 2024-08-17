@@ -115,27 +115,29 @@
                         <x-input.textarea wire:model="form.about" name="form.about" id="about" rows="4" cols="12"></x-input.textarea>
                     </div>
 
-                    @if (isset($this->form->shop) || isset($form->image))
+                    @if (isset($this->form->shop) && $this->form->shop->image)
                         <div class="col-span-1">
-                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.image wire:model.blur="form.image" initialImage="{{ isset($form->image) ? $form->image->temporaryUrl() : $this->form->shop->image }}" name="form.image" id="image"/>
+                            <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.image initialImage="{{ $this->form->shop->image }}" name="image_preview" id="image_preview"/>
+                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @else
                         <div class="col-span-1">
-                            <x-input.label :value="__('Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.image wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
+                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
                         </div>
                     @endif
 
-                    @if (isset($this->form->shop) || isset($form->image))
+                    @if (isset($this->form->shop))
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.image wire:model.blur="form.logo" initialImage="{{ isset($form->logo) ? $form->logo->temporaryUrl() : $this->form->shop->logo }}" name="form.logo" id="logo"/>
+                            <x:input.image initialImage="{{ $this->form->shop->logo }}" name="logo_preview" id="logo_preview"/>
+                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @else
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.image wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @endif
 

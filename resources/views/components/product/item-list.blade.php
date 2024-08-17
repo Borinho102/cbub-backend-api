@@ -77,9 +77,15 @@
                 </div>
                 <!-- Card footer -->
                 <div>
-                    <a wire:navigate href="{{ route('admin.products.edit', $product->id) }}" class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white">
-                        {{ __('Edit') }}
-                    </a>
+                    @if (appGuard() === 'admins')
+                        <a wire:navigate href="{{ route('admin.products.edit', $product->id) }}" class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white">
+                            {{ __('Edit') }}
+                        </a>
+                    @else
+                        <a wire:navigate href="{{ route('business.products.edit', $product->id) }}" class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white">
+                            {{ __('Edit') }}
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
