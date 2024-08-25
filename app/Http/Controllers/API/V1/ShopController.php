@@ -19,6 +19,7 @@ class ShopController extends ApiController
 
         $shops = Shop::query()
             ->withCount('reviews')
+            ->with('media')
             ->withAverageRating()
             ->withBookmarkedColumn()
             ->when($search = request('search'), function ($q) use ($search) {
@@ -54,6 +55,7 @@ class ShopController extends ApiController
     public function show(int $id)
     {
         $shop = Shop::query()
+            ->with('media')
             ->when($with = request('with'), function ($q) use ($with) {
                 foreach (explode(',', $with) as $relationship) {
                     if ($relationship == 'popularProducts') {

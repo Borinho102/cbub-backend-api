@@ -5,7 +5,6 @@ namespace App\Notifications;
 use App\Models\OrderStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class OrderUpdated extends Notification implements ShouldQueue
@@ -24,18 +23,7 @@ class OrderUpdated extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+        return ['database', 'firebase'];
     }
 
     /**
@@ -45,11 +33,13 @@ class OrderUpdated extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+
         return [
-            'title' => 'Order ' . $this->orderStatus->to_status . '!',
-            'body' => 'Your order has been ' . $this->orderStatus->to_status . '!',
+            'title' => sprintf('Order %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
+            'body' => sprintf('Your order has been %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
             'order_id' => $this->orderStatus->order_id,
-            'status' => $this->orderStatus->to_status
+            'status' => $this->orderStatus->to_status,
+            'redirect_to' => '/orders/' . $this->orderStatus->order_id
         ];
     }
 }

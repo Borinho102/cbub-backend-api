@@ -143,13 +143,13 @@ class Shop extends Model implements HasMedia
     public function getLogoAttribute()
     {
         $logo = $this->getFirstMediaUrl('logo');
-        return !empty($logo) ? $logo : asset('images/shop_placeholder.png');
+        return !empty($logo) ? $logo : asset('images/shopping_bag.jpg');
     }
 
     public function getImageAttribute()
     {
         $image = $this->getFirstMediaUrl('image');
-        return !empty($image) ? $image : asset('images/shop_placeholder.png');
+        return !empty($image) ? $image : asset('images/shopping_bag.jpg');
     }
 
     public function getInitialsAttribute()

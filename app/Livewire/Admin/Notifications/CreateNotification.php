@@ -7,7 +7,7 @@ use App\Livewire\Forms\Admin\CreateNotificationForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class CreateNotification extends Component
 {
     public CreateNotificationForm $form;

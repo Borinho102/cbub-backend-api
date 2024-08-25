@@ -15,7 +15,7 @@ class ProductController extends ApiController
     {
         $products = Product::query()
             ->withCount('reviews')
-            ->with(['active_discount', 'category'])
+            ->with(['active_discount', 'category', 'media'])
             ->withAverageRating()
             ->withBookmarkedColumn()
             ->search()
@@ -45,7 +45,7 @@ class ProductController extends ApiController
         $product = Product::query()
             ->withCount('reviews')
             ->withBookmarkedColumn()
-            ->with('active_discount', 'category')
+            ->with('active_discount', 'category', 'media')
             ->withAverageRating()
             ->firstOrFail($id);
 
