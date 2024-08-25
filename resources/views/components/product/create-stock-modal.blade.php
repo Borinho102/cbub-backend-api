@@ -11,9 +11,10 @@
 
         <x-slot name="content">
             <div class="mt-6">
-                <x-input.label for="price" value="{{ __('Product') }}" required/>
+                <x-input.label for="product_id" value="{{ __('Product') }}" required/>
                 <x-select
                     class="w-full"
+                    id="product_id"
                     :placeholder="__('Select Product')"
                     wire:model="productStockForm.product_id"
                     option-value="id"
@@ -43,7 +44,7 @@
 
                 <x-input.text
                     wire:model.blur="productStockForm.quantity"
-                    id="price"
+                    id="quantity"
                     name="productStockForm.quantity"
                     type="text"
                     class="mt-1 block w-3/4"
