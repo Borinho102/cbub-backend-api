@@ -1,4 +1,4 @@
-<x-comingsoon-layout>
+<x-coming-soon-layout>
     <div class="relative flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
 
         <!-- Bg coloured shapes -->
@@ -132,4 +132,4 @@
         </footer>
 
     </div>
-</x-comingsoon-layout>
+</x-coming-soon-layout>
