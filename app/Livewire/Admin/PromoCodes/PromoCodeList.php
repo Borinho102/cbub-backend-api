@@ -8,7 +8,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class PromoCodeList extends Component
 {
     use WithPagination;

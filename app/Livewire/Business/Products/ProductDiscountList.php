@@ -9,7 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class ProductDiscountList extends Component
 {
     use WithPagination;
@@ -35,6 +35,7 @@ class ProductDiscountList extends Component
     #[On('show-discount-modal')]
     public function showDiscountModal(?int $discount_id = null)
     {
+        $this->dispatch('log', sprintf('SHOW DISCOUNT MODAL => %s', $discount_id));
         if ($discount_id) {
             $this->mode = 'update';
             $this->discountForm->setProductDiscount(

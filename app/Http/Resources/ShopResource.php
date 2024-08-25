@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use MatanYadaev\EloquentSpatial\Objects\Point;
 use Spatie\OpeningHours\OpeningHours;
 
 class ShopResource extends JsonResource
@@ -21,6 +20,9 @@ class ShopResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'image' => $this->logo,
+            'images' => [
+                $this->logo
+            ],
             'address' => $this->address,
             'lng' => $this->whenHas('location', fn () => $this->location?->latitude),
             'lat' => $this->whenHas('location', fn () => $this->location?->longitude),

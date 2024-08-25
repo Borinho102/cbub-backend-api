@@ -5,7 +5,7 @@ namespace App\Livewire\Business\Products;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class ProductDetails extends Component
 {
     public function render()
