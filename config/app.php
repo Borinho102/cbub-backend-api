@@ -25,7 +25,7 @@ return [
     */
 
     'keywords' => env('APP_KEYWORDS'),
-    'keywords' => env('APP_DESCRIPTION'),
+    'description' => env('APP_DESCRIPTION'),
     'apple_id' => env('APPLE_ID'),
     'google_play_id' => env('GOOGLE_PLAY_ID'),
     'android_bundle' => env('ANDROID_BUNDLE'),

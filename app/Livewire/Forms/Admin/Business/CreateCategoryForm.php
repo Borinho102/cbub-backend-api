@@ -63,7 +63,10 @@ class CreateCategoryForm extends Form
         ]);
 
         if ($this->logo) {
-            $category->addMedia($this->logo);
+            $category
+                ->addMedia($this->logo->getRealPath())
+                ->usingName($this->logo->getClientOriginalName())
+                ->toMediaCollection('logo');
         }
 
         $this->reset();
@@ -86,7 +89,10 @@ class CreateCategoryForm extends Form
         ]);
 
         if ($this->logo) {
-            $this->category->addMedia($this->logo);
+            $this->category
+                ->addMedia($this->logo->getRealPath())
+                ->usingName($this->logo->getClientOriginalName())
+                ->toMediaCollection('logo');
         }
 
         notify()->success(__('Business category successfully updated!'));

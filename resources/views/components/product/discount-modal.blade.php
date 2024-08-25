@@ -28,9 +28,10 @@
 
         <x-slot name="content">
             <div class="mt-6">
-                <x-input.label for="price" value="{{ __('Product') }}" required/>
+                <x-input.label for="product_id" value="{{ __('Product') }}" required/>
                 <x-select
                     class="w-full"
+                    id="product_id"
                     :placeholder="__('Select Product')"
                     wire:model="discountForm.product_id"
                     option-value="id"
