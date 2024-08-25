@@ -8,7 +8,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class EditCategory extends Component
 {
     use WithFileUploads;

@@ -29,7 +29,6 @@
 
             <!-- Export button -->
             <button type="button" class="px-4 py-1.5 rounded cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white"
-                x-data=""
                 x-on:click.prevent="$wire.dispatchTo('admin.products.product-discount-list', 'show-discount-modal')"
             >
                 {{ __('Add Discount') }}

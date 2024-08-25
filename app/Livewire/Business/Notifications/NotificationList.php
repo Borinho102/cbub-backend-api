@@ -7,7 +7,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class NotificationList extends Component
 {
     use WithPagination;

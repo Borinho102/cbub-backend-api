@@ -8,7 +8,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Layout('components.layouts.backend.app')]
+#[Layout('components.layouts.backend-app')]
 class CustomerList extends Component
 {
     use WithPagination;
@@ -32,7 +32,7 @@ class CustomerList extends Component
     public function render()
     {
         $user = auth()->user();
-        
+
         return view('livewire.business.customers.index', [
             'customers' => Customer::query()
                 ->with('last_order:id,order_id,amount,customer_id,customer_type,currency')
