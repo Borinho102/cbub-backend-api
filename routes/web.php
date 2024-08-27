@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\StatisticController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\MiscellaneousController;
 
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -98,7 +98,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', HomeController::class)->name('index');
+Route::get('', [PageController::class, 'index'])->name('index');
+Route::get('privacy', [PageController::class, 'privacyPolicy'])->name('privacy_policy');
+Route::get('terms-and-conditions', [PageController::class, 'termsAndConditions'])->name('terms_and_conditions');
 
 Route::group([
     'prefix' => 'secure.portal.99/console',
@@ -166,7 +168,6 @@ Route::group([
     // NOTIFICATION ROUTES
     Route::get('notifications', AdminNotificationList::class)->name('notifications.index');
     Route::get('notifications/create', AdminCreateNotification::class)->name('notifications.create');
-
 });
 
 Route::group([

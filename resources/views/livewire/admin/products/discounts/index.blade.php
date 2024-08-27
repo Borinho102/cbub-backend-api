@@ -114,12 +114,7 @@
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="font-medium text-center">
-                                            <x-toggle id="product-discount-toggle-{{ $discount->id }}" :checked="$discount->is_active == 1" wire:change="toggleStatus({{ $discount->id }})" primary xl />
-                                            {{-- @if ($discount->is_active && (!$discount->end_date || !$discount->end_date->isPast()))
-                                                <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-emerald-100 dark:bg-emerald-400/30 text-emerald-600 dark:text-emerald-400">{{ __('Active') }}</div>
-                                            @else
-                                                <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-100 dark:bg-amber-400/30 text-amber-600 dark:text-amber-400">{{ __('Inactive') }}</div>
-                                            @endif --}}
+                                            <x-toggle id="product-discount-toggle-{{ $discount->id }}" :checked="$discount->is_active == 1" wire:change="toggleStatus({{ $discount->id }})" primary lg />
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
