@@ -6,7 +6,6 @@ use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Product;
 use App\Models\ProductStock;
-use BenSampo\Enum\Rules\Enum;
 use Livewire\Form;
 
 class ProductStockForm extends Form
@@ -39,6 +38,7 @@ class ProductStockForm extends Form
                 'new_quantity' => $product->quantity + $this->quantity,
                 'comment' => $this->comment,
                 'product_id' => $product->id,
+                'product_type' => get_class($product),
                 'type' => StockMovementType::In,
                 'author_type' => Admin::class,
                 'author_id' => auth('admins')->user()->id
@@ -55,6 +55,7 @@ class ProductStockForm extends Form
                 'new_quantity' => $product->quantity - $this->quantity,
                 'comment' => $this->comment,
                 'product_id' => $product->id,
+                'product_type' => get_class($product),
                 'type' => StockMovementType::Out,
                 'author_type' => Admin::class,
                 'author_id' => auth('admins')->user()->id

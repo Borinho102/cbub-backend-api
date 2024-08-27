@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms\Business\Product;
 
 use App\Enums\StockMovementType;
-use App\Models\Admin;
+use App\Models\BusinessUser;
 use App\Models\Product;
 use App\Models\ProductStock;
 use Livewire\Form;
@@ -37,10 +37,11 @@ class ProductStockForm extends Form
                 'old_quantity' => $product->quantity,
                 'new_quantity' => $product->quantity + $this->quantity,
                 'comment' => $this->comment,
+                'product_type' => get_class($product),
                 'product_id' => $product->id,
                 'type' => StockMovementType::In,
-                'author_type' => Admin::class,
-                'author_id' => auth('admins')->user()->id
+                'author_type' => BusinessUser::class,
+                'author_id' => auth('business')->user()->id
             ]);
         } else if ($this->type == StockMovementType::Out)  {
             $product = Product::find($this->product_id);
@@ -54,9 +55,10 @@ class ProductStockForm extends Form
                 'new_quantity' => $product->quantity - $this->quantity,
                 'comment' => $this->comment,
                 'product_id' => $product->id,
+                'product_type' => get_class($product),
                 'type' => StockMovementType::Out,
-                'author_type' => Admin::class,
-                'author_id' => auth('admins')->user()->id
+                'author_type' => BusinessUser::class,
+                'author_id' => auth('business')->user()->id
             ]);
         } else {
             abort(404);
