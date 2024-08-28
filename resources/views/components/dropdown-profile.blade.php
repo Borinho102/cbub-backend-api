@@ -36,11 +36,11 @@
         >
             <div class="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
                 <div class="font-medium text-slate-800 dark:text-slate-100">{{ $auth->name }}</div>
-                <div class="text-xs text-slate-500 dark:text-slate-400 italic">Administrator</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 italic">{{ $auth->email }}</div>
             </div>
             <ul>
                 <li>
-                    <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="#" @click="open = false" @focus="open = true" @focusout="open = false">Settings</a>
+                    <a class="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3" href="{{ route('admin.settings', 'profile') }}" @click="open = false" @focus="open = true" @focusout="open = false">Settings</a>
                 </li>
                 <li>
                     <form method="POST" action="{{ route('admin.logout') }}" x-data>
