@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\MiscellaneousController;
 
 use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\Settings as AdminSettings;
 
 use App\Livewire\Admin\Admins\AdminList;
 use App\Livewire\Admin\Admins\EditAdmin;
@@ -108,6 +109,7 @@ Route::group([
     'as' => 'admin.',
 ], function () {
     Route::get('', AdminDashboard::class)->name('dashboard');
+    Route::get('settings/{menu}', AdminSettings::class)->name('settings');
 
     // BUSINESSES ROUTES
     Route::get('businesses', BusinessList::class)->name('businesses.index');
