@@ -9,11 +9,11 @@
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
 
-                <!-- Divider -->
+                {{-- <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
 
                 <!-- User button -->
-                <a class="inline-flex items-center justify-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap rounded" wire:navigate href="{{ route('guest.business.login') }}">{{ __('Login') }}</a>
+                <a class="inline-flex items-center justify-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap rounded" wire:navigate href="{{ route('guest.business.login') }}">{{ __('Login') }}</a> --}}
             </div>
         </div>
     </div>

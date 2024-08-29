@@ -17,7 +17,7 @@
 
                 <div>
                     <x-input.label for="form.new_password" :value="__('New Password')" />
-                    <x-input.text wire:model.blur="form.new_password" id="form.new_password" name="form.new_password" required autocomplete="form.new_password" />
+                    <x-input.text wire:model.blur="form.password" id="form.password" name="form.password" required autocomplete="form.password" />
                 </div>
 
                 <div>
