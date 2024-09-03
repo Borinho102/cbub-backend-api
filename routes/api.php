@@ -74,6 +74,8 @@ Route::group([
     ], function () {
         Route::post('auth/logout', [AuthController::class, 'logout'])
             ->name('auth.logout');
+        Route::delete('auth/delete-account', [AuthController::class, 'deleteAccount'])
+            ->name('auth.delete_account');
         Route::get('profile', [AuthController::class, 'getUserProfile'])
             ->name('auth.profile');
         Route::post('profile', [AuthController::class, 'updateUserProfile'])
