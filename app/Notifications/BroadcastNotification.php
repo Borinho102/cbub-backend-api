@@ -14,7 +14,12 @@ class BroadcastNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected ModelsNotification $notification) {}
+    public function __construct(protected ModelsNotification $notification)
+    {
+        if ($this->notification->broadcast_at) {
+            $this->delay = now()->addHours(now()->diffInHours($this->notification->broadcast_at));
+        }
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -23,7 +28,8 @@ class BroadcastNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return isset($notifiable->device_token) ? ['firebase', 'database'] : ['database'];
+        return isset($notifiable->device_token) ?
+            ['firebase', 'database'] : ['database'];
     }
 
     /**
