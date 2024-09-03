@@ -33,9 +33,9 @@ class ShopController extends ApiController
                     $q->whereIn('category_id', explode(',', $categories));
                 });
             })
-            ->when($lat && $lng, function ($q) use ($lat, $lng) {
-                $q->withDistance('location', new Point($lat, $lng, 4326), 'distance')
-                    ->orderByDistance('location', new Point($lat, $lng, 4326), 'asc');
+            ->when(isset($lat) && isset($lng), function ($q) use ($lat, $lng) {
+                $q->withDistance('location', new Point((float) $lat, (float) $lng, 4326), 'distance')
+                    ->orderByDistance('location', new Point((float) $lat, (float) $lng, 4326), 'asc');
             })
             ->paginate(request('page_size', 10))
             ->through(function ($shop) {
