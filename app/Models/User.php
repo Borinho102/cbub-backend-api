@@ -35,7 +35,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         'password',
         'device_platform',
         'device_token',
-        'language'
+        'language',
+        'email_verified_at',
+        'phone_verified_at',
     ];
 
     /**
@@ -56,6 +58,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 

@@ -27,6 +27,8 @@ class UserResource extends JsonResource
             'language' => $this->language,
             'country' => $this->whenLoaded('country', fn () => CountryResource::make($this->country)),
             'city' => $this->whenLoaded('city', fn () => CityResource::make($this->city)),
+            'email_verified_at' => $this->email_verified_at,
+            'phone_verified_at' => $this->phone_verified_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
