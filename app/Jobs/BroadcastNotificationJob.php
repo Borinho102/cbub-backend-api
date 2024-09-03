@@ -41,7 +41,6 @@ class BroadcastNotificationJob implements ShouldQueue
             ->when(isset($this->notification->data['users']), function ($q) {
                 $q->whereIn('id', $this->notification->data['users']);
             })
-            ->whereHasRole('customer')
             ->chunk(1000, function ($users, $count) {
                 Log::info('Notification chunck count => ' . $count);
                 Notification::send($users, new BroadcastNotification($this->notification));
