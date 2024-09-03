@@ -135,6 +135,12 @@ class AuthController extends ApiController
 
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
+        if ($request->phone !== $user->phone) {
+            $user->phone_verified_at = null;
+        }
+        if ($request->email !== $user->email) {
+            $user->email_verified_at = null;
+        }
         $user->email = $request->email;
         $user->phone = $request->phone;
 
@@ -150,7 +156,7 @@ class AuthController extends ApiController
                 $user->addMediaFromRequest('profile_picture')
                     ->usingName('profile_picture')
                     ->usingFileName(time() . '.' . $file->getClientOriginalExtension())
-                    ->toMediaCollection('avatar', 'media_public');
+                    ->toMediaCollection('avatar');
             }
         }
 
@@ -207,7 +213,7 @@ class AuthController extends ApiController
                 'email' => $request->email
             ]);
         } else {
-            //
+            abort(422, __('general.otp_code_via_sms_inactive'));
         }
 
         return $this->successfulResponse(true, 'OTP_CODE_SENT', $message, 200);
@@ -226,6 +232,7 @@ class AuthController extends ApiController
             'email' => 'required_if:type,email|exists:users,email',
             'phone' => 'required_if:type,phone|exists:users,phone',
             'code' => 'required|min:6|max:6',
+            'action' => 'nullable|in:update-phone-verified-at,update-email-verified-at'
         ]);
 
         if ($validator->fails()) {
@@ -241,6 +248,15 @@ class AuthController extends ApiController
         if ($otpCode) {
             if (now()->subMinutes(10) <= $otpCode->expires_at) {
                 if ($otpCode->code == $request->code) {
+                    if ($request->action === 'update-phone-verified-at') {
+                        User::where('phone', $otpCode->user)->update([
+                            'phone_verified_at' => now()
+                        ]);
+                    } else if ($request->action === 'update-email-verified-at') {
+                        User::where('email', $otpCode->email)->update([
+                            'email_verified_at' => now()
+                        ]);
+                    }
                     return $this->successfulResponse(true, 'VALID_OTP_CODE', __('general.valid_otp_code'));
                 }
             } else {
