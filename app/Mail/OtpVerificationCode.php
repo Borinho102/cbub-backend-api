@@ -26,7 +26,7 @@ class OtpVerificationCode extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('no-reply@cbub.com', 'Cbub'),
+            from: new Address('no-reply@cbub.shop', 'Cbub'),
             subject: 'One Time Password'
         );
     }
