@@ -181,6 +181,31 @@ class AuthController extends ApiController
         ], 200);
     }
 
+    public function deleteAccount(Request $request)
+    {
+        $user = $request->user();
+
+        $user->tokens()->delete();
+
+        session()->flush();
+
+        session()->invalidate();
+
+        User::where('id', $user->id)
+            ->update([
+                'deleted_at' => now(),
+                'username' => $user->username . '.' . now()->timestamp,
+                'email' => $user->email . '.' . now()->timestamp,
+                'phone' => $user->phone . '.' . now()->timestamp
+            ]);
+
+        return $this->successfulResponse(
+            true,
+            'ACCOUNT_DELETED',
+            __('Your account has been successfully deleted!'),
+        );
+    }
+
     /**
      * Send otp verification code.
      *
