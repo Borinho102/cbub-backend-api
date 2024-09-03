@@ -192,7 +192,7 @@ class AuthController extends ApiController
         $user = $request->user('api');
 
         $request->validate([
-            'type' => 'required|in:email',
+            'type' => 'required|in:email,phone',
             'email' => 'required_if:type,email|exists:users,email',
             'phone' => 'required_if:type,phone|exists:users,phone',
         ]);
@@ -228,7 +228,7 @@ class AuthController extends ApiController
     public function verifyOtpCode(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'type' => 'required|in:email',
+            'type' => 'required|in:email,phone',
             'email' => 'required_if:type,email|exists:users,email',
             'phone' => 'required_if:type,phone|exists:users,phone',
             'code' => 'required|min:6|max:6',
