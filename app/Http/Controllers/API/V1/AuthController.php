@@ -173,10 +173,6 @@ class AuthController extends ApiController
 
         $user->tokens()->delete();
 
-        session()->flush();
-
-        session()->invalidate();
-
         return response([
             'message' => 'You have been successfully logged out!',
             'CODE' => 'USER_LOGOUT'
@@ -188,10 +184,6 @@ class AuthController extends ApiController
         $user = $request->user('api');
 
         $user->tokens()->delete();
-
-        $request->session()->flush();
-
-        $request->session()->invalidate();
 
         User::where('id', $user->id)
             ->update([
