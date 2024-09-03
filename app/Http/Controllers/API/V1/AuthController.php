@@ -169,10 +169,12 @@ class AuthController extends ApiController
 
     public function logout(Request $request)
     {
-        $user = $request->user();
+        $user = $request->user('api');
+
         $user->tokens()->delete();
 
         session()->flush();
+
         session()->invalidate();
 
         return response([
@@ -183,7 +185,7 @@ class AuthController extends ApiController
 
     public function deleteAccount(Request $request)
     {
-        $user = $request->user();
+        $user = $request->user('api');
 
         $user->tokens()->delete();
 
