@@ -8,7 +8,6 @@ use App\Http\Controllers\API\V1\MiscellaneousController;
 use App\Http\Controllers\API\V1\OrderController;
 use App\Http\Controllers\API\V1\ProductController;
 use App\Http\Controllers\API\V1\ShopController;
-use App\Http\Controllers\API\V1\StaticContentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -127,8 +126,5 @@ Route::group([
             ->name('delivery_addresses.update');
         Route::delete('delivery-addresses/{id}', [DeliveryAddressController::class, 'destroy'])
             ->name('delivery_addresses.delete');
-
-        // Static Content
-        Route::get('static-content/{type}', StaticContentController::class);
     });
  });

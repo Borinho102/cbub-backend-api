@@ -6,6 +6,7 @@ use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\HttpRequestLog;
 use App\Http\Middleware\Localization;
 use App\Http\Middleware\UpdateDeviceInfo;
+use App\Http\Middleware\VerifyApiKey;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -44,6 +45,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            VerifyApiKey::class,
             HttpRequestLog::class,
             UpdateDeviceInfo::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
