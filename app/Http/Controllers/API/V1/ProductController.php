@@ -47,7 +47,7 @@ class ProductController extends ApiController
             ->withBookmarkedColumn()
             ->with('active_discount', 'category', 'media')
             ->withAverageRating()
-            ->firstOrFail($id);
+            ->findOrFail($id);
 
         return $this->successfulResponse(
             ProductResource::make($product),
