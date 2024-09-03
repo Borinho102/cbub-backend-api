@@ -16,7 +16,7 @@ class HttpRequestLog
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user();
+        $user = $request->user(appGuard());
         $message = 'WEB INCOMING REQUEST';
         if ($request->is('api/*')) {
             $message = 'API INCOMING REQUEST';

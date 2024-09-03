@@ -189,17 +189,18 @@ class AuthController extends ApiController
 
         $user->tokens()->delete();
 
-        session()->flush();
+        $request->session()->flush();
 
-        session()->invalidate();
+        $request->session()->invalidate();
 
         User::where('id', $user->id)
             ->update([
-                'deleted_at' => now(),
                 'username' => $user->username . '.' . now()->timestamp,
                 'email' => $user->email . '.' . now()->timestamp,
                 'phone' => $user->phone . '.' . now()->timestamp
             ]);
+
+        $user->delete();
 
         return $this->successfulResponse(
             true,
