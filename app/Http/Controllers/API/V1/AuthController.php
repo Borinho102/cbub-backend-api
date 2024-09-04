@@ -273,7 +273,7 @@ class AuthController extends ApiController
                             'phone_verified_at' => now()
                         ]);
                     } else if ($request->action === 'update-email-verified-at') {
-                        User::where('email', $otpCode->email)->update([
+                        User::where('email', $otpCode->user)->update([
                             'email_verified_at' => now()
                         ]);
                     }

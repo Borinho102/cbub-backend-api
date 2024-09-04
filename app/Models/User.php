@@ -38,7 +38,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         'device_token',
         'language',
         'email_verified_at',
-        'phone_verified_at',
+        'phone_verified_at'
     ];
 
     /**
