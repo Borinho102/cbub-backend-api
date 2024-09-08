@@ -65,13 +65,13 @@ class CreateShopForm extends Form
     public $banners = [];
 
     public $schedule = [
-        'sunday' => ['', ''],
-        'monday' => ['', ''],
-        'tuesday' => ['', ''],
-        'wednesday' => ['', ''],
-        'thursday' => ['', ''],
-        'friday' => ['', ''],
-        'saturday' => ['', '']
+        'sunday' => [null, null],
+        'monday' => [null, null],
+        'tuesday' => [null, null],
+        'wednesday' => [null, null],
+        'thursday' => [null, null],
+        'friday' => [null, null],
+        'saturday' => [null, null]
     ];
 
     public function setShop(Shop $shop)
@@ -102,15 +102,25 @@ class CreateShopForm extends Form
 
         $this->youtube = $shop->youtube;
 
-        $this->schedule = $shop->schedule ? $shop->schedule : [
-            'sunday' => ['', ''],
-            'monday' => ['', ''],
-            'tuesday' => ['', ''],
-            'wednesday' => ['', ''],
-            'thursday' => ['', ''],
-            'friday' => ['', ''],
-            'saturday' => ['', '']
-        ];
+        $this->schedule = $shop->schedule ?
+            collect($shop->schedule)
+                ->filter(function ($v) {
+                    return isset($v[0]) && count(explode('-', $v[0])) == 2;
+                })
+                ->map(function ($v) {
+                    $parts = explode('-', $v[0]);
+                    $v = [$parts[0], $parts[1]];
+                    return $v;
+                }) :
+            [
+                'sunday' => [null, null],
+                'monday' => [null, null],
+                'tuesday' => [null, null],
+                'wednesday' => [null, null],
+                'thursday' => [null, null],
+                'friday' => [null, null],
+                'saturday' => [null, null]
+            ];
     }
 
     public function store()
@@ -119,6 +129,9 @@ class CreateShopForm extends Form
             'email' => 'required|email|unique:shops,email',
             'banners' => 'nullable|array',
             'banners.*' => 'image|max:5120',
+            'schedule' => 'nullable|array',
+            'schedule.*.0' => 'required',
+            'schedule.*.1' => 'required',
             'logo' => 'required|image|max:5120', // 5MB
             'image' => 'required|image|max:5120', // 5MB
         ]));
@@ -133,10 +146,15 @@ class CreateShopForm extends Form
                 ->where('business_id', $user->business_id)
                 ->firstOrFail();
 
+            $schedule = collect($this->schedule)
+                ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+                ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+
             $shop = Shop::create([
-                ...$this->except('shop', 'logo', 'banners', 'image', 'latitute', 'longitude'),
+                ...$this->except('shop', 'logo', 'banners', 'image', 'latitute', 'longitude', 'schedule'),
                 'owner_id' => $business_owner->id,
                 'business_id' => $user->business_id,
+                'schedule' => $schedule->isNotEmpty() ? $schedule : null,
                 'slug' => generateShopSlug(
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
@@ -177,6 +195,9 @@ class CreateShopForm extends Form
             'email' => 'required|email|unique:shops,email,' . $this->shop->id . ',id',
             'banners' => 'nullable|array',
             'banners.*' => 'image|max:5120',
+            'schedule' => 'nullable|array',
+            'schedule.*.0' => 'required',
+            'schedule.*.1' => 'required',
             'logo' => 'nullable|image|max:5120', // 5MB
             'image' => 'nullable|image|max:5120' // 5MB
         ]));
@@ -188,8 +209,13 @@ class CreateShopForm extends Form
             ->where('business_id', $user->business_id)
             ->firstOrFail();
 
+        $schedule = collect($this->schedule)
+            ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+            ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+
         $this->shop->update([
-            ...$this->except('logo', 'shop', 'banners', 'image', 'latitute', 'longitude'),
+            ...$this->except('logo', 'shop', 'banners', 'image', 'latitute', 'longitude', 'schedule'),
+            'schedule' => $schedule->isNotEmpty() ? $schedule : null,
             'owner_id' => $business_owner->id,
             'location' => $this->latitude ?
                 new Point($this->latitude, $this->longitude) : null,

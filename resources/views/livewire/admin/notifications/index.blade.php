@@ -57,7 +57,10 @@
                                 <div class="font-semibold text-center">{{ __('Shop') }}</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <span class="font-semibold text-center">{{ __('Date') }}</span>
+                                <span class="font-semibold text-center">{{ __('Created On') }}</span>
+                            </th>
+                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <span class="font-semibold text-center">{{ __('Dispatch On') }}</span>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <span class="sr-only">Menu</span>
@@ -85,7 +88,18 @@
                                     <div class="text-center">{{ $notification->shop?->name }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-center">{{ $notification->created_at?->format('d/m/Y') }}</div>
+                                    <div class="text-center">{{ $notification->created_at?->format('d M Y') }}</div>
+                                </td>
+                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                    @if ($notification->broadcast_at)
+                                        @if ($notification->broadcast_at->isPast())
+                                            <div class="text-center">{{ $notification->broadcast_at->format('d M Y') }}</div>
+                                        @else
+                                            <div class="text-center">
+                                                <x-badge-status status="pending" label="{{ 'To be broadcast in ' . now()->diffInDays($notification->broadcast_at) . ' days' }}" />
+                                            </div>
+                                        @endif
+                                    @endif
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                     <div class="flex items-center">
