@@ -198,29 +198,28 @@ class MiscellaneousController extends Controller
     public function searchUsers(Request $request)
     {
         $query = $request->get('search');
-        $guard = appGuard();
         $business = request('business');
+        $guard = appGuard();
         $shop = request('shop');
 
         $data = User::query()
-            ->select('id', 'name')
+            ->select('id', 'first_name', 'last_name')
             ->withoutAppends()
             ->when($query != null, function ($q) use ($query) {
-                $q->where('name', 'like', "%$query%");
+                $q->where(function ($q) use ($query) {
+                    $q->where('first_name', 'like', "%$query%")
+                        ->orWhere('last_name', 'like', "%$query%")
+                        ->orWhere('email', 'like', "%$query%")
+                        ->orWhere('phone', 'like', "%$query%");
+                });
             })
             ->when($shop || $business || $guard === 'business', function ($q) use ($shop, $business, $guard) {
-                $q->whereHas('orders', function ($q) use ($shop, $business, $guard) {
-                    $q->whereHas('items', function ($q) use ($shop, $business, $guard) {
-                        if ($guard === 'business') {
-                            $q->where('business_id', auth()->user()->business_id);
-                        } else if ($business) {
-                            $q->where('business_id', $business);
-                        }
-
-                        if ($shop) {
-                            $q->where('shop_id', $shop);
-                        }
-                    });
+                $q->whereHas('orders', function ($q) use ($business, $shop, $guard) {
+                    if ($shop) {
+                        $q->where('shop_id', $shop);
+                    } else {
+                        $q->where('business_id', $business ?: auth($guard)->user()->business_id);
+                    }
                 });
             })
             ->limit(10)
@@ -228,7 +227,7 @@ class MiscellaneousController extends Controller
             ->transform(function ($user) {
                 return [
                     'id' => $user->id,
-                    'name' => $user->name
+                    'name' => $user->first_name . ' ' . $user->last_name
                 ];
             });
 
@@ -245,24 +244,29 @@ class MiscellaneousController extends Controller
         $business = request('business');
 
         $data = User::query()
-            ->select('id', 'name')
+            ->select('id', 'first_name', 'last_name')
             ->whereHas('customers', function ($q) use ($guard, $business) {
                 if ($guard === 'business') {
-                    $q->where('business_id', auth()->user()->business_id);
+                    $q->where('business_id', auth($guard)->user()->business_id);
                 } else {
                     $q->where('business_id', $business);
                 }
             })
             ->withoutAppends()
             ->when($query != null, function ($q) use ($query) {
-                $q->where('name', 'like', "%$query%");
+                $q->where(function ($q) use ($query) {
+                    $q->where('first_name', 'like', "%$query%")
+                        ->orWhere('last_name', 'like', "%$query%")
+                        ->orWhere('email', 'like', "%$query%")
+                        ->orWhere('phone', 'like', "%$query%");
+                });
             })
             ->limit(10)
             ->get()
             ->transform(function ($user) {
                 return [
                     'id' => $user->id,
-                    'name' => $user->name
+                    'name' => $user->first_name . ' ' . $user->last_name
                 ];
             });
 

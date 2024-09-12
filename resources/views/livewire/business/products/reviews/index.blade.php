@@ -45,14 +45,6 @@
                     <!-- Table header -->
                     <thead class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-700">
                         <tr>
-                            <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                <div class="flex items-center">
-                                    <label class="inline-flex">
-                                        <span class="sr-only">{{ __('Select all') }}</span>
-                                        <input id="parent-checkbox" class="form-checkbox" type="checkbox" @click="toggleAll" />
-                                    </label>
-                                </div>
-                            </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">{{ __('Product') }}</div>
                             </th>
@@ -78,14 +70,6 @@
                             <tbody class="text-sm" x-data="{ open: false }">
                                 <!-- Row -->
                                 <tr wire:key="product-review-{{ $review->id }}">
-                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                        <div class="flex items-center">
-                                            <label class="inline-flex">
-                                                <span class="sr-only">{{ __('Select') }}</span>
-                                                <input class="table-item form-checkbox" type="checkbox" @click="uncheckParent" />
-                                            </label>
-                                        </div>
-                                    </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
