@@ -33,6 +33,29 @@ class BroadcastNotification extends Notification implements ShouldQueue
     }
 
     /**
+     * Get the firebase representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
+    public function toFirebase(object $notifiable): array
+    {
+        return [
+            'notification' => [
+                'title' => $this->notification->title,
+                'body' => $this->notification->body,
+                'image' => $this->notification->image
+            ],
+            'data' => [
+                'broadcast_notification_id' => $this->notification->id,
+                'shop_id' => $this->notification->shop_id,
+                'business_id' => $this->notification->business_id,
+                'notification_type' => $this->notification->type,
+                'image' => $this->notification->image
+            ]
+        ];
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>

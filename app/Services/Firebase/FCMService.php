@@ -25,22 +25,22 @@ class FCMService
     public function sendNotification(
         string $deviceToken, $notificationConfig = null, array $notification = null, array $data =  null
     ) {
-        $message = CloudMessage::withTarget('token', $deviceToken);
-
-        if ($notificationConfig instanceof AndroidConfig) {
-            $message = $message->withAndroidConfig($notificationConfig);
-        } else if ($notificationConfig instanceof ApnsConfig) {
-            $message = $message->withApnsConfig($notificationConfig);
-        } else if ($notificationConfig instanceof WebPushConfig) {
-            $message = $message->withWebPushConfig($notificationConfig);
-        } else {
-            $message = $message->withNotification($notification)
-                ->withData($data);
-        }
-
-        Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
-
         try {
+            $message = CloudMessage::withTarget('token', $deviceToken);
+
+            if ($notificationConfig instanceof AndroidConfig) {
+                $message = $message->withAndroidConfig($notificationConfig);
+            } else if ($notificationConfig instanceof ApnsConfig) {
+                $message = $message->withApnsConfig($notificationConfig);
+            } else if ($notificationConfig instanceof WebPushConfig) {
+                $message = $message->withWebPushConfig($notificationConfig);
+            } else {
+                $message = $message->withNotification($notification)
+                    ->withData($data);
+            }
+
+            Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
+
             $response = $this->messaging->send($message);
             Log::info('RESPONSE: ' . json_encode($response, true));
         } catch (MessagingException $e) {
@@ -54,25 +54,25 @@ class FCMService
     }
 
     public function sendToMultiple(
-        array $deviceTokens, $notificationConfig = null,
-        array $notification = null, array $data =  null
+        array $deviceTokens, array $notification,
+        array $data, $notificationConfig = null
     ) {
-        $message = CloudMessage::new();
-
-        if ($notificationConfig instanceof AndroidConfig) {
-            $message = $message->withAndroidConfig($notificationConfig);
-        } else if ($notificationConfig instanceof ApnsConfig) {
-            $message = $message->withApnsConfig($notificationConfig);
-        } else if ($notificationConfig instanceof WebPushConfig) {
-            $message = $message->withWebPushConfig($notificationConfig);
-        } else {
-            $message = $message->withNotification($notification)
-                ->withData($data);
-        }
-
-        Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
-
         try {
+            $message = CloudMessage::new()
+            ->withNotification($notification)
+            ->withData($data);
+
+            if ($notificationConfig instanceof AndroidConfig) {
+                $message = $message->withAndroidConfig($notificationConfig);
+            } else if ($notificationConfig instanceof ApnsConfig) {
+                $message = $message->withApnsConfig($notificationConfig);
+            } else if ($notificationConfig instanceof WebPushConfig) {
+                $message = $message->withWebPushConfig($notificationConfig);
+            }
+
+            Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
+
+
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
 
             Log::info('Successful sends: '. $report->successes()->count());

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Firebase\FCMService;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class FirebaseChannel
 {
@@ -14,12 +15,16 @@ class FirebaseChannel
      */
     public function send(object $notifiable, Notification $notification): void
     {
-        $notification = $notification->toFirebase($notifiable);
+        if (method_exists($notification, 'toFirebase')) {
+            $data = $notification->toFirebase($notifiable);
 
-        $this->getDeviceTokens($notifiable)
-            ->chunk(1000, function ($tokens) use ($notification) {
-                (new FCMService)->sendToMultiple($tokens->all(), null, $notification);
-            });
+            $this->getDeviceTokens($notifiable)
+                ->chunk(1000, function ($tokens) use ($data) {
+                    (new FCMService)->sendToMultiple($tokens->all(), $data['notification'], $data['data']);
+                });
+        } else {
+            Log::warning('FIREBASE CHANNEL NOT FOUND');
+        }
     }
 
     private function getDeviceTokens($notifiable): Collection
