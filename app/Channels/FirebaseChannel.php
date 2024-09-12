@@ -18,7 +18,7 @@ class FirebaseChannel
 
         $this->getDeviceTokens($notifiable)
             ->chunk(1000, function ($tokens) use ($notification) {
-                (new FCMService)->sendToMultiple($tokens, null, $notification);
+                (new FCMService)->sendToMultiple($tokens->all(), null, $notification);
             });
     }
 

@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Channels\FirebaseChannel;
 use App\Models\Admin;
 use App\Models\BusinessUser;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Notification::extend('firebase', function () {
+            return new FirebaseChannel;
+        });
     }
 
     /**
