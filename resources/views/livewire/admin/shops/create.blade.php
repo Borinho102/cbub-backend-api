@@ -167,14 +167,14 @@
                         <div class="col-span-3" wire:key="{{ $key }}">
                             <div class="w-min-auto flex flex-row items-center space-x-4 justify-between">
                                 <div class="capitalize w-52">
-                                    <x-input.label :value="$key" for="form.schedule.{{ $key }}.0"/>
+                                    <x-input.label :value="$key"/>
                                 </div>
                                 <div class="w-72">
-                                    <x-time-picker wire:model="form.schedule.{{ $key }}.0" name="form.schedule.{{ $key }}.0" id="form.schedule.{{ $key }}.0" interval="30"></x-time-picker>
+                                    <x-time-picker wire:model.blur="form.schedule.{{ $key }}.0" interval="30" placeholder="08:00 AM" without-seconds/>
                                 </div>
                                 <div>-</div>
                                 <div class="w-64">
-                                    <x-time-picker wire:model="form.schedule.{{ $key }}.1" name="form.schedule.{{ $key }}.1" id="form.schedule.{{ $key }}.1" interval="30"></x-time-picker>
+                                    <x-time-picker wire:model.blur="form.schedule.{{ $key }}.1" interval="30" placeholder="05:00 PM" without-seconds/>
                                 </div>
                             </div>
                         </div>

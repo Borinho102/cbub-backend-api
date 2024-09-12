@@ -11,8 +11,11 @@ class ChangePasswordForm extends Form
     #[Validate('required|current_password')]
     public $current_password;
 
-    #[Validate(['required', 'min:8', 'confirmed'])]
+    #[Validate(['required', 'min:8', 'different:current_password'])]
     public $password;
+
+    #[Validate(['required', 'min:8', 'same:password'])]
+    public $password_confirmation;
 
     public function change()
     {

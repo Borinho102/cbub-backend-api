@@ -71,7 +71,7 @@ class Admin extends Authenticatable implements MustVerifyEmail, HasMedia, Laratr
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar');
+        $this->addMediaCollection('avatar')->singleFile();
     }
 
     public function getProfilePictureAttribute()

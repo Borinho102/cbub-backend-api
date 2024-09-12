@@ -106,8 +106,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar')
-            ->singleFile();
+        $this->addMediaCollection('avatar')->singleFile();
     }
 
     public function getImageAttribute()

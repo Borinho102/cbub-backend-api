@@ -21,6 +21,14 @@ class UpdateProfileForm extends Form
     #[Validate(['required', 'string', 'lowercase', 'email', 'max:255'])]
     public $email;
 
+    public function setProfile() {
+        $user = request()->user('admins');
+
+        $this->email = $this->email ?: $user->email;
+        $this->phone = $this->phone ?: $user->phone;
+        $this->name = $this->name ?: $user->name;
+    }
+
     public function update()
     {
         $this->validate(array_merge($this->getRules(), [

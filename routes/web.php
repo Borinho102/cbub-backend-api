@@ -50,6 +50,7 @@ use App\Livewire\Admin\Shops\EditShop as AdminEditShop;
 use App\Livewire\Admin\Shops\ShopList as AdminShopList;
 
 use App\Livewire\Business\Dashboard as BusinessDashboard;
+use App\Livewire\Business\Settings as BusinessSettings;
 
 use App\Livewire\Business\Users\UserList as BusinessUserList;
 use App\Livewire\Business\Users\EditUser as EditBusinessUser;
@@ -178,6 +179,7 @@ Route::group([
     'as' => 'business.',
 ], function () {
     Route::get('', BusinessDashboard::class)->name('dashboard');
+    Route::get('settings/{menu}', BusinessSettings::class)->name('settings');
 
     // SHOPS ROUTES
     Route::get('shops', BusinessShopList::class)->name('shops.index');
