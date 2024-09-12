@@ -11,18 +11,18 @@
 
             <form id="update-password" wire:submit.prevent="updatePassword" class="mt-6 space-y-6">
                 <div>
-                    <x-input.label for="form.current_password" :value="__('Current Password')" />
-                    <x-input.text wire:model.blur="form.current_password" id="form.current_password" name="form.current_password" required autocomplete="form.current_password" />
+                    <x-input.label for="passwordForm.current_password" :value="__('Current Password')" />
+                    <x-input.text wire:model.blur="passwordForm.current_password" id="passwordForm.current_password" name="passwordForm.current_password" required autocomplete="passwordForm.current_password" />
                 </div>
 
                 <div>
-                    <x-input.label for="form.new_password" :value="__('New Password')" />
-                    <x-input.text wire:model.blur="form.password" id="form.password" name="form.password" required autocomplete="form.password" />
+                    <x-input.label for="passwordForm.new_password" :value="__('New Password')" />
+                    <x-input.text wire:model.blur="passwordForm.password" id="passwordForm.password" name="passwordForm.password" required autocomplete="passwordForm.password" />
                 </div>
 
                 <div>
-                    <x-input.label for="form.confirm_password" :value="__('Confirm Password')" />
-                    <x-input.text wire:model.blur="form.confirm_password" id="form.confirm_password" name="form.confirm_password" required autocomplete="form.confirm_password" />
+                    <x-input.label for="passwordForm.password_confirmation" :value="__('Confirm Password')" />
+                    <x-input.text wire:model.blur="passwordForm.password_confirmation" id="passwordForm.password_confirmation" name="passwordForm.password_confirmation" required autocomplete="passwordForm.password_confirmation" />
                 </div>
             </form>
         </section>

@@ -26,6 +26,7 @@ class BusinessUser extends Authenticatable implements HasMedia, LaratrustUser
         'email',
         'username',
         'address',
+        'phone',
         'business_id',
         'city_id',
         'country_id',
