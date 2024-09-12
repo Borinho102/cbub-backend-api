@@ -27,13 +27,32 @@ class OrderUpdated extends Notification implements ShouldQueue
     }
 
     /**
+     * Get the firebase representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
+    public function toFirebase(object $notifiable): array
+    {
+        return [
+            'notification' => [
+                'title' => sprintf('Order %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
+                'body' => sprintf('Your order has been %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
+            ],
+            'data' => [
+                'order_id' => $this->orderStatus->order_id,
+                'status' => $this->orderStatus->to_status,
+                'redirect_to' => '/orders/' . $this->orderStatus->order_id
+            ]
+        ];
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
     {
-
         return [
             'title' => sprintf('Order %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
             'body' => sprintf('Your order has been %s %s!', $this->orderStatus->order->order_id, $this->orderStatus->to_status),
