@@ -34,6 +34,7 @@ class NotificationList extends Component
                         $q->where('title->en', 'like', '%' . $this->query . '%');
                     });
                 })
+                ->orderBy('created_at', 'desc')
                 ->paginate(20)
         ]);
     }
