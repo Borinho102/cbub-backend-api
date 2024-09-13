@@ -43,7 +43,7 @@ class BroadcastNotificationJob implements ShouldQueue
             })
             ->chunk(500, function ($users, $count) {
                 Log::info('Notification chunck count => ' . $count);
-                $users->notify(new BroadcastNotification($this->notification));
+                Notification::send($users, new BroadcastNotification($this->notification));
             });
     }
 }
