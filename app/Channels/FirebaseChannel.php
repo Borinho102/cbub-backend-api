@@ -15,7 +15,6 @@ class FirebaseChannel
     public function send(object $notifiable, Notification $notification): void
     {
         if (method_exists($notification, 'toFirebase')) {
-            Log::debug('FIREBASE CHANNEL FOUND');
             $data = $notification->toFirebase($notifiable);
 
             (new FCMService)->sendToMultiple(
@@ -23,8 +22,6 @@ class FirebaseChannel
                 $data['notification'],
                 $data['data']
             );
-        } else {
-            Log::warning('FIREBASE CHANNEL NOT FOUND');
         }
     }
 

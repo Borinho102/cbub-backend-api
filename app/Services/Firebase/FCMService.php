@@ -11,6 +11,7 @@ use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\ApnsConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\SendReport;
 use Kreait\Firebase\Messaging\WebPushConfig;
 
 class FCMService
@@ -75,9 +76,13 @@ class FCMService
 
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
 
-            Log::info('Successful sends: '. $report->successes()->count());
-            Log::info('Failed sends: '. $report->failures()->count());
-            Log::info('Invalid tokens: '. count($report->invalidTokens()));
+            Log::debug('Successful sends: '. $report->successes()->count());
+            Log::debug('Failed sends: '. $report->failures()->count());
+            Log::debug('Unknown tokens: '. count($report->unknownTokens()));
+            Log::debug('Invalid tokens: '. count($report->invalidTokens()));
+            Log::debug('Report Errors: ', $report->failures()->map(function (SendReport $item) {
+                return $item->error()->getMessage() . ':' . $item->error()->getLine();
+            }));
         } catch (MessagingException $e) {
             Log::error('MESSAGING EXCEPTION (MESSAGE): ' . $e->getMessage());
             Log::error('MESSAGING EXCEPTION (ERRORS): ' . $e->errors());
