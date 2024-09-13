@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use App\Models\BroadcastNotification as ModelsNotification;
-use Illuminate\Support\Facades\Log;
 
 class BroadcastNotification extends Notification implements ShouldQueue
 {
@@ -29,11 +28,8 @@ class BroadcastNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        $viaRoutes = isset($notifiable->device_token) ?
+        return isset($notifiable->device_token) ?
             ['firebase', 'database'] : ['database'];
-        Log::info('delivery channels => ', $viaRoutes);
-
-        return $viaRoutes;
     }
 
     /**
@@ -43,22 +39,33 @@ class BroadcastNotification extends Notification implements ShouldQueue
      */
     public function toFirebase(object $notifiable): array
     {
-        Log::info('Getting firebase reprentation of the notification channels');
-        
-        return [
+        $image = $this->notification->getTranslation('image', $notifiable->language, true);
+
+        $data = [
             'notification' => [
                 'title' => $this->notification->getTranslation('title', $notifiable->language, true),
                 'body' => $this->notification->getTranslation('body', $notifiable->language, true),
-                'image' => $this->notification->getTranslation('image', $notifiable->language, true),
             ],
             'data' => [
                 'broadcast_notification_id' => $this->notification->id,
-                'shop_id' => $this->notification->shop_id,
-                'business_id' => $this->notification->business_id,
-                'notification_type' => $this->notification->type,
-                'image' => $this->notification->image
+                'notification_type' => $this->notification->type
             ]
         ];
+
+        if (!empty($image)) {
+            $data['notification']['image'] = $image;
+            $data['data']['image'] = $image;
+        }
+
+        if (isset($this->notification->shop_id)) {
+            $data['data']['shop_id'] = $this->notification->shop_id;
+        }
+
+        if (isset($this->notification->business_id)) {
+            $data['data']['business_id'] = $this->notification->business_id;
+        }
+
+        return $data;
     }
 
     /**
@@ -68,15 +75,26 @@ class BroadcastNotification extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $image = $this->notification->getTranslation('image', $notifiable->language, true);
+
         $data = [
             'broadcast_notification_id' => $this->notification->id,
             'title' => $this->notification->getTranslation('title', $notifiable->language, true),
             'body' => $this->notification->getTranslation('body', $notifiable->language, true),
-            'image' => $this->notification->getTranslation('image', $notifiable->language, true),
-            'shop_id' => $this->notification->shop_id,
-            'business_id' => $this->notification->business_id,
             'notification_type' => $this->notification->type
         ];
+
+        if (!empty($image)) {
+            $data['image'] = $image;
+        }
+
+        if (isset($this->notification->shop_id)) {
+            $data['shop_id'] = $this->notification->shop_id;
+        }
+
+        if (isset($this->notification->business_id)) {
+            $data['business_id'] = $this->notification->business_id;
+        }
 
         if ($this->notification->shop) {
             $data['shop'] = [
