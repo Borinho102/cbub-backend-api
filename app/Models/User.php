@@ -32,6 +32,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser
         'last_name',
         'username',
         'phone',
+        'dail_code',
         'email',
         'password',
         'device_platform',
