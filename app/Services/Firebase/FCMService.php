@@ -59,9 +59,10 @@ class FCMService
         array $data, $notificationConfig = null
     ) {
         try {
-            $message = CloudMessage::new()
-            ->withNotification($notification)
-            ->withData($data);
+            $message = CloudMessage::fromArray([
+                'data' => $data,
+                'notification' => $notification
+            ]);
 
             if ($notificationConfig instanceof AndroidConfig) {
                 $message = $message->withAndroidConfig($notificationConfig);
@@ -72,7 +73,6 @@ class FCMService
             }
 
             Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
-
 
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
 

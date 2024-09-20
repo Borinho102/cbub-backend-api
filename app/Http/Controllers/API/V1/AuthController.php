@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends ApiController
@@ -19,8 +20,10 @@ class AuthController extends ApiController
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|exists:users,email',
-            'password' => 'required|string'
+            'username_type' => 'required|in:email,phone',
+            'username' => 'required',
+            'password' => 'required|string',
+            'dail_code' => 'required_if:username_type,phone'
         ]);
 
         if ($validator->fails()) {
@@ -31,10 +34,14 @@ class AuthController extends ApiController
             ], 406);
         }
 
-        $user = User::where(function ($q) use ($request) {
-            $q->where('email', $request->username)
-                ->orWhere('phone', $request->username);
-        })->first();
+        $user = User::query()
+            ->when($request->username_type === 'email', function ($q) use ($request) {
+                $q->where('email', $request->username);
+            })
+            ->when($request->username_type === 'phone', function ($q) use ($request) {
+                $q->where('phone', $request->username)
+                    ->where('dail_code', $request->dail_code);
+            })->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -67,7 +74,12 @@ class AuthController extends ApiController
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique:users,email',
+            'dail_code' => 'required',
+            'phone' => [
+                'required',
+                Rule::unique('users', 'phone')
+                    ->where('dail_code', request('dail_code'))
+            ],
             'password' => 'required|confirmed|min:6'
         ]);
 
@@ -82,8 +94,12 @@ class AuthController extends ApiController
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'username' => generateUsername(new User, explode('@', $request->email)[0]),
-            'email' => $request->email,
+            'username' => generateUsername(
+                new User,
+                str()->slug($request->first_name)
+            ),
+            'phone' => $request->phone,
+            'dail_code' => $request->dail_code,
             'password' => $request->password,
             'device_token' => $request->header('device-token'),
             'device_platform' => $request->header('device-platform'),
@@ -119,8 +135,14 @@ class AuthController extends ApiController
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
+            'dail_code' => 'required',
             'email' => 'required|unique:users,email,' . $user->id . ',id',
-            'phone' => 'required|unique:users,phone,' . $user->id . ',id',
+            'phone' => [
+                'required',
+                Rule::unique('users', 'phone')
+                    ->ignore($user->id, 'id')
+                    ->where('dail_code', request('dail_code'))
+            ],
             'password' => 'nullable|confirmed|min:6',
             'profile_picture' => 'nullable|image'
         ]);
@@ -143,6 +165,7 @@ class AuthController extends ApiController
         }
         $user->email = $request->email;
         $user->phone = $request->phone;
+        $user->dail_code = $request->dail_code;
 
         if ($request->password) {
             $user->password = $request->password;
