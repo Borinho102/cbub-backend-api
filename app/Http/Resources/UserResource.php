@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'image' => $this->image,
             'email' => $this->email,
             'phone' => $this->phone,
+            'dail_code' => $this->dail_code,
             'language' => $this->language,
             'country' => $this->whenLoaded('country', fn () => CountryResource::make($this->country)),
             'city' => $this->whenLoaded('city', fn () => CityResource::make($this->city)),
