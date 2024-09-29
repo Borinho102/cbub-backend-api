@@ -38,8 +38,10 @@ class Shop extends Model implements HasMedia
     {
         $this->addMediaCollection('logo')
             ->singleFile();
+
         $this->addMediaCollection('image')
             ->singleFile();
+
         $this->addMediaCollection('banners');
     }
 
@@ -49,6 +51,7 @@ class Shop extends Model implements HasMedia
     protected function getWorkingDaysAttribute()
     {
         if (!$this->schedule) return [];
+
         if (!isset($this->schedule['working_days'])) return [];
 
         return $this->schedule['working_days'];
@@ -60,6 +63,7 @@ class Shop extends Model implements HasMedia
     protected function getWorkingHoursAttribute()
     {
         if (!$this->schedule) return [];
+
         if (!isset($this->schedule['working_hours'])) return [];
 
         return $this->schedule['working_hours'];
@@ -143,12 +147,14 @@ class Shop extends Model implements HasMedia
     public function getLogoAttribute()
     {
         $logo = $this->getFirstMediaUrl('logo');
+
         return !empty($logo) ? $logo : asset('images/shopping_bag.png');
     }
 
     public function getImageAttribute()
     {
         $image = $this->getFirstMediaUrl('image');
+        
         return !empty($image) ? $image : asset('images/shopping_bag.png');
     }
 

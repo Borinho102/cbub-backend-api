@@ -244,6 +244,8 @@ Route::group([
         ->name('search.promo_codes');
     Route::get('search/product-categories', [MiscellaneousController::class, 'searchProductCategories'])
         ->name('search.product_categories');
+    Route::get('search/business-categories', [MiscellaneousController::class, 'searchBusinessCategories'])
+        ->name('search.business_categories');
     Route::get('search/businesses', [MiscellaneousController::class, 'searchBusinesses'])
         ->name('search.businesses');
     Route::get('search/customers', [MiscellaneousController::class, 'searchCustomers'])

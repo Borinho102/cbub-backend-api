@@ -37,4 +37,20 @@ class BusinessCategory extends Model implements HasMedia
         $logo = $this->getFirstMediaUrl('logo');
         return !empty($logo) ? $logo : asset('images/category_placeholder.jpg');
     }
+
+    public function scopeSearch($q)
+    {
+        if ($search = request('q', request('search', request('query')))) {
+            $q->where(function ($q) use ($search) {
+                $parts = explode(' ', $search);
+                foreach ($parts as $part) {
+                    // $q->whereRaw("CONVERT(name->>'$.en' USING utf8mb4) LIKE ?", ['%' . Str::lower($part) . '%'])
+                    //     ->orWhereRaw("CONVERT(name->>'$.fr' USING utf8mb4) LIKE ?", ['%' . Str::lower($part) . '%']);
+                   $q->whereRaw("LOWER(JSON_EXTRACT(name, '$.en')) LIKE ?", ['%' . strtolower($part) . '%'])
+                       ->orWhereRaw("LOWER(JSON_EXTRACT(name, '$.fr')) LIKE ?", ['%' . strtolower($part) . '%'])
+                       ->orWhere('code', 'like', '%' . $search . '%s');
+                }
+            });
+        }
+    }
 }

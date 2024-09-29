@@ -201,7 +201,7 @@ if (!function_exists('generateProductSlugEn')) {
      */
     function generateProductSlugEn(string $name, $except = null): string
     {
-        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $slug = Str::lower(Str::slug(Str::substr($name, 0, 10)));
         $exists = Product::when($except, function ($q) use ($except) {
             $q->where('slug->en', '!=', $except);
         })->whereSlug($slug)->exists();
