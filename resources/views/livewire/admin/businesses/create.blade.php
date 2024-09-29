@@ -62,7 +62,7 @@
                             wire:model="form.category_id"
                             option-value="id"
                             option-label="name"
-                            :async-data="route('misc.search.product_categories')"
+                            :async-data="route('misc.search.business_categories')"
                         />
                     </div>
 

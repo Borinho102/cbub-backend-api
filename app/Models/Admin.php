@@ -24,12 +24,22 @@ class Admin extends Authenticatable implements MustVerifyEmail, HasMedia, Laratr
     protected $table = 'admins';
 
     protected $fillable = [
-        'username', 'name', 'email', 'phone', 'password', 'country_id',
-        'city_id', 'address', 'two_factor_auth', 'email_verified_at', 'currency_id',
+        'username',
+        'name',
+        'email',
+        'phone',
+        'password',
+        'country_id',
+        'city_id',
+        'address',
+        'two_factor_auth',
+        'email_verified_at',
+        'currency_id',
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token'
     ];
 
     /**
@@ -71,7 +81,8 @@ class Admin extends Authenticatable implements MustVerifyEmail, HasMedia, Laratr
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('avatar')->singleFile();
+        $this->addMediaCollection('avatar')
+            ->singleFile();
     }
 
     public function getProfilePictureAttribute()

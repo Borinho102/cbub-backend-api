@@ -46,7 +46,7 @@
                     <div class="col-span-full sm:col-span-6 xl:col-span-3 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
                         <div class="flex flex-col h-full">
                             <!-- Image -->
-                            <img class="w-full" src="{{ asset('images/applications-image-01.jpg') }}" width="286" height="160" alt="Application 01" />
+                            <img class="w-full" src="{{ $shop->image ?: $shop->logo }}" width="286" height="160" alt="{{ $shop->name }}" />
                             <!-- Card Content -->
                             <div class="grow flex flex-col p-5">
                                 <!-- Card body -->

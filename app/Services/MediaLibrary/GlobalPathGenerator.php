@@ -7,6 +7,7 @@ use App\Models\Business;
 use App\Models\BusinessUser;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Shop;
 use App\Models\User;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
@@ -45,18 +46,20 @@ class GlobalPathGenerator implements PathGenerator
     {
         $prefix = config('media-library.prefix', '');
 
-        if ($media->model_type == User::class) {
+        if ($media->model_type === User::class) {
             return $prefix . '/users/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type == BusinessUser::class) {
+        } else if ($media->model_type === BusinessUser::class) {
             return $prefix . '/business_users/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type == Admin::class) {
+        } else if ($media->model_type === Admin::class) {
             return $prefix . '/admins/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type == Product::class) {
+        } else if ($media->model_type === Product::class) {
             return $prefix . '/products/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type == ProductCategory::class) {
+        } else if ($media->model_type === ProductCategory::class) {
             return $prefix . '/product_categories/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type == Business::class) {
+        } else if ($media->model_type === Business::class) {
             return $prefix . '/businesses/' . $media->model_id . '/' . $media->id;
+        } else if ($media->model_type === Shop::class) {
+            return $prefix . '/shops/' . $media->model_id . '/' . $media->id;
         }
 
         return $prefix . '/' .  $media->getKey();

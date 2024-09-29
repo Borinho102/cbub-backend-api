@@ -180,7 +180,11 @@ class CreateProductForm extends Form
                 'price', 'shop_id', 'tags', 'type',
                 'category_id', 'sku', 'items_count'
             ]),
-            'business_id' => $shop->business_id,
+            'category_id' => $this->category_id,
+            'name' => [
+                'en' => $this->name_en,
+                'fr' => $this->name_fr
+            ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
                 'fr' => generateProductSlugFr($this->name_fr)

@@ -130,8 +130,6 @@ class CreateShopForm extends Form
             'banners' => 'nullable|array',
             'banners.*' => 'image|max:5120',
             'schedule' => 'nullable|array',
-            'schedule.*.0' => 'required',
-            'schedule.*.1' => 'required',
             'logo' => 'required|image|max:5120', // 5MB
             'image' => 'required|image|max:5120', // 5MB
         ]));
@@ -196,8 +194,6 @@ class CreateShopForm extends Form
             'banners' => 'nullable|array',
             'banners.*' => 'image|max:5120',
             'schedule' => 'nullable|array',
-            'schedule.*.0' => 'required',
-            'schedule.*.1' => 'required',
             'logo' => 'nullable|image|max:5120', // 5MB
             'image' => 'nullable|image|max:5120' // 5MB
         ]));

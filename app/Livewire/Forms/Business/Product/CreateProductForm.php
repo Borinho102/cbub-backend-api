@@ -116,9 +116,7 @@ class CreateProductForm extends Form
                 'sku', 'quantity', 'tags', 'items_count'
             ]),
             'business_id' => $shop->business_id,
-            'category_id' => $this->parentProduct ?
-                $this->parentProduct->category_id :
-                $shop->business_id,
+            'category_id' => $this->category_id,
             'name' => [
                 'en' => $this->name_en,
                 'fr' => $this->name_fr
@@ -180,7 +178,7 @@ class CreateProductForm extends Form
                 'price', 'shop_id', 'tags', 'type',
                 'category_id', 'sku', 'items_count'
             ]),
-            'business_id' => $shop->business_id,
+            'category_id' => $this->category_id,
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
                 'fr' => generateProductSlugFr($this->name_fr)

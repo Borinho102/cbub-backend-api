@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\BusinessCategory;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -25,10 +26,15 @@ class MiscellaneousController extends Controller
     public function searchCountries(Request $request): Response|Application|ResponseFactory
     {
         $query = $request->get('search');
+        $selected = $request->get('selected', []);
+        
         $countries = Country::active()
             ->when($query, function ($q) use ($query) {
-                $q->where('name', 'like', '%' . $query . '%');
-                $q->orWhere('code', $query);
+                $q->where('name', 'like', '%' . $query . '%')
+                    ->orWhere('code', $query);
+            })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
             })
             ->get()
             ->transform(function (Country $country) {
@@ -56,11 +62,15 @@ class MiscellaneousController extends Controller
         $cities = [];
         $search = $request->get('search');
         $country = Country::find($country);
+        $selected = $request->get('selected', []);
 
         if ($country) {
             $cities = $country->cities()
                 ->when(isset($search) && !empty($search), function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
+                })
+                ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                    $q->whereIn('id', $selected);
                 })
                 ->get()
                 ->transform(function ($city) {
@@ -76,14 +86,16 @@ class MiscellaneousController extends Controller
     }
 
     /**
-     * Returns all the product categories
+     * Returns all the product categories matching the search query
      * @param Request $request
      * @return Application|ResponseFactory|Response
      */
     public function searchProductCategories(Request $request): Response|Application|ResponseFactory
     {
         $guard = appGuard();
-        $business = request('business');
+        $business = $request->get('business');
+        $selected = $request->get('selected', []);
+
         $categories = ProductCategory::query()
             ->select('id', 'name', 'parent_id', 'code')
             ->search()
@@ -100,6 +112,39 @@ class MiscellaneousController extends Controller
                         $q->whereNull('business_id');
                     }
                 });
+            })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
+            })
+            ->orderBy('name', 'asc')
+            ->limit(10)
+            ->get()
+            ->transform(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'code' => $category->code,
+                    'name' => $category->name
+                ];
+            });
+
+        return response($categories);
+    }
+
+    /**
+     * Returns all the business categories matching the search query
+     * @param Request $request
+     * @return Application|ResponseFactory|Response
+     */
+    public function searchBusinessCategories(Request $request): Response|Application|ResponseFactory
+    {
+        $selected = $request->get('selected', []);
+
+        $categories = BusinessCategory::query()
+            ->select('id', 'name', 'code')
+            ->search()
+            ->where('is_active', 1)
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
             })
             ->orderBy('name', 'asc')
             ->limit(10)
@@ -122,13 +167,17 @@ class MiscellaneousController extends Controller
      */
     public function searchProducts(Request $request): Response|Application|ResponseFactory
     {
-        $business = request('business');
-        $shop = request('shop');
         $guard = appGuard();
+        $business = $request->get('business');
+        $shop = $request->get('shop');
+        $selected = $request->get('selected', []);
 
         $products = Product::select('id', 'name')
             ->search()
             ->where('is_active', 1)
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
+            })
             ->when($business && $guard != 'business', function ($q) use ($business) {
                 $q->where('business_id', $business);
             })
@@ -160,13 +209,17 @@ class MiscellaneousController extends Controller
      */
     public function searchPromoCodes(Request $request): Response|Application|ResponseFactory
     {
-        $business = request('business');
-        $shop = request('shop');
+        $business = $request->get('business');
+        $shop = $request->get('shop');
+        $selected = $request->get('selected', []);
         $guard = appGuard();
 
         $promo_codes = PromoCode::select('id', 'title', 'code')
             ->search()
             ->where('is_active', 1)
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
+            })
             ->when(isset($business) && $guard != 'business', function ($q) use ($business) {
                 $q->where('business_id', $business);
             })
@@ -198,9 +251,10 @@ class MiscellaneousController extends Controller
     public function searchUsers(Request $request)
     {
         $query = $request->get('search');
-        $business = request('business');
+        $business = $request->get('business');
+        $shop = $request->get('shop');
+        $selected = $request->get('selected', []);
         $guard = appGuard();
-        $shop = request('shop');
 
         $data = User::query()
             ->select('id', 'first_name', 'last_name')
@@ -222,6 +276,9 @@ class MiscellaneousController extends Controller
                     }
                 });
             })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
+            })
             ->limit(10)
             ->get()
             ->transform(function ($user) {
@@ -242,6 +299,7 @@ class MiscellaneousController extends Controller
         $query = request('search');
         $guard = appGuard();
         $business = request('business');
+        $selected = request('selected', []);
 
         $data = User::query()
             ->select('id', 'first_name', 'last_name')
@@ -260,6 +318,9 @@ class MiscellaneousController extends Controller
                         ->orWhere('email', 'like', "%$query%")
                         ->orWhere('phone', 'like', "%$query%");
                 });
+            })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
             })
             ->limit(10)
             ->get()
@@ -281,11 +342,15 @@ class MiscellaneousController extends Controller
     public function searchBusinesses(Request $request)
     {
         $query = $request->get('search');
+        $selected = $request->get('selected', []);
 
         $data = Business::query()
             ->select('id', 'name')
             ->when($query != null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
+            })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
             })
             ->limit(10)
             ->get()
