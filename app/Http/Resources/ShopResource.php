@@ -21,7 +21,7 @@ class ShopResource extends JsonResource
             'slug' => $this->slug,
             'image' => $this->logo,
             'images' => [
-                $this->logo
+                $this->image
             ],
             'address' => $this->address,
             'lng' => $this->whenHas('location', fn () => $this->location?->latitude),

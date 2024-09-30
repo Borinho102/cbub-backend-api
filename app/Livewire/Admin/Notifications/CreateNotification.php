@@ -6,10 +6,13 @@ use App\Jobs\BroadcastNotificationJob;
 use App\Livewire\Forms\Admin\CreateNotificationForm;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('components.layouts.backend-app')]
 class CreateNotification extends Component
 {
+    use WithFileUploads;
+    
     public CreateNotificationForm $form;
 
     public function send()
