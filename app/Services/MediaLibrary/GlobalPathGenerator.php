@@ -5,6 +5,7 @@ namespace App\Services\MediaLibrary;
 use App\Models\Admin;
 use App\Models\Business;
 use App\Models\BusinessUser;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Shop;
@@ -46,22 +47,16 @@ class GlobalPathGenerator implements PathGenerator
     {
         $prefix = config('media-library.prefix', '');
 
-        if ($media->model_type === User::class) {
-            return $prefix . '/users/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === BusinessUser::class) {
-            return $prefix . '/business_users/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === Admin::class) {
-            return $prefix . '/admins/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === Product::class) {
-            return $prefix . '/products/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === ProductCategory::class) {
-            return $prefix . '/product_categories/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === Business::class) {
-            return $prefix . '/businesses/' . $media->model_id . '/' . $media->id;
-        } else if ($media->model_type === Shop::class) {
-            return $prefix . '/shops/' . $media->model_id . '/' . $media->id;
-        }
-
-        return $prefix . '/' .  $media->getKey();
+        return match ($media->model_type) {
+            User::class => $prefix . '/users/' . $media->model_id . '/' . $media->id,
+            BusinessUser::class => $prefix . '/business_users/' . $media->model_id . '/' . $media->id,
+            Admin::class => $prefix . '/admins/' . $media->model_id . '/' . $media->id,
+            Product::class => $prefix . '/products/' . $media->model_id . '/' . $media->id,
+            ProductCategory::class => $prefix . '/product_categories/' . $media->model_id . '/' . $media->id,
+            Business::class => $prefix . '/businesses/' . $media->model_id . '/' . $media->id,
+            Shop::class => $prefix . '/shops/' . $media->model_id . '/' . $media->id,
+            Notification::class => $prefix . '/notifications/' . $media->model_id . '/' . $media->id,
+            default => $prefix . '/' .  $media->getKey()
+        };
     }
 }

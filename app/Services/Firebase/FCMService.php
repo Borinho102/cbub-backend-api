@@ -58,20 +58,20 @@ class FCMService
         array $deviceTokens, array $notification,
         array $data, $notificationConfig = null
     ) {
+        $message = CloudMessage::fromArray([
+            'data' => $data,
+            'notification' => $notification
+        ]);
+
+        if ($notificationConfig instanceof AndroidConfig) {
+            $message = $message->withAndroidConfig($notificationConfig);
+        } else if ($notificationConfig instanceof ApnsConfig) {
+            $message = $message->withApnsConfig($notificationConfig);
+        } else if ($notificationConfig instanceof WebPushConfig) {
+            $message = $message->withWebPushConfig($notificationConfig);
+        }
+
         try {
-            $message = CloudMessage::fromArray([
-                'data' => $data,
-                'notification' => $notification
-            ]);
-
-            if ($notificationConfig instanceof AndroidConfig) {
-                $message = $message->withAndroidConfig($notificationConfig);
-            } else if ($notificationConfig instanceof ApnsConfig) {
-                $message = $message->withApnsConfig($notificationConfig);
-            } else if ($notificationConfig instanceof WebPushConfig) {
-                $message = $message->withWebPushConfig($notificationConfig);
-            }
-
             Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
 
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
