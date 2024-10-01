@@ -68,7 +68,7 @@
 
                     @if (isset($form->country_id))
                         <div class="col-span-1">
-                            <x-input.label :value="__('City')" for="name" required/>
+                            <x-input.label :value="__('City')" for="city" required/>
                             <x-select
                                 class="w-full"
                                 placeholder="Select Shop City"

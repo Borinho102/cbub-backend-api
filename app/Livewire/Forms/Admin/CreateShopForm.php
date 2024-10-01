@@ -26,6 +26,9 @@ class CreateShopForm extends Form
     #[Validate('required|exists:world_countries,id', 'country')]
     public $country_id;
 
+    #[Validate('required|exists:world_cities,id', 'city')]
+    public $city_id;
+
     #[Validate('required')]
     public $phone;
 
@@ -80,6 +83,8 @@ class CreateShopForm extends Form
         $this->business_id = $shop->business_id;
 
         $this->country_id = $shop->country_id;
+
+        $this->city_id = $shop->city_id;
 
         $this->address = $shop->address;
 
