@@ -47,7 +47,7 @@
                             class="w-full"
                             :label="__('Notification Type')"
                             placeholder="Select type"
-                            wire:model.blur="form.type"
+                            wire:model.live="form.type"
                             :options="$types"
                             option-value="id"
                             option-label="name"

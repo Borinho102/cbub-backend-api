@@ -5,7 +5,6 @@ namespace App\Channels;
 use App\Models\User;
 use App\Services\Firebase\FCMService;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 
 class FirebaseChannel
 {
@@ -16,12 +15,22 @@ class FirebaseChannel
     {
         if (method_exists($notification, 'toFirebase')) {
             $data = $notification->toFirebase($notifiable);
+            $tokens = $this->getDeviceTokens($notifiable);
 
-            (new FCMService)->sendToMultiple(
-                $this->getDeviceTokens($notifiable),
-                $data['notification'],
-                $data['data']
-            );
+            if (count($tokens) === 1) {
+                (new FCMService)->sendNotification(
+                    $tokens[0],
+                    null,
+                    $data['notification'],
+                    $data['data']
+                );
+            } else {
+                (new FCMService)->sendToMultiple(
+                    $this->getDeviceTokens($notifiable),
+                    $data['notification'],
+                    $data['data']
+                );
+            }
         }
     }
 

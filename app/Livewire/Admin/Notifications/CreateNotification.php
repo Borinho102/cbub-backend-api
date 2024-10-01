@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Notifications;
 
+use App\Enums\NotificationType;
 use App\Jobs\BroadcastNotificationJob;
 use App\Livewire\Forms\Admin\CreateNotificationForm;
 use Livewire\Attributes\Layout;
@@ -12,7 +13,7 @@ use Livewire\WithFileUploads;
 class CreateNotification extends Component
 {
     use WithFileUploads;
-    
+
     public CreateNotificationForm $form;
 
     public function send()
@@ -28,6 +29,11 @@ class CreateNotification extends Component
 
     public function render()
     {
-        return view('livewire.admin.notifications.create');
+        return view('livewire.admin.notifications.create', [
+            'types' => collect(NotificationType::asSelectArray())
+                ->transform(function ($name, $id) {
+                    return ['id' => $id, 'name' => $name];
+                })
+        ]);
     }
 }

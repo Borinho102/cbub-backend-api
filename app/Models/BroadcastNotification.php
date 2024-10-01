@@ -12,7 +12,11 @@ class BroadcastNotification extends Model
 {
     use HasFactory, HasTranslations;
 
-    public $translatable = ['title', 'body', 'image'];
+    public $translatable = [
+        'title',
+        'body',
+        'image'
+    ];
 
     protected $fillable = [
         'broadcaster_id', 'broadcaster_type',
