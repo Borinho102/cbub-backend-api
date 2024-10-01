@@ -48,10 +48,11 @@ class FCMService
             Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
 
             $response = $this->messaging->send($message);
+
             Log::info('RESPONSE: ' . json_encode($response, true));
         } catch (MessagingException $e) {
             Log::error('MESSAGING EXCEPTION (MESSAGE): ' . $e->getMessage());
-            Log::error('MESSAGING EXCEPTION (ERRORS): ' . $e->errors());
+            Log::error('MESSAGING EXCEPTION (ERRORS): ', $e->errors());
         } catch (FirebaseException $e) {
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
         } catch (InvalidArgumentException $e) {
@@ -92,7 +93,7 @@ class FCMService
             }));
         } catch (MessagingException $e) {
             Log::error('MESSAGING EXCEPTION (MESSAGE): ' . $e->getMessage());
-            Log::error('MESSAGING EXCEPTION (ERRORS): ' . $e->errors());
+            Log::error('MESSAGING EXCEPTION (ERRORS): ', $e->errors());
         } catch (FirebaseException $e) {
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
         } catch (InvalidArgumentException $e) {
