@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Forms\Admin;
 
+use App\Enums\NotificationType;
 use App\Models\BroadcastNotification;
+use BenSampo\Enum\Rules\EnumValue;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -35,24 +37,40 @@ class CreateNotificationForm extends Form
     #[Validate('nullable|exists:users,id')]
     public $users = [];
 
+    #[Validate('nullable|exists:products,id')]
+    public $product;
+
+    #[Validate('nullable|exists:promo_codes,id')]
+    public $promo_code;
+
+    #[Validate('required|' . new EnumValue(NotificationType::class))]
+    public $type = NotificationType::Default;
+
     public function store()
     {
         $this->validate();
 
         $images = [];
         if ($this->image_en) {
-            $path_en = $this->image_en->storePubliclyAs('notifications/images', now()->timestamp . '_en.' . $this->image_en->getClientOriginalExtension());
-            $path_fr = $this->image_fr->storePubliclyAs('notifications/images', now()->timestamp . '_fr.' . $this->image_fr->getClientOriginalExtension());
             $images = [
-                'en' => $path_en,
-                'fr' => $path_fr
+                'en' => $this->image_en->storePubliclyAs('notifications/images', now()->timestamp . '_en.' . $this->image_en->getClientOriginalExtension(), 'public'),
+                'fr' => $this->image_fr->storePubliclyAs('notifications/images', now()->timestamp . '_fr.' . $this->image_fr->getClientOriginalExtension(), 'public')
             ];
         }
 
         $user = auth()->user();
         $data = [];
+        
         if (!empty($this->users)) {
             $data['users'] = $this->users;
+        }
+
+        if (isset($this->product)) {
+            $data['product_id'] = $this->product;
+        }
+
+        if (isset($this->promo_code)) {
+            $data['promo_code_id'] = $this->promo_code;
         }
 
         $notification = BroadcastNotification::create([

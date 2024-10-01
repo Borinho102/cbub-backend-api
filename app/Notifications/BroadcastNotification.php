@@ -53,8 +53,8 @@ class BroadcastNotification extends Notification implements ShouldQueue
         ];
 
         if (!empty($image)) {
-            $data['notification']['image'] = $image;
-            $data['data']['image'] = $image;
+            $data['notification']['image'] = asset('storage/'. $image);
+            $data['data']['image'] = asset('storage/'. $image);
         }
 
         if (isset($this->notification->shop_id)) {

@@ -35,9 +35,14 @@ class FCMService
                 $message = $message->withApnsConfig($notificationConfig);
             } else if ($notificationConfig instanceof WebPushConfig) {
                 $message = $message->withWebPushConfig($notificationConfig);
-            } else {
-                $message = $message->withNotification($notification)
-                    ->withData($data);
+            }
+
+            if ($notification) {
+                $message = $message->withNotification($notification);
+            }
+
+            if ($data) {
+                $message = $message->withData($data);
             }
 
             Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
@@ -75,6 +80,8 @@ class FCMService
             Log::info('MESSAGING PAYLOAD: ' . json_encode($message->jsonSerialize(), true));
 
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
+
+            Log::debug('Device Tokens: ', [json_encode($deviceTokens)]);
 
             Log::debug('Successful sends: '. $report->successes()->count());
             Log::debug('Failed sends: '. $report->failures()->count());
