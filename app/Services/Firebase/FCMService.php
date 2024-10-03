@@ -11,6 +11,7 @@ use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\ApnsConfig;
 use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 use Kreait\Firebase\Messaging\SendReport;
 use Kreait\Firebase\Messaging\WebPushConfig;
 
@@ -27,7 +28,8 @@ class FCMService
         string $deviceToken, $notificationConfig = null, array $notification = null, array $data =  null
     ) {
         try {
-            $message = CloudMessage::withTarget('token', $deviceToken);
+            $message = CloudMessage::withTarget('token', $deviceToken)
+                ->withNotification(Notification::fromArray($notification));
 
             if ($notificationConfig instanceof AndroidConfig) {
                 $message = $message->withAndroidConfig($notificationConfig);
@@ -57,6 +59,8 @@ class FCMService
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
         } catch (InvalidArgumentException $e) {
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('FIREBASE EXCEPTION: ' . $e->getMessage());
         }
     }
 
@@ -98,6 +102,8 @@ class FCMService
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
         } catch (InvalidArgumentException $e) {
             Log::error('FIREBASE EXCEPTION MESSAGE: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            Log::error('FIREBASE EXCEPTION: ' . $e->getMessage());
         }
     }
 }
