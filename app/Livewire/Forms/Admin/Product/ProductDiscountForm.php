@@ -51,7 +51,6 @@ class ProductDiscountForm extends Form
             'price' => 'required|numeric|max:' . $product->price,
         ]);
 
-
         DB::beginTransaction();
 
         try {
@@ -65,6 +64,7 @@ class ProductDiscountForm extends Form
                 ]);
 
             ProductDiscount::create([
+                'product_type' => get_class($product),
                 'product_id' => $product->id,
                 'old_price' => $product->price,
                 'new_price' => $this->price,

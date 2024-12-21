@@ -26,7 +26,7 @@ class FirebaseChannel
                 );
             } else {
                 (new FCMService)->sendToMultiple(
-                    $this->getDeviceTokens($notifiable),
+                    $tokens,
                     $data['notification'],
                     $data['data']
                 );
