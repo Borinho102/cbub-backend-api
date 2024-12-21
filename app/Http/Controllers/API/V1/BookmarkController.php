@@ -17,7 +17,7 @@ class BookmarkController extends ApiController
     public function index(Request $request)
     {
         $bookmarks = Bookmark::query()
-            ->with('item')
+            ->with('item.model')
             ->where('user_id', auth('api')->user()->id)
             ->orderBy('created_at', 'desc')
             ->paginate(request('page_size', 10))
