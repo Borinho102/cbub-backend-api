@@ -86,7 +86,7 @@ class FCMService
 
             $report = $this->messaging->sendMulticast($message, $deviceTokens);
 
-            Log::debug('Device Tokens: ', [json_encode($deviceTokens)]);
+            Log::debug('Device Tokens: ', $deviceTokens);
 
             Log::debug('Successful sends: '. $report->successes()->count());
             Log::debug('Failed sends: '. $report->failures()->count());
