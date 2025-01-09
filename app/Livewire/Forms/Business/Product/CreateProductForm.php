@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms\Business\Product;
 
+use App\Enums\ProductType;
 use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Product;
@@ -65,7 +66,7 @@ class CreateProductForm extends Form
 
     public $items_count;
 
-    public $type;
+    public $type = ProductType::Physical;
 
     public function setProduct(Product $product)
     {
@@ -104,16 +105,15 @@ class CreateProductForm extends Form
     public function store()
     {
         $this->validate(array_merge($this->getRules(), [
-            'quantity' => 'required|integer',
-            'items_count' => 'nullable|integer'
+            'quantity' => 'required|integer'
         ]));
 
-        $shop = Shop::find($this->parentProduct ? $this->parentProduct->shop_id : $this->shop_id);
+        $shop = Shop::find($this->shop_id);
 
         $product = Product::create([
             ...$this->only([
-                'price', 'shop_id', 'parent_id', 'type',
-                'sku', 'quantity', 'tags', 'items_count'
+                'price', 'shop_id', 'category_id',
+                'sku', 'quantity', 'tags', 'type'
             ]),
             'business_id' => $shop->business_id,
             'category_id' => $this->category_id,
@@ -171,8 +171,6 @@ class CreateProductForm extends Form
 
     public function update()
     {
-        $shop = Shop::find($this->shop_id);
-
         $this->product->update([
             ...$this->only([
                 'price', 'shop_id', 'tags', 'type',

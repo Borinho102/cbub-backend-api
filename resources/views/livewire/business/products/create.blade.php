@@ -35,7 +35,7 @@
             <div class="w-full flex flex-col md:flex-row justify-between mt-6">
                 <x-form-section submit="save">
                     <div class="w-full grid items-center gap-5 grid-cols-1 md:grid-cols-2">
-                        <div class="col-span-2">
+                        {{-- <div class="col-span-2">
                             <x-input.label :value="__('Parent Product')" for="form.parent_id"/>
                             <x-select
                                 class="w-full"
@@ -45,7 +45,7 @@
                                 option-label="name"
                                 :async-data="route('misc.search.products')"
                             />
-                        </div>
+                        </div> --}}
 
                         <div>
                             <x-input.label :value="__('Name (English)')" for="name_en" required/>

@@ -25,7 +25,7 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'name', 'description', 'short_description', 'slug', 'type',
         'sku', 'quantity', 'price', 'is_active', 'sku', 'weight',
-        'is_available', 'category_id', 'business_id', 'tags',
+        'is_available', 'category_id', 'business_id', 'tags', 'shop_id',
         'video_link', 'video_provider', 'data', 'refundable',
         'free_shipping', 'min_purchase_quantity', 'barcode', 'parent_id'
     ];
