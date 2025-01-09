@@ -71,7 +71,7 @@
                         <x-select
                             class="w-full"
                             placeholder="Select Business Country"
-                            wire:model.blur="form.country_id"
+                            wire:model="form.country_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.countries')"
