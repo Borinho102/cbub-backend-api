@@ -31,7 +31,7 @@ class CreateProductForm extends Form
     #[Validate('required|exists:product_categories,id', 'Category')]
     public $category_id;
 
-    #[Validate('required|exists:products,id,parent_id,NULL', 'Parent Product')]
+    #[Validate('nullable|exists:products,id,parent_id,NULL', 'Parent Product')]
     public $parent_id;
 
     #[Validate('required')]
