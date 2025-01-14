@@ -27,7 +27,7 @@ class MiscellaneousController extends Controller
     {
         $query = $request->get('search');
         $selected = $request->get('selected', []);
-        
+
         $countries = Country::active()
             ->when($query, function ($q) use ($query) {
                 $q->where('name', 'like', '%' . $query . '%')
@@ -346,7 +346,7 @@ class MiscellaneousController extends Controller
 
         $data = Business::query()
             ->select('id', 'name')
-            ->when($query != null, function ($q) use ($query) {
+            ->when($query !== null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
             })
             ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
@@ -372,14 +372,18 @@ class MiscellaneousController extends Controller
     public function searchShops(Request $request)
     {
         $query = $request->get('search');
+        $selected = $request->get('selected', []);
         $business = request('business');
         $shop = request('shop');
         $guard = appGuard();
 
         $data = Shop::query()
             ->select('id', 'name')
-            ->when($query != null, function ($q) use ($query) {
+            ->when($query !== null, function ($q) use ($query) {
                 $q->where('name', 'like', "%$query%");
+            })
+            ->when(is_array($selected) && !empty($selected), function ($q) use ($selected) {
+                $q->whereIn('id', $selected);
             })
             ->when(true, function ($q) use ($guard, $business, $shop) {
                 if ($guard === 'business') {

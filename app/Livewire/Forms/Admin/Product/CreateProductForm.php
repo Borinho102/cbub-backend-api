@@ -20,7 +20,7 @@ class CreateProductForm extends Form
     #[Validate('required|min:5')]
     public $name_en;
 
-    #[Validate('required|min:5')]
+    #[Validate('nullable|min:5')]
     public $name_fr;
 
     #[Validate('nullable|unique:products,sku')]
@@ -35,16 +35,16 @@ class CreateProductForm extends Form
     #[Validate('nullable|exists:products,id,parent_id,NULL', 'Parent Product')]
     public $parent_id;
 
-    #[Validate('required')]
+    #[Validate('required|string|min:5')]
     public $short_description_en;
 
-    #[Validate('required')]
+    #[Validate('nullable|string|min:5')]
     public $short_description_fr;
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable|string|min:10')]
     public $description_en;
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable|string|min:10')]
     public $description_fr;
 
     #[Validate('required|numeric')]
@@ -119,15 +119,17 @@ class CreateProductForm extends Form
             'business_id' => $shop->business_id,
             'name' => [
                 'en' => $this->name_en,
-                'fr' => $this->name_fr
+                'fr' => $this->name_fr ?: $this->name_en
             ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
-                'fr' => generateProductSlugFr($this->name_fr)
+                'fr' => generateProductSlugFr(
+                    $this->name_fr ?: $this->name_en
+                )
             ],
             'short_description' => [
                 'en' => $this->short_description_en,
-                'fr' => $this->short_description_fr,
+                'fr' => $this->short_description_fr ?: $this->short_description_en,
             ],
             'description' => [
                 'en' => $this->description_en,
@@ -171,23 +173,28 @@ class CreateProductForm extends Form
 
     public function update()
     {
+        $shop = Shop::find($this->shop_id);
+
         $this->product->update([
             ...$this->only([
                 'price', 'shop_id', 'tags', 'type',
                 'category_id', 'sku', 'items_count'
             ]),
+            'business_id' => $shop->business_id,
             'category_id' => $this->category_id,
             'name' => [
                 'en' => $this->name_en,
-                'fr' => $this->name_fr
+                'fr' => $this->name_fr ?: $this->name_en
             ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
-                'fr' => generateProductSlugFr($this->name_fr)
+                'fr' => generateProductSlugFr(
+                    $this->name_fr ?: $this->name_en
+                )
             ],
             'short_description' => [
                 'en' => $this->short_description_en,
-                'fr' => $this->short_description_fr
+                'fr' => $this->short_description_fr ?: $this->short_description_en,
             ],
             'description' => [
                 'en' => $this->description_en,

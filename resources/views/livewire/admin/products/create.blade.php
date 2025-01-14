@@ -53,7 +53,7 @@
                         </div>
 
                         <div>
-                            <x-input.label :value="__('Name (French)')" for="name_fr" required/>
+                            <x-input.label :value="__('Name (French)')" for="name_fr"/>
                             <x-input.text wire:model.blur="form.name_fr" name="form.name_fr" id="name_fr" type="text"/>
                         </div>
 
@@ -114,7 +114,7 @@
                         </div>
 
                         <div>
-                            <x-input.label :value="__('Short Description (French)')" for="short_description_fr" required/>
+                            <x-input.label :value="__('Short Description (French)')" for="short_description_fr"/>
                             <x-input.textarea wire:model.blur="form.short_description_fr" name="form.short_description_fr" id="short_description_fr" rows="3" cols="12"></x-input.textarea>
                         </div>
 
