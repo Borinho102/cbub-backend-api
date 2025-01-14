@@ -131,7 +131,6 @@ if (!function_exists('generateUserCode')) {
     }
 }
 
-
 if (!function_exists('getPhoneNumberProvider'))
 {
     function getPhoneNumberProvider($phone_number) : string
@@ -159,13 +158,13 @@ if (!function_exists('generateProductCategoryCode')) {
      */
     function generateProductCategoryCode(string $name, $except = null): string
     {
-        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $code = Str::upper(Str::slug($name));
         $exists = ProductCategory::when($except, function ($q) use ($except) {
             $q->where('code', '!=', $except);
         })->whereCode($code)->exists();
 
         while ($exists) {
-            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+            $code = Str::slug($name) . Str::random(4);
         }
 
         return $code;
@@ -180,13 +179,13 @@ if (!function_exists('generateBusinessCategoryCode')) {
      */
     function generateBusinessCategoryCode(string $name, $except = null): string
     {
-        $code = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $code = Str::upper(Str::slug($name));
         $exists = BusinessCategory::when($except, function ($q) use ($except) {
             $q->where('code', '!=', $except);
         })->whereCode($code)->exists();
 
         while ($exists) {
-            $code = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+            $code = Str::slug($name) . Str::random(4);
         }
 
         return $code;
@@ -201,13 +200,13 @@ if (!function_exists('generateProductSlugEn')) {
      */
     function generateProductSlugEn(string $name, $except = null): string
     {
-        $slug = Str::lower(Str::slug(Str::substr($name, 0, 10)));
+        $slug = Str::lower(Str::slug($name));
         $exists = Product::when($except, function ($q) use ($except) {
             $q->where('slug->en', '!=', $except);
         })->whereSlug($slug)->exists();
 
         while ($exists) {
-            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+            $slug = Str::slug($name) . Str::random(4);
         }
 
         return $slug;
@@ -222,13 +221,13 @@ if (!function_exists('generateProductSlugFr')) {
      */
     function generateProductSlugFr(string $name, $except = null): string
     {
-        $slug = Str::upper(Str::slug(Str::substr($name, 0, 10)));
+        $slug = Str::upper(Str::slug($name));
         $exists = Product::when($except, function ($q) use ($except) {
             $q->where('slug->fr', '!=', $except);
         })->whereSlug($slug)->exists();
 
         while ($exists) {
-            $slug = Str::slug(Str::substr($name, 0, 10)) . Str::random(4);
+            $slug = Str::slug($name) . Str::random(4);
         }
 
         return $slug;
