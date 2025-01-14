@@ -26,10 +26,6 @@ class CreateProduct extends Component
 
         $this->showForm = true;
     }
-    public function updatedFormShortDescriptionEn()
-    {
-        $this->form->short_description_fr = $this->form->short_description_en;
-    }
 
     public function updatedProductType()
     {
@@ -47,16 +43,6 @@ class CreateProduct extends Component
     {
         $this->form->parent_id = $this->form->parent_id;
         $this->form->setParentProduct(Product::find($this->form->parent_id));
-    }
-
-    public function updatedFormDescriptionEn()
-    {
-        $this->form->description_fr = $this->form->description_en;
-    }
-
-    public function updatedFormNameEn()
-    {
-        $this->form->name_fr = $this->form->name_en;
     }
 
     public function showForm()

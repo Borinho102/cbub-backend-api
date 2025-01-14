@@ -1,0 +1,9 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "shop.cbub",
+      "sha256_cert_fingerprints":
+      ["08:A6:10:D1:0F:46:CA:4B:ED:F8:F3:CB:E3:EF:DB:2D:B5:B2:1F:1D:4B:4D:E6:C7:C9:6C:AE:CC:19:5F:68:DB"]
+    }
+  }]
