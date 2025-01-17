@@ -40,7 +40,7 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
         $product = Product::query()
             ->withCount('reviews')
@@ -50,7 +50,11 @@ class ProductController extends ApiController
                 'media', 'shop.media'
             ])
             ->withAverageRating()
-            ->findOrFail($id);
+            ->where(function ($q) use ($id) {
+                $q->where('id', $id)
+                    ->orWhere('slug', $id);
+            })
+            ->firstOrFail();
 
         return $this->successfulResponse(
             ProductResource::make($product),
