@@ -52,13 +52,13 @@ class ShopController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(string $id)
     {
         $shop = Shop::query()
             ->with('media')
             ->when($with = request('with'), function ($q) use ($with) {
                 foreach (explode(',', $with) as $relationship) {
-                    if ($relationship == 'popularProducts') {
+                    if ($relationship === 'popularProducts') {
                         $q->with('popularProducts.active_discount');
                     } else {
                         $q->with($relationship);
@@ -68,7 +68,11 @@ class ShopController extends ApiController
             ->withCount('reviews')
             ->withBookmarkedColumn()
             ->withAverageRating()
-            ->findOrFail($id);
+            ->where(function ($q) use ($id) {
+                $q->where('id', $id)
+                    ->orWhere('slug', $id);
+            })
+            ->firstFail();
 
         return $this->successfulResponse(
             ShopResource::make($shop),
