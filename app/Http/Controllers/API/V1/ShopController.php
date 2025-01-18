@@ -72,7 +72,7 @@ class ShopController extends ApiController
                 $q->where('id', $id)
                     ->orWhere('slug', $id);
             })
-            ->firstFail();
+            ->firstOrFail();
 
         return $this->successfulResponse(
             ShopResource::make($shop),

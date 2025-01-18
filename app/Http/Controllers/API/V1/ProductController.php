@@ -52,7 +52,8 @@ class ProductController extends ApiController
             ->withAverageRating()
             ->where(function ($q) use ($id) {
                 $q->where('id', $id)
-                    ->orWhere('slug', $id);
+                    ->orWhere('slug->en', $id)
+                    ->orWhere('slug->fr', $id);
             })
             ->firstOrFail();
 
