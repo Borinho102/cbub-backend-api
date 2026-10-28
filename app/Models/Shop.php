@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use MatanYadaev\EloquentSpatial\Objects\Point;
 use MatanYadaev\EloquentSpatial\Objects\Polygon;
 use MatanYadaev\EloquentSpatial\Traits\HasSpatial;
@@ -20,6 +21,7 @@ class Shop extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use HasSpatial;
+    use SoftDeletes;
 
     protected $fillable = [
         'name', 'phone', 'country_id', 'city_id', 'business_id',
