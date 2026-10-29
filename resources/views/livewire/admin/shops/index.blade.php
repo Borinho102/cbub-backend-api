@@ -105,8 +105,15 @@
                                     </ul>
                                 </div>
                                 <!-- Card footer -->
-                                <div>
-                                    <a class="btn-sm w-full bg-indigo-500 hover:bg-indigo-600 text-white" wire:navigate href="{{ route('admin.shops.edit', $shop->id) }}">Edit</a>
+                                <div class="flex gap-2">
+                                    <a class="btn-sm flex-1 bg-indigo-500 hover:bg-indigo-600 text-white text-center" wire:navigate href="{{ route('admin.shops.edit', $shop->id) }}">{{ __('Edit') }}</a>
+                                    <button
+                                        type="button"
+                                        wire:click="confirmDelete({{ $shop->id }})"
+                                        class="btn-sm flex-1 bg-rose-500 hover:bg-rose-600 text-white"
+                                    >
+                                        {{ __('Delete') }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -119,6 +126,34 @@
         <div class="mt-8">
             {{ $shops->links() }}
         </div>
+
+        <x-modal.confirmation name="delete-shop-modal" maxWidth="md" focusable>
+            <x-slot name="title">
+                {{ __('Delete shop') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete :name? The shop will no longer be visible in the app.', ['name' => $shopToDeleteName ?: __('this shop')]) }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <button
+                    type="button"
+                    wire:click="cancelDelete"
+                    class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300 mr-2"
+                >
+                    {{ __('Cancel') }}
+                </button>
+                <button
+                    type="button"
+                    wire:click="deleteShop"
+                    wire:loading.attr="disabled"
+                    class="btn bg-rose-500 hover:bg-rose-600 text-white"
+                >
+                    {{ __('Delete') }}
+                </button>
+            </x-slot>
+        </x-modal.confirmation>
     </div>
 
     <script>

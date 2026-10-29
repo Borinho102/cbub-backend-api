@@ -89,8 +89,9 @@
                 }, notify.timeout )
             }
         </script>
-        @wireUiScripts
+
         @livewireScripts
+        @wireUiScripts
         @stack('scripts')
     </body>
 </html>
