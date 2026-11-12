@@ -56,21 +56,21 @@
 
                     <div class="col-span-1">
                         <x-input.label :value="__('Role')" for="roles" required/>
-                        <x-input.select wire:change="form.roles" wire:model="form.roles" name="form.roles" id="roles">
-                            <option>{{ __('Select Role') }}</option>
+                        <x-input.select wire:model="form.roles" name="form.roles" id="roles" multiple>
+                            <option value="">{{ __('Select Role(s)') }}</option>
                             @foreach ($roles as $role)
-                                <option wire:key="role-{{ $role->id }}" :value="{{ $role->id }}" @if (in_array($role->id, $form->roles)) selected @endif>{{ $role->display_name }}</option>
+                                <option wire:key="role-{{ $role->id }}" value="{{ $role->id }}" @selected(in_array($role->id, $form->roles))>{{ $role->display_name }}</option>
                             @endforeach
                         </x-input.select>
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Associated Shops')" for="form.shop_id" required/>
+                        <x-input.label :value="__('Associated Shops')" for="form.shops" required/>
                         <x-select
                             class="w-full"
                             :placeholder="__('Select Shop(s)')"
                             multiple
-                            wire:model="form.shop_id"
+                            wire:model="form.shops"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.shops')"
@@ -95,7 +95,7 @@
                         {{ __('Clear') }}
                     </x-button.danger>
 
-                    @isset ($this->form->category)
+                    @isset ($this->form->user)
                         <x-button.default type="submit">
                             <div wire:loading>
                                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@
                             {{ __('Create') }}
                         </x-button.primary>
                     @endisset
-                <div>
+                </div>
             </x-form-section>
         </div>
     </div>
