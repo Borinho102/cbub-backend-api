@@ -11,7 +11,7 @@ class CreateUserForm extends Form
 {
     public ?BusinessUser $user;
 
-    #[Validate('required|min:4|unique:promo_codes,code')]
+    #[Validate('required|min:4')]
     public $name;
 
     #[Validate('required|email')]
@@ -58,13 +58,13 @@ class CreateUserForm extends Form
     {
         $this->validate();
 
-        $user = auth()->user();
+        $authUser = auth()->user();
 
         $user = BusinessUser::create([
-            ...$this->except('user', 'permissions', 'roles'),
-            'business_id' => $user->id,
-            'city_id' => $user->city_id,
-            'country_id' => $user->city_id,
+            ...$this->except('user', 'permissions', 'roles', 'shops', 'profile_picture'),
+            'business_id' => $authUser->business_id,
+            'city_id' => $authUser->city_id,
+            'country_id' => $authUser->country_id,
             'username' => generateUsername(new BusinessUser, explode('@', $this->email)[0]),
             'password' => bcrypt(Str::random(10))
         ]);
