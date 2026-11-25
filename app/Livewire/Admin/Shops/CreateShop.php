@@ -16,7 +16,9 @@ class CreateShop extends Component
 
     public function save()
     {
-        $this->form->store();
+        if (! $this->form->store()) {
+            return;
+        }
 
         notify()->success(__('Shop successfully created!'));
 

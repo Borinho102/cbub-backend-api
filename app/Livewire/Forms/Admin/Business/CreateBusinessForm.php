@@ -71,7 +71,7 @@ class CreateBusinessForm extends Form
         $this->about = $business->about;
     }
 
-    public function store()
+    public function store(): bool
     {
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:businesses,email',
@@ -79,16 +79,20 @@ class CreateBusinessForm extends Form
             'banners.*' => 'image|max:5120',
             'logo' => 'required|image|max:5120', // 5MB
             'owner_name' => 'required',
-            'owner_email' => 'required|unique:business_users,email',
+            'owner_email' => 'required|email|unique:business_users,email',
             'owner_phone' => 'required|unique:business_users,phone',
             'owner_address' => 'nullable|string',
         ]));
+
+        $owner = null;
+        $invitation = null;
 
         DB::beginTransaction();
 
         try {
             $business = Business::create([
                 ...$this->except('business', 'logo', 'banners', 'owner_name', 'owner_email', 'owner_phone', 'owner_address'),
+                'number_of_shops' => 0,
                 'slug' => generateBusinessSlug(
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
@@ -113,7 +117,7 @@ class CreateBusinessForm extends Form
                 'phone' => $this->owner_phone,
                 'address' => $this->owner_address,
                 'country_id' => $this->country_id,
-                'password' => bcrypt(Str::random(12)),
+                'password' => Str::random(12),
                 'username' => generateUsername(new BusinessUser, explode('@', $this->owner_email)[0]),
                 'business_id' => $business->id
             ]);
@@ -130,16 +134,26 @@ class CreateBusinessForm extends Form
             ]);
 
             DB::commit();
-
-            $owner->notify(new BusinessInvitation($invitation));
-
-            notify()->success(__('Business successfully created!'));
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            report($e);
+            notify()->error(__('Failed to create business. Please try again.'));
+
+            return false;
         }
 
+        try {
+            $owner->notifyNow(new BusinessInvitation($invitation));
+        } catch (\Throwable $e) {
+            report($e);
+            notify()->error(__('Business created, but the password setup email could not be sent.'));
+        }
+
+        notify()->success(__('Business successfully created!'));
+
         $this->reset();
+
+        return true;
     }
 
     public function update()

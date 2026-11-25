@@ -141,12 +141,12 @@
                         <div class="col-span-1">
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->image }}" name="image_preview" id="image_preview"/>
-                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x:input.file wire:model="form.image" name="form.image" id="image"/>
                         </div>
                     @else
                         <div class="col-span-1">
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x:input.file wire:model="form.image" name="form.image" id="image"/>
                         </div>
                     @endif
 
@@ -154,12 +154,12 @@
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->logo }}" name="logo_preview" id="logo_preview"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @else
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @endif
 
@@ -206,7 +206,7 @@
                                 {{ __('Create') }}
                             </x-button.primary>
                         @endisset
-                    <div>
+                    </div>
                 </div>
             </x-form-section>
         </div>

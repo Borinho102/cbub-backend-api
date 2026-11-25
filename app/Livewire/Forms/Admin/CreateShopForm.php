@@ -2,10 +2,15 @@
 
 namespace App\Livewire\Forms\Admin;
 
+use App\Models\Admin;
+use App\Models\Business;
 use App\Models\BusinessUser;
 use App\Models\Country;
+use App\Models\Invitation;
 use App\Models\Shop;
+use App\Notifications\BusinessInvitation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -127,7 +132,7 @@ class CreateShopForm extends Form
             ];
     }
 
-    public function store()
+    public function store(): bool
     {
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:shops,email',
@@ -137,6 +142,8 @@ class CreateShopForm extends Form
             'logo' => 'required|image|max:5120', // 5MB
             'image' => 'required|image|max:5120', // 5MB
         ]));
+
+        $business_owner = null;
 
         DB::beginTransaction();
 
@@ -176,13 +183,51 @@ class CreateShopForm extends Form
                     ->toMediaCollection('banners');
             }
 
+            Business::whereKey($this->business_id)->increment('number_of_shops');
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            report($e);
+            notify()->error(__('Failed to create shop. Please try again.'));
+
+            return false;
         }
 
+        $this->sendPasswordSetupInvitation($business_owner);
+
         $this->reset();
+
+        return true;
+    }
+
+    protected function sendPasswordSetupInvitation(BusinessUser $owner): void
+    {
+        if (! is_null($owner->email_verified_at)) {
+            return;
+        }
+
+        try {
+            Invitation::query()
+                ->where('invitee_id', $owner->id)
+                ->where('invitee_type', BusinessUser::class)
+                ->whereNull('accepted_at')
+                ->delete();
+
+            $invitation = Invitation::create([
+                'invitee_id' => $owner->id,
+                'invitee_type' => BusinessUser::class,
+                'invitor_id' => auth('admins')->user()->id,
+                'invitor_type' => Admin::class,
+                'expires_at' => now()->addDays(2),
+                'token' => Str::random(64),
+            ]);
+
+            $owner->notifyNow(new BusinessInvitation($invitation));
+        } catch (\Throwable $e) {
+            report($e);
+            notify()->error(__('Shop created, but the password setup email could not be sent.'));
+        }
     }
 
     public function update()
