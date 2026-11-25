@@ -55,27 +55,31 @@
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Business Category')" for="name" required/>
+                        <x-input.label :value="__('Business Category')" for="category_id" required/>
                         <x-select
                             class="w-full"
                             placeholder="Select Business Category"
                             wire:model="form.category_id"
+                            name="form.category_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.business_categories')"
                         />
+                        @error('form.category_id') <x-input.error :message="$message" /> @enderror
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Country')" for="name" required/>
+                        <x-input.label :value="__('Country')" for="country_id" required/>
                         <x-select
                             class="w-full"
                             placeholder="Select Business Country"
                             wire:model="form.country_id"
+                            name="form.country_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.countries')"
                         />
+                        @error('form.country_id') <x-input.error :message="$message" /> @enderror
                     </div>
 
                     <div class="col-span-3">
@@ -87,12 +91,12 @@
                         <div class="col-span-3">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
                             <x:input.image initialImage="{{ $this->form->business->logo }}" name="logo_preview" id="logo_preview"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @else
                         <div class="col-span-3">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->business) }}"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
                         </div>
                     @endif
 
@@ -111,7 +115,7 @@
 
                         <div>
                             <x-input.label :value="__('Owner Phone')" for="owner_phone" required/>
-                            <x-input.text wire:model.blur="form.owner_phone" id="owner_email" name="form.owner_email" type="text"/>
+                            <x-input.text wire:model.blur="form.owner_phone" id="owner_phone" name="form.owner_phone" type="text"/>
                         </div>
 
                         <div>
@@ -136,8 +140,8 @@
                                 {{ __('Update') }}
                             </x-button.primary>
                         @else
-                            <x-button.primary type="submit">
-                                <div wire:loading wire:target="save">
+                            <x-button.primary type="submit" wire:loading.attr="disabled" wire:target="save,form.logo">
+                                <div wire:loading wire:target="save,form.logo">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -146,7 +150,7 @@
                                 {{ __('Create') }}
                             </x-button.primary>
                         @endisset
-                    <div>
+                    </div>
                 </div>
             </x-form-section>
         </div>
