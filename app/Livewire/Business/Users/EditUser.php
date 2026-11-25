@@ -35,10 +35,12 @@ class EditUser extends Component
             ->active()->get();
 
         $this->roles = Role::select('id', 'name', 'display_name')
-            ->whereIn('name', ['admin', 'owner'])->get();
+            ->whereIn('name', ['business_admin', 'business_owner', 'business_member'])->get();
 
         $this->permissions = Permission::select('id', 'name', 'display_name')
-            ->whereRoleIs(['admin', 'owner'])->get();
+            ->whereHas('roles', function ($q) {
+                $q->whereIn('name', ['business_admin', 'business_owner', 'business_member']);
+            })->get();
 
         $this->updatedFormCountryId();
     }

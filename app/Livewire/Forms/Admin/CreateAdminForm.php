@@ -93,7 +93,7 @@ class CreateAdminForm extends Form
             'token' => Str::random(64)
         ]);
 
-        $admin->notify(new AdminInvitation($invitation));
+        $admin->notifyNow(new AdminInvitation($invitation));
 
         $this->reset();
     }
