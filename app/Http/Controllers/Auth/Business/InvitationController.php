@@ -8,7 +8,6 @@ use App\Models\Invitation;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
@@ -36,7 +35,7 @@ class InvitationController extends Controller
 
         $invitation = Invitation::with('invitee')
             ->where('expires_at', '>', now())
-            ->where('invitor_type', BusinessUser::class)
+            ->where('invitee_type', BusinessUser::class)
             ->whereNull('accepted_at')
             ->where('token', $token)->firstOrFail();
 
@@ -45,7 +44,7 @@ class InvitationController extends Controller
         ]);
 
         $invitation->invitee->forceFill([
-            'password' => Hash::make($request->password),
+            'password' => $request->password,
             'remember_token' => Str::random(60),
             'email_verified_at' => now()
         ])->save();

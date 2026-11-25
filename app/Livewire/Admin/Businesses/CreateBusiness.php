@@ -16,7 +16,9 @@ class CreateBusiness extends Component
 
     public function save()
     {
-        $this->form->store();
+        if (! $this->form->store()) {
+            return;
+        }
 
         return $this->redirect(route('admin.businesses.index'));
     }
