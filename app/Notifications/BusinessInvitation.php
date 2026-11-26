@@ -4,20 +4,22 @@ namespace App\Notifications;
 
 use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 
-class BusinessInvitation extends Notification implements ShouldQueue
+class BusinessInvitation extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected Invitation $invitation) {}
+    public function __construct(protected Invitation $invitation)
+    {
+        $this->invitation->loadMissing(['invitee', 'invitor']);
+    }
 
     /**
      * Get the notification's delivery channels.
@@ -36,7 +38,7 @@ class BusinessInvitation extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject(Lang::get('Invitation to join Cbub'))
-            ->greeting(Lang::get('Hello :invitee', ['invitee' => $this->invitation->invitee->name] ))
+            ->greeting(Lang::get('Hello :invitee', ['invitee' => $this->invitation->invitee->name]))
             ->line(Lang::get(':invitor invites you to join Cbub as a business owner. Join now and start selling your products to our large and dynamic community.', [
                 'invitor' => $this->invitation->invitor->name
             ]))

@@ -82,15 +82,19 @@
                     </thead>
                     <!-- Table body -->
                         @foreach ($product_stocks as $key => $product_stock)
+                            @php
+                                $stockProduct = $product_stock->product;
+                                $stockAuthor = $product_stock->author;
+                            @endphp
                             <tbody class="text-sm" x-data="{ open: false }">
                                 <!-- Row -->
                                 <tr>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->product->thumbnail }}" alt="{{ $product_stock->product->name }}" />
+                                                <img class="rounded-full h-full w-full object-cover" src="{{ $stockProduct?->thumbnail ?? asset('images/product_placeholder.png') }}" alt="{{ $stockProduct?->name ?? __('Deleted product') }}" />
                                             </div>
-                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $product_stock->product->name }}</div>
+                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $stockProduct?->name ?? __('Deleted product') }}</div>
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -100,18 +104,20 @@
                                         <div class="text-center uppercase font-medium">{{ $product_stock->new_quantity }}</div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                        @if ($product_stock->type === \App\Enums\StockMovementType::In)
+                                        @if ($product_stock->type == \App\Enums\StockMovementType::In || $product_stock->type === 'in')
                                             <div class="text-center uppercase text-green-500 font-medium">{{ $product_stock->type }}</div>
-                                        @elseif ($product_stock->type === \App\Enums\StockMovementType::Out)
+                                        @elseif ($product_stock->type == \App\Enums\StockMovementType::Out || $product_stock->type === 'out')
                                             <div class="text-center uppercase text-red-500 font-medium">{{ $product_stock->type }}</div>
+                                        @else
+                                            <div class="text-center uppercase font-medium">{{ $product_stock->type }}</div>
                                         @endif
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                                <img class="rounded-full h-full w-full object-cover" src="{{ $product_stock->author->image ?? $product_stock->author->profile_picture }}" alt="{{ $product_stock->author->name }}" />
+                                                <img class="rounded-full h-full w-full object-cover" src="{{ $stockAuthor?->profile_picture ?? $stockAuthor?->image ?? asset('images/default_avatar.png') }}" alt="{{ $stockAuthor?->name ?? __('Unknown') }}" />
                                             </div>
-                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $product_stock->author->name }}</div>
+                                            <div class="font-medium text-slate-800 dark:text-slate-100">{{ $stockAuthor?->name ?? __('Unknown') }}</div>
                                         </div>
                                     </td>
                                     <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -151,7 +157,6 @@
                                 </tr>
                             </tbody>
                         @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>

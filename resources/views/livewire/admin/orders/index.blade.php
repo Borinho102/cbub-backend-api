@@ -102,9 +102,9 @@
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="flex items-center text-slate-800">
                                         <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-full mr-2 sm:mr-3">
-                                            <img class="ml-1 w-10 h-10 rounded-full" src="{{ $order->customer->image }}" alt="{{ $order->customer->name }}" />
+                                            <img class="ml-1 w-10 h-10 rounded-full" src="{{ $order->customer?->image ?? asset('images/default_avatar.png') }}" alt="{{ $order->customer?->name ?? __('Unknown') }}" />
                                         </div>
-                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $order->customer->name }}</div>
+                                        <div class="font-medium text-slate-800 dark:text-slate-100">{{ $order->customer?->name ?? __('Unknown customer') }}</div>
                                     </div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">

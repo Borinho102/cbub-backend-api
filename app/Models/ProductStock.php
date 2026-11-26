@@ -18,11 +18,11 @@ class ProductStock extends Model
 
     public function author(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function product(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 }
