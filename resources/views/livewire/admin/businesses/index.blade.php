@@ -118,7 +118,11 @@
                                                     <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
                                                 </svg>
                                             </a>
-                                            <button class="text-rose-500 hover:text-rose-600 rounded-full">
+                                            <button
+                                                type="button"
+                                                wire:click="confirmDelete({{ $business->id }})"
+                                                class="text-rose-500 hover:text-rose-600 rounded-full"
+                                            >
                                                 <span class="sr-only">Delete</span>
                                                 <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
                                                     <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
@@ -139,5 +143,33 @@
         <div class="mt-8">
             {{ $businesses->links() }}
         </div>
+
+        <x-modal.confirmation name="delete-business-modal" maxWidth="md" focusable>
+            <x-slot name="title">
+                {{ __('Delete business') }}
+            </x-slot>
+
+            <x-slot name="content">
+                {{ __('Are you sure you want to delete :name? Its shops will also be removed from the app.', ['name' => $businessToDeleteName ?: __('this business')]) }}
+            </x-slot>
+
+            <x-slot name="footer">
+                <button
+                    type="button"
+                    wire:click="cancelDelete"
+                    class="btn border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300 mr-2"
+                >
+                    {{ __('Cancel') }}
+                </button>
+                <button
+                    type="button"
+                    wire:click="deleteBusiness"
+                    wire:loading.attr="disabled"
+                    class="btn bg-rose-500 hover:bg-rose-600 text-white"
+                >
+                    {{ __('Delete') }}
+                </button>
+            </x-slot>
+        </x-modal.confirmation>
     </div>
 </div>
