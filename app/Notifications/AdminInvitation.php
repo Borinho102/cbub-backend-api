@@ -4,20 +4,22 @@ namespace App\Notifications;
 
 use App\Models\Invitation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 
-class AdminInvitation extends Notification implements ShouldQueue
+class AdminInvitation extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected Invitation $invitation) {}
+    public function __construct(protected Invitation $invitation)
+    {
+        $this->invitation->loadMissing(['invitee', 'invitor']);
+    }
 
     /**
      * Get the notification's delivery channels.

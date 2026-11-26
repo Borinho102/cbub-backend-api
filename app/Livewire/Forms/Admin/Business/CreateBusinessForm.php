@@ -99,14 +99,24 @@ class CreateBusinessForm extends Form
                 )
             ]);
 
+            $logoPath = $this->logo->getRealPath();
+            if (! $logoPath || ! is_file($logoPath)) {
+                throw new \RuntimeException('Logo upload is missing or expired. Please re-upload the logo.');
+            }
+
             $business
-                ->addMedia($this->logo->getRealPath())
+                ->addMedia($logoPath)
                 ->usingName($this->logo->getClientOriginalName())
                 ->toMediaCollection('logo');
 
             foreach ($this->banners as $banner) {
+                $bannerPath = $banner->getRealPath();
+                if (! $bannerPath || ! is_file($bannerPath)) {
+                    continue;
+                }
+
                 $business
-                    ->addMedia($banner->getRealPath())
+                    ->addMedia($bannerPath)
                     ->usingName($banner->getClientOriginalName())
                     ->toMediaCollection('banners');
             }
@@ -134,7 +144,7 @@ class CreateBusinessForm extends Form
             ]);
 
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
             report($e);
             notify()->error(__('Failed to create business. Please try again.'));
@@ -151,7 +161,11 @@ class CreateBusinessForm extends Form
 
         notify()->success(__('Business successfully created!'));
 
-        $this->reset();
+        try {
+            $this->reset();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         return true;
     }

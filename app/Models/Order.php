@@ -29,7 +29,7 @@ class Order extends Model
 
     public function customer(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function items(): HasMany

@@ -6,7 +6,6 @@ use App\Enums\ProductType;
 use App\Enums\StockMovementType;
 use App\Models\Admin;
 use App\Models\Product;
-use App\Models\ProductStock;
 use App\Models\Shop;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -156,14 +155,13 @@ class CreateProductForm extends Form
                 ->toMediaCollection('specifications');
         }
 
-        ProductStock::create([
+        $product->stocks()->create([
             'old_quantity' => 0,
             'new_quantity' => $product->quantity,
             'comment' => 'Initial stock',
-            'product_id' => $product->id,
             'type' => StockMovementType::In,
             'author_type' => Admin::class,
-            'author_id' => auth('admins')->user()->id
+            'author_id' => auth('admins')->id(),
         ]);
 
         $this->reset();

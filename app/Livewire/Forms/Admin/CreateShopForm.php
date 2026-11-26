@@ -166,19 +166,30 @@ class CreateShopForm extends Form
                 )
             ]);
 
+            $logoPath = $this->logo->getRealPath();
+            $imagePath = $this->image->getRealPath();
+            if (! $logoPath || ! is_file($logoPath) || ! $imagePath || ! is_file($imagePath)) {
+                throw new \RuntimeException('Image upload is missing or expired. Please re-upload the images.');
+            }
+
             $shop
-                ->addMedia($this->logo->getRealPath())
+                ->addMedia($logoPath)
                 ->usingName($this->logo->getClientOriginalName())
                 ->toMediaCollection('logo');
 
             $shop
-                ->addMedia($this->image->getRealPath())
+                ->addMedia($imagePath)
                 ->usingName($this->image->getClientOriginalName())
                 ->toMediaCollection('image');
 
             foreach ($this->banners as $banner) {
+                $bannerPath = $banner->getRealPath();
+                if (! $bannerPath || ! is_file($bannerPath)) {
+                    continue;
+                }
+
                 $shop
-                    ->addMedia($banner->getRealPath())
+                    ->addMedia($bannerPath)
                     ->usingName($banner->getClientOriginalName())
                     ->toMediaCollection('banners');
             }
@@ -186,7 +197,7 @@ class CreateShopForm extends Form
             Business::whereKey($this->business_id)->increment('number_of_shops');
 
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
             report($e);
             notify()->error(__('Failed to create shop. Please try again.'));
