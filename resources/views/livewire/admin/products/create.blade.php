@@ -88,10 +88,12 @@
                                     class="w-full"
                                     :placeholder="__('Select Category')"
                                     wire:model="form.category_id"
+                                    name="form.category_id"
                                     option-value="id"
                                     option-label="name"
                                     :async-data="route('misc.search.product_categories')"
                                 />
+                                @error('form.category_id') <x-input.error :message="$message" /> @enderror
                             </div>
 
                             <div class="col-span-1">
@@ -100,11 +102,13 @@
                                     class="w-full"
                                     :placeholder="__('Select Shop')"
                                     wire:model="form.shop_id"
+                                    name="form.shop_id"
                                     option-value="id"
                                     option-label="name"
                                     :async-data="route('misc.search.shops')"
                                     required
                                 />
+                                @error('form.shop_id') <x-input.error :message="$message" /> @enderror
                             </div>
                         @endif
 
@@ -146,12 +150,14 @@
                             <div class="col-span-2">
                                 <x-input.label :value="__('Thumbnail Image')" for="thumbnail" required="{{ !isset($this->form->product) }}"/>
                                 <x:input.image initialImage="{{ $this->form->product->thumbnail }}" name="thumbnail_preview" id="thumbnail_preview"/>
-                                <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                <x:input.file wire:model="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                @error('form.thumbnail') <x-input.error :message="$message" /> @enderror
                             </div>
                         @else
                             <div class="col-span-2">
                                 <x-input.label :value="__('Thumbnail Image')" for="thumbnail" required="{{ !isset($this->form->product) }}"/>
-                                <x:input.file wire:model.blur="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                <x:input.file wire:model="form.thumbnail" name="form.thumbnail" id="thumbnail"/>
+                                @error('form.thumbnail') <x-input.error :message="$message" /> @enderror
                             </div>
                         @endif
 
@@ -165,17 +171,18 @@
                                 @endforeach
                             </div>
                             <div class="col-span-2 -mt-4">
-                                <x:input.file multiple wire:model.blur="form.images" name="form.images" id="other_images"/>
+                                <x:input.file multiple wire:model="form.images" name="form.images" id="other_images"/>
                             </div>
                         @else
                             <div class="col-span-2">
                                 <x-input.label :value="__('Other Images')" for="other_images"/>
-                                <x:input.file multiple wire:model.blur="form.images" name="form.images" id="other_images"/>
+                                <x:input.file multiple wire:model="form.images" name="form.images" id="other_images"/>
                             </div>
                         @endif
                         <div class="col-span-1">
                             <x-input.label :value="__('Specifications')" for="form.specifications"/>
-                            <x:input.file wire:model.blur="form.specifications" name="form.specifications" id="specifications" accept="application/pdf"/>
+                            <x:input.file wire:model="form.specifications" name="form.specifications" id="specifications" accept="application/pdf"/>
+                            @error('form.specifications') <x-input.error :message="$message" /> @enderror
                         </div>
                     </div>
                     <div class="mt-4 flex flex-row justify-end gap-x-2 col-span-2">

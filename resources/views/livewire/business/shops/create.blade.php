@@ -55,28 +55,32 @@
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Country')" for="name" required/>
+                        <x-input.label :value="__('Country')" for="country_id" required/>
                         <x-select
                             class="w-full"
                             placeholder="Select Shop Country"
-                            wire:model.blur="form.country_id"
+                            wire:model="form.country_id"
+                            name="form.country_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.countries')"
                         />
+                        @error('form.country_id') <x-input.error :message="$message" /> @enderror
                     </div>
 
                     @if (isset($form->country_id))
                         <div class="col-span-1">
-                            <x-input.label :value="__('City')" for="city" required/>
+                            <x-input.label :value="__('City')" for="city_id" required/>
                             <x-select
                                 class="w-full"
                                 placeholder="Select Shop City"
                                 wire:model="form.city_id"
+                                name="form.city_id"
                                 option-value="id"
                                 option-label="name"
                                 :async-data="route('misc.search.countries.cities', $form->country_id)"
                             />
+                            @error('form.city_id') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 
@@ -119,12 +123,14 @@
                         <div class="col-span-1">
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->image }}" name="image_preview" id="image_preview"/>
-                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x:input.file wire:model="form.image" name="form.image" id="image"/>
+                            @error('form.image') <x-input.error :message="$message" /> @enderror
                         </div>
                     @else
                         <div class="col-span-1">
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.file wire:model.blur="form.image" name="form.image" id="image"/>
+                            <x:input.file wire:model="form.image" name="form.image" id="image"/>
+                            @error('form.image') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 
@@ -132,12 +138,14 @@
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->logo }}" name="logo_preview" id="logo_preview"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
+                            @error('form.logo') <x-input.error :message="$message" /> @enderror
                         </div>
                     @else
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
-                            <x:input.file wire:model.blur="form.logo" name="form.logo" id="logo"/>
+                            <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
+                            @error('form.logo') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 

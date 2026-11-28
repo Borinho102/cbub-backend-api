@@ -37,10 +37,10 @@ class CreateShopForm extends Form
     #[Validate('nullable|max:500')]
     public $about;
 
-    #[Validate('required_with:longitude|numeric')]
+    #[Validate('nullable|required_with:longitude|numeric')]
     public $latitude;
 
-    #[Validate('required_with:latitude|numeric')]
+    #[Validate('nullable|required_with:latitude|numeric')]
     public $longitude;
 
     #[Validate('nullable|url')]
@@ -74,7 +74,7 @@ class CreateShopForm extends Form
         'wednesday' => [null, null],
         'thursday' => [null, null],
         'friday' => [null, null],
-        'saturday' => [null, null]
+        'saturday' => [null, null],
     ];
 
     public function setShop(Shop $shop)
@@ -107,6 +107,11 @@ class CreateShopForm extends Form
 
         $this->youtube = $shop->youtube;
 
+        if ($shop->location) {
+            $this->latitude = $shop->location->latitude;
+            $this->longitude = $shop->location->longitude;
+        }
+
         $this->schedule = $shop->schedule ?
             collect($shop->schedule)
                 ->filter(function ($v) {
@@ -114,8 +119,8 @@ class CreateShopForm extends Form
                 })
                 ->map(function ($v) {
                     $parts = explode('-', $v[0]);
-                    $v = [$parts[0], $parts[1]];
-                    return $v;
+
+                    return [$parts[0], $parts[1]];
                 }) :
             [
                 'sunday' => [null, null],
@@ -124,19 +129,21 @@ class CreateShopForm extends Form
                 'wednesday' => [null, null],
                 'thursday' => [null, null],
                 'friday' => [null, null],
-                'saturday' => [null, null]
+                'saturday' => [null, null],
             ];
     }
 
-    public function store()
+    public function store(): bool
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:shops,email',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
+            'banners.*' => 'nullable|image|max:5120',
             'schedule' => 'nullable|array',
-            'logo' => 'required|image|max:5120', // 5MB
-            'image' => 'required|image|max:5120', // 5MB
+            'logo' => 'required|image|max:5120',
+            'image' => 'required|image|max:5120',
         ]));
 
         $user = auth()->user();
@@ -150,11 +157,11 @@ class CreateShopForm extends Form
                 ->firstOrFail();
 
             $schedule = collect($this->schedule)
-                ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
-                ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+                ->filter(fn ($v) => ! empty($v[0]) && ! empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+                ->map(fn ($v) => [$v[0].'-'.$v[1]]);
 
             $shop = Shop::create([
-                ...$this->except('shop', 'logo', 'banners', 'image', 'latitute', 'longitude', 'schedule'),
+                ...$this->except('shop', 'logo', 'banners', 'image', 'latitude', 'longitude', 'schedule'),
                 'owner_id' => $business_owner->id,
                 'business_id' => $user->business_id,
                 'schedule' => $schedule->isNotEmpty() ? $schedule : null,
@@ -162,45 +169,64 @@ class CreateShopForm extends Form
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
                 ),
-                'location' => $this->latitude ?
-                    new Point($this->latitude, $this->longitude) : null,
+                'location' => filled($this->latitude) && filled($this->longitude)
+                    ? new Point((float) $this->latitude, (float) $this->longitude)
+                    : null,
             ]);
 
+            $logoPath = $this->logo->getRealPath();
+            $imagePath = $this->image->getRealPath();
+            if (! $logoPath || ! is_file($logoPath) || ! $imagePath || ! is_file($imagePath)) {
+                throw new \RuntimeException('Image upload is missing or expired. Please re-upload the images.');
+            }
+
             $shop
-                ->addMedia($this->logo->getRealPath())
+                ->addMedia($logoPath)
                 ->usingName($this->logo->getClientOriginalName())
                 ->toMediaCollection('logo');
 
             $shop
-                ->addMedia($this->image->getRealPath())
+                ->addMedia($imagePath)
                 ->usingName($this->image->getClientOriginalName())
                 ->toMediaCollection('image');
 
             foreach ($this->banners as $banner) {
+                $bannerPath = $banner->getRealPath();
+                if (! $bannerPath || ! is_file($bannerPath)) {
+                    continue;
+                }
+
                 $shop
-                    ->addMedia($banner->getRealPath())
+                    ->addMedia($bannerPath)
                     ->usingName($banner->getClientOriginalName())
                     ->toMediaCollection('banners');
             }
 
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
-            throw $e;
+            report($e);
+            notify()->error(__('Failed to create shop. Please try again.'));
+
+            return false;
         }
 
         $this->reset();
+
+        return true;
     }
 
     public function update()
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
-            'email' => 'required|email|unique:shops,email,' . $this->shop->id . ',id',
+            'email' => 'required|email|unique:shops,email,'.$this->shop->id.',id',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
+            'banners.*' => 'nullable|image|max:5120',
             'schedule' => 'nullable|array',
-            'logo' => 'nullable|image|max:5120', // 5MB
-            'image' => 'nullable|image|max:5120' // 5MB
+            'logo' => 'nullable|image|max:5120',
+            'image' => 'nullable|image|max:5120',
         ]));
 
         $user = auth()->user();
@@ -211,15 +237,16 @@ class CreateShopForm extends Form
             ->firstOrFail();
 
         $schedule = collect($this->schedule)
-            ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
-            ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+            ->filter(fn ($v) => ! empty($v[0]) && ! empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+            ->map(fn ($v) => [$v[0].'-'.$v[1]]);
 
         $this->shop->update([
-            ...$this->except('logo', 'shop', 'banners', 'image', 'latitute', 'longitude', 'schedule'),
+            ...$this->except('logo', 'shop', 'banners', 'image', 'latitude', 'longitude', 'schedule'),
             'schedule' => $schedule->isNotEmpty() ? $schedule : null,
             'owner_id' => $business_owner->id,
-            'location' => $this->latitude ?
-                new Point($this->latitude, $this->longitude) : null,
+            'location' => filled($this->latitude) && filled($this->longitude)
+                ? new Point((float) $this->latitude, (float) $this->longitude)
+                : null,
         ]);
 
         if (! is_null($this->logo)) {
@@ -234,6 +261,22 @@ class CreateShopForm extends Form
                 ->addMedia($this->image->getRealPath())
                 ->usingName($this->image->getClientOriginalName())
                 ->toMediaCollection('image');
+        }
+    }
+
+    protected function normalizeOptionalFields(): void
+    {
+        foreach (['about', 'website', 'facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'latitude', 'longitude'] as $field) {
+            if ($this->{$field} === '' || $this->{$field} === false) {
+                $this->{$field} = null;
+            }
+        }
+
+        foreach ($this->schedule as $day => $hours) {
+            $this->schedule[$day] = [
+                ($hours[0] ?? null) === '' ? null : ($hours[0] ?? null),
+                ($hours[1] ?? null) === '' ? null : ($hours[1] ?? null),
+            ];
         }
     }
 }
