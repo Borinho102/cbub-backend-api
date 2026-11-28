@@ -27,7 +27,7 @@ class Shop extends Model implements HasMedia
         'name', 'phone', 'country_id', 'city_id', 'business_id',
         'address', 'slug', 'email', 'website', 'facebook',
         'twitter', 'instagram', 'linkedin', 'schedule',
-        'about', 'youtube', 'slug', 'phone_alt', 'owner_id'
+        'about', 'youtube', 'slug', 'phone_alt', 'owner_id', 'location',
     ];
 
     protected $casts = [

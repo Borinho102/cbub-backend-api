@@ -73,10 +73,12 @@ class CreateBusinessForm extends Form
 
     public function store(): bool
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:businesses,email',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
+            'banners.*' => 'nullable|image|max:5120',
             'logo' => 'required|image|max:5120', // 5MB
             'owner_name' => 'required',
             'owner_email' => 'required|email|unique:business_users,email',
@@ -172,15 +174,17 @@ class CreateBusinessForm extends Form
 
     public function update()
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:businesses,email,' . $this->business->id . ',id',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
-            'logo' => 'nullable|image|max:5120' // 5MB
+            'banners.*' => 'nullable|image|max:5120',
+            'logo' => 'nullable|image|max:5120', // 5MB
         ]));
 
         $this->business->update(
-            $this->except('logo', 'business', 'banners')
+            $this->except('logo', 'business', 'banners', 'owner_name', 'owner_email', 'owner_phone', 'owner_address')
         );
 
         if (! is_null($this->logo)) {
@@ -191,5 +195,14 @@ class CreateBusinessForm extends Form
         }
 
         notify()->success(__('Business successfully updated!'));
+    }
+
+    protected function normalizeOptionalFields(): void
+    {
+        foreach (['about', 'owner_address'] as $field) {
+            if ($this->{$field} === '' || $this->{$field} === false) {
+                $this->{$field} = null;
+            }
+        }
     }
 }

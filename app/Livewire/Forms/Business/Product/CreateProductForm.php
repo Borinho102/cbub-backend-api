@@ -52,13 +52,11 @@ class CreateProductForm extends Form
     #[Validate('required|image|max:2048')]
     public $thumbnail;
 
-    #[Validate('nullable|file|mines:pdf|max:5120')]
+    #[Validate('nullable|file|mimes:pdf|max:5120')]
     public $specifications;
 
-    #[Validate(['images.*' => 'image|max:5120'])] // 5MB Max
     public $images = [];
 
-    #[Validate(['nullable'])]
     public $tags = [];
 
     public $quantity;
@@ -101,94 +99,133 @@ class CreateProductForm extends Form
         $this->parentProduct = $product;
     }
 
-    public function store()
+    public function store(): bool
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
-            'quantity' => 'required|integer'
+            'quantity' => 'required|integer',
+            'items_count' => 'nullable|integer',
+            'thumbnail' => 'required|image|max:2048',
+            'specifications' => 'nullable|file|mimes:pdf|max:5120',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|max:5120',
         ]));
 
-        $shop = Shop::find($this->shop_id);
+        try {
+            $shop = Shop::findOrFail($this->shop_id);
 
-        $product = Product::create([
-            ...$this->only([
-                'price', 'shop_id', 'category_id',
-                'sku', 'quantity', 'tags', 'type'
-            ]),
-            'business_id' => $shop->business_id,
-            'category_id' => $this->category_id,
-            'name' => [
-                'en' => $this->name_en,
-                'fr' => $this->name_fr ?: $this->name_en
-            ],
-            'slug' => [
-                'en' => generateProductSlugEn($this->name_en),
-                'fr' => generateProductSlugFr(
-                    $this->name_fr ?: $this->name_en
-                )
-            ],
-            'short_description' => [
-                'en' => $this->short_description_en,
-                'fr' => $this->short_description_fr ?: $this->short_description_en,
-            ],
-            'description' => [
-                'en' => $this->description_en,
-                'fr' => $this->description_fr
-            ],
-        ]);
+            $product = Product::create([
+                ...$this->only([
+                    'price', 'shop_id', 'category_id',
+                    'sku', 'quantity', 'tags', 'type',
+                ]),
+                'business_id' => $shop->business_id,
+                'category_id' => $this->category_id,
+                'name' => [
+                    'en' => $this->name_en,
+                    'fr' => $this->name_fr ?: $this->name_en,
+                ],
+                'slug' => [
+                    'en' => generateProductSlugEn($this->name_en),
+                    'fr' => generateProductSlugFr(
+                        $this->name_fr ?: $this->name_en
+                    ),
+                ],
+                'short_description' => [
+                    'en' => $this->short_description_en,
+                    'fr' => $this->short_description_fr ?: $this->short_description_en,
+                ],
+                'description' => [
+                    'en' => $this->description_en,
+                    'fr' => $this->description_fr,
+                ],
+            ]);
 
-        $product
-            ->addMedia($this->thumbnail->getRealPath())
-            ->usingName($this->thumbnail->getClientOriginalName())
-            ->toMediaCollection('thumbnail');
+            $thumbnailPath = $this->thumbnail->getRealPath();
+            if (! $thumbnailPath || ! is_file($thumbnailPath)) {
+                throw new \RuntimeException('Thumbnail upload is missing or expired. Please re-upload the image.');
+            }
 
-        foreach ($this->images as $image) {
             $product
-                ->addMedia($image->getRealPath())
-                ->usingName($image->getClientOriginalName())
-                ->toMediaCollection('images');
-        }
+                ->addMedia($thumbnailPath)
+                ->usingName($this->thumbnail->getClientOriginalName())
+                ->toMediaCollection('thumbnail');
 
-        if ($this->specifications) {
-            $product
-                ->addMedia($this->specifications->getRealPath())
-                ->usingName($this->specifications->getClientOriginalName())
-                ->toMediaCollection('specifications');
-        }
+            foreach ($this->images as $image) {
+                $imagePath = $image->getRealPath();
+                if (! $imagePath || ! is_file($imagePath)) {
+                    continue;
+                }
 
-        $product->stocks()->create([
-            'old_quantity' => 0,
-            'new_quantity' => $product->quantity,
-            'comment' => 'Initial stock',
-            'type' => StockMovementType::In,
-            'author_type' => BusinessUser::class,
-            'author_id' => auth()->id(),
-        ]);
+                $product
+                    ->addMedia($imagePath)
+                    ->usingName($image->getClientOriginalName())
+                    ->toMediaCollection('images');
+            }
+
+            if ($this->specifications) {
+                $specPath = $this->specifications->getRealPath();
+                if ($specPath && is_file($specPath)) {
+                    $product
+                        ->addMedia($specPath)
+                        ->usingName($this->specifications->getClientOriginalName())
+                        ->toMediaCollection('specifications');
+                }
+            }
+
+            $product->stocks()->create([
+                'old_quantity' => 0,
+                'new_quantity' => $product->quantity,
+                'comment' => 'Initial stock',
+                'type' => StockMovementType::In,
+                'author_type' => BusinessUser::class,
+                'author_id' => auth()->id(),
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+            notify()->error(__('Failed to create product. Please try again.'));
+
+            return false;
+        }
 
         $this->reset();
 
         notify()->success(__('Product successfully created!'));
+
+        return true;
     }
 
     public function update()
     {
-        $shop = Shop::find($this->shop_id);
+        $this->normalizeOptionalFields();
+
+        $this->validate(array_merge($this->getRules(), [
+            'items_count' => 'nullable|integer',
+            'thumbnail' => 'nullable|image|max:2048',
+            'specifications' => 'nullable|file|mimes:pdf|max:5120',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|max:5120',
+        ]));
+
+        $shop = Shop::findOrFail($this->shop_id);
 
         $this->product->update([
             ...$this->only([
                 'price', 'shop_id', 'tags', 'type',
-                'category_id', 'sku', 'items_count'
+                'category_id', 'sku', 'items_count',
             ]),
             'business_id' => $shop->business_id,
             'category_id' => $this->category_id,
             'name' => [
                 'en' => $this->name_en,
-                'fr' => $this->name_fr ?: $this->name_en
+                'fr' => $this->name_fr ?: $this->name_en,
             ],
             'slug' => [
                 'en' => generateProductSlugEn($this->name_en),
                 'fr' => generateProductSlugFr(
                     $this->name_fr ?: $this->name_en
-                )
+                ),
             ],
             'short_description' => [
                 'en' => $this->short_description_en,
@@ -196,8 +233,8 @@ class CreateProductForm extends Form
             ],
             'description' => [
                 'en' => $this->description_en,
-                'fr' => $this->description_fr
-            ]
+                'fr' => $this->description_fr,
+            ],
         ]);
 
         if (! is_null($this->thumbnail)) {
@@ -215,5 +252,30 @@ class CreateProductForm extends Form
         }
 
         notify()->success(__('Product successfully updated!'));
+    }
+
+    protected function normalizeOptionalFields(): void
+    {
+        foreach ([
+            'name_fr',
+            'sku',
+            'short_description_fr',
+            'description_en',
+            'description_fr',
+            'parent_id',
+            'items_count',
+        ] as $field) {
+            if ($this->{$field} === '' || $this->{$field} === false) {
+                $this->{$field} = null;
+            }
+        }
+
+        if (! is_array($this->tags)) {
+            $this->tags = [];
+        }
+
+        if (! is_array($this->images)) {
+            $this->images = [];
+        }
     }
 }

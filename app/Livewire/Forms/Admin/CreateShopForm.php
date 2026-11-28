@@ -11,10 +11,11 @@ use App\Models\Shop;
 use App\Notifications\BusinessInvitation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
-
+use MatanYadaev\EloquentSpatial\Objects\Point;
 
 class CreateShopForm extends Form
 {
@@ -44,6 +45,12 @@ class CreateShopForm extends Form
 
     #[Validate('nullable|max:500')]
     public $about;
+
+    #[Validate('nullable|required_with:longitude|numeric')]
+    public $latitude;
+
+    #[Validate('nullable|required_with:latitude|numeric')]
+    public $longitude;
 
     #[Validate('nullable|url')]
     public $website;
@@ -76,7 +83,7 @@ class CreateShopForm extends Form
         'wednesday' => [null, null],
         'thursday' => [null, null],
         'friday' => [null, null],
-        'saturday' => [null, null]
+        'saturday' => [null, null],
     ];
 
     public function setShop(Shop $shop)
@@ -111,6 +118,11 @@ class CreateShopForm extends Form
 
         $this->youtube = $shop->youtube;
 
+        if ($shop->location) {
+            $this->latitude = $shop->location->latitude;
+            $this->longitude = $shop->location->longitude;
+        }
+
         $this->schedule = $shop->schedule ?
             collect($shop->schedule)
                 ->filter(function ($v) {
@@ -118,8 +130,8 @@ class CreateShopForm extends Form
                 })
                 ->map(function ($v) {
                     $parts = explode('-', $v[0]);
-                    $v = [$parts[0], $parts[1]];
-                    return $v;
+
+                    return [$parts[0], $parts[1]];
                 }) :
             [
                 'sunday' => [null, null],
@@ -128,19 +140,21 @@ class CreateShopForm extends Form
                 'wednesday' => [null, null],
                 'thursday' => [null, null],
                 'friday' => [null, null],
-                'saturday' => [null, null]
+                'saturday' => [null, null],
             ];
     }
 
     public function store(): bool
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
             'email' => 'required|email|unique:shops,email',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
+            'banners.*' => 'nullable|image|max:5120',
             'schedule' => 'nullable|array',
-            'logo' => 'required|image|max:5120', // 5MB
-            'image' => 'required|image|max:5120', // 5MB
+            'logo' => 'required|image|max:5120',
+            'image' => 'required|image|max:5120',
         ]));
 
         $business_owner = null;
@@ -151,19 +165,29 @@ class CreateShopForm extends Form
             $business_owner = BusinessUser::query()
                 ->whereHasRole('business_owner')
                 ->where('business_id', $this->business_id)
-                ->firstOrFail();
+                ->first();
+
+            if (! $business_owner) {
+                throw ValidationException::withMessages([
+                    'business_id' => __('This business has no owner account. Create or invite an owner first.'),
+                ]);
+            }
 
             $schedule = collect($this->schedule)
-                ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
-                ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+                ->filter(fn ($v) => ! empty($v[0]) && ! empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+                ->map(fn ($v) => [$v[0].'-'.$v[1]]);
+
             $shop = Shop::create([
-                ...$this->except('shop', 'logo', 'banners', 'image', 'schedule'),
+                ...$this->except('shop', 'logo', 'banners', 'image', 'schedule', 'latitude', 'longitude'),
                 'owner_id' => $business_owner->id,
                 'schedule' => $schedule->isNotEmpty() ? $schedule : null,
+                'location' => filled($this->latitude) && filled($this->longitude)
+                    ? new Point((float) $this->latitude, (float) $this->longitude)
+                    : null,
                 'slug' => generateShopSlug(
                     Country::select('code')->find($this->country_id)->code,
                     $this->name
-                )
+                ),
             ]);
 
             $logoPath = $this->logo->getRealPath();
@@ -197,6 +221,10 @@ class CreateShopForm extends Form
             Business::whereKey($this->business_id)->increment('number_of_shops');
 
             DB::commit();
+        } catch (ValidationException $e) {
+            DB::rollBack();
+
+            throw $e;
         } catch (\Throwable $e) {
             DB::rollBack();
             report($e);
@@ -243,13 +271,15 @@ class CreateShopForm extends Form
 
     public function update()
     {
+        $this->normalizeOptionalFields();
+
         $this->validate(array_merge($this->getRules(), [
-            'email' => 'required|email|unique:shops,email,' . $this->shop->id . ',id',
+            'email' => 'required|email|unique:shops,email,'.$this->shop->id.',id',
             'banners' => 'nullable|array',
-            'banners.*' => 'image|max:5120',
+            'banners.*' => 'nullable|image|max:5120',
             'schedule' => 'nullable|array',
-            'logo' => 'nullable|image|max:5120', // 5MB
-            'image' => 'nullable|image|max:5120' // 5MB
+            'logo' => 'nullable|image|max:5120',
+            'image' => 'nullable|image|max:5120',
         ]));
 
         $business_owner = BusinessUser::query()
@@ -258,12 +288,16 @@ class CreateShopForm extends Form
             ->firstOrFail();
 
         $schedule = collect($this->schedule)
-            ->filter(fn ($v, $k) => !empty($v[0]) && !empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
-            ->map(fn ($v, $k) => $v = [$v[0] . '-' . $v[1]]);
+            ->filter(fn ($v) => ! empty($v[0]) && ! empty($v[1]) && ($v[0] !== '00:00:00' || $v[1] !== '00:00:00'))
+            ->map(fn ($v) => [$v[0].'-'.$v[1]]);
+
         $this->shop->update([
-            ...$this->except('logo', 'shop', 'banners', 'image'),
+            ...$this->except('logo', 'shop', 'banners', 'image', 'schedule', 'latitude', 'longitude'),
             'schedule' => $schedule->isNotEmpty() ? $schedule : null,
-            'owner_id' => $business_owner->id
+            'owner_id' => $business_owner->id,
+            'location' => filled($this->latitude) && filled($this->longitude)
+                ? new Point((float) $this->latitude, (float) $this->longitude)
+                : null,
         ]);
 
         if (! is_null($this->logo)) {
@@ -278,6 +312,22 @@ class CreateShopForm extends Form
                 ->addMedia($this->image->getRealPath())
                 ->usingName($this->image->getClientOriginalName())
                 ->toMediaCollection('image');
+        }
+    }
+
+    protected function normalizeOptionalFields(): void
+    {
+        foreach (['about', 'website', 'facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'latitude', 'longitude'] as $field) {
+            if ($this->{$field} === '' || $this->{$field} === false) {
+                $this->{$field} = null;
+            }
+        }
+
+        foreach ($this->schedule as $day => $hours) {
+            $this->schedule[$day] = [
+                ($hours[0] ?? null) === '' ? null : ($hours[0] ?? null),
+                ($hours[1] ?? null) === '' ? null : ($hours[1] ?? null),
+            ];
         }
     }
 }

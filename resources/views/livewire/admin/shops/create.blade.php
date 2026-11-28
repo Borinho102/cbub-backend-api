@@ -55,40 +55,46 @@
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Business')" for="name" required/>
+                        <x-input.label :value="__('Business')" for="business_id" required/>
                         <x-select
                             class="w-full"
                             placeholder="Select Business"
                             wire:model="form.business_id"
+                            name="form.business_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.businesses')"
                         />
+                        @error('form.business_id') <x-input.error :message="$message" /> @enderror
                     </div>
 
                     <div class="col-span-1">
-                        <x-input.label :value="__('Country')" for="name" required/>
+                        <x-input.label :value="__('Country')" for="country_id" required/>
                         <x-select
                             class="w-full"
                             placeholder="Select Shop Country"
                             wire:model="form.country_id"
+                            name="form.country_id"
                             option-value="id"
                             option-label="name"
                             :async-data="route('misc.search.countries')"
                         />
+                        @error('form.country_id') <x-input.error :message="$message" /> @enderror
                     </div>
 
                     @if (isset($form->country_id))
                         <div class="col-span-1">
-                            <x-input.label :value="__('City')" for="city" required/>
+                            <x-input.label :value="__('City')" for="city_id" required/>
                             <x-select
                                 class="w-full"
                                 placeholder="Select Shop City"
                                 wire:model="form.city_id"
+                                name="form.city_id"
                                 option-value="id"
                                 option-label="name"
                                 :async-data="route('misc.search.countries.cities', $form->country_id)"
                             />
+                            @error('form.city_id') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 
@@ -142,11 +148,13 @@
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->image }}" name="image_preview" id="image_preview"/>
                             <x:input.file wire:model="form.image" name="form.image" id="image"/>
+                            @error('form.image') <x-input.error :message="$message" /> @enderror
                         </div>
                     @else
                         <div class="col-span-1">
                             <x-input.label :value="__('Cover Image')" for="image" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.file wire:model="form.image" name="form.image" id="image"/>
+                            @error('form.image') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 
@@ -155,11 +163,13 @@
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.image initialImage="{{ $this->form->shop->logo }}" name="logo_preview" id="logo_preview"/>
                             <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
+                            @error('form.logo') <x-input.error :message="$message" /> @enderror
                         </div>
                     @else
                         <div class="col-span-1 mb-4">
                             <x-input.label :value="__('Logo')" for="logo" required="{{ !isset($this->form->shop) }}"/>
                             <x:input.file wire:model="form.logo" name="form.logo" id="logo"/>
+                            @error('form.logo') <x-input.error :message="$message" /> @enderror
                         </div>
                     @endif
 
@@ -186,8 +196,8 @@
                         </x-button.danger>
 
                         @isset($this->form->shop)
-                            <x-button.primary type="submit">
-                                <div wire:loading wire:target="save">
+                            <x-button.primary type="submit" wire:loading.attr="disabled" wire:target="save, form.logo,form.image,form.banners">
+                                <div wire:loading wire:target="save,form.logo,form.image,form.banners">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -196,8 +206,8 @@
                                 {{ __('Update') }}
                             </x-button.primary>
                         @else
-                            <x-button.primary type="submit">
-                                <div wire:loading wire:target="save">
+                            <x-button.primary type="submit" wire:loading.attr="disabled" wire:target="save,form.logo,form.image,form.banners">
+                                <div wire:loading wire:target="save,form.logo,form.image,form.banners">
                                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
